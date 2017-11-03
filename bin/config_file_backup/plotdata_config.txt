@@ -1,0 +1,44 @@
+#Comment Sample configuration file for the online plotter of CT14 data
+#Comment 2
+#Comment 3
+#Comment 4
+
+
+#datalis used in the program, it provides the expt information such as exptname
+#if set as default, then the default file path and name will be used
+datalis file: dat17lisformathematica
+
+#the path of used or intepreted f(x, Q) data which is by points grid on (x, Q) plane,
+#Nx, NQ control the # of grids in x axis and Q axis
+#if set as default, then the default file path and name will be used
+F(x,Q) Grid Path: default
+#F(x,Q) Grid File: fxQ_xgrid_CT14HERA2NNLO_x80_WZmass.m
+F(x,Q) Grid File: default
+
+#the path of used or intepreted f(x, Q) data which is by same point of data set of experiments
+#the (x, Q) of f(x, Q) is by the specific formula, transforming from the data set (read from .dta file)  
+#if set as default, then the default file path and name will be used
+F(x,Q) Samept Path: default
+F(x,Q) Samept File: default
+
+#the path of correlation data
+#if set as default, then the default file path and name will be used
+Correlation Path: default
+#Correlation File: xgrid_data_2017.0425.2123.-0500_ct14nn-new_x80_Q25_corrcut_05_exptid247.m
+#Correlation File: xgrid_data_CT14HERA2NNLO_x80_WZmass_corrcut_05.m
+Correlation File: default
+
+# x-axis points of the grid 
+Nx: 80
+#Nx: 8
+
+# y-axis points of the grid
+NQ: 25
+#NQ: 2
+
+#
+
+
+#
+
+

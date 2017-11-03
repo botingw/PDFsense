@@ -1,0 +1,59 @@
+#!/bin/bash
+# Combine several eps files into a PDF file using LaTeX
+# Author: Pavel Nadolsky, Aug. 2007
+
+# If no arguments are given, simply print help on the script usage
+ [ -z "$1" ] &&  
+ {
+ echo 'epspdfcat: combine several eps files into a PDF file using LaTeX'
+ echo 'Usage: epspdfcat file1.eps file2.eps ...'
+ echo 'file1.eps... file2.eps -- input files'
+ echo 'The output is written into allfigs.pdf'
+ exit
+ };
+
+TEXBASE='quyre3901'
+TEXFILE=$TEXBASE'.tex'
+
+echo Preparing the LaTeX file
+echo '\documentclass[12pt]{article}' > $TEXFILE
+echo '\usepackage{geometry}' >> $TEXFILE
+echo '\usepackage{graphicx}' >> $TEXFILE
+echo '\geometry{verbose,letterpaper,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}' >> $TEXFILE
+echo '\special{header=/home/nadolsky/share/fonts.ps}' >> $TEXFILE
+echo '\begin{document}' >> $TEXFILE
+echo '\title{Combined eps figures from '"$(pwd |sed 's/_/\\_/g')"'}' >> $TEXFILE
+echo '\date{\today}' >> $TEXFILE
+echo '\author{Pavel Nadolsky}' >> $TEXFILE
+echo '\maketitle' >> $TEXFILE
+
+j=0;
+for i in $*; do
+#echo $i
+echo '\begin{figure}' >> $TEXFILE
+echo '\includegraphics[width=\textwidth,height=0.8\textheight,keepaspectratio]{'$i'}' >> $TEXFILE
+echo '\caption{\protect{'"$(echo $i |sed 's/_/\\_/g')"'}}' >> $TEXFILE
+#Note: \clearpage is needed to help LaTeX place floats during the processing of a file with many 
+# figures and no text
+echo '\end{figure}\newpage\clearpage' >> $TEXFILE
+
+j=$(($j+1))
+done #for i
+
+echo '\end{document}' >> $TEXFILE
+
+echo Included $j EPS files
+
+echo Generating allfigs.pdf
+echo q |latex $TEXFILE >& /dev/null
+dvipdfm $TEXBASE'.dvi' >& /dev/null
+mv $TEXBASE'.pdf' allfigs.pdf
+
+
+echo allfigs.pdf is created:
+chmod a+r allfigs.pdf
+ls -l allfigs.pdf
+
+echo Cleaning up
+#rm $TEXBASE.*
+echo Done

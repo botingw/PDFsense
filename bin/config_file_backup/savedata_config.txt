@@ -1,0 +1,91 @@
+#Comment Sample configuration file for the online plotter of CT14 data
+#Comment 2
+#Comment 3
+#Comment 4
+
+#read PDFset directory for use 
+#PDF set Dir: /home/botingw/code/pdf_correlation/dta_file/CT14NNLO/
+#PDF set Dir: /home/botingw/code/pdf_correlation/dta_file/CT14HERA2NNLO/
+##CT14NNLO new exptid: 245~247, 542, 544
+#PDF set Dir: /home/botingw/code/pdf_correlation/dta_file/2017.0425.2123.-0500_ct14nn-new/
+##CT14NNLO new exptid: 542, 544, 565~568
+#PDF set Dir: /home/botingw/code/pdf_correlation/dta_file/2017.0511.0218.-0500_ct14nn-new/
+##CT14NNLO new exptid: 249, 250
+#PDF set Dir: /home/botingw/code/pdf_correlation/dta_file/2017.0518.0238.-0500_ct14nn-new/
+##CT14NNLO new exptid: 245~248
+PDF set Dir: /home/botingw/code/pdf_correlation/dta_file/2017.0604.1856.-0500_CT14-1_mod/
+##CT14NNLO new exptid: 249, 250, 542, 544, 565~568
+#PDF set Dir: /home/botingw/code/pdf_correlation/dta_file/2017.0604.1856.-0500_CT14-2_mod/
+##CT14HERA2NNLO new exptid: 245~248
+#PDF set Dir: /home/botingw/code/pdf_correlation/dta_file/2017.0604.1858.-0500_CT14HERA2-1_mod/
+##CT14HERA2NNLO new exptid: 249, 250, 542, 544, 565~568
+#PDF set Dir: /home/botingw/code/pdf_correlation/dta_file/2017.0604.1858.-0500_CT14HERA2-2_mod/
+
+#PDF method of the used PDFset, options: Hessian or MC
+#the program will deal with the PDFset by this method, 
+#ex: the uncertainty formula would be different depends on the method
+PDF method: Hessian
+
+#Expt ID of experiments used in the calculation, ex: 101 201 504
+#CT14NNLO with (x, Q) transf formula
+#ID list for processes which have (x, Q) transf formula
+#Expt ID List: 159 160 101 102 104 106 108 109 110 111 124 125 126 127 147 145 169 246 201 203 204 260 261 268 240 225 227 234 267 241 281 266 542 544 504 514 535 538
+#ID list for xgrid, Q = Wmass & Zmass, 240, 268, 245 are mix W&Z processes
+#Expt ID List: 246 225 227 234 260 261 241 281 266 240 268 245
+#ID list for processes which have no (x, Q) transf formula
+#Expt ID List: 247
+#ID list for new expts of 2017.0511.0218.-0500_ct14nn-new
+#Expt ID List: 565 566 567 568
+#ID list for new expts of 2017.0518.0238.-0500_ct14nn-new
+#Expt ID List: 249 250
+#ID list for new expts of 2017.0604.1856.-0500_CT14-1_mod, 2017.0604.1858.-0500_CT14HERA2-1_mod
+#Expt ID List: 245 246 247 248
+#ID list for new expts of 2017.0604.1856.-0500_CT14-2_mod, 2017.0604.1858.-0500_CT14HERA2-2_mod
+#Expt ID List: 249 250 542 544 565 566 567 568
+#ID list 247: grid should be applied since it has no formula
+#Expt ID List: 247
+#ID list 566 568: grid should be applied since it has no formula
+#Expt ID List: 566 568
+Expt ID List: 246
+
+#datalis used in the program, it provides the expt information such as exptname
+#if set as default, then the default file path and name will be used
+datalis file: dat17lisformathematica
+
+#the path of used or intepreted f(x, Q) data which is by points grid on (x, Q) plane,
+#Nx, NQ control the # of grids in x axis and Q axis
+#if set as default, then the default file path and name will be used
+F(x,Q) Grid Path: default
+#F(x,Q) Grid File: fxQ_xgrid_CT14HERA2NNLO_x80_WZmass.m
+#F(x,Q) Grid File: fxQ_grid_CT14HERA2NNLO_x80_Q25.m
+#F(x,Q) Grid File: fxQ_grid_2017.0425.2123.-0500_ct14nn-new_x80_Q25.m
+F(x,Q) Grid File: default
+
+#the path of used or intepreted f(x, Q) data which is by same point of data set of experiments
+#the (x, Q) of f(x, Q) is by the specific formula, transforming from the data set (read from .dta file)  
+#if set as default, then the default file path and name will be used
+F(x,Q) Samept Path: default
+#F(x,Q) Samept File: default
+F(x,Q) Samept File: test_script_fxQ_0618.m
+
+#the path of correlation data
+#if set as default, then the default file path and name will be used
+Correlation Path: default
+#Correlation File: xgrid_data_2017.0425.2123.-0500_ct14nn-new_x80_Q25_corrcut_05_exptid247.m
+#Correlation File: xgrid_data_CT14HERA2NNLO_x80_WZmass_corrcut_05.m
+Correlation File: default
+
+# x-axis points of the grid 
+Nx: 80
+#Nx: 8
+
+# y-axis points of the grid
+NQ: 25
+#NQ: 2
+
+#
+
+
+#
+
+
