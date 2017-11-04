@@ -188,3 +188,4 @@ also, calculation of observables for plotting are moved from fxQsamept_corr_vx.n
 10171102: solve the problem arises from setting config file for xmin, xmax, ymin, ymax as auto, set auto values in processdataplotsmultiexp6percentage
 
 20171103: add mathematica expression format for output figures so that users can change details (label, ticks) themselve
+20171103: some figures output have {} symbol, delete them
