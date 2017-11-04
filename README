@@ -1,3 +1,5 @@
+TJH: This looks great, Boting. I suppose this README will have to be updated to reflect the proper usage for the Python/GUI version?
+
 files under ./example folder are example configure files, a test observable data file (quick_data_example), and a test PDF set (CT14HERA2NNLO).
 to run example files, just copy configure files under ./example to the ./bin directory and run scripts (read tutorial 4.4. SOP of Plotting Figures of New Experiments):
 
