@@ -22,12 +22,12 @@
 (**)
 (*\[Dash] output: 2D-xQ, histograms*)
 (**)
-(*data files in ../quick_data/ are List of dimension:*)
+(*formats of data files in ../quick_data/ are List of dimension:*)
 (*"fxQ": [[iexpt, iflavour]]*)
 (*"residualNset": [[iexpt]]*)
 (*"dtacentral": [[iexpt]]*)
 (**)
-(*data (variables) for generating figures are List of dimension: *)
+(*formats of data (variables) for generating figures are List of dimension: *)
 (*"corr": [[iexpt, iflavour]]*)
 (*"dRcorr": [[iexpt, iflavour]]*)
 (*" dR": [[iexpt]]*)
@@ -708,6 +708,16 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,
 filename=obsname[[6]]<>"_"<>representationname[[4]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,2]],ImageResolution->imgresol ];
 
+(*20171103: add files storing mathematica expressions so that users can change details of every figure*)
+filename=obsname[[6]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".dat";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,1]] ];
+filename=obsname[[6]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".dat";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,2]]];
+filename=obsname[[6]]<>"_"<>representationname[[3]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".dat";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,1]] ];
+filename=obsname[[6]]<>"_"<>representationname[[4]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".dat";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,2]] ];
+
 ];
 
 (*dr*corr plots*)
@@ -725,6 +735,16 @@ filename=obsname[[5]]<>"_"<>representationname[[3]]<>"_"<>"f"<>ToString[flavour]
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,1]],ImageResolution->imgresol  ];
 filename=obsname[[5]]<>"_"<>representationname[[4]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,2]],ImageResolution->imgresol  ];
+
+(*20171103: add files storing mathematica expressions so that users can change details of every figure*)
+filename=obsname[[5]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".dat";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,1]]  ];
+filename=obsname[[5]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".dat";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,2]] ];
+filename=obsname[[5]]<>"_"<>representationname[[3]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".dat";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,1]]  ];
+filename=obsname[[5]]<>"_"<>representationname[[4]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".dat";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,2]]  ];
 
 ];
 
@@ -751,6 +771,16 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 filename=obsname[[2]]<>"_"<>representationname[[4]]<>"_samept"<>extensionname[[iext]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]],ImageResolution->imgresol  ];
 
+(*20171103: add files storing mathematica expressions so that users can change details of every figure*)
+filename=obsname[[2]]<>"_"<>representationname[[1]]<>"_samept"<>".dat";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]]  ];
+filename=obsname[[2]]<>"_"<>representationname[[2]]<>"_samept"<>".dat";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]]  ];
+filename=obsname[[2]]<>"_"<>representationname[[3]]<>"_samept"<>".dat";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]]  ];
+filename=obsname[[2]]<>"_"<>representationname[[4]]<>"_samept"<>".dat";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]]  ];
+
 ];
 
 If[
@@ -766,6 +796,17 @@ filename=obsname[[3]]<>"_"<>representationname[[3]]<>"_samept"<>extensionname[[i
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]],ImageResolution->imgresol  ];
 filename=obsname[[3]]<>"_"<>representationname[[4]]<>"_samept"<>extensionname[[iext]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]],ImageResolution->imgresol  ];
+
+(*20171103: add files storing mathematica expressions so that users can change details of every figure*)
+filename=obsname[[3]]<>"_"<>representationname[[1]]<>"_samept"<>".dat";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]]  ];
+filename=obsname[[3]]<>"_"<>representationname[[2]]<>"_samept"<>".dat";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]]  ];
+filename=obsname[[3]]<>"_"<>representationname[[3]]<>"_samept"<>".dat";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]]  ];
+filename=obsname[[3]]<>"_"<>representationname[[4]]<>"_samept"<>".dat";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]]  ];
+
 
 ];
 
@@ -783,6 +824,17 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 filename=obsname[[4]]<>"_"<>representationname[[4]]<>"_samept"<>extensionname[[iext]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]],ImageResolution->imgresol  ];
 
+(*20171103: add files storing mathematica expressions so that users can change details of every figure*)
+filename=obsname[[4]]<>"_"<>representationname[[1]]<>"_samept"<>".dat";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]]  ];
+filename=obsname[[4]]<>"_"<>representationname[[2]]<>"_samept"<>".dat";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]]  ];
+filename=obsname[[4]]<>"_"<>representationname[[3]]<>"_samept"<>".dat";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]]  ];
+filename=obsname[[4]]<>"_"<>representationname[[4]]<>"_samept"<>".dat";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]]  ];
+
+
 ];
 
 If[
@@ -791,6 +843,8 @@ Print["making plot of figure type ",FigureType[[1]] ];
 p1=processdataplotsmultiexp6percentage[{corrdataclassfinal},readcorrconfigfile4[configDir,configfilename],1,0 ];
 filename=obsname[[1]]<>"_"<>representationname[[1]]<>extensionname[[iext]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p1,ImageResolution->imgresol ];
+filename=obsname[[1]]<>"_"<>representationname[[1]]<>".dat";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p1 ];
 ];
 
 
