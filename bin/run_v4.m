@@ -842,9 +842,9 @@ FigureFlag[[1]]==1,
 Print["making plot of figure type ",FigureType[[1]] ];
 p1=processdataplotsmultiexp6percentage[{corrdataclassfinal},readcorrconfigfile4[configDir,configfilename],1,0 ];
 filename=obsname[[1]]<>"_"<>representationname[[1]]<>extensionname[[iext]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p1,ImageResolution->imgresol ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p1[[1]],ImageResolution->imgresol ];
 filename=obsname[[1]]<>"_"<>representationname[[1]]<>".dat";
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p1 ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p1[[1]] ];
 ];
 
 
