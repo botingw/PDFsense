@@ -185,3 +185,6 @@ better way to read configure file: read file by Mathematica format, highlight mo
 20171101: change files stored in ./quick_data/
 from corr, dRcorr, residual central value, delta residual, expt error ratio -> residuals in all replicas, f(x,Q) in all replicas, .dta data of central set
 also, calculation of observables for plotting are moved from fxQsamept_corr_vx.nb to run_vx.nb
+10171102: solve the problem arises from setting config file for xmin, xmax, ymin, ymax as auto, set auto values in processdataplotsmultiexp6percentage
+
+20171103: add mathematica expression format for output figures so that users can change details (label, ticks) themselve
