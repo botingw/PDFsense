@@ -578,7 +578,7 @@ CreateDirectory[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath];
 "dummy"
 ];
 
-iext=1;(*export eps*)
+iext=2;(*export eps*)(*20171105: use .png for python script interface version*)
 imgresol=144;(*image resolution*)
 
 (*make exptname table jpg*)
