@@ -2844,9 +2844,14 @@ AllPlots
 
 
 (*20171105: functionize barlegend generating*)
+(*input seperator should be a 8 element List and elements order from small to large, e.g: {-1,-0.85,-0.7,-0.5,0.5,0.7,0.85,1}*)
+(*output a 7 colors palette (blue to red)*)
 Set2DxqBarLegend[barseperatorin_,legendlabelin_(*,highlightrangein_*)]:=
 Module[{barseperator=barseperatorin,legendlabel=legendlabelin,(*highlightrange=highlightrangein,*)
 mycolorscheme,barmin,barmax,barcolor,mybarlegend,greycolor},
+
+(*20171108: check #seperator elements is correct*)
+If[Length[barseperator]!=8,Print["error, the input color discrete list should include 8 elements, yours: ",barseperator] ];
 
 mycolorscheme="TemperatureMap";
 greycolor=Lighter[ColorData[30,"ColorList"][[5]],0.5];
@@ -2865,6 +2870,41 @@ barcolor=Darker[barcolor,0.3];
 *)
 (*20170606: brighter ogrange and yellow*)(*20171108 in the middle = Green*)
 barcolor={RGBColor[0.,0.,0.7],RGBColor[0.,0.5,0.75],RGBColor[0.0,0.75,0.75],RGBColor[0,0.7,0],RGBColor[0.75,0.75,0.],RGBColor[0.75,0.55,0.],RGBColor[0.7,0.,0.]};
+(*
+barcolor[[(Length[barcolor]+1)/2 ]]=greycolor;
+*)
+
+mybarlegend=BarLegend[{barcolor,{barmin,barmax}},barseperator,LegendLabel->legendlabel,LabelStyle->{FontSize->14,Black}];
+mybarlegend
+
+];
+(*20171108: set an only red spectrum color palette*)
+(*input seperator should be a 5 element List and elements order from small to large, e.g: {0,0.5,0.7,0.85,1}*)
+(*output a 4 colors palette (green to red)*)
+Set2DxqRedBarLegend[barseperatorin_,legendlabelin_(*,highlightrangein_*)]:=
+Module[{barseperator=barseperatorin,legendlabel=legendlabelin,(*highlightrange=highlightrangein,*)
+mycolorscheme,barmin,barmax,barcolor,mybarlegend,greycolor},
+
+(*20171108: check #seperator elements is correct*)
+If[Length[barseperator]!=5,Print["error, the input color discrete list should include 5 elements, yours: ",barseperator] ];
+
+mycolorscheme="TemperatureMap";
+greycolor=Lighter[ColorData[30,"ColorList"][[5]],0.5];
+
+barmin=Min[barseperator];barmax=Max[barseperator];
+(*
+barcolor=Table[ColorData[{mycolorscheme,{barmin,barmax}}, barmin+(i-0.5)*(barmax-barmin)/(Length[barseperator]-1)],{i,1,Length[barseperator]-1}];
+barcolor=Darker[#,0.2]&/@barcolor;(*make color darker*)
+(*lowlimit color is at the middle of barcolor*)
+barcolor[[(Length[barcolor]+1)/2 ]]=(*ColorData["Atoms","ColorList"][[22]];*)(*ColorData[34,"ColorList"][[4]];*)(*ColorData[49,"ColorList"][[4]];*)ColorData[30,"ColorList"][[5]];
+(*make small value data unvisible*)
+barcolor[[(Length[barcolor]+1)/2 ]]=Lighter[barcolor[[(Length[barcolor]+1)/2 ]],0.5];
+(*20170528: customize my color scheme*)
+barcolor={RGBColor[0.,0.,1.0],RGBColor[0.,0.5,1.],RGBColor[0.0,1.,1.],RGBColor[1.,1.,1.],RGBColor[1.,0.8,0.],RGBColor[1.0,0.4,0.],RGBColor[1.0,0.,0.]};
+barcolor=Darker[barcolor,0.3];
+*)
+(*20170606: brighter ogrange and yellow*)(*20171108 in the middle = Green*)
+barcolor={RGBColor[0,0.7,0],RGBColor[0.75,0.75,0.],RGBColor[0.75,0.55,0.],RGBColor[0.7,0.,0.]};
 (*
 barcolor[[(Length[barcolor]+1)/2 ]]=greycolor;
 *)
@@ -4806,18 +4846,28 @@ epilogxQ={Npttext};
 ];
 (*10170606: deltaR & residual central: scale should be very small, close to 1, large, very large*)
 If[
-plottype==3 || plottype==4,
+plottype==3 (*|| plottype==4*),
 legendlabel="";
 barseperator={-100,-5.0,-2.0,-0.5,0.5,2.0,5.0,100};
 epilogxQ={Npttext};
 
 "dummy"
 ];
-(*20171107: set seperator of \[Sigma]/D*)
+(*20171108: residual error are always positive*)
+If[
+plottype==4,
+legendlabel="";
+barseperator={0,0.5,2.0,5.0,100};
+epilogxQ={Npttext};
+
+"dummy"
+];
+
+(*20171107: set seperator of \[Sigma]/D*)(*20171108: \[Sigma]/D are always positive*)
 If[
 plottype==2,
 legendlabel="";
-barseperator={-100,-0.3,-0.1,-0.05,0.05,0.1,0.3,100};
+barseperator={(*-100,-0.3,-0.1,-0.05*)0,0.05,0.1,0.3,100};
 epilogxQ={Npttext};
 "dummy"
 ];
@@ -4844,8 +4894,21 @@ highlightrange[[2]]=Min[highlightrange[[2]],maxdata];
 
 (*20171106 set highlight barlegend*)(*20171108: all modes use the same color palette (barlegend)*)
 legendlabel="";
-If[HighlightMode[[plottype]]==0,barlegend=Set2DxqBarLegend[barseperator,legendlabel] ];
-If[HighlightMode[[plottype]]==1 || HighlightMode[[plottype]]==2,barlegend=(*Set2DxqHighlightBarLegend[legendlabel,highlightrange]*)Set2DxqBarLegend[barseperator,legendlabel] ];
+If[
+(HighlightMode[[plottype]]==0 || HighlightMode[[plottype]]==1 || HighlightMode[[plottype]]==2),
+If[
+(plottype==3|| plottype==5  || plottype==6),
+barlegend=Set2DxqBarLegend[barseperator,legendlabel] 
+];
+If[
+(plottype==2 || plottype==4),
+barlegend=Set2DxqRedBarLegend[barseperator,legendlabel] 
+];
+"dummy"
+];
+(*
+If[HighlightMode[[plottype]]\[Equal]1 || HighlightMode[[plottype]]\[Equal]2,barlegend=(*Set2DxqHighlightBarLegend[legendlabel,highlightrange]*)Set2DxqBarLegend[barseperator,legendlabel] ];
+*)
 
 (*Print["max of data and highlight: ",{highlightrange[[2]],maxdata}];*)
 
@@ -4908,13 +4971,21 @@ xQplotcorr=PDFCorrelationplot8[pdfcorr,title,xtitle,ytitle,plotrange,stretchx,st
 
 (*binset: for Nbin\[Equal]"auto", define auto binset*)
 (*set auto bin as 10 bins in first color bar seperator *)
+(*20171108: set auto bin as N = 20 in positive side of xrange, bin width = xrange(+)/20 *)
+(*
 binset={Table[i*barseperator[[Length[barseperator]/2+1]]/10.0,{i,-100,100}]};
+*)
+binset={Table[i*hist1plotrangex[[2]]/20.0,{i,-100,100}]};
 
 (*lineelement={{barseperator[[2]],"",Blue},{barseperator[[3]],"",Blue},{barseperator[[4]],"",Blue},{barseperator[[5]],"",Blue},{barseperator[[6]],"",Blue},{barseperator[[7]],"",Blue}};*)
 If[
 plottype==2,
+(*20171108: \[Sigma]/D only has posive data*)
+(*
 lineelement={{barseperator[[2]],ToString[ColorSeperator[[3]] ]<>"%",Blue},{barseperator[[3]],ToString[ColorSeperator[[2]] ]<>"%",Blue},{barseperator[[4]],ToString[ColorSeperator[[1]] ]<>"%",Blue},{barseperator[[5]],ToString[ColorSeperator[[1]] ]<>"%",Blue},{barseperator[[6]],ToString[ColorSeperator[[2]] ]<>"%",Blue},{barseperator[[7]],ToString[ColorSeperator[[3]] ]<>"%",Blue}};
-lineelement2=Take[lineelement,-3]
+*)
+lineelement={{-0.1,"",Red},{0.1,"",Red}};
+lineelement2=(*Take[lineelement,-3]*){{0.1,"",Red}};
 ];
 (*if correlation histogram, don't need show lines to represent the % of data *)
 If[ plottype==3 || plottype==4 || plottype==5,lineelement={{-1,"",Red},{1,"",Red}};lineelement2={{1,"",Red}};"dummy"];
