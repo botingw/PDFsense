@@ -191,3 +191,14 @@ also, calculation of observables for plotting are moved from fxQsamept_corr_vx.n
 20171103: some figures output have {} symbol, delete them
 20171105: output for script version .eps -> .png
 20171107: for highlight range, grey out unhighlighted data and use highlight range as barlegend seperator
+
+20171108: 
+highlight mode and color palette change: 
+1. highlighted points have the same size, and larger than unhighlighted points
+2. color palettes of highlight and no-highlight modes are the same
+3, unhighlighted points become gray no matter in which color seperator interval they are 
+4. color palette, original {red - gray -blue}, become {red - green - blue}
+5. expt error ratio & delta residual palette are only positive
+other modify:
+6. title labels of figures are simplified
+7. lines in histogram part at negative side of residual error and expt error ratio are canceled, expt error ratio line: change from 50%, 70%, 85% of data to 0.1
