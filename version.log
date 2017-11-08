@@ -189,3 +189,5 @@ also, calculation of observables for plotting are moved from fxQsamept_corr_vx.n
 
 20171103: add mathematica expression format for output figures so that users can change details (label, ticks) themselve
 20171103: some figures output have {} symbol, delete them
+20171105: output for script version .eps -> .png
+20171107: for highlight range, grey out unhighlighted data and use highlight range as barlegend seperator
