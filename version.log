@@ -202,3 +202,9 @@ highlight mode and color palette change:
 other modify:
 6. title labels of figures are simplified
 7. lines in histogram part at negative side of residual error and expt error ratio are canceled, expt error ratio line: change from 50%, 70%, 85% of data to 0.1
+
+20171108: 
+modify:
+delete histograms with negative ranges of expt error ratio figure and delta residual figure
+take absolute values for expt error ratio data
+digital # of highlight range showed in the figures <= 2  
