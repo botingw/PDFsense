@@ -4693,11 +4693,13 @@ If[
 plottype==2 || plottype==3 || plottype==4,
 (*take data, and format from LF to LF1 (LF1 is format to input to plot functions)*)
 pdfcorr=Table[#[[iexpt]][["data"]]/.LF->LF1,{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin;
-
+(*20171108 expt error ratio values should be absolute value*)
+If[plottype==2,pdfcorr=pdfcorr/.LF1[a__]:>LF1[{a}[[1]],{a}[[2]],Abs[{a}[[3]] ] ] ];
 (*merge all data into one*)
 pdfcorr=Flatten[#,1]&/@pdfcorr;
 "dummy"
 ];
+(*test print*)(*Print[pdfcorr ];Print[pdfcorr/.LF1->LF2 ];Print[pdfcorr/.LF1[a__]:>{a}[[2]] ];*)
 
 If[
 plottype==1,
@@ -4923,9 +4925,10 @@ HighlightMode[[plottype]]==1,
 highlighttext=Text[Style["highlighted range:\n"<>ToString[highlightrange],textsize,Black],Scaled[{0.2,0.7}] ];
 "dummy"
 ];
+(*20171108: only show 3 digits *)
 If[
 HighlightMode[[plottype]]==2,
-highlighttext=Text[Style["highlighted range:\n"<>ToString[highlightrange]<>"\n("<>ToString[HighlightMode2[[2*plottype-1]] ]<>"% ~ "<>ToString[HighlightMode2[[2*plottype]] ]<>"%)",textsize,Black],Scaled[{0.2,0.6}] ];
+highlighttext=Text[Style["highlighted range:\n"<>"("<>ToString[HighlightMode2[[2*plottype-1]] ]<>"% ~ "<>ToString[HighlightMode2[[2*plottype]] ]<>"%)\n"<>ToString[NumberForm[highlightrange,{100,2}] ],textsize,Black],Scaled[{0.2,0.6}] ];
 "dummy"
 ];
 If[HighlightMode[[plottype]]!=0,epilogxQ=Append[epilogxQ,highlighttext] ];

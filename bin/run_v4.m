@@ -766,8 +766,11 @@ filename=obsname[[2]]<>"_"<>representationname[[1]]<>"_samept"<>extensionname[[i
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]],ImageResolution->imgresol  ];
 filename=obsname[[2]]<>"_"<>representationname[[2]]<>"_samept"<>extensionname[[iext]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]],ImageResolution->imgresol  ];
+(*20171108: \[Sigma]/D has no negative data, so delete histogram of range = (-x, x)*)
+(*
 filename=obsname[[2]]<>"_"<>representationname[[3]]<>"_samept"<>extensionname[[iext]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]],ImageResolution->imgresol  ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]],ImageResolution\[Rule]imgresol  ];
+*)
 filename=obsname[[2]]<>"_"<>representationname[[4]]<>"_samept"<>extensionname[[iext]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]],ImageResolution->imgresol  ];
 
@@ -776,8 +779,11 @@ filename=obsname[[2]]<>"_"<>representationname[[1]]<>"_samept"<>".dat";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]]  ];
 filename=obsname[[2]]<>"_"<>representationname[[2]]<>"_samept"<>".dat";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]]  ];
+(*20171108: \[Sigma]/D has no negative data, so delete histogram of range = (-x, x)*)
+(*
 filename=obsname[[2]]<>"_"<>representationname[[3]]<>"_samept"<>".dat";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]]  ];
+*)
 filename=obsname[[2]]<>"_"<>representationname[[4]]<>"_samept"<>".dat";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]]  ];
 
@@ -819,8 +825,11 @@ filename=obsname[[4]]<>"_"<>representationname[[1]]<>"_samept"<>extensionname[[i
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]],ImageResolution->imgresol  ];
 filename=obsname[[4]]<>"_"<>representationname[[2]]<>"_samept"<>extensionname[[iext]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]],ImageResolution->imgresol  ];
+(*20171108: \[Delta]r has no negative data, so delete histogram of range = (-x, x)*)
+(*
 filename=obsname[[4]]<>"_"<>representationname[[3]]<>"_samept"<>extensionname[[iext]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]],ImageResolution->imgresol  ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]],ImageResolution\[Rule]imgresol  ];
+*)
 filename=obsname[[4]]<>"_"<>representationname[[4]]<>"_samept"<>extensionname[[iext]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]],ImageResolution->imgresol  ];
 
@@ -829,8 +838,11 @@ filename=obsname[[4]]<>"_"<>representationname[[1]]<>"_samept"<>".dat";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]]  ];
 filename=obsname[[4]]<>"_"<>representationname[[2]]<>"_samept"<>".dat";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]]  ];
+(*20171108: \[Delta]r has no negative data, so delete histogram of range = (-x, x)*)
+(*
 filename=obsname[[4]]<>"_"<>representationname[[3]]<>"_samept"<>".dat";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]]  ];
+*)
 filename=obsname[[4]]<>"_"<>representationname[[4]]<>"_samept"<>".dat";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]]  ];
 
