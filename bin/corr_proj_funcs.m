@@ -5468,6 +5468,8 @@ Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}=configarguments;
 userdifinefuncfilename="user_define_func.txt";
 {UserArgName,UserArgValue}=ReadUserFunction["./",userdifinefuncfilename];
 
+(*20171109: shorten the tiles of figures*)
+If[PDFname=="2017.1008.0954.-0500_CT14HERA2-jet.ev",PDFname="CT14HERA2-jet.ev"];
 (*=============================================================================================================================*)
 (*Data organization============================================================================================================*)
 (*=============================================================================================================================*)
