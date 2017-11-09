@@ -208,3 +208,14 @@ modify:
 delete histograms with negative ranges of expt error ratio figure and delta residual figure
 take absolute values for expt error ratio data
 digital # of highlight range showed in the figures <= 2  
+
+20171108
+reorganize the processdataplotsmultiexp6percentage and define it as processdataplotsmultiexp7percentage
+
+20171109
+1. new function (ReadUserFunction) for reading user define functions or data
+2. build a new read configure file function: readcorrconfigfile5, deleting user define functions part in the new function 
+(so ReadUserFunction will take care of that part)
+3. highlight range convention change: in functions readcorrconfigfile5, processdataplotsmultiexp7percentage
+new convention: {{hmin1, hmax1}, {hmin2, hmax2}, ...}
+4. for histogram of |obs|, fix the problem that title labels have no |...| symbol
