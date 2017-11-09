@@ -219,3 +219,6 @@ reorganize the processdataplotsmultiexp6percentage and define it as processdatap
 3. highlight range convention change: in functions readcorrconfigfile5, processdataplotsmultiexp7percentage
 new convention: {{hmin1, hmax1}, {hmin2, hmax2}, ...}
 4. for histogram of |obs|, fix the problem that title labels have no |...| symbol
+
+20171109: 
+shorten name of 2017.1008.0954.-0500_CT14HERA2-jet.ev to CT14HERA2-jet.ev (in processdataplotsmultiexp7percentage)
