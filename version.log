@@ -222,3 +222,11 @@ new convention: {{hmin1, hmax1}, {hmin2, hmax2}, ...}
 
 20171109: 
 shorten name of 2017.1008.0954.-0500_CT14HERA2-jet.ev to CT14HERA2-jet.ev (in processdataplotsmultiexp7percentage)
+20171111:
+1. renew histogram plotting function: histplot4->histplot5, use binwidth as the input of the bin setting in histplot5
+2. change lines on histogram-> think, unsaturate red and blue
+3. percentage highlight mode: don't take the statistics for absolute values of data when calculating the percentage of highlight
+4. fix the bug that when input 0% to GetDataPercentage, function will output data[[0]] which has no value
+5. move highlight text in 2D-xQ plots to avoid covering data points and cutted by the left edge  
+6. if red lines in histograms exceed the frame, don't draw them
+
