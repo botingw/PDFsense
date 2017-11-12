@@ -189,3 +189,44 @@ also, calculation of observables for plotting are moved from fxQsamept_corr_vx.n
 
 20171103: add mathematica expression format for output figures so that users can change details (label, ticks) themselve
 20171103: some figures output have {} symbol, delete them
+20171105: output for script version .eps -> .png
+20171107: for highlight range, grey out unhighlighted data and use highlight range as barlegend seperator
+
+20171108: 
+highlight mode and color palette change: 
+1. highlighted points have the same size, and larger than unhighlighted points
+2. color palettes of highlight and no-highlight modes are the same
+3, unhighlighted points become gray no matter in which color seperator interval they are 
+4. color palette, original {red - gray -blue}, become {red - green - blue}
+5. expt error ratio & delta residual palette are only positive
+other modify:
+6. title labels of figures are simplified
+7. lines in histogram part at negative side of residual error and expt error ratio are canceled, expt error ratio line: change from 50%, 70%, 85% of data to 0.1
+
+20171108: 
+modify:
+delete histograms with negative ranges of expt error ratio figure and delta residual figure
+take absolute values for expt error ratio data
+digital # of highlight range showed in the figures <= 2  
+
+20171108
+reorganize the processdataplotsmultiexp6percentage and define it as processdataplotsmultiexp7percentage
+
+20171109
+1. new function (ReadUserFunction) for reading user define functions or data
+2. build a new read configure file function: readcorrconfigfile5, deleting user define functions part in the new function 
+(so ReadUserFunction will take care of that part)
+3. highlight range convention change: in functions readcorrconfigfile5, processdataplotsmultiexp7percentage
+new convention: {{hmin1, hmax1}, {hmin2, hmax2}, ...}
+4. for histogram of |obs|, fix the problem that title labels have no |...| symbol
+
+20171109: 
+shorten name of 2017.1008.0954.-0500_CT14HERA2-jet.ev to CT14HERA2-jet.ev (in processdataplotsmultiexp7percentage)
+20171111:
+1. renew histogram plotting function: histplot4->histplot5, use binwidth as the input of the bin setting in histplot5
+2. change lines on histogram-> think, unsaturate red and blue
+3. percentage highlight mode: don't take the statistics for absolute values of data when calculating the percentage of highlight
+4. fix the bug that when input 0% to GetDataPercentage, function will output data[[0]] which has no value
+5. move highlight text in 2D-xQ plots to avoid covering data points and cutted by the left edge  
+6. if red lines in histograms exceed the frame, don't draw them
+

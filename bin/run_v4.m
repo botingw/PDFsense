@@ -111,12 +111,13 @@ configfilename="config1.txt";
 readcorrconfigfile[configDir,configfilename];
 *)
 (*new config file*)
-{Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,UserArgName,UserArgValue,
+(*20171109 use readcorrconfigfile5 for new highlight range convention*)
+{Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
 XQfigureXrange,XQfigureYrange,Hist1figureNbin,Hist1figureXrange,(*Hist1figureYrange*)dummy12,
 ColorSeperator,
 Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}=
-readcorrconfigfile4[configDir,configfilename];
-Print["input arguments: ",readcorrconfigfile4[configDir,configfilename] ];
+(*readcorrconfigfile4*)readcorrconfigfile5[configDir,configfilename];
+Print["input arguments: ",(*readcorrconfigfile4*)readcorrconfigfile5[configDir,configfilename] ];
 
 (*check format of arguments*)
 (*xyrange*)
@@ -429,6 +430,9 @@ PdsDir=
 pdfFamilyParseCTEQ["../fakePDFset/"<>PDFname<>"/"<>"*pds",ifamily];
 *)
 
+(*20171109: seperate user difine function/data IO and configure file*)
+userdifinefuncfilename="user_define_func.txt";
+{UserArgName,UserArgValue}=ReadUserFunction[configDir,userdifinefuncfilename];
 (*check the # of user define values is the same as # of PDF replicas*)
 If[
 Length[UserArgValue]!=(Datamethods[["getNcolumn"]][fxQsamept2classfinal[[1,1]] ]-2),
@@ -685,7 +689,7 @@ the input format of dataclasses are the same format of the dataclasses in data f
 *)
 jpgtime=
 AbsoluteTiming[
-
+(*20171109 use processdataplotsmultiexp7percentage to replace version 6 and readcorrconfigfile5 to replace version4: for new highlight range convention*)
 Table[
 Print["now flavour = ",flavour];
 If[
@@ -694,7 +698,7 @@ If[
 (*correlation plots*)
 FigureFlag[[6]]==1,
 Print["making plot of figure type ",FigureType[[6]],", flavour = ",flavour];
-p6=processdataplotsmultiexp6percentage[{corrdataclassfinal},readcorrconfigfile4[configDir,configfilename],6,flavour ];
+p6=processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile5[configDir,configfilename],6,flavour ];
 (*add exptname table into output figure*)
 
 (*p6=GraphicsGrid[p6,Spacings\[Rule]Scaled[0.15] ];*)
@@ -724,7 +728,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,
 If[
 FigureFlag[[5]]==1,
 Print["making plot of figure type ",FigureType[[5]],", flavour = ",flavour];
-p5=processdataplotsmultiexp6percentage[{dRcorrdataclassfinal},readcorrconfigfile4[configDir,configfilename],5,flavour];
+p5=processdataplotsmultiexp7percentage[{dRcorrdataclassfinal},readcorrconfigfile5[configDir,configfilename],5,flavour];
 
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
 filename=obsname[[5]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext]];
@@ -760,14 +764,17 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,
 If[
 FigureFlag[[2]]==1,
 Print["making plot of figure type ",FigureType[[2]],", flavour = ",flavour];
-p234=processdataplotsmultiexp6percentage[{expterrordataclassfinal},readcorrconfigfile4[configDir,configfilename],2,flavour];
+p234=processdataplotsmultiexp7percentage[{expterrordataclassfinal},readcorrconfigfile5[configDir,configfilename],2,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
 filename=obsname[[2]]<>"_"<>representationname[[1]]<>"_samept"<>extensionname[[iext]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]],ImageResolution->imgresol  ];
 filename=obsname[[2]]<>"_"<>representationname[[2]]<>"_samept"<>extensionname[[iext]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]],ImageResolution->imgresol  ];
+(*20171108: \[Sigma]/D has no negative data, so delete histogram of range = (-x, x)*)
+(*
 filename=obsname[[2]]<>"_"<>representationname[[3]]<>"_samept"<>extensionname[[iext]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]],ImageResolution->imgresol  ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]],ImageResolution\[Rule]imgresol  ];
+*)
 filename=obsname[[2]]<>"_"<>representationname[[4]]<>"_samept"<>extensionname[[iext]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]],ImageResolution->imgresol  ];
 
@@ -776,8 +783,11 @@ filename=obsname[[2]]<>"_"<>representationname[[1]]<>"_samept"<>".dat";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]]  ];
 filename=obsname[[2]]<>"_"<>representationname[[2]]<>"_samept"<>".dat";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]]  ];
+(*20171108: \[Sigma]/D has no negative data, so delete histogram of range = (-x, x)*)
+(*
 filename=obsname[[2]]<>"_"<>representationname[[3]]<>"_samept"<>".dat";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]]  ];
+*)
 filename=obsname[[2]]<>"_"<>representationname[[4]]<>"_samept"<>".dat";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]]  ];
 
@@ -786,7 +796,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 If[
 FigureFlag[[3]]==1,
 Print["making plot of figure type ",FigureType[[3]],", flavour = ",flavour];
-p234=processdataplotsmultiexp6percentage[{residualdataclassfinal},readcorrconfigfile4[configDir,configfilename],3,flavour];
+p234=processdataplotsmultiexp7percentage[{residualdataclassfinal},readcorrconfigfile5[configDir,configfilename],3,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
 filename=obsname[[3]]<>"_"<>representationname[[1]]<>"_samept"<>extensionname[[iext]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]],ImageResolution->imgresol  ];
@@ -813,14 +823,17 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 If[
 FigureFlag[[4]]==1,
 Print["making plot of figure type ",FigureType[[4]],", flavour = ",flavour];
-p234=processdataplotsmultiexp6percentage[{dRdataclassfinal},readcorrconfigfile4[configDir,configfilename],4,flavour];
+p234=processdataplotsmultiexp7percentage[{dRdataclassfinal},readcorrconfigfile5[configDir,configfilename],4,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
 filename=obsname[[4]]<>"_"<>representationname[[1]]<>"_samept"<>extensionname[[iext]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]],ImageResolution->imgresol  ];
 filename=obsname[[4]]<>"_"<>representationname[[2]]<>"_samept"<>extensionname[[iext]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]],ImageResolution->imgresol  ];
+(*20171108: \[Delta]r has no negative data, so delete histogram of range = (-x, x)*)
+(*
 filename=obsname[[4]]<>"_"<>representationname[[3]]<>"_samept"<>extensionname[[iext]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]],ImageResolution->imgresol  ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]],ImageResolution\[Rule]imgresol  ];
+*)
 filename=obsname[[4]]<>"_"<>representationname[[4]]<>"_samept"<>extensionname[[iext]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]],ImageResolution->imgresol  ];
 
@@ -829,8 +842,11 @@ filename=obsname[[4]]<>"_"<>representationname[[1]]<>"_samept"<>".dat";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]]  ];
 filename=obsname[[4]]<>"_"<>representationname[[2]]<>"_samept"<>".dat";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]]  ];
+(*20171108: \[Delta]r has no negative data, so delete histogram of range = (-x, x)*)
+(*
 filename=obsname[[4]]<>"_"<>representationname[[3]]<>"_samept"<>".dat";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]]  ];
+*)
 filename=obsname[[4]]<>"_"<>representationname[[4]]<>"_samept"<>".dat";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]]  ];
 
@@ -840,7 +856,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 If[
 FigureFlag[[1]]==1,
 Print["making plot of figure type ",FigureType[[1]] ];
-p1=processdataplotsmultiexp6percentage[{corrdataclassfinal},readcorrconfigfile4[configDir,configfilename],1,0 ];
+p1=processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile5[configDir,configfilename],1,0 ];
 filename=obsname[[1]]<>"_"<>representationname[[1]]<>extensionname[[iext]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p1[[1]],ImageResolution->imgresol ];
 filename=obsname[[1]]<>"_"<>representationname[[1]]<>".dat";
@@ -974,11 +990,20 @@ configfilename="config1.txt";
 
 (*web version: only run the quick mode*)
 (*read # of expts in config file*)
+(*20171109: for readcorrconfigfile4
 {dummy,dummy,dummy,dummy,ExptidType,ExptidFlag,dummy,dummy,dummy,dummy,
 dummy,dummy,dummy,dummy,(*Hist1figureYrange*)dummy,
 dummy,
 dummy,dummy,dummy,dummy,dummy}=
 readcorrconfigfile4[configDir,configfilename];
+*)
+(*20171109: for readcorrconfigfile5*)
+{dummy,dummy,dummy,dummy,ExptidType,ExptidFlag,dummy,dummy,(*dummy,dummy,*)
+dummy,dummy,dummy,dummy,(*Hist1figureYrange*)dummy,
+dummy,
+dummy,dummy,dummy,dummy,dummy}=
+readcorrconfigfile5[configDir,configfilename];
+
 Lexpt={};
 Table[
 If[ExptidFlag[[iexpt]]==1,Lexpt=Append[Lexpt,ExptidType[[iexpt]] ] ],
@@ -1143,3 +1168,50 @@ If[irun==Length[Lexpt],Print["all processes are done"];Abort[]];
 
 (* ::Input:: *)
 (*CorrDataDir*)
+
+
+(* ::Input:: *)
+(*Get["corr_proj_funcs.m"]*)
+
+
+(* ::Input:: *)
+(*processdataplotsmultiexp7percentage[{expterrordataclassfinal},readcorrconfigfile5[configDir,configfilename],2,flavour]*)
+
+
+(* ::Input:: *)
+(*processdataplotsmultiexp7percentage[{residualdataclassfinal},readcorrconfigfile5[configDir,configfilename],3,flavour]*)
+
+
+(* ::Input:: *)
+(*processdataplotsmultiexp7percentage[{dRdataclassfinal},readcorrconfigfile5[configDir,configfilename],4,flavour]*)
+
+
+(* ::Input:: *)
+(*processdataplotsmultiexp7percentage[{dRcorrdataclassfinal},readcorrconfigfile5[configDir,configfilename],5,0]*)
+
+
+(* ::Input:: *)
+(*processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile5[configDir,configfilename],6,0 ]*)
+
+
+(* ::Input:: *)
+(*Get["corr_proj_funcs.m"]*)
+
+
+(* ::Input:: *)
+(*ReadUserFunction[Directory[]<>"/","user_define_func.txt"]*)
+
+
+(* ::Input:: *)
+(*(*{Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,UserArgName,UserArgValue,*)
+(*XQfigureXrange,XQfigureYrange,Hist1figureNbin,Hist1figureXrange,(*Hist1figureYrange*)dummy12,*)
+(*ColorSeperator,*)
+(*Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}=*)*)
+(*readcorrconfigfile4[configDir,configfilename]*)
+(*readcorrconfigfile5[configDir,configfilename][[-2]]*)
+
+
+(* ::Input:: *)
+(*(*20171109: seperate user difine function/data IO and configure file*)*)
+(*userdifinefuncfilename="user_define_func.txt";*)
+(*{UserArgName,UserArgValue}=ReadUserFunction["./",userdifinefuncfilename]*)
