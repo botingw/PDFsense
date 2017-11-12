@@ -3475,6 +3475,30 @@ output
 ]
 
 
+(* ::Input::Initialization:: *)
+(*input: lineelement={{xvalue,text,color},...} *)
+setxlineinplot3[lineelementin_,yrangein_]:=
+Module[{lineelement=lineelementin,yrange=yrangein,x,text,color,textsize,lineout,textout,ymin,ymax,output},
+ymin=yrange[[1]];
+ymax=yrange[[2]];
+
+output=
+Table[
+x=lineelementin[[i,1]];
+text=lineelementin[[i,2]];
+color=lineelementin[[i,3]];
+textsize=16;
+lineout=Style[Line[{{x,ymin},{x,0.95*ymax} }],color];
+textout=Text[Style[text,textsize,color],{x,1.025*ymax-(*20170306, solve overlap of text*)0.04*i*ymax} ];
+{textout,lineout}
+,{i,1,Length[lineelement]}];
+(*
+output={Style[Line[{{1,1},{1,4}}],Green],Style["a2",Green]}
+*)
+output
+]
+
+
 (* ::Input:: *)
 (*(*plot statistics of correlation data line*)*)
 (*(*input*)
@@ -3676,6 +3700,88 @@ AllPlots
 ];
 
 
+(* ::Input::Initialization:: *)
+(*20171111*)
+(*plot statistics of correlation data line*)
+(*input
+histlistin: data, {value1, value2,...,...}
+titlein,xtitlein,ytitlein: title of plot
+BinWidth: the bin width of the histogram
+epilogtext: the epilog of the histogram
+lineelementin: text with line you want to add in plot: {{xvalue,"text",color},{...},...}
+plotrangexin: {xmin,xmax}
+*)
+histplot5[histlistin_,titlein_,xtitlein_,ytitlein_,plotrangein_,BinWidthin_,epilogtextin_]:=
+Module[{histlist=histlistin,title=titlein,xtitle=xtitlein,ytitle=ytitlein,plotrange=plotrangein,BinWidth=BinWidthin,epilogtext=epilogtextin,
+Nbin,
+xmin,xmax,ymin,ymax,binset2,textsize,Npttext,imgsize,titlesize,xtitlesize,ytitlesize,lgdlabelsize,ticklablesize,avgw,p2,AllPlots},
+
+
+(*default*)
+imgsize={{600},{600}};
+titlesize=24;
+xtitlesize=18;
+ytitlesize=18;
+lgdlabelsize=12;
+ticklablesize=18;
+
+(*set the bins and xy range of the histogram*)
+xmin=plotrange[[1]];
+xmax=plotrange[[2]];
+ymin=plotrange[[3]];
+ymax=plotrange[[4]];
+
+If[xmin=="default",xmin=Min[histlist,0.0] ];
+If[xmax=="default",xmax=Max[histlist];xmax=xmax+0.05*(xmax-xmin);If[xmin<0,xmin=xmin-0.05*(xmax-xmin)] ];
+
+(*set bins of the histogram*)
+If[BinWidth=="default",BinWidth=(xmax-xmin)/20];
+(*set default y max by the max value of of the histogram*)
+If[ymin=="default",ymin=0.0 ];
+If[ymax=="default",ymax=Max[HistogramList[histlist,{BinWidth}][[2]] ] ];
+
+
+
+(*if set Nbin, then use Nbin setting*)
+(*
+If[Nbin=="auto",binset2=binset ];
+If[Nbin!="auto",binset2={Table[plotrangex[[1]]+i*((plotrangex[[2]]-plotrangex[[1]])/Nbin),{i,0,Nbin}]} ];
+*)
+(*set line of median and mean, and texts*)
+(*
+textsize=16;
+Npttext=Text[Style["Npt: "<>ToString[Length[histlist//Flatten] ],textsize,Black],Scaled[{0.1,0.9}] ];
+*)
+
+(*output histogram*)
+p2=
+Histogram[histlist,(*{xmin,xmax,w}*){BinWidth},
+Epilog->epilogtext,
+PlotRange->{{xmin,xmax},{ymin,ymax}}
+];
+
+AllPlots=Show[
+p2,
+BaseStyle->{FontSize->16},
+Frame->True,
+(*
+FrameTicks\[Rule]{xTicks/.LF\[Rule]List,xTicks/.LF\[Rule]List,
+xTicks/.LF[a__]\[RuleDelayed]{{a}\[LeftDoubleBracket]1\[RightDoubleBracket],""},xTicks/.LF[a__]\[RuleDelayed]{{a}\[LeftDoubleBracket]1\[RightDoubleBracket],""}},
+*)
+Axes->False,
+PlotLabel->Style[title,titlesize,Black],
+FrameLabel->{Style[xtitle,xtitlesize,Black],Style[ytitle,ytitlesize,Black]},
+ImageSize->imgsize,
+AspectRatio->1
+];
+
+AllPlots
+(*
+{median,binset2,ymax,xmax}
+*)
+];
+
+
 (* ::Section:: *)
 (*make plot (general use)*)
 
@@ -3825,16 +3931,32 @@ AllPlots
 (* ::Input::Initialization:: *)
 (*20170306: use percentage as bar seperator*)
 (*function to get value of choose percentage of data*)
+(*20171111*)
+(*
+input:
+data: a List of number
+percentage: format = {per1,per2,...}, ex: {50, 75} means the value that larger than 50% and 70% of data
+order data from small to large, specifying the value that larger than percentage of data
+ex: median is the value that larger than 50% of data
+*)
+(*
+output:
+get the value that larger than percentage of data
+*)
 GetDataPercentage[datain_,percentagesin_]:=
 Module[{data=datain,percentages=percentagesin,
 Ndata,output},
+(*20171111: check inputs are correct*)
+If[Head[data]!=List,Print["error, input data should be a List of number"];Quit[] ];
+If[#<0 || #>100,Print["error, percentage should be numbers in the range of {0,100}"];Quit[] ]&/@percentages;
 Ndata=Length[data];
 
 data=Sort[data];
 
 output=
 Table[
-data[[Round[Ndata*percentages[[i]]/100.0] ]],
+(*20171111: avoid the data index representing the percentage is 0, which means the data index should be at least 1*)
+data[[Max[Round[Ndata*percentages[[i]]/100.0],1] ]],
 {i,1,Length[percentages]}
 ];
 
@@ -5456,7 +5578,9 @@ exptlist,expttype,
 rows,exptnames,exptnamestable,
 lineelement2,maxdata,
 barlegend,
-histtitle,histabstitle,yhistabstitle,HighlightAutoMode,userdifinefuncfilename},
+histtitle,histabstitle,yhistabstitle,HighlightAutoMode,userdifinefuncfilename,
+hist1plotrangey,hist2plotrangey,BinWidth,hist1plotrange,hist2plotrange,highlightlines,
+xmintmp,xmaxtmp,ymintmp,hist1epilogtext,hist2epilogtext,hist1standardlines,hist2standardlines,LineWidth,HistAutoFixXrangeBool},
 (*read arguments in config file*)
 (*==============================*)
 {Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
@@ -5545,7 +5669,8 @@ HighlightMode[[plottype]],
 0,{{0.0,0.0}},
 (*20171109: use new highlight range convention*)
 1,(*{HighlightMode1[[2*plottype-1]],HighlightMode1[[2*plottype]]}*)HighlightMode1[[plottype]],
-2,GetDataPercentage[Flatten[pdfcorr]/.LF1[a__]:>Abs[{a}[[3]] ] ,(*{HighlightMode2[[2*plottype-1]],HighlightMode2[[2*plottype]]}*)#]&/@HighlightMode2[[plottype]]
+(*20171111: percentage highlight: don't take absolute values for data*)
+2,GetDataPercentage[Flatten[pdfcorr]/.LF1[a__]:>{a}[[3]],(*{HighlightMode2[[2*plottype-1]],HighlightMode2[[2*plottype]]}*)#]&/@HighlightMode2[[plottype]]
 (*
 Which[
 plottype\[Equal]5  || plottype\[Equal]6,
@@ -5631,7 +5756,11 @@ yhistabstitle=yhisttitle;
 (*mode = 1, use some statistical quantity to estimate a reasonable x, y range*)
 (*mode = 2, fix ranges depend on their figure type (observables of data)*)
 (*mode = 3, zoom in the highlighted ranges*)
-HighlightAutoMode=2;
+HighlightAutoMode=1;
+(*20171111: if the xrange of the histogram is fixed by static values, set true, ex: HighlightAutoMode=2*)
+(*
+HistAutoFixXrangeBool=False;
+*)
 
 (*decide xy range of xQ plot, Nbin of histogram, xy range of histogram by
 XQfigureXrange,XQfigureYrange,Hist1figureNbin,Hist1figureXrange,Hist1figureYrange*)
@@ -5663,7 +5792,13 @@ histautoxrange=3*Median[Flatten[pdfcorr]/.LF1[a__]:>Abs[{a}[[3]] ] ]
 If[
 plottype==3 || plottype==4 || plottype==5 ,
 histautoxrange=Max[3*Median[Flatten[pdfcorr]/.LF1[a__]:>Abs[{a}[[3]] ] ],1.0];
+(*20171111: if the xrange of the histogram is fixed by static values, set true, ex: HighlightAutoMode=2*)
+(*
+If[histautoxrange>1.0 && hist1plotrangex[[1]]\[Equal]"auto" && hist1plotrangex[[2]]\[Equal]"auto",Hist1AutoFixXrangeBool=True];
+If[histautoxrange>1.0 && hist2plotrangex[[1]]\[Equal]"auto" && hist2plotrangex[[2]]\[Equal]"auto",Hist2AutoFixXrangeBool=True]
+*)
 ];
+
 "dummy"
 ];
 
@@ -5677,11 +5812,17 @@ If[
 plottype==3 || plottype==4 || plottype==5 ,
 histautoxrange=3.0
 ];
+(*20171111: if the xrange of the histogram is fixed by static values, set true, ex: HighlightAutoMode=2*)
+(*
+If[hist1plotrangex[[1]]\[Equal]"auto" && hist1plotrangex[[2]]\[Equal]"auto",Hist1AutoFixXrangeBool=True];
+If[hist2plotrangex[[1]]\[Equal]"auto" && hist2plotrangex[[2]]\[Equal]"auto",Hist2AutoFixXrangeBool=True]
+*)
 "dummy"
 ];
 
 (*for correlation histogram, always set range (-1,1)*)
-If[plottype==6,histautoxrange=1.0];
+(*20171111: if the xrange of the histogram is fixed by static values, set true, ex: HighlightAutoMode=2*)
+If[plottype==6,histautoxrange=1.0(*;HistAutoFixXrangeBool=True*)];
 (*test print*)(*Print["hist auto xrange: ",histautoxrange,", plottype & HighlightAutoMode",{plottype,HighlightAutoMode}];Abort[];*)
 (*20171106: if highlight mode on, auto range set as the range of highlight*)(*20171108: ranges of all modes are the same*)
 (*
@@ -5697,6 +5838,44 @@ If[hist1plotrangex[[2]]=="auto",hist1plotrangex[[2]]=histautoxrange];
 
 hist2plotrangex=hist1plotrangex;If[hist2plotrangex[[1]]<0.0,hist2plotrangex[[1]]=0.0];
 
+
+(*=============================================================================================================================*)
+(*Histograms: Nbin and hist yrange============================================================================================================*)
+(*=============================================================================================================================*)
+{hist1plotrangey,hist2plotrangey,BinWidth,hist1plotrange,hist2plotrange,highlightlines};
+Hist1figureNbin=Hist1figureNbin;
+hist1plotrangey=Hist1figureYrange;
+hist2plotrangey=Hist1figureYrange;
+
+(*20171111 Nbin auto*)
+If[Hist1figureNbin=="auto",Hist1figureNbin=20];
+(*20171111*)
+(*set default y max by the max value of of the histogram*)
+If[
+ plottype==2 || plottype==3 || plottype==4 || plottype==5 || plottype==6,
+
+BinWidth=(hist1plotrangex[[2]]-hist1plotrangex[[1]])/Hist1figureNbin;
+If[hist1plotrangey[[1]]=="auto",hist1plotrangey[[1]]=0.0 ];
+If[hist1plotrangey[[2]]=="auto",hist1plotrangey[[2]]=Max[HistogramList[Flatten[pdfcorr]/.LF1[a__]:>{a}[[3]],{BinWidth}][[2]] ] ];
+(*set bin width of two histograms the same*)(*BinWidth=(hist2plotrangex[[2]]-hist2plotrangex[[1]])/Hist1figureNbin;*)
+If[hist2plotrangey[[1]]=="auto",hist2plotrangey[[1]]=0.0 ];
+If[hist2plotrangey[[2]]=="auto",hist2plotrangey[[2]]=Max[HistogramList[Flatten[pdfcorr]/.LF1[a__]:>Abs[{a}[[3]] ],{BinWidth}][[2]] ] ];
+
+hist1plotrange=Flatten[{hist1plotrangex,hist1plotrangey}];
+hist2plotrange=Flatten[{hist2plotrangex,hist2plotrangey}];
+"dummy"
+];
+(*correlation histogram*)
+
+(*binset: for Nbin\[Equal]"auto", define auto binset*)
+(*set auto bin as 10 bins in first color bar seperator *)
+(*20171108: set auto bin as N = 20 in positive side of xrange, bin width = xrange(+)/20 *)
+(*
+binset={Table[i*barseperator[[Length[barseperator]/2+1]]/10.0,{i,-100,100}]};
+*)
+(*20111111: use new bins format in histplot5
+binset={Table[i*hist1plotrangex[[2]]/20.0,{i,-100,100}]};
+*)
 (*=============================================================================================================================*)
 (*2DxQ: color palette and color bar============================================================================================================*)
 (*=============================================================================================================================*)
@@ -5868,30 +6047,33 @@ highlighttext=
 (*20171109 use new highlight convention
 Text[Style["highlighted range:\n"<>"("<>ToString[HighlightMode2[[2*plottype-1]] ]<>"% ~ "<>ToString[HighlightMode2[[2*plottype]] ]<>"%)\n"<>ToString[NumberForm[highlightrange,{100,2}] ],textsize,Black],Scaled[{0.2,0.6}] ];
 *)
-Text[Style["highlighted range:\n"<>ToString[Map[(ToString[#]<>"%")&,HighlightMode2[[plottype]],{2}] ]<>"\n"<>ToString[NumberForm[highlightrange,{100,2}] ],textsize,Black],Scaled[{0.2,0.6}] ];
+(*20171111: percentage text is long. move it to right-up to avoid the text cutted by edge*)
+Text[Style["highlighted range:\n"<>ToString[Map[(ToString[#]<>"%")&,HighlightMode2[[plottype]],{2}] ]<>"\n"<>ToString[NumberForm[highlightrange,{100,2}] ],textsize,Black],Scaled[{0.25,0.7}] ];
 "dummy"
 ];
 If[HighlightMode[[plottype]]!=0,epilogxQ=Append[epilogxQ,highlighttext] ];
 
-(*=============================================================================================================================*)
-(*Histograms: Nbin============================================================================================================*)
-(*=============================================================================================================================*)
-
-Hist1figureNbin=Hist1figureNbin;
-
-(*correlation histogram*)
-
-(*binset: for Nbin\[Equal]"auto", define auto binset*)
-(*set auto bin as 10 bins in first color bar seperator *)
-(*20171108: set auto bin as N = 20 in positive side of xrange, bin width = xrange(+)/20 *)
-(*
-binset={Table[i*barseperator[[Length[barseperator]/2+1]]/10.0,{i,-100,100}]};
-*)
-binset={Table[i*hist1plotrangex[[2]]/20.0,{i,-100,100}]};
 
 (*=============================================================================================================================*)
 (*Histograms: epilogs============================================================================================================*)
 (*=============================================================================================================================*)
+{xmintmp,xmaxtmp,ymintmp,hist1epilogtext,hist2epilogtext};
+(*2011111: set lines to represent the highlight ranges *)
+If[
+ plottype==2 || plottype==3 || plottype==4 || plottype==5 || plottype==6,
+LineWidth=Thick;
+highlightlines=
+Table[
+xmintmp=highlightrange[[irange]][[1]];
+xmaxtmp=highlightrange[[irange]][[2]];
+(*set lines at x axis*)
+ymintmp=hist1plotrange[[3]];
+Style[Line[{{xmintmp,ymintmp},{xmaxtmp,ymintmp} }],Darker[Blue,0.3] ],
+{irange,Length[highlightrange]}
+];
+highlightlines=Prepend[highlightlines,LineWidth];
+"dummy"
+];
 
 If[
 plottype==2,
@@ -5899,12 +6081,12 @@ plottype==2,
 (*
 lineelement={{barseperator[[2]],ToString[ColorSeperator[[3]] ]<>"%",Blue},{barseperator[[3]],ToString[ColorSeperator[[2]] ]<>"%",Blue},{barseperator[[4]],ToString[ColorSeperator[[1]] ]<>"%",Blue},{barseperator[[5]],ToString[ColorSeperator[[1]] ]<>"%",Blue},{barseperator[[6]],ToString[ColorSeperator[[2]] ]<>"%",Blue},{barseperator[[7]],ToString[ColorSeperator[[3]] ]<>"%",Blue}};
 *)
-lineelement={{-0.1,"",Red},{0.1,"",Red}};
-lineelement2=(*Take[lineelement,-3]*){{0.1,"",Red}};
+lineelement={{-0.1,"",Darker[Red,0.3]},{0.1,"",Darker[Red,0.3]}};
+lineelement2=(*Take[lineelement,-3]*){{0.1,"",Darker[Red,0.3]}};
 ];
 (*if correlation histogram, don't need show lines to represent the % of data *)
-If[ plottype==3 || plottype==4 || plottype==5,lineelement={{-1,"",Red},{1,"",Red}};lineelement2={{1,"",Red}};"dummy"];
-If[ plottype==6,lineelement={{-0.7,"",Red},{0.7,"",Red}};lineelement2={{0.7,"",Red}};"dummy"];
+If[ plottype==3 || plottype==4 || plottype==5,lineelement={{-1,"",Darker[Red,0.3]},{1,"",Darker[Red,0.3]}};lineelement2={{1,"",Darker[Red,0.3]}};"dummy"];
+If[ plottype==6,lineelement={{-0.7,"",Darker[Red,0.3]},{0.7,"",Darker[Red,0.3]}};lineelement2={{0.7,"",Darker[Red,0.3]}};"dummy"];
 
 (*20171106: bin line in histogram for highlight mode*)(*20171108: don't add it presently*)
 (*
@@ -5918,7 +6100,15 @@ binset={Table[i*barseperator[[Length[barseperator]/2+1]]/10.0,{i,-100,100}]};(*t
 *)
 ];
 *)
-
+(*20171111 set lines for y direction*)
+If[
+ plottype==2 || plottype==3 || plottype==4 || plottype==5 || plottype==6,
+hist1standardlines=setxlineinplot2[Flatten[pdfcorr]/.LF1[a__]:>{a}[[3]],lineelement,{hist1plotrange[[3]],hist1plotrange[[4]]}];
+hist2standardlines=setxlineinplot2[Flatten[pdfcorr]/.LF1[a__]:>Abs[{a}[[3]] ],lineelement2,{hist2plotrange[[3]],hist2plotrange[[4]]}];
+hist1standardlines=Prepend[hist1standardlines,LineWidth];
+hist2standardlines=Prepend[hist2standardlines,LineWidth];
+"dummy"
+];
 (*=============================================================================================================================*)
 (*2DxQ: generate plots============================================================================================================*)
 (*=============================================================================================================================*)
@@ -5935,14 +6125,46 @@ xQplotcorr=PDFCorrelationplot8[pdfcorr,title,xtitle,ytitle,plotrange,stretchx,st
 (*=============================================================================================================================*)
 (*Histogram: generate plots============================================================================================================*)
 (*=============================================================================================================================*)
+(*20171111 new histplot function*)
+hist1epilogtext={hist1standardlines,highlightlines,Npttext};
+hist2epilogtext={hist2standardlines,highlightlines,Npttext};
+(*20171111 if xrange of histograms are fixed, then we don't need to show red lines because red lines are one the boarder of the figure*)
+(*
+If[
+(HistAutoFixXrangeBool==True) && ( plottype==2 || plottype==3 || plottype==4 || plottype==5),
+hist1epilogtext={highlightlines,Npttext};
+hist2epilogtext={highlightlines,Npttext};
+"dummy"
+];
+*)
+(*20171111: check whether the red lines are on the boarder of (or in the) figure frames*)
+(*if it is on the boarder or larger than the boarder, don't draw it*)
+If[
+ plottype==2,
+If[ hist1plotrange[[2]]<=0.1 &&  hist1plotrange[[1]]>=-0.1,hist1epilogtext={highlightlines,Npttext}];
+If[ hist2plotrange[[2]]<=0.1,hist2epilogtext={highlightlines,Npttext}];
+"dummy"
+];
+If[
+( plottype==3 || plottype==4 || plottype==5),
+If[ hist1plotrange[[2]]<=1.0 &&  hist1plotrange[[1]]>=-1.0,hist1epilogtext={highlightlines,Npttext}];
+If[ hist2plotrange[[2]]<=1.0,hist2epilogtext={highlightlines,Npttext}];
+"dummy"
+];
+
 
 If[
  plottype==2 || plottype==3 || plottype==4 || plottype==5  || plottype==6,
 (*hist1: data with no absolute*)
+(*20171111: use new histplot5 function*)
+(*
 (*20170515: temporary use data of all groups to draw the histogram in one color*)
 histplotcorr1=histplot4[Flatten[pdfcorr]/.LF1[a__]:>{a}[[3]],histtitle,xhisttitle,yhisttitle,binset,lineelement,hist1plotrangex,Hist1figureNbin];
 (*hist1: data with absolute(|data|)*)
 histplotcorr2=histplot4[Flatten[pdfcorr]/.LF1[a__]:>Abs[{a}[[3]] ],histabstitle,xhistabstitle,yhistabstitle,binset,(*Take[lineelement,-3]*)lineelement2,hist2plotrangex,Hist1figureNbin];
+*)
+histplotcorr1=histplot5[Flatten[pdfcorr]/.LF1[a__]:>{a}[[3]],title,xtitle,ytitle,hist1plotrange,BinWidth,hist1epilogtext];
+histplotcorr2=histplot5[Flatten[pdfcorr]/.LF1[a__]:>Abs[{a}[[3]] ],title,xtitle,ytitle,hist2plotrange,BinWidth,hist2epilogtext];
 "dummy"
 ];
 
