@@ -1,0 +1,4 @@
+#!/bin/sh
+
+cd ./bin
+python2 main.py
