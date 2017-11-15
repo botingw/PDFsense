@@ -75,7 +75,10 @@ SetDirectory[(*NotebookDirectory[]*)DirectoryName[$InputFileName] ],
 _,
 Print["file extension should be \"nb\" or \"m\""];Abort[]
 ];
+
+(*20171114: 
 SetDirectory[NotebookDirectory[](*DirectoryName[$InputFileName]*) ]
+*)
 Get["corr_proj_funcs.m"]
 
 
@@ -926,9 +929,12 @@ CopyFile[configDir<>configfilename,saveparentpath<>jobpath<>configfilename];
 (*make exptname table, 20170410: Sean asks to move this process to the final step*)
 rows=3;
 filename="exptname_table"<>extensionname[[iext]];
+(*20171114: need to show the jobid and time so that python script users know where to find the figures*)
+title="jobid: "<>ToString[Jobid](*<>"\n"<>DateString[{"Month","/","Day","/","Year"," ","Hour",":","Minute",":","Second"}]*);
+datemode=True;
 exptnames=Table[ExptIDtoName[exptlistfinal[[iexpt]] ]<>"("<>ToString[exptlistfinal[[iexpt]] ]<>")",{iexpt,1,Length[exptlistfinal]}];
 Print["making table of experiments included in plots"];
-exptnamestable=makeGrid2[exptnames,rows,""];
+exptnamestable=makeGrid2[exptnames,rows,title,datemode];(*20171114: add date mode to write date*)
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,exptnamestable];
 
 (*merge .eps files into a pdf file*)

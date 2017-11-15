@@ -2921,15 +2921,22 @@ output
 (* ::Input::Initialization:: *)
 (*make exptname table jpg*)
 (*input a List of string (exptnames), #row for every column and title for this table, output a Grid of string with #row*#column *)
-makeGrid2[strin_,rowsin_,titlein_]:=
-Module[{str=strin,rows=rowsin,title=titlein,columns,
-lastcolstr,strout},
+(*20171114: add date mode for track, if datemode = "True", write the date, False, don't write the date*)
+makeGrid2[strin_,rowsin_,titlein_,datemodein_]:=
+Module[{str=strin,rows=rowsin,title=titlein,datemode=datemodein,columns,
+lastcolstr,strout,datestring},
 columns=Quotient[Length[str],rows];
 strout=Table[str[[ic*rows+ir]],{ic,0,columns-1},{ir,1,rows}];
 lastcolstr=Table[str[[i]],{i,columns*rows+1,Length[str]}];
 strout=Append[strout,lastcolstr];
 strout=Insert[strout,{Text[Style[title,FontSize->24] ],SpanFromLeft},1];
 strout=Insert[strout,{"Data Sets"},2];
+(*20171114: add date for track*)
+If[
+datemode==True,
+datestring=DateString[{"Month","/","Day","/","Year"," ","Hour",":","Minute",":","Second"}];
+strout=Insert[strout,{Text[Style[datestring,FontSize->10] ],SpanFromLeft},-1]
+];
 Grid[strout,ItemStyle->Directive[FontSize->18,Black],ItemSize->14,Alignment->Left]
 ];
 
@@ -3237,7 +3244,7 @@ positivedivid,negativedivid},
 greycolor=Lighter[ColorData[30,"ColorList"][[5]],0.5];
 
 If[highlightrange[[1]]<0.0 || highlightrange[[2]]<highlightrange[[1]],Print["error, highlight range should be {min, max} and min should >= 0"];Quit[] ];
-barseperator={highlightrange[[1]],,,highlightrange[[2]]};
+(*barseperator={highlightrange[[1]],,,highlightrange[[2]]};*)(*20171114: for warning message*)
 (*set bar the seperator in highlight range*)
 positivedivid=Table[highlightrange[[1]]+(i-1)*(highlightrange[[2]]-highlightrange[[1]])/3,{i,1,4}];
 negativedivid=(-positivedivid);
@@ -3421,8 +3428,9 @@ If
 (*
 ({a}[[3]]>=highlightrange[[1]] && {a}[[3]]<highlightrange[[2]]) || ({a}[[3]]\[GreaterEqual](-highlightrange[[2]]) && {a}[[3]]<(-highlightrange[[1]]) )
 *)
-(*20171109: for new convention of highlight range: if a point is in any highlight range, give color on the palette to it, otherwise give gray color*)          
-Intersection[({a}[[3]]>=#[[1]] && {a}[[3]]<#[[2]])&/@highlightrange,{True}]=={True},
+(*20171109: for new convention of highlight range: if a point is in any highlight range, give color on the palette to it, otherwise give gray color*) 
+(*20171114: fix the bug: when highlight mode = 0 (no highlight), also give points color by their color palette*)         
+Intersection[({a}[[3]]>=#[[1]] && {a}[[3]]<#[[2]])&/@highlightrange,{True}]=={True} || highlightrange=={{0.0,0.0}},
 (*If[ {a}[[3]]<Max[barseperator]&&{a}[[3]]>Min[barseperator],Red,Black]*)
 If[{a}[[3]]<barmax&&{a}[[3]]>barmin,Setbarcolorfunc2[barcolor,barseperator,{a}[[3]] ],If[{a}[[3]]>=barmax,Red,Blue](*outlayer*) ],
 (*Gray*)RGBColor[0.6,0.6,0.6]
@@ -5573,14 +5581,16 @@ imgsize,(*title,xtitle,ytitle,*)lgdlabel,xrange,yrange,epilog,titlesize,xtitlesi
 myplotstyle,myMarker,
 lgdpos,xyrangeplot1,
 myplotsetting,plot1data,plot1,processesplot1order,
-dummy1,dummy2,percentagetext,hist1plotrangex,histautoxrange,hist2plotrangex,xQautorange,unhighlightsize,highlightrange,highlighttext,
+dummy1,dummy2,percentagetext,hist1plotrangex,histautoxrange,hist2autoxrange,hist2plotrangex,xQautorange,unhighlightsize,highlightrange,highlighttext,
 exptlist,expttype,
 rows,exptnames,exptnamestable,
 lineelement2,maxdata,
 barlegend,
-histtitle,histabstitle,yhistabstitle,HighlightAutoMode,userdifinefuncfilename,
+histtitle,histabstitle,yhistabstitle,HistAutoMode,userdifinefuncfilename,
 hist1plotrangey,hist2plotrangey,BinWidth,hist1plotrange,hist2plotrange,highlightlines,
-xmintmp,xmaxtmp,ymintmp,hist1epilogtext,hist2epilogtext,hist1standardlines,hist2standardlines,LineWidth,HistAutoFixXrangeBool},
+xmintmp,xmaxtmp,ymintmp,hist1epilogtext,hist2epilogtext,hist1standardlines,hist2standardlines,LineWidth,HistAutoFixXrangeBool,
+datemode,HistDataList,HistAbsDataList,DataMax,DataMin,AbsDataMax,AbsDataMin,DataMean,AbsDataMean,DataMedian,AbsDataMedian,DataSD,AbsDataSD,
+ColorPaletteMode},
 (*read arguments in config file*)
 (*==============================*)
 {Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
@@ -5655,7 +5665,24 @@ pdfcorr=Table[Datamethods[["take"]][#[[iexpt,flavourin+6]],2][["data"]]/.LF->LF1
 (*=============================================================================================================================*)
 (*Statistical quantities of data============================================================================================================*)
 (*=============================================================================================================================*)
-
+(*20171115*)
+{HistDataList,HistAbsDataList,DataMax,DataMin,AbsDataMax,AbsDataMin,DataMean,AbsDataMean,DataMedian,AbsDataMedian,DataSD,AbsDataSD};
+If[
+plottype==2 || plottype==3 || plottype==4 || plottype==5 || plottype==6,
+HistDataList=Flatten[pdfcorr]/.LF1[a__]:>{a}[[3]];
+HistAbsDataList=Flatten[pdfcorr]/.LF1[a__]:>Abs[{a}[[3]] ];
+DataMax=Max[HistDataList];
+DataMin=Min[HistDataList];
+AbsDataMax=Max[HistAbsDataList];
+AbsDataMin=Min[HistAbsDataList];
+DataMean=Mean[HistDataList];
+AbsDataMean=Mean[HistAbsDataList];
+DataMedian=Median[HistDataList];
+AbsDataMedian=Median[HistAbsDataList];
+DataSD=StandardDeviation[HistDataList];
+AbsDataSD=StandardDeviation[HistAbsDataList];
+"dummy"
+];
 (*=============================================================================================================================*)
 (*Highlight range setting============================================================================================================*)
 (*=============================================================================================================================*)
@@ -5663,6 +5690,7 @@ pdfcorr=Table[Datamethods[["take"]][#[[iexpt,flavourin+6]],2][["data"]]/.LF->LF1
 (*for no highlight mode, choose size of data point in plot by Size
 for highlight mode, set size of unhighlighted data as Size, size of highlighted data is larger than Size*)
 (*==============================*)
+
 highlightrange=
 Switch[
 HighlightMode[[plottype]],
@@ -5670,7 +5698,7 @@ HighlightMode[[plottype]],
 (*20171109: use new highlight range convention*)
 1,(*{HighlightMode1[[2*plottype-1]],HighlightMode1[[2*plottype]]}*)HighlightMode1[[plottype]],
 (*20171111: percentage highlight: don't take absolute values for data*)
-2,GetDataPercentage[Flatten[pdfcorr]/.LF1[a__]:>{a}[[3]],(*{HighlightMode2[[2*plottype-1]],HighlightMode2[[2*plottype]]}*)#]&/@HighlightMode2[[plottype]]
+2,GetDataPercentage[(*Flatten[pdfcorr]/.LF1[a__]\[RuleDelayed]{a}[[3]]*)HistDataList,(*{HighlightMode2[[2*plottype-1]],HighlightMode2[[2*plottype]]}*)#]&/@HighlightMode2[[plottype]]
 (*
 Which[
 plottype\[Equal]5  || plottype\[Equal]6,
@@ -5756,8 +5784,9 @@ yhistabstitle=yhisttitle;
 (*mode = 1, use some statistical quantity to estimate a reasonable x, y range*)
 (*mode = 2, fix ranges depend on their figure type (observables of data)*)
 (*mode = 3, zoom in the highlighted ranges*)
-HighlightAutoMode=1;
-(*20171111: if the xrange of the histogram is fixed by static values, set true, ex: HighlightAutoMode=2*)
+(*mode = 4, use the max, min of data as the range*)
+HistAutoMode=4;
+(*20171111: if the xrange of the histogram is fixed by static values, set true, ex: HistAutoMode=2*)
 (*
 HistAutoFixXrangeBool=False;
 *)
@@ -5782,37 +5811,50 @@ If[plotrange[[4]]=="auto",plotrange[[4]]=xQautorange[[2,2]] ];
 
 (*20170515: for statistics of total data, the all data are considered, so here Flatten the data pdfcorr*)
 (*20170515: for auto mode, correlation, deltaR, dR*correlation should have histogram of roughly 1*)
-(*20171109: set auto the hist xrange depends on HighlightAutoMode*)
+(*20171109: set auto the hist xrange depends on HistAutoMode*)
 If[
-HighlightAutoMode==1,
+HistAutoMode==1,
 If[
 plottype==2 (*|| plottype==3 || plottype==4 || plottype==5  || plottype==6*),
-histautoxrange=3*Median[Flatten[pdfcorr]/.LF1[a__]:>Abs[{a}[[3]] ] ]
+histautoxrange=3*AbsDataMedian(*Median[Flatten[pdfcorr]/.LF1[a__]:>Abs[{a}[[3]] ] ]*);
+(*20171114: histautoxrange format becomes {min,max}*)
+histautoxrange={-histautoxrange,histautoxrange};
+hist2autoxrange={0.0,histautoxrange[[2]]}
 ];
 If[
 plottype==3 || plottype==4 || plottype==5 ,
-histautoxrange=Max[3*Median[Flatten[pdfcorr]/.LF1[a__]:>Abs[{a}[[3]] ] ],1.0];
-(*20171111: if the xrange of the histogram is fixed by static values, set true, ex: HighlightAutoMode=2*)
+(*histautoxrange=Max[3*Median[Flatten[pdfcorr]/.LF1[a__]:>Abs[{a}[[3]] ] ],1.0];*)
+histautoxrange=Max[3*AbsDataMedian,1.0];
+(*20171111: if the xrange of the histogram is fixed by static values, set true, ex: HistAutoMode=2*)
 (*
 If[histautoxrange>1.0 && hist1plotrangex[[1]]\[Equal]"auto" && hist1plotrangex[[2]]\[Equal]"auto",Hist1AutoFixXrangeBool=True];
 If[histautoxrange>1.0 && hist2plotrangex[[1]]\[Equal]"auto" && hist2plotrangex[[2]]\[Equal]"auto",Hist2AutoFixXrangeBool=True]
 *)
+(*20171114: histautoxrange format becomes {min,max}*)
+histautoxrange={-histautoxrange,histautoxrange};
+hist2autoxrange={0.0,histautoxrange[[2]]}
 ];
 
 "dummy"
 ];
 
 If[
-HighlightAutoMode==2,
+HistAutoMode==2,
 If[
 plottype==2 (*|| plottype==3 || plottype==4 || plottype==5  || plottype==6*),
-histautoxrange=0.3
+histautoxrange=0.3;
+(*20171114: histautoxrange format becomes {min,max}*)
+histautoxrange={-histautoxrange,histautoxrange};
+hist2autoxrange={0.0,histautoxrange[[2]]}
 ];
 If[
 plottype==3 || plottype==4 || plottype==5 ,
-histautoxrange=3.0
+histautoxrange=3.0;
+(*20171114: histautoxrange format becomes {min,max}*)
+histautoxrange={-histautoxrange,histautoxrange};
+hist2autoxrange={0.0,histautoxrange[[2]]}
 ];
-(*20171111: if the xrange of the histogram is fixed by static values, set true, ex: HighlightAutoMode=2*)
+(*20171111: if the xrange of the histogram is fixed by static values, set true, ex: HistAutoMode=2*)
 (*
 If[hist1plotrangex[[1]]\[Equal]"auto" && hist1plotrangex[[2]]\[Equal]"auto",Hist1AutoFixXrangeBool=True];
 If[hist2plotrangex[[1]]\[Equal]"auto" && hist2plotrangex[[2]]\[Equal]"auto",Hist2AutoFixXrangeBool=True]
@@ -5820,10 +5862,29 @@ If[hist2plotrangex[[1]]\[Equal]"auto" && hist2plotrangex[[2]]\[Equal]"auto",Hist
 "dummy"
 ];
 
+If[
+HistAutoMode==4,
+If[
+plottype==2 || plottype==3 || plottype==4 || plottype==5,
+(*20171114: histautoxrange format becomes {min,max}*)
+histautoxrange={DataMin,DataMax};
+hist2autoxrange={AbsDataMin,AbsDataMax};
+(*
+histautoxrange={Min[Flatten[pdfcorr]/.LF1[a__]:>{a}[[3]] ],Max[Flatten[pdfcorr]/.LF1[a__]:>{a}[[3]] ]};
+hist2autoxrange={Min[Flatten[pdfcorr]/.LF1[a__]\[RuleDelayed]Abs[{a}[[3]] ] ],Max[Flatten[pdfcorr]/.LF1[a__]\[RuleDelayed]Abs[{a}[[3]] ] ]}
+*)
+"dummy"
+];
+
+"dummy"
+];
+
 (*for correlation histogram, always set range (-1,1)*)
-(*20171111: if the xrange of the histogram is fixed by static values, set true, ex: HighlightAutoMode=2*)
-If[plottype==6,histautoxrange=1.0(*;HistAutoFixXrangeBool=True*)];
-(*test print*)(*Print["hist auto xrange: ",histautoxrange,", plottype & HighlightAutoMode",{plottype,HighlightAutoMode}];Abort[];*)
+(*20171111: if the xrange of the histogram is fixed by static values, set true, ex: HistAutoMode=2*)
+(*20171114: histautoxrange format becomes {min,max}*)
+(*If[plottype==6,histautoxrange=1.0(*;HistAutoFixXrangeBool=True*)];*)
+If[plottype==6,histautoxrange={-1.0,1.0};hist2autoxrange={0.0,1.0}];
+(*test print*)(*Print["hist auto xrange: ",histautoxrange,", plottype & HistAutoMode",{plottype,HistAutoMode}];Abort[];*)
 (*20171106: if highlight mode on, auto range set as the range of highlight*)(*20171108: ranges of all modes are the same*)
 (*
 If[
@@ -5832,11 +5893,19 @@ histautoxrange=1.1*highlightrange[[2]]
 ];
 *)
 
-If[hist1plotrangex[[1]]=="auto",hist1plotrangex[[1]]=-histautoxrange];
-If[hist1plotrangex[[2]]=="auto",hist1plotrangex[[2]]=histautoxrange];
+If[
+plottype==2 || plottype==3 || plottype==4 || plottype==5 || plottype==6,
+(*20171114: histautoxrange format becomes {min,max}*)
+hist2plotrangex=hist1plotrangex;
+If[hist1plotrangex[[1]]=="auto",hist1plotrangex[[1]]=histautoxrange[[1]] ];
+If[hist1plotrangex[[2]]=="auto",hist1plotrangex[[2]]=histautoxrange[[2]] ];
+If[hist2plotrangex[[1]]=="auto",hist2plotrangex[[1]]=hist2autoxrange[[1]] ];
+If[hist2plotrangex[[2]]=="auto",hist2plotrangex[[2]]=hist2autoxrange[[2]] ];
 (*Print[histautoxrange,hist1plotrangex];*)
 
-hist2plotrangex=hist1plotrangex;If[hist2plotrangex[[1]]<0.0,hist2plotrangex[[1]]=0.0];
+If[hist2plotrangex[[1]]<0.0,hist2plotrangex[[1]]=0.0];
+"dummy"
+];
 
 
 (*=============================================================================================================================*)
@@ -5879,10 +5948,19 @@ binset={Table[i*hist1plotrangex[[2]]/20.0,{i,-100,100}]};
 (*=============================================================================================================================*)
 (*2DxQ: color palette and color bar============================================================================================================*)
 (*=============================================================================================================================*)
-
+(*20171114: different mode for color palette*)
+(*mode 1 depends on some statistical quantities of the data*)
+(*mode 2: fix palette by plot type*)
+(*mode 3: depend on highlight range*)
+(*mode 4: depend on max and min of data*)
+(*mode 5: depend on the range of histogram*)
+(*mode 6: depend on the percentage of |data|*)
+ColorPaletteMode=5;
 (*20170515: for statistics of total data, the all data are considered, so here Flatten the data pdfcorr*)
 If[
- plottype==2 || plottype==3 || plottype==4 || plottype==5,
+ColorPaletteMode==6,
+If[
+ plottype==2 || plottype==3 || plottype==4 || plottype==5 || plottype==6,
 legendlabel="";
 barseperator=GetDataPercentage[Flatten[pdfcorr]/.LF1[a__]:>Abs[{a}[[3]] ] ,Join[ColorSeperator,{100}] ];(*20170606make sure 100% data included*)barseperator[[4]]=1.001*barseperator[[4]];
 barseperator={-barseperator[[4]],-barseperator[[3]],-barseperator[[2]],-barseperator[[1]],barseperator[[1]],barseperator[[2]],barseperator[[3]],barseperator[[4]]};
@@ -5892,7 +5970,11 @@ epilogxQ={Npttext,(*maxtext,maxmarker,mintext,minmarker*)percentagetext};
 (*corr plot cut by |data|<0.5*)
 ];
 
+"dummy"
+];
 
+If[
+ColorPaletteMode==2,
 If[
 plottype==6,
 legendlabel="";
@@ -5943,12 +6025,52 @@ epilogxQ={Npttext};
 "dummy"
 ];
 
+"dummy"
+];
+
+(*20171115 color palette by histogram range*)
+If[
+ColorPaletteMode==5,
+If[
+ plottype==3 || plottype==5,
+legendlabel="";
+barseperator=Table[DataMin+isep*(DataMax-DataMin)/7.0,{isep,0,7}];
+barseperator[[-1]]=barseperator[[-1]]*1.001;(*add a width*)
+epilogxQ={Npttext};
+
+"dummy"
+(*corr plot cut by |data|<0.5*)
+];
+
+If[
+ plottype==2 ||  plottype==4,
+legendlabel="";
+barseperator=Table[isep*(AbsDataMax)/4.0,{isep,0,4}];
+barseperator[[-1]]=barseperator[[-1]]*1.001;(*add a width*)
+epilogxQ={Npttext};
+
+"dummy"
+(*corr plot cut by |data|<0.5*)
+];
+
+If[
+plottype==6,
+legendlabel="";
+barseperator={-1,-0.85,-0.7,-0.5,0.5,0.7,0.85,1};
+epilogxQ={Npttext};
+
+"dummy"
+(*corr plot cut by |data|<0.5*)
+];
+
+"dummy"
+];
+
 (*plot type 1: just need barseperator so that function doesn't break*)
 If[
 plottype==1,
 barseperator={-1,-0.85,-0.7,-0.5,0.5,0.7,0.85,1};
 ];
-
 (*20170517: if highlight mode = 1 && not correlation data, then if highlight uplimit > max of data, automatically adjust it to the max of the data*)
 (*20171106: don't choose max of data as highlightrange[[2]], just use the input number*)
 (*
@@ -6014,7 +6136,8 @@ If[
 rows=3;
 exptnames=Table[ExptIDtoName[Flatten[exptlist][[iexpt]] ]<>"("<>ToString[Flatten[exptlist][[iexpt]] ]<>")",{iexpt,1,Length[exptlist//Flatten]}];
 Print["making table of experiments included in plots"];
-exptnamestable=makeGrid2[exptnames,rows,title<>"\n\n"];
+datemode=False;
+exptnamestable=makeGrid2[exptnames,rows,title<>"\n\n",datemode];
 "dummy"
 ];
 
@@ -6163,8 +6286,8 @@ histplotcorr1=histplot4[Flatten[pdfcorr]/.LF1[a__]:>{a}[[3]],histtitle,xhisttitl
 (*hist1: data with absolute(|data|)*)
 histplotcorr2=histplot4[Flatten[pdfcorr]/.LF1[a__]:>Abs[{a}[[3]] ],histabstitle,xhistabstitle,yhistabstitle,binset,(*Take[lineelement,-3]*)lineelement2,hist2plotrangex,Hist1figureNbin];
 *)
-histplotcorr1=histplot5[Flatten[pdfcorr]/.LF1[a__]:>{a}[[3]],title,xtitle,ytitle,hist1plotrange,BinWidth,hist1epilogtext];
-histplotcorr2=histplot5[Flatten[pdfcorr]/.LF1[a__]:>Abs[{a}[[3]] ],title,xtitle,ytitle,hist2plotrange,BinWidth,hist2epilogtext];
+histplotcorr1=histplot5[Flatten[pdfcorr]/.LF1[a__]:>{a}[[3]],histtitle,xhisttitle,yhisttitle,hist1plotrange,BinWidth,hist1epilogtext];
+histplotcorr2=histplot5[Flatten[pdfcorr]/.LF1[a__]:>Abs[{a}[[3]] ],histabstitle,xhistabstitle,yhistabstitle,hist2plotrange,BinWidth,hist2epilogtext];
 "dummy"
 ];
 
