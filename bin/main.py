@@ -90,12 +90,14 @@ def reset():
     [[i.set(0) for i in j] for j in checks[:-4]]
     [[i.set(1) for i in j] for j in checks[-4:]]
     [i.delete(0,tk.END) for i in texts]
+    global selectall
+    selectall.set(0)
 
 def changeHL(one,two,three):
     global third
     third.grid_forget()
     third = tk.Frame(figuresCell)
-    third.grid(row=2,column=1,pady="10")
+    third.grid(row=1,column=3,pady="10")
     if hlmode.get() == 0:
         options = pointsizes
         var = pointsize
@@ -226,6 +228,7 @@ def changeR4(one,two,three):
 def changeExp(one,two,three):
     global experiments
     global expids
+    global checks
     if pdfset.get() == 0:
         expidFile = open("./exptidname_inconfig.txt","r")
         experiments = [i.split() for i in expidFile.readlines()]
@@ -241,7 +244,11 @@ def changeExp(one,two,three):
     experimentsCell.grid_forget()
     experimentsCell = tk.Frame(table,padx="8",pady="8")
     experimentsCell.grid(row=0,column=1,columnspan=3)
-    tk.Label(experimentsCell,text="Experiments to include:").grid(row=0,columnspan=int(numcols))
+    tk.Label(experimentsCell,text="Experiments to include:").grid(row=0,column=0,columnspan=2)
+    global selectall
+    selectall = tk.IntVar()
+    selectall.trace('w',selectAll)
+    tk.Checkbutton(experimentsCell,text="Select all",variable=selectall).grid(row=0,column=2)
     experiment = [tk.IntVar() for i in range(len(experiments))]
     checks[0] = experiment
     for e in range(len(experiments)):
