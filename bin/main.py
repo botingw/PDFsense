@@ -225,6 +225,7 @@ def changeR4(one,two,three):
 
 def changeExp(one,two,three):
     global experiments
+    global expids
     if pdfset.get() == 0:
         expidFile = open("./exptidname_inconfig.txt","r")
         experiments = [i.split() for i in expidFile.readlines()]
@@ -242,7 +243,7 @@ def changeExp(one,two,three):
     experimentsCell.grid(row=0,column=1,columnspan=3)
     tk.Label(experimentsCell,text="Experiments to include:").grid(row=0,columnspan=int(numcols))
     experiment = [tk.IntVar() for i in range(len(experiments))]
-    checks.append(experiment)
+    checks[0] = experiment
     for e in range(len(experiments)):
         tk.Checkbutton(experimentsCell,text=experiments[e],variable=experiment[e]).grid(row=int(e%(len(experiments)/numcols)+1),column=int(e/(len(experiments)/numcols)))
 
