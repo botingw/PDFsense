@@ -3433,7 +3433,7 @@ If
 Intersection[({a}[[3]]>=#[[1]] && {a}[[3]]<#[[2]])&/@highlightrange,{True}]=={True} || highlightrange=={{0.0,0.0}},
 (*If[ {a}[[3]]<Max[barseperator]&&{a}[[3]]>Min[barseperator],Red,Black]*)
 If[{a}[[3]]<barmax&&{a}[[3]]>barmin,Setbarcolorfunc2[barcolor,barseperator,{a}[[3]] ],If[{a}[[3]]>=barmax,Red,Blue](*outlayer*) ],
-(*print tst*)Print[highlightrange];(*Gray*)RGBColor[0.6,0.6,0.6]
+(*Gray*)RGBColor[0.6,0.6,0.6]
 ]
 ],
 {igroup,1,Length[datain]}]//Flatten
@@ -5667,6 +5667,8 @@ pdfcorr=Table[Datamethods[["take"]][#[[iexpt,flavourin+6]],2][["data"]]/.LF->LF1
 (*=============================================================================================================================*)
 (*20171115*)
 {HistDataList,HistAbsDataList,DataMax,DataMin,AbsDataMax,AbsDataMin,DataMean,AbsDataMean,DataMedian,AbsDataMedian,DataSD,AbsDataSD};
+If[
+plottype==2 || plottype==3 || plottype==4 || plottype==5 || plottype==6,
 HistDataList=Flatten[pdfcorr]/.LF1[a__]:>{a}[[3]];
 HistAbsDataList=Flatten[pdfcorr]/.LF1[a__]:>Abs[{a}[[3]] ];
 DataMax=Max[HistDataList];
@@ -5679,6 +5681,8 @@ DataMedian=Median[HistDataList];
 AbsDataMedian=Median[HistAbsDataList];
 DataSD=StandardDeviation[HistDataList];
 AbsDataSD=StandardDeviation[HistAbsDataList];
+"dummy"
+];
 (*=============================================================================================================================*)
 (*Highlight range setting============================================================================================================*)
 (*=============================================================================================================================*)
@@ -5686,6 +5690,7 @@ AbsDataSD=StandardDeviation[HistAbsDataList];
 (*for no highlight mode, choose size of data point in plot by Size
 for highlight mode, set size of unhighlighted data as Size, size of highlighted data is larger than Size*)
 (*==============================*)
+
 highlightrange=
 Switch[
 HighlightMode[[plottype]],
