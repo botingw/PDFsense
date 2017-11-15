@@ -2921,15 +2921,22 @@ output
 (* ::Input::Initialization:: *)
 (*make exptname table jpg*)
 (*input a List of string (exptnames), #row for every column and title for this table, output a Grid of string with #row*#column *)
-makeGrid2[strin_,rowsin_,titlein_]:=
-Module[{str=strin,rows=rowsin,title=titlein,columns,
-lastcolstr,strout},
+(*20171114: add date mode for track, if datemode = "True", write the date, False, don't write the date*)
+makeGrid2[strin_,rowsin_,titlein_,datemodein_]:=
+Module[{str=strin,rows=rowsin,title=titlein,datemode=datemodein,columns,
+lastcolstr,strout,datestring},
 columns=Quotient[Length[str],rows];
 strout=Table[str[[ic*rows+ir]],{ic,0,columns-1},{ir,1,rows}];
 lastcolstr=Table[str[[i]],{i,columns*rows+1,Length[str]}];
 strout=Append[strout,lastcolstr];
 strout=Insert[strout,{Text[Style[title,FontSize->24] ],SpanFromLeft},1];
 strout=Insert[strout,{"Data Sets"},2];
+(*20171114: add date for track*)
+If[
+datemode==True,
+datestring=DateString[{"Month","/","Day","/","Year"," ","Hour",":","Minute",":","Second"}];
+strout=Insert[strout,{Text[Style[datestring,FontSize->10] ],SpanFromLeft},-1]
+];
 Grid[strout,ItemStyle->Directive[FontSize->18,Black],ItemSize->14,Alignment->Left]
 ];
 
@@ -3237,7 +3244,7 @@ positivedivid,negativedivid},
 greycolor=Lighter[ColorData[30,"ColorList"][[5]],0.5];
 
 If[highlightrange[[1]]<0.0 || highlightrange[[2]]<highlightrange[[1]],Print["error, highlight range should be {min, max} and min should >= 0"];Quit[] ];
-barseperator={highlightrange[[1]],,,highlightrange[[2]]};
+(*barseperator={highlightrange[[1]],,,highlightrange[[2]]};*)(*20171114: for warning message*)
 (*set bar the seperator in highlight range*)
 positivedivid=Table[highlightrange[[1]]+(i-1)*(highlightrange[[2]]-highlightrange[[1]])/3,{i,1,4}];
 negativedivid=(-positivedivid);
@@ -3421,11 +3428,12 @@ If
 (*
 ({a}[[3]]>=highlightrange[[1]] && {a}[[3]]<highlightrange[[2]]) || ({a}[[3]]\[GreaterEqual](-highlightrange[[2]]) && {a}[[3]]<(-highlightrange[[1]]) )
 *)
-(*20171109: for new convention of highlight range: if a point is in any highlight range, give color on the palette to it, otherwise give gray color*)          
-Intersection[({a}[[3]]>=#[[1]] && {a}[[3]]<#[[2]])&/@highlightrange,{True}]=={True},
+(*20171109: for new convention of highlight range: if a point is in any highlight range, give color on the palette to it, otherwise give gray color*) 
+(*20171114: fix the bug: when highlight mode = 0 (no highlight), also give points color by their color palette*)         
+Intersection[({a}[[3]]>=#[[1]] && {a}[[3]]<#[[2]])&/@highlightrange,{True}]=={True} || highlightrange=={{0.0,0.0}},
 (*If[ {a}[[3]]<Max[barseperator]&&{a}[[3]]>Min[barseperator],Red,Black]*)
 If[{a}[[3]]<barmax&&{a}[[3]]>barmin,Setbarcolorfunc2[barcolor,barseperator,{a}[[3]] ],If[{a}[[3]]>=barmax,Red,Blue](*outlayer*) ],
-(*Gray*)RGBColor[0.6,0.6,0.6]
+(*print tst*)Print[highlightrange];(*Gray*)RGBColor[0.6,0.6,0.6]
 ]
 ],
 {igroup,1,Length[datain]}]//Flatten
@@ -5580,7 +5588,8 @@ lineelement2,maxdata,
 barlegend,
 histtitle,histabstitle,yhistabstitle,HighlightAutoMode,userdifinefuncfilename,
 hist1plotrangey,hist2plotrangey,BinWidth,hist1plotrange,hist2plotrange,highlightlines,
-xmintmp,xmaxtmp,ymintmp,hist1epilogtext,hist2epilogtext,hist1standardlines,hist2standardlines,LineWidth,HistAutoFixXrangeBool},
+xmintmp,xmaxtmp,ymintmp,hist1epilogtext,hist2epilogtext,hist1standardlines,hist2standardlines,LineWidth,HistAutoFixXrangeBool,
+datemode},
 (*read arguments in config file*)
 (*==============================*)
 {Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
@@ -6014,7 +6023,8 @@ If[
 rows=3;
 exptnames=Table[ExptIDtoName[Flatten[exptlist][[iexpt]] ]<>"("<>ToString[Flatten[exptlist][[iexpt]] ]<>")",{iexpt,1,Length[exptlist//Flatten]}];
 Print["making table of experiments included in plots"];
-exptnamestable=makeGrid2[exptnames,rows,title<>"\n\n"];
+datemode=False;
+exptnamestable=makeGrid2[exptnames,rows,title<>"\n\n",datemode];
 "dummy"
 ];
 
