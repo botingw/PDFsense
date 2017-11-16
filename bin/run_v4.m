@@ -93,7 +93,8 @@ Module[{(*runfunc,figureDir,myPDFsetDir,PDFsetmethod,PDFname,PDFDataDir,datalist
 Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,UserArgName,UserArgValue,
 XQfigureXrange,XQfigureYrange,Hist1figureNbin,Hist1figureXrange,Hist1figureYrange,
 ColorSeperator,
-Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2
+Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2,
+UserArgFunction(*20171116*)
 },
 Print["begin function"];
 (*set input arguments *)
@@ -433,12 +434,21 @@ PdsDir=
 pdfFamilyParseCTEQ["../fakePDFset/"<>PDFname<>"/"<>"*pds",ifamily];
 *)
 
+(*20171116: for new convention of user define function: read it's library first, then define global variable for List data of f(x,Q)*)
+(*Get["user_define_function.m"];*)
+fxQlist=Table[fxQsamept2classfinal[[iexpt,iflavour]][["data"]],{iexpt,Dimensions[fxQsamept2classfinal][[1]]},{iflavour,Dimensions[fxQsamept2classfinal][[2]]}];
 (*20171109: seperate user difine function/data IO and configure file*)
 userdifinefuncfilename="user_define_func.txt";
-{UserArgName,UserArgValue}=ReadUserFunction[configDir,userdifinefuncfilename];
+{UserArgName,UserArgFunction}=ReadUserFunctionV2[configDir,userdifinefuncfilename];
+(*20171116: new convention of user define function and new way to add it as new flavour*)
+(*new flavour*)
+fxQdataNewFlavour=UDFToClass[UserArgFunction,fxQsamept2classfinal];
+(*add new flavour to fxQ class for each expt ID*)
+fxQsamept2classfinal=Append[fxQsamept2classfinal[[#]],fxQdataNewFlavour[[#]] ]&/@Range[fxQsamept2classfinal//Length];
+(*
 (*check the # of user define values is the same as # of PDF replicas*)
 If[
-Length[UserArgValue]!=(Datamethods[["getNcolumn"]][fxQsamept2classfinal[[1,1]] ]-2),
+Length[UserArgValue]\[NotEqual](Datamethods[["getNcolumn"]][fxQsamept2classfinal[[1,1]] ]-2),
 Print["error, the # of user-defined values should be the same as # of PDF relicas (Nset)"];
 Print["Nset = ",(Datamethods[["getNcolumn"]][fxQsamept2classfinal[[1,1]] ]-2) ];
 Print["#user-defined values = ", Length[UserArgValue] ];
@@ -447,12 +457,14 @@ Abort[]
 (*append data of uservalue to fxQsamept2classfinal for each expt ID*)
 Table[
 tmpclass=fxQsamept2classfinal[[iexpt,1]];
-tmpclass[["data"]]=tmpclass[["data"]]/.LF[a__]:>LF[{a}[[1]],{a}[[2]],Sequence@@UserArgValue];
+tmpclass[["data"]]=tmpclass[["data"]]/.LF[a__]\[RuleDelayed]LF[{a}[[1]],{a}[[2]],Sequence@@UserArgValue];
 fxQsamept2classfinal[[iexpt]]=Append[fxQsamept2classfinal[[iexpt]],tmpclass];
 tmpclass,
 {iexpt,1,Length[fxQsamept2classfinal]}
 ];
+*)
 ];
+
 
 fmax=Length[fxQsamept2classfinal[[1]] ];
 Print["total #flavours: ",fmax];

@@ -76,11 +76,12 @@ def submit():
 
         configFile.close()
 
+        ##20171116 botingw: new way to run uesr define function is not inputting from python script   
         #Write user defined values file
-        userFile = file("./user_define_func.txt","w")
-        userFile.write("Name: "+alltexts[4]+"\n")
-        userFile.write("Values: "+alltexts[5]+"\n\n")
-        userFile.close()
+#        userFile = file("./user_define_func.txt","w")
+#        userFile.write("Name: "+alltexts[4]+"\n")
+#        userFile.write("Values: "+alltexts[5]+"\n\n")
+#        userFile.close()
 
         #os.system("cat ./config1.txt")
         os.system("python2 genScript.py "+jobID+" &")
@@ -225,6 +226,7 @@ def changeR4(one,two,three):
 
 def changeExp(one,two,three):
     global experiments
+    global expids
     if pdfset.get() == 0:
         expidFile = open("./exptidname_inconfig.txt","r")
         experiments = [i.split() for i in expidFile.readlines()]
@@ -242,7 +244,7 @@ def changeExp(one,two,three):
     experimentsCell.grid(row=0,column=1,columnspan=3)
     tk.Label(experimentsCell,text="Experiments to include:").grid(row=0,columnspan=int(numcols))
     experiment = [tk.IntVar() for i in range(len(experiments))]
-    checks.append(experiment)
+    checks[0] = experiment
     for e in range(len(experiments)):
         tk.Checkbutton(experimentsCell,text=experiments[e],variable=experiment[e]).grid(row=int(e%(len(experiments)/numcols)+1),column=int(e/(len(experiments)/numcols)))
 
@@ -363,7 +365,8 @@ functionsCell = tk.Frame(table,padx="8",pady="8")
 functionsCell.grid(row=2,columnspan=2)
 tk.Label(functionsCell,text="Functions to use in correlations:").grid(row=0,column=0)
 user = [tk.IntVar()]
-user[0].trace('w',changeFunc)
+#20171116 botingw: new way to set user define function is by writing comment in user_define_func.txt, not by the user inputs in python script
+##user[0].trace('w',changeFunc)
 checks.append(user)
 tk.Checkbutton(functionsCell,text="user",variable=user[0]).grid(row=1,column=0,sticky='w')
 

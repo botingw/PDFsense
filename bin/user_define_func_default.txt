@@ -1,0 +1,11 @@
+##the Name of user define function will show in the title of output figures 
+Name: Asym(u(x,mu))
+
+##when executable run user define function, users can customize the function in Corr(ri, Func) for plotting. For example, Func == u/d, ubar/dbar, etc
+##users can use FxQTest[iexpt,iflavour,ipt,iset] to describe f(x, Q) of selected experiments, flavour, data point index, replica index
+##where the f(x,Q) data structure in the executable is [[iexpt,iflavour]], for each element: [["data"]]={LF[x,Q,f(1),...f((Nset)], LF[...], ...} 
+##{ibbar, icbar, isbar, idbar, iubar, ig, iu, id, is, ic, ib} = {-5......5}
+## the customize function could also be a List with Length = total# of replicas of the selected PDFset
+##e.g. for CT14NNLO, Nset = 57, so we can input {val1,......,val57}  
+Function: (FxQTest["All", iu, "All", "All"]-FxQTest["All", iubar, "All", "All"])/(FxQTest["All", iu, "All", "All"]+FxQTest["All", iubar, "All", "All"])
+
