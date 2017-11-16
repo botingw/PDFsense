@@ -9,3 +9,4 @@ Name: Asym(u(x,mu))
 ##e.g. for CT14NNLO, Nset = 57, so we can input {val1,......,val57}  
 #Function: (FxQTest["All", iu, "All", "All"]-FxQTest["All", iubar, "All", "All"])/(FxQTest["All", iu, "All", "All"]+FxQTest["All", iubar, "All", "All"])
 Function: (FxQ[iu]-FxQ[iubar])/(FxQ[iu]+FxQ[iubar])
+

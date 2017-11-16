@@ -2380,6 +2380,51 @@ UserArgValue=ReadList[StringToStream[UserArgValue],Number];
 {UserArgName,UserArgValue}
 ]
 
+(*20171116*)
+(*read user define function or data, input filename and output user define function, the function coulld be the Mathematica format function*)
+ReadUserFunctionV2[UserFuncDirin_,UserFuncfilenamein_]:=
+Module[{UserFuncDir=UserFuncDirin,UserFuncfilename=UserFuncfilenamein,
+UserArgNameTag,UserArgFunctionTag,UserArgName,UserArgFunction,
+itag,s,output,output2,output3
+},
+
+UserArgNameTag="Name";
+UserArgFunctionTag="Function";
+
+
+UserArgName="unset";
+UserArgFunction="unset";
+
+
+(*read config file line by line into list*)
+s=OpenRead[UserFuncDir<>UserFuncfilename];
+output=ReadList[s,String];
+Close[s];
+
+(*delete comments: with "#" at begining of line*)
+output2={};
+Table[
+If[StringTake[output[[i]],1]!="#",output2=Append[output2,output[[i]] ] ];
+"dummy"
+,{i,1,Length[output]}
+];
+(*seperate the tag of configure file and arguments by ":"*)
+output3=Table[StringSplit[output2[[i]],":"],{i,1,Length[output2]}];
+
+(*check tag exist, if a tag exist, read arguments corresponding to that tag*)
+(*read UserArgName*)
+itag=1;
+If[output3[[itag,1]]==UserArgNameTag,UserArgName=output3[[itag,2]] ];
+Head[UserArgName];
+(*read UserArgFunction*)
+itag=itag+1;
+If[output3[[itag,1]]==UserArgFunctionTag,UserArgFunction=output3[[itag,2]] ];
+Head[UserArgFunction];
+UserArgFunction=Read[StringToStream[UserArgFunction],Expression];
+
+{UserArgName,UserArgFunction}
+]
+
 
 (* ::Chapter:: *)
 (*plot class*)
@@ -5598,9 +5643,9 @@ XQfigureXrange,XQfigureYrange,Hist1figureNbin,Hist1figureXrange,Hist1figureYrang
 ColorSeperator,
 Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}=configarguments;
 
-(*20171109: seperate user difine function/data IO and configure file*)
+(*20171109: seperate user difine function/data IO and configure file*)(*20171116: ->ReadUserFunctionV2, which read Expression from the file*)
 userdifinefuncfilename="user_define_func.txt";
-{UserArgName,UserArgValue}=ReadUserFunction["./",userdifinefuncfilename];
+{UserArgName,UserArgValue}=ReadUserFunctionV2["./",userdifinefuncfilename];
 
 (*20171109: shorten the tiles of figures*)
 If[PDFname=="2017.1008.0954.-0500_CT14HERA2-jet.ev",PDFname="CT14HERA2-jet.ev"];
@@ -7346,3 +7391,189 @@ MergePDFfiles[filelistnew];Print[filelistnew];
 Run["mv allfigs.pdf "<>PlotDir];
 "dummy"
 ]
+
+
+(* ::Section:: *)
+(*for user define function *)
+
+
+(* ::Subsection:: *)
+(*Read f(x,Q) for specific Expt ID, flavour, point, replica index*)
+
+
+(* ::Input::Initialization:: *)
+{ibbar,icbar,isbar,idbar,iubar,ig,iu,id,is,ic,ib}=Range[-5,5,1]
+
+
+(* ::Input::Initialization:: *)
+(*this function extract the specific part of PDF data in fxQlist, where fxQlist is [[iexpt,iflavour,ipt]] List, each element is LLF[x,Q,fSubscript[(x,Q), 1],,,fSubscript[(x,Q), Nset]]*)
+(*global variable: fxQlist*)
+(*for input format [[iExpt,iFlavour,iPt]] = LF[x,Q,fSubscript[(x,Q), 1],,,fSubscript[(x,Q), Nset]], input iExpt,iFlavour,iPt, iSet, output the corresponding f(x,Q)*)
+(*
+iExpt,iFlavour,iPt, iSet could be index numbers or "All", if "All", the function output all data for that index  
+e.g. iExpt="All": select all experiments, iFlavour="All": select data of all flavours, iPt="All": select all points, iSet="All": select all replicas
+iExpt=1, the first experiment in fxQlist (fxQlist[[1]] )
+iFlavour=-5~5, bbar ~ b
+iPt=1, the first data point
+iSet=1, the central set f(x,Q)
+
+*)
+(*
+output: FxQTest[iExpt,"All",iPt,"All"] return a List of PDF values with dimensions = [[iflavour,iset]] for (iExpt,iPt)
+e.g. 
+*)
+
+FxQTest[iExptin_,iFlavourin_,iPtin_,iSetin_]:=
+Module[{iExpt=iExptin,iFlavour=iFlavourin,iPt=iPtin,iSet=iSetin,NExpt,NFlavour,NPt,NSet,output,Nlayer},
+output=fxQlist;
+(*check input*)
+NExpt=Dimensions[output][[1]];
+NFlavour=Dimensions[output][[2]];
+If[iExpt!="All",NPt=Length[output[[iExpt,1]] ],NPt=Min[Length[#[[1]] ]&/@output ] ];
+NSet=Length[output[[1,1,1]] ]-2;
+(*y default, #flavour = 11 (bbar to b)*)
+NFlavour=11;
+If[iExpt>NExpt,Print["error, the input iExpt > # of expts ",NExpt];Quit[] ];
+If[(iFlavour+6)>NFlavour,Print["error, the input iExpt > # of flavours ",NFlavour];Quit[] ];
+If[iPt>NPt,Print["error, the input iExpt > # of points ",NPt];Quit[] ];
+If[iSet>NSet,Print["error, the input iExpt > # of replicas ",NSet];Quit[] ];
+(*output*)
+Nlayer=0;
+If[iExpt!="All",output=output[[iExpt]],Nlayer=Nlayer+1 ];(*if iExpt \[Equal] "All", layer = [[iExpt,...]], if iExpt\[NotEqual]"All", layer = [[iflavour,...]]*)
+If[iFlavour!="All",output=Map[#[[iFlavour+6]]&,output,{Nlayer}],Nlayer=Nlayer+1 ];
+If[iPt!="All",output=Map[#[[iPt]]&,output,{Nlayer}],,Nlayer=Nlayer+1 ];
+If[iSet!="All",output=output/.LF[x_,Q_,a__]:>LF[x,Q,{a}[[iSet]] ],Nlayer=Nlayer+1 ];
+(*
+If[iPt\[NotEqual]"All",output=Map[#[[iPt]]&,output,{2}] ];
+
+If[iFlavour\[NotEqual]"All",output=Map[#[[iFlavour+6]]&,output,{1}] ];
+If[iExpt\[NotEqual]"All",output=output[[iExpt]] ];
+*)
+(*output*)
+output/.LF[x_,Q_,a__]:>{a}
+]
+
+(*define top level f(x,Q) function for users*)
+
+FxQ[iFlavourin_]:=FxQTest["All",iFlavourin,"All","All"];
+FxQ[iExptin_,iFlavourin_,iPtin_,iSetin_]:=FxQTest[iExptin,iFlavourin,iPtin,iSetin];
+
+
+
+(* ::Subsection:: *)
+(*transform the format of user define function to fxQ class List [[iexpt]]*)
+
+
+(* ::Input::Initialization:: *)
+(*this function input the user define function then define it as a new flavour index data*)
+(*input 
+UserDefFuncData, the data read from user define function
+fxQdataclasslist: format = [[iexpt,iflavour]], [["data"]]={LF[x,Q,fSubscript[(x,Q), 1],...fSubscript[(x,Q), Nset]],LF[x,Q,fSubscript[(x,Q), 1],...fSubscript[(x,Q), Nset]],...}
+*)
+(*
+output:
+if user define function is {Nset values}, the new flavour data is {Nset values} for every point ipt
+if user define function is [[iexpt,ipt]], each element = {Nset values}, the Nset data of points of the new flavour is 
+the {Nset values} for the corresponding [[iexpt,ipt]] 
+output format: [[iexpt]] of fxQ class
+*)
+(*
+example of the case 1 is like the error sets of an physical observable
+example of the case 1 is like the data of combination of flavours such as u/d for each point and experiment
+*)
+
+UDFToClass[UserDefFuncDatain_,fxQdataclasslistin_]:=
+Module[{UserDefFuncData=UserDefFuncDatain,fxQdataclasslist=fxQdataclasslistin,DataFormatMode,tmpclass,Nset,Nexpt,x,Q,output},
+(*format of data*)
+(*1 for case 1, 2 for case 2*)
+DataFormatMode="unset";
+
+Nset=Length[fxQdataclasslist[[1,1]][["label"]] ]-2;
+Nexpt=Length[fxQdataclasslist];
+(*check the user define function is {Nset values}*)
+If[Head[UserDefFuncData]==List && Dimensions[UserDefFuncData]=={Nset},DataFormatMode=1];
+
+(*check the user define function is [[iexpt,ipt]], each element = {Nset}*)
+If[Head[UserDefFuncData]==List && Dimensions[UserDefFuncData][[1]]==Nexpt && Length[UserDefFuncData[[1,1]] ]==Nset ,DataFormatMode=2];
+Print["mode: ",DataFormatMode];
+Print[Head[UserDefFuncData]," ",Dimensions[UserDefFuncData][[1]]," ",Length[UserDefFuncData[[1,1]] ]];
+Print["List, ","Next: ",Nexpt,", Nset: ",Nset];
+
+If[DataFormatMode!=1 && DataFormatMode!=2,Print["error, the input user define function data is not correct"];Abort[] ];
+
+(*for input is {Nset of values}*)
+(*append data of user define function to fxQ class for each expt ID*)
+If[
+DataFormatMode==1,
+output=
+Table[
+tmpclass=fxQdataclasslist[[iexpt,1]];
+tmpclass[["data"]]=tmpclass[["data"]]/.LF[a__]:>LF[{a}[[1]],{a}[[2]],Sequence@@UserDefFuncData];
+(*fxQdataclasslist[[iexpt]]=Append[fxQdataclasslist[[iexpt]],tmpclass];*)
+tmpclass,
+{iexpt,1,Nexpt}
+];
+"dummy"
+];
+
+(*for input is [[iexpt,ipt]]{Nset of values}*)
+(*append the corresponding {Nset of values} to each fxQ class [[iexpt,ipt]]*)
+If[
+DataFormatMode==2,
+output=
+Table[
+tmpclass=fxQdataclasslist[[iexpt,1]];
+Table[
+x=tmpclass[["data"]][[ipt]][[1]];Q=tmpclass[["data"]][[ipt]][[2]];
+tmpclass[["data"]][[ipt]]=LF[x,Q,Sequence@@UserDefFuncData[[iexpt,ipt]] ],
+{ipt,1,Length[fxQdataclasslist[[iexpt,1]][["data"]] ]}
+];
+(*fxQdataclasslist[[iexpt]]=Append[fxQdataclasslist[[iexpt]],tmpclass]*)
+tmpclass,
+{iexpt,Nexpt}
+];
+"dummy"
+];
+
+(*put data *)
+output
+]
+
+
+(* ::Subsection:: *)
+(*Example*)
+
+
+(* ::Input:: *)
+(*fxQfile="/home/botingw/Downloads/xqplotter-20171105_color_palette_fix/quick_data/fxQNset_samept_data_CT14NNLO.dat"*)
+(*fxQdata=Get[fxQfile];*)
+(*fxQlist=Table[fxQdata[[iexpt,iflavour]][["data"]],{iexpt,Dimensions[fxQdata][[1]]},{iflavour,Dimensions[fxQdata][[2]]}];*)
+
+
+(* ::Input:: *)
+(*iExpt=10;iFlavour=iu;iPt=3;iSet=5;*)
+(*iFlavour*)
+
+
+(* ::Input:: *)
+(*FxQTest[iExpt,iFlavour,iPt,"All"]*)
+(*fxQlist[[iExpt,iFlavour+6,iPt]]*)
+
+
+(* ::Input:: *)
+(*FxQTest[iExpt,iFlavour,"All",iSet][[iPt]]*)
+(*fxQlist[[iExpt,iFlavour+6,iPt]][[iSet+2]]*)
+
+
+(* ::Input:: *)
+(*FxQTest["All","All","All","All"][[iExpt,iFlavour+6,iPt]]*)
+(*fxQlist[[iExpt,iFlavour+6,iPt]]/.LF[a__]:>Drop[{a},2]*)
+
+
+(* ::Input:: *)
+(*pdfHessianCorrelationfake[{1},{35.1}]*)
+(*pdfHessianCorrelationfake[FxQTest[iExpt,iu,iPt,"All"],FxQTest[iExpt,iu,iPt,"All"] ]*)
+(*pdfHessianCorrelationfake[FxQTest[iExpt,iu,iPt,"All"],FxQTest[iExpt,id,iPt,"All"] ]*)
+
+
+
