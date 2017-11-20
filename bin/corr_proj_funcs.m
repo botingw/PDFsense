@@ -7499,28 +7499,50 @@ Run["mv allfigs.pdf "<>PlotDir];
 
 (* ::Input::Initialization:: *)
 (*this function extract the specific part of PDF data in fxQlist, where fxQlist is [[iexpt,iflavour,ipt]] List, each element is LLF[x,Q,fSubscript[(x,Q), 1],,,fSubscript[(x,Q), Nset]]*)
-(*global variable: fxQlist*)
-(*for input format [[iExpt,iFlavour,iPt]] = LF[x,Q,fSubscript[(x,Q), 1],,,fSubscript[(x,Q), Nset]], input iExpt,iFlavour,iPt, iSet, output the corresponding f(x,Q)*)
+(*global variable: fxQlist, fxQDatabaselist, fxQDatabaseExptlist*)
+(*for input data format [[iExpt,iFlavour,iPt]] = LF[x,Q,fSubscript[(x,Q), 1],,,fSubscript[(x,Q), Nset]], input ExptID,iFlavour,iPt, iSet, output the corresponding f(x,Q)*)
 (*
-iExpt,iFlavour,iPt, iSet could be index numbers or "All", if "All", the function output all data for that index  
-e.g. iExpt="All": select all experiments, iFlavour="All": select data of all flavours, iPt="All": select all points, iSet="All": select all replicas
-iExpt=1, the first experiment in fxQlist (fxQlist[[1]] )
+ExptID,iFlavour,iPt, iSet could be index numbers or "All", if "All", the function output all data for that index  
+e.g. ExptID="All": select all experiments (in the config1.txt), iFlavour="All": select data of all flavours, iPt="All": select all points, iSet="All": select all replicas
+ExptID=159, the experiment in fxQlist with Expt ID = 159 (fxQlist[[iexpt,iflavour]][["exptinfo","exptid"]] = 159 )
 iFlavour=-5~5, bbar ~ b
 iPt=1, the first data point
 iSet=1, the central set f(x,Q)
 
 *)
 (*
-output: FxQTest[iExpt,"All",iPt,"All"] return a List of PDF values with dimensions = [[iflavour,iset]] for (iExpt,iPt)
+output: FxQTest[ExptID,"All",iPt,"All"] return a List of PDF values with dimensions = [[iflavour,iset]] for (iExpt,iPt),
+where iExpt is the iexpt index in the input f(x,Q) data fxQDatabaselist that it's expt ID is the same as the input ExptID 
 e.g. 
 *)
 
-FxQTest[iExptin_,iFlavourin_,iPtin_,iSetin_]:=
-Module[{iExpt=iExptin,iFlavour=iFlavourin,iPt=iPtin,iSet=iSetin,NExpt,NFlavour,NPt,NSet,output,Nlayer},
-output=fxQlist;
+FxQTest[ExptIDin_,iFlavourin_,iPtin_,iSetin_]:=
+Module[{ExptID=ExptIDin,iFlavour=iFlavourin,iPt=iPtin,iSet=iSetin,NExpt,NFlavour,NPt,NSet,output,Nlayer,iExpt},
+
+(*20171119: when input Expt ID ="All", this function only extract data sets selected by config1.txt*)
+(*when input = specific expt ID, this function extract the data set with the same input expt ID from the loaded database *)
+
+(*20171119: iexpt \[Rule] exptID, them the function find the corresponding iexpt*)
+If[ExptID=="All",output=fxQlist;iExpt="All"];
+
+If[
+ExptID!="All",
+output=(*fxQlist;*)fxQDatabaselist;
+iExpt=Position[fxQDatabaseExptlist,ExptID]; 
+If[
+Length[iExpt]!=1,
+Print["error, the should only have 1 data set of in your database of which the input expt ID is the same as the Expt ID"];
+Print["your input expt ID: ",ExptID,", expt IDs loaded: ",fxQDatabaseExptlist];
+Quit[] 
+];
+iExpt=iExpt[[1,1]];
+"dummy"
+];
+
 (*check input*)
 NExpt=Dimensions[output][[1]];
 NFlavour=Dimensions[output][[2]];
+(*include one expts: Npt \[Equal] *)
 If[iExpt!="All",NPt=Length[output[[iExpt,1]] ],NPt=Min[Length[#[[1]] ]&/@output ] ];
 NSet=Length[output[[1,1,1]] ]-2;
 (*y default, #flavour = 11 (bbar to b)*)
@@ -7549,6 +7571,7 @@ output/.LF[x_,Q_,a__]:>{a}
 
 FxQ[iFlavourin_]:=FxQTest["All",iFlavourin,"All","All"];
 FxQ[iExptin_,iFlavourin_,iPtin_,iSetin_]:=FxQTest[iExptin,iFlavourin,iPtin,iSetin];
+FxQ[iExptin_,iFlavourin_,iPtin_]:=FxQTest[iExptin,iFlavourin,iPtin,"All"];
 
 
 

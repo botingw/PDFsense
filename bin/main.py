@@ -379,7 +379,10 @@ funcName = tk.Entry(subCell)
 texts.append(funcName)
 vals = tk.Entry(subCell)
 texts.append(vals)
-for s in range(len(functions)):
+#20171119: only show flavour =bbar ~ b
+Nflavour=11
+#for s in range(len(functions)):
+for s in range(Nflavour):
     tk.Radiobutton(subCell,text=functions[s],variable=function,value=s).grid(row=int(s%(len(functions)/numcols)),column=2*int(s/(len(functions)/numcols)),columnspan=2,sticky='w')
 
 #Fourth row

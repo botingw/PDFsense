@@ -417,6 +417,10 @@ fxQsamept2classfinal//Dimensions,
 "{dtacentralclassfinal}: ",
 dtacentralclassfinal//Dimensions
 ];
+(*20191119 need all expt fxQ info*)
+fxQDatabaselist=Table[fxQsamept2class[[iexpt,iflavour]][["data"]],{iexpt,Dimensions[fxQsamept2class][[1]]},{iflavour,Dimensions[fxQsamept2class][[2]]}];
+fxQDatabaseExptlist=Table[fxQsamept2class[[iexpt,1]][["exptinfo","exptid"]],{iexpt,Dimensions[fxQsamept2class][[1]]}];
+
 (*clear residualNsetclass, fxQsamept2class, dtacentralclass*)
 Clear[residualNsetclass];Clear[fxQsamept2class];Clear[dtacentralclass];
 
@@ -1263,6 +1267,29 @@ If[irun==Length[Lexpt],Print["all processes are done"];Abort[]];
 
 (* ::Input:: *)
 (*fxQsamept2classfinal[[3,17]]*)
+
+
+(* ::Input:: *)
+(*exptidDir*)
+
+
+(* ::Input:: *)
+(*exptid*)
+
+
+(* ::Input:: *)
+(*fxQDatabaseExptlist*)
+
+
+(* ::Input:: *)
+(*((fxQDatabaselist[[1,iu+6,3]]/.LF->List)-(fxQDatabaselist[[1,iubar+6,3]]/.LF->List))/((fxQDatabaselist[[1,iu+6,3]]/.LF->List)+(fxQDatabaselist[[1,iubar+6,3]]/.LF->List))*)
+(*fxQsamept2classfinal[[2,-1]][["data"]][[1]]*)
+
+
+(* ::Input:: *)
+(*((fxQDatabaselist[[10,iu+6,1]]/.LF->List)-(fxQDatabaselist[[10,iubar+6,1]]/.LF->List))/((fxQDatabaselist[[10,iu+6,1]]/.LF->List)+(fxQDatabaselist[[10,iubar+6,1]]/.LF->List))*)
+(*fxQsamept2classfinal[[1,-2]][["data"]][[1]]*)
+(*fxQsamept2classfinal[[1,1]][["exptinfo","exptid"]]*)
 
 
 
