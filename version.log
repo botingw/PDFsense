@@ -237,3 +237,10 @@ from python script -> user_define_func.txt (don't write values from main.py)
 read user define function way change (ReadUserFunctionV2 -> ReadUserFunctionV2)
 3. input function FxQ[iflavour] or FxQ[iexpt,iflavour,ipt,iset]
 
+20171119
+1. ReadUserFunctionV2 -> ReadUserFunctionV3
+user define function is between begin tag and end tag
+so users can input multi-line command
+2. user_define_func.txt -> user_func.txt
+3. copy user_func.txt to the output directory 
+
