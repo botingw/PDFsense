@@ -83,6 +83,31 @@ Get["corr_proj_funcs.m"]
 
 
 (* ::Section:: *)
+(*Global variables*)
+
+
+(* ::Input::Initialization:: *)
+(*this project includes three branches: Mathematica script, python script, and webpage*)
+(*
+1. Mathematica script: by setting config files, users can read CTEQ analyzed data (.dta & .pds files) to extract observables by (x,\[Mu]), then generate figures by run_v4.nb. outputs are in a subdirectory of ./plots 
+Advandage are that 1. users can generate many figures of many flavours, observables. 2. users can customize user define functions
+ 
+2. python script: users can use python script to run a GUI, them set the expected outputs in the GUI. After submit, outputs will show by html format
+Advantages are 1. easy to use  2. users can customize user define functions
+3. webpage: users can use the python GUI on a website. outputs are in another webpage.
+Advantages: 1. easy to use 2. users don't need to install Mathematica
+
+*)
+(*
+modes:
+1. Mathematica script
+2. python script
+3. webpage
+*)
+BranchMode=2;
+
+
+(* ::Section:: *)
 (*read correlation (and other data of FigureType in config1.txt) from the data in files*)
 
 
@@ -620,7 +645,9 @@ CreateDirectory[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath];
 "dummy"
 ];
 
-iext=2;(*export eps*)(*20171105: use .png for python script interface version*)
+(*20171119: select export figure format by Branch Mode*)
+iext=Switch[BranchMode,1,{1},2,{2,3},3,{4},_,Print["error, BranchMode should be 1, 2, 3"];Abort[] ];
+(*iext=2;*)(*export eps*)(*20171105: use .png for python script interface version*)
 imgresol=144;(*image resolution*)
 
 (*make exptname table jpg*)
@@ -740,15 +767,18 @@ p6=processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile5[
 (*add exptname table into output figure*)
 
 (*p6=GraphicsGrid[p6,Spacings\[Rule]Scaled[0.15] ];*)
-
-filename=obsname[[6]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext]];
+Table[
+filename=obsname[[6]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,1]],ImageResolution->imgresol ];
-filename=obsname[[6]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext]];
+filename=obsname[[6]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,2]],ImageResolution->imgresol ];
-filename=obsname[[6]]<>"_"<>representationname[[3]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext]];
+filename=obsname[[6]]<>"_"<>representationname[[3]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,1]],ImageResolution->imgresol ];
-filename=obsname[[6]]<>"_"<>representationname[[4]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext]];
+filename=obsname[[6]]<>"_"<>representationname[[4]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,2]],ImageResolution->imgresol ];
+"dummy",
+{i,Length[iext]}
+];
 
 (*20171103: add files storing mathematica expressions so that users can change details of every figure*)
 filename=obsname[[6]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".dat";
@@ -769,14 +799,18 @@ Print["making plot of figure type ",FigureType[[5]],", flavour = ",flavour];
 p5=processdataplotsmultiexp7percentage[{dRcorrdataclassfinal},readcorrconfigfile5[configDir,configfilename],5,flavour];
 
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
-filename=obsname[[5]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext]];
+Table[
+filename=obsname[[5]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,1]],ImageResolution->imgresol  ];
-filename=obsname[[5]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext]];
+filename=obsname[[5]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,2]],ImageResolution->imgresol  ];
-filename=obsname[[5]]<>"_"<>representationname[[3]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext]];
+filename=obsname[[5]]<>"_"<>representationname[[3]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,1]],ImageResolution->imgresol  ];
-filename=obsname[[5]]<>"_"<>representationname[[4]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext]];
+filename=obsname[[5]]<>"_"<>representationname[[4]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,2]],ImageResolution->imgresol  ];
+"dummy",
+{i,Length[iext]}
+];
 
 (*20171103: add files storing mathematica expressions so that users can change details of every figure*)
 filename=obsname[[5]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".dat";
@@ -804,17 +838,22 @@ FigureFlag[[2]]==1,
 Print["making plot of figure type ",FigureType[[2]],", flavour = ",flavour];
 p234=processdataplotsmultiexp7percentage[{expterrordataclassfinal},readcorrconfigfile5[configDir,configfilename],2,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
-filename=obsname[[2]]<>"_"<>representationname[[1]]<>"_samept"<>extensionname[[iext]];
+
+Table[
+filename=obsname[[2]]<>"_"<>representationname[[1]]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]],ImageResolution->imgresol  ];
-filename=obsname[[2]]<>"_"<>representationname[[2]]<>"_samept"<>extensionname[[iext]];
+filename=obsname[[2]]<>"_"<>representationname[[2]]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]],ImageResolution->imgresol  ];
 (*20171108: \[Sigma]/D has no negative data, so delete histogram of range = (-x, x)*)
 (*
 filename=obsname[[2]]<>"_"<>representationname[[3]]<>"_samept"<>extensionname[[iext]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]],ImageResolution\[Rule]imgresol  ];
 *)
-filename=obsname[[2]]<>"_"<>representationname[[4]]<>"_samept"<>extensionname[[iext]];
+filename=obsname[[2]]<>"_"<>representationname[[4]]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]],ImageResolution->imgresol  ];
+"dummy",
+{i,Length[iext]}
+];
 
 (*20171103: add files storing mathematica expressions so that users can change details of every figure*)
 filename=obsname[[2]]<>"_"<>representationname[[1]]<>"_samept"<>".dat";
@@ -836,14 +875,18 @@ FigureFlag[[3]]==1,
 Print["making plot of figure type ",FigureType[[3]],", flavour = ",flavour];
 p234=processdataplotsmultiexp7percentage[{residualdataclassfinal},readcorrconfigfile5[configDir,configfilename],3,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
-filename=obsname[[3]]<>"_"<>representationname[[1]]<>"_samept"<>extensionname[[iext]];
+Table[
+filename=obsname[[3]]<>"_"<>representationname[[1]]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]],ImageResolution->imgresol  ];
-filename=obsname[[3]]<>"_"<>representationname[[2]]<>"_samept"<>extensionname[[iext]];
+filename=obsname[[3]]<>"_"<>representationname[[2]]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]],ImageResolution->imgresol  ];
-filename=obsname[[3]]<>"_"<>representationname[[3]]<>"_samept"<>extensionname[[iext]];
+filename=obsname[[3]]<>"_"<>representationname[[3]]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]],ImageResolution->imgresol  ];
-filename=obsname[[3]]<>"_"<>representationname[[4]]<>"_samept"<>extensionname[[iext]];
+filename=obsname[[3]]<>"_"<>representationname[[4]]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]],ImageResolution->imgresol  ];
+"dummy",
+{i,Length[iext]}
+];
 
 (*20171103: add files storing mathematica expressions so that users can change details of every figure*)
 filename=obsname[[3]]<>"_"<>representationname[[1]]<>"_samept"<>".dat";
@@ -863,17 +906,21 @@ FigureFlag[[4]]==1,
 Print["making plot of figure type ",FigureType[[4]],", flavour = ",flavour];
 p234=processdataplotsmultiexp7percentage[{dRdataclassfinal},readcorrconfigfile5[configDir,configfilename],4,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
-filename=obsname[[4]]<>"_"<>representationname[[1]]<>"_samept"<>extensionname[[iext]];
+Table[
+filename=obsname[[4]]<>"_"<>representationname[[1]]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]],ImageResolution->imgresol  ];
-filename=obsname[[4]]<>"_"<>representationname[[2]]<>"_samept"<>extensionname[[iext]];
+filename=obsname[[4]]<>"_"<>representationname[[2]]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]],ImageResolution->imgresol  ];
 (*20171108: \[Delta]r has no negative data, so delete histogram of range = (-x, x)*)
 (*
 filename=obsname[[4]]<>"_"<>representationname[[3]]<>"_samept"<>extensionname[[iext]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]],ImageResolution\[Rule]imgresol  ];
 *)
-filename=obsname[[4]]<>"_"<>representationname[[4]]<>"_samept"<>extensionname[[iext]];
+filename=obsname[[4]]<>"_"<>representationname[[4]]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]],ImageResolution->imgresol  ];
+"dummy",
+{i,Length[iext]}
+];
 
 (*20171103: add files storing mathematica expressions so that users can change details of every figure*)
 filename=obsname[[4]]<>"_"<>representationname[[1]]<>"_samept"<>".dat";
@@ -895,8 +942,14 @@ If[
 FigureFlag[[1]]==1,
 Print["making plot of figure type ",FigureType[[1]] ];
 p1=processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile5[configDir,configfilename],1,0 ];
-filename=obsname[[1]]<>"_"<>representationname[[1]]<>extensionname[[iext]];
+
+Table[
+filename=obsname[[1]]<>"_"<>representationname[[1]]<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p1[[1]],ImageResolution->imgresol ];
+"dummy",
+{i,Length[iext]}
+];
+
 filename=obsname[[1]]<>"_"<>representationname[[1]]<>".dat";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p1[[1]] ];
 ];
