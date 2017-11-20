@@ -244,3 +244,8 @@ so users can input multi-line command
 2. user_define_func.txt -> user_func.txt
 3. copy user_func.txt to the output directory 
 
+20171120
+1. change the input arguments of FxQ in user_func.txt: iExpt -> ExptID. e.g. ExptID=159; FxQ[ExptID,ig,iPt,iSet] 
+2. change the main.py selection of flavours part: only shows bbar ~ b radios, but still write q6, q7, and q8 to config1.txt
+3. add more descriptions about how to write functions in the user_func.txt
+
