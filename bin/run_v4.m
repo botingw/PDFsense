@@ -438,13 +438,31 @@ pdfFamilyParseCTEQ["../fakePDFset/"<>PDFname<>"/"<>"*pds",ifamily];
 (*Get["user_define_function.m"];*)
 fxQlist=Table[fxQsamept2classfinal[[iexpt,iflavour]][["data"]],{iexpt,Dimensions[fxQsamept2classfinal][[1]]},{iflavour,Dimensions[fxQsamept2classfinal][[2]]}];
 (*20171109: seperate user difine function/data IO and configure file*)
-userdifinefuncfilename="user_define_func.txt";
-{UserArgName,UserArgFunction}=ReadUserFunctionV2[configDir,userdifinefuncfilename];
+userfuncfilename="user_func.txt";
+(*20171119 new user function format: {{user name 1, user function 1}, {user name 2, user function 2}...}*)
+(*{UserArgName,UserArgFunction}*)
+UserArgFunction=(*ReadUserFunctionV2*)ReadUserFunctionV3[configDir,userfuncfilename];
+UserArgName=(#[[1]]&/@UserArgFunction);
+UserArgFunction=(#[[2]]&/@UserArgFunction);
 (*20171116: new convention of user define function and new way to add it as new flavour*)
+(*20171119 new user function format: {{user name 1, user function 1}, {user name 2, user function 2}...}*)
+(*fxQdataNewFlavour format: [[ifunc,iexpt]]*)
 (*new flavour*)
-fxQdataNewFlavour=UDFToClass[UserArgFunction,fxQsamept2classfinal];
+fxQdataNewFlavour=Table[UDFToClass[UserArgFunction[[ifunc]],fxQsamept2classfinal],{ifunc,Length[UserArgFunction]}];
 (*add new flavour to fxQ class for each expt ID*)
+Table[
+fxQsamept2classfinal[[iexpt]]=Append[fxQsamept2classfinal[[iexpt]],fxQdataNewFlavour[[ifunc,iexpt]] ];
+"dummy"
+,{iexpt,Length[fxQsamept2classfinal]},{ifunc,Length[UserArgFunction]}
+];
+
+(*20171119 bebause CorrelationArgFlag is flavour index, there should be # of user function indece for all user functions, 
+# of CorrelationArgFlag should be Nflavour + # of user functions *)
+CorrelationArgFlag=Join[CorrelationArgFlag,Table[CorrelationArgFlag[[-1]],{ifunc,Length[UserArgFunction]-1}] ];
+"dummy"
+(*
 fxQsamept2classfinal=Append[fxQsamept2classfinal[[#]],fxQdataNewFlavour[[#]] ]&/@Range[fxQsamept2classfinal//Length];
+*)
 (*
 (*check the # of user define values is the same as # of PDF replicas*)
 If[
@@ -468,6 +486,7 @@ tmpclass,
 
 fmax=Length[fxQsamept2classfinal[[1]] ];
 Print["total #flavours: ",fmax];
+(*test *)(*Print["flavours switch: ",CorrelationArgFlag];Abort[];*)
 
 (*calculate observables for plots from PDF data and residual data of all replicas*)
 (*observables: correlation: corr(Subscript[r, i],f(x,\[Mu])), sensitivity: Subscript[\[Delta]r, i]*corr(Subscript[r, i],f(x,\[Mu])), central values of residuals: Subscript[r, i], uncertainties of residuals: Subscript[\[Delta]r, i], expt error ratio: Subscript[\[Sigma], i]/Subscript[D, i]*)
@@ -937,6 +956,9 @@ Print["time to make plots is ",jpgtime," seconds"];
 (*20170508 if config file in plot path exist, remove it*)
 If[FileExistsQ[saveparentpath<>jobpath<>configfilename]==True,DeleteFile[saveparentpath<>jobpath<>configfilename] ];
 CopyFile[configDir<>configfilename,saveparentpath<>jobpath<>configfilename];
+(*20171119 copy user_func.txt to the output directory*)
+If[FileExistsQ[saveparentpath<>jobpath<>userfuncfilename]==True,DeleteFile[saveparentpath<>jobpath<>userfuncfilename] ];
+CopyFile[configDir<>userfuncfilename,saveparentpath<>jobpath<>userfuncfilename];
 
 (*make exptname table, 20170410: Sean asks to move this process to the final step*)
 rows=3;
@@ -1231,5 +1253,16 @@ If[irun==Length[Lexpt],Print["all processes are done"];Abort[]];
 
 (* ::Input:: *)
 (*(*20171109: seperate user difine function/data IO and configure file*)*)
-(*userdifinefuncfilename="user_define_func.txt";*)
-(*{UserArgName,UserArgValue}=ReadUserFunction["./",userdifinefuncfilename]*)
+(*userfuncfilename="user_define_func.txt";*)
+(*{UserArgName,UserArgValue}=ReadUserFunction["./",userfuncfilename]*)
+
+
+(* ::Input:: *)
+(*ReadUserFunctionV3["./",userfuncfilename]*)
+
+
+(* ::Input:: *)
+(*fxQsamept2classfinal[[3,17]]*)
+
+
+

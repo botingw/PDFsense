@@ -2425,6 +2425,93 @@ UserArgFunction=Read[StringToStream[UserArgFunction],Expression];
 {UserArgName,UserArgFunction}
 ]
 
+(*20171119*)
+(*read user define function or data, input filename and output user define function, the function coulld be the Mathematica format function*)
+(*the expression is between UserArgFunctionBeginTag and UserArgFunctionEndTag*)
+ReadUserFunctionV3[UserFuncDirin_,UserFuncfilenamein_]:=
+Module[{UserFuncDir=UserFuncDirin,UserFuncfilename=UserFuncfilenamein,
+UserArgNameTag,UserArgFunctionTag,UserArgName,UserArgFunction,
+itag,s,output,output2,output3,
+UserArgFunctionBeginTag,UserArgFunctionEndTag
+},
+
+UserArgNameTag="Name";
+UserArgFunctionTag="Function";
+UserArgFunctionBeginTag="!Function Begin:";
+UserArgFunctionEndTag="!Function End";
+
+(*
+UserArgName="unset";
+UserArgFunction="unset";
+
+UserArgFunctionBegin="unset";
+UserArgFunctionEnd="unset";
+*)
+
+
+(*read config file line by line into list*)
+s=OpenRead[UserFuncDir<>UserFuncfilename];
+output=ReadList[s,String];
+Close[s];
+
+(*delete comments: with "#" at begining of line*)
+output2={};
+Table[
+If[StringTake[output[[i]],1]!="#",output2=Append[output2,output[[i]] ] ];
+"dummy"
+,{i,1,Length[output]}
+];
+(*check the first tag is "Name:"*)
+If[StringSplit[output2[[1]],":"][[1]]!=UserArgNameTag, Print["error, the first tag should be ",UserArgNameTag,":"];Abort[] ];
+
+(*back to one string*)
+output3=StringJoin[output2];
+(*seperate string by user name tag*)
+output3=StringSplit[output3,UserArgNameTag<>":"];
+(*check after user name tag, there are one function begin tag and one function end tag*)
+If[StringCount[#,UserArgFunctionBeginTag]!=1 ||StringCount[#,UserArgFunctionEndTag]!=1 ,Print["error, the file format should be ",UserArgNameTag,": xxx ",UserArgFunctionBeginTag," xxx ",UserArgFunctionEndTag];Abort[] ]&/@output3;
+(*for each string after user name tag, seperate it by begin function tag*)
+output3=StringSplit[#,UserArgFunctionBeginTag]&/@output3;
+
+(*check after split, there is {username, function description} output for each user name tag*)
+If[Length[#]!=2,Print["error, the file format should be ",UserArgNameTag,": xxx ",UserArgFunctionBeginTag," xxx ",UserArgFunctionEndTag];Abort[] ]&/@output3;
+
+(*check every string of begin function should has an end function tag at the tail*)
+If[
+Length[StringSplit[#[[2]],UserArgFunctionEndTag] ]!=1 || StringCount[#[[2]],UserArgFunctionEndTag]!=1,
+Print["error, the file format should be ",UserArgNameTag,": xxx ",UserArgFunctionBeginTag," xxx ",UserArgFunctionEndTag];
+Abort[] 
+]&/@output3;
+(*delete the function end tag for each function begin content*)
+Table[output3[[i,2]]=StringSplit[output3[[i,2]],UserArgFunctionEndTag][[1]];"dummy",{i,Length[output3]}];
+
+(*for each user name, read function content into expression format*)
+Table[output3[[i,2]]=Read[StringToStream[output3[[i,2]] ],Expression];"dummy",{i,Length[output3]}];
+
+Return[output3];
+(*seperate the tag of configure file and arguments by ":"*)
+output3=Table[StringSplit[output2[[i]],":"],{i,1,Length[output2]}];
+
+
+
+(*check tag exist, if a tag exist, read arguments corresponding to that tag*)
+(*read UserArgName*)
+itag=1;
+If[output3[[itag,1]]==UserArgNameTag,UserArgName=output3[[itag,2]] ];
+Head[UserArgName];
+(*read UserArgFunction*)
+itag=itag+1;
+If[output3[[itag,1]]==UserArgFunctionTag,UserArgFunction=output3[[itag,2]] ];
+Head[UserArgFunction];
+UserArgFunction=Read[StringToStream[UserArgFunction],Expression];
+(*
+{UserArgName,UserArgFunction}
+*)
+(*output format*)
+(*{{user name 1, user function 1}, {user name 2, user function 2}...}*)
+output3
+]
+
 
 (* ::Chapter:: *)
 (*plot class*)
@@ -5644,8 +5731,13 @@ ColorSeperator,
 Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}=configarguments;
 
 (*20171109: seperate user difine function/data IO and configure file*)(*20171116: ->ReadUserFunctionV2, which read Expression from the file*)
-userdifinefuncfilename="user_define_func.txt";
+(*20171119 new user function format: {{user name 1, user function 1}, {user name 2, user function 2}...}*)
+userdifinefuncfilename="user_func.txt";
+(*
 {UserArgName,UserArgValue}=ReadUserFunctionV2["./",userdifinefuncfilename];
+*)
+UserArgName=ReadUserFunctionV3["./",userdifinefuncfilename];
+UserArgName=#[[1]]&/@UserArgName;
 
 (*20171109: shorten the tiles of figures*)
 If[PDFname=="2017.1008.0954.-0500_CT14HERA2-jet.ev",PDFname="CT14HERA2-jet.ev"];
@@ -5768,7 +5860,7 @@ corrdrtitle1=(*"\[Delta]r*Corr( ";*)"Sensitivity to ";
 title2=(*", r(x,\[Mu]))";*)", \!\(\*SubscriptBox[\(r\), \(i\)]\))";
 title3=(*" for dataset of "*)", "<>PDFname;
 obsname="";(*initialize*)
-pdfnamelable={"\!\(\*OverscriptBox[\(b\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(c\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(s\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(d\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(u\), \(_\)]\)(x,\[Mu])","g(x,\[Mu])","u(x,\[Mu])","d(x,\[Mu])","s(x,\[Mu])","c(x,\[Mu])","b(x,\[Mu])","\!\(\*FractionBox[\(\*OverscriptBox[\(d\), \(_\)] \((x, \[Mu])\)\), \(\*OverscriptBox[\(u\), \(_\)] \((x, \[Mu])\)\)]\)","\!\(\*FractionBox[\(d \((x, \[Mu])\)\), \(u \((x, \[Mu])\)\)]\)","\!\(\*FractionBox[\(s \((x, \[Mu])\) + \*OverscriptBox[\(s\), \(_\)] \((x, \[Mu])\)\), \(\*OverscriptBox[\(u\), \(_\)] \((x, \[Mu])\) + \*OverscriptBox[\(d\), \(_\)] \((x, \[Mu])\)\)]\)",UserArgName};
+pdfnamelable={"\!\(\*OverscriptBox[\(b\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(c\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(s\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(d\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(u\), \(_\)]\)(x,\[Mu])","g(x,\[Mu])","u(x,\[Mu])","d(x,\[Mu])","s(x,\[Mu])","c(x,\[Mu])","b(x,\[Mu])","\!\(\*FractionBox[\(\*OverscriptBox[\(d\), \(_\)] \((x, \[Mu])\)\), \(\*OverscriptBox[\(u\), \(_\)] \((x, \[Mu])\)\)]\)","\!\(\*FractionBox[\(d \((x, \[Mu])\)\), \(u \((x, \[Mu])\)\)]\)","\!\(\*FractionBox[\(s \((x, \[Mu])\) + \*OverscriptBox[\(s\), \(_\)] \((x, \[Mu])\)\), \(\*OverscriptBox[\(u\), \(_\)] \((x, \[Mu])\) + \*OverscriptBox[\(d\), \(_\)] \((x, \[Mu])\)\)]\)",Sequence@@UserArgName(*20171119 change to multi-user functions*)};
 
 (*20171107: simplify title labels*)
 If[
@@ -7495,9 +7587,11 @@ If[Head[UserDefFuncData]==List && Dimensions[UserDefFuncData]=={Nset},DataFormat
 
 (*check the user define function is [[iexpt,ipt]], each element = {Nset}*)
 If[Head[UserDefFuncData]==List && Dimensions[UserDefFuncData][[1]]==Nexpt && Length[UserDefFuncData[[1,1]] ]==Nset ,DataFormatMode=2];
+(*
 Print["mode: ",DataFormatMode];
 Print[Head[UserDefFuncData]," ",Dimensions[UserDefFuncData][[1]]," ",Length[UserDefFuncData[[1,1]] ]];
 Print["List, ","Next: ",Nexpt,", Nset: ",Nset];
+*)
 
 If[DataFormatMode!=1 && DataFormatMode!=2,Print["error, the input user define function data is not correct"];Abort[] ];
 
