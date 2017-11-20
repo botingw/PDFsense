@@ -230,3 +230,22 @@ shorten name of 2017.1008.0954.-0500_CT14HERA2-jet.ev to CT14HERA2-jet.ev (in pr
 5. move highlight text in 2D-xQ plots to avoid covering data points and cutted by the left edge  
 6. if red lines in histograms exceed the frame, don't draw them
 
+20171116
+1. change the way to input the user define function
+from python script -> user_define_func.txt (don't write values from main.py)
+2. input could be a combination of PDFs for various flavours or a List with Nset values
+read user define function way change (ReadUserFunctionV2 -> ReadUserFunctionV2)
+3. input function FxQ[iflavour] or FxQ[iexpt,iflavour,ipt,iset]
+
+20171119
+1. ReadUserFunctionV2 -> ReadUserFunctionV3
+user define function is between begin tag and end tag
+so users can input multi-line command
+2. user_define_func.txt -> user_func.txt
+3. copy user_func.txt to the output directory 
+
+20171120
+1. change the input arguments of FxQ in user_func.txt: iExpt -> ExptID. e.g. ExptID=159; FxQ[ExptID,ig,iPt,iSet] 
+2. change the main.py selection of flavours part: only shows bbar ~ b radios, but still write q6, q7, and q8 to config1.txt
+3. add more descriptions about how to write functions in the user_func.txt
+

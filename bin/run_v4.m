@@ -93,7 +93,8 @@ Module[{(*runfunc,figureDir,myPDFsetDir,PDFsetmethod,PDFname,PDFDataDir,datalist
 Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,UserArgName,UserArgValue,
 XQfigureXrange,XQfigureYrange,Hist1figureNbin,Hist1figureXrange,Hist1figureYrange,
 ColorSeperator,
-Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2
+Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2,
+UserArgFunction(*20171116*)
 },
 Print["begin function"];
 (*set input arguments *)
@@ -416,6 +417,10 @@ fxQsamept2classfinal//Dimensions,
 "{dtacentralclassfinal}: ",
 dtacentralclassfinal//Dimensions
 ];
+(*20191119 need all expt fxQ info*)
+fxQDatabaselist=Table[fxQsamept2class[[iexpt,iflavour]][["data"]],{iexpt,Dimensions[fxQsamept2class][[1]]},{iflavour,Dimensions[fxQsamept2class][[2]]}];
+fxQDatabaseExptlist=Table[fxQsamept2class[[iexpt,1]][["exptinfo","exptid"]],{iexpt,Dimensions[fxQsamept2class][[1]]}];
+
 (*clear residualNsetclass, fxQsamept2class, dtacentralclass*)
 Clear[residualNsetclass];Clear[fxQsamept2class];Clear[dtacentralclass];
 
@@ -433,12 +438,39 @@ PdsDir=
 pdfFamilyParseCTEQ["../fakePDFset/"<>PDFname<>"/"<>"*pds",ifamily];
 *)
 
+(*20171116: for new convention of user define function: read it's library first, then define global variable for List data of f(x,Q)*)
+(*Get["user_define_function.m"];*)
+fxQlist=Table[fxQsamept2classfinal[[iexpt,iflavour]][["data"]],{iexpt,Dimensions[fxQsamept2classfinal][[1]]},{iflavour,Dimensions[fxQsamept2classfinal][[2]]}];
 (*20171109: seperate user difine function/data IO and configure file*)
-userdifinefuncfilename="user_define_func.txt";
-{UserArgName,UserArgValue}=ReadUserFunction[configDir,userdifinefuncfilename];
+userfuncfilename="user_func.txt";
+(*20171119 new user function format: {{user name 1, user function 1}, {user name 2, user function 2}...}*)
+(*{UserArgName,UserArgFunction}*)
+UserArgFunction=(*ReadUserFunctionV2*)ReadUserFunctionV3[configDir,userfuncfilename];
+UserArgName=(#[[1]]&/@UserArgFunction);
+UserArgFunction=(#[[2]]&/@UserArgFunction);
+(*20171116: new convention of user define function and new way to add it as new flavour*)
+(*20171119 new user function format: {{user name 1, user function 1}, {user name 2, user function 2}...}*)
+(*fxQdataNewFlavour format: [[ifunc,iexpt]]*)
+(*new flavour*)
+fxQdataNewFlavour=Table[UDFToClass[UserArgFunction[[ifunc]],fxQsamept2classfinal],{ifunc,Length[UserArgFunction]}];
+(*add new flavour to fxQ class for each expt ID*)
+Table[
+fxQsamept2classfinal[[iexpt]]=Append[fxQsamept2classfinal[[iexpt]],fxQdataNewFlavour[[ifunc,iexpt]] ];
+"dummy"
+,{iexpt,Length[fxQsamept2classfinal]},{ifunc,Length[UserArgFunction]}
+];
+
+(*20171119 bebause CorrelationArgFlag is flavour index, there should be # of user function indece for all user functions, 
+# of CorrelationArgFlag should be Nflavour + # of user functions *)
+CorrelationArgFlag=Join[CorrelationArgFlag,Table[CorrelationArgFlag[[-1]],{ifunc,Length[UserArgFunction]-1}] ];
+"dummy"
+(*
+fxQsamept2classfinal=Append[fxQsamept2classfinal[[#]],fxQdataNewFlavour[[#]] ]&/@Range[fxQsamept2classfinal//Length];
+*)
+(*
 (*check the # of user define values is the same as # of PDF replicas*)
 If[
-Length[UserArgValue]!=(Datamethods[["getNcolumn"]][fxQsamept2classfinal[[1,1]] ]-2),
+Length[UserArgValue]\[NotEqual](Datamethods[["getNcolumn"]][fxQsamept2classfinal[[1,1]] ]-2),
 Print["error, the # of user-defined values should be the same as # of PDF relicas (Nset)"];
 Print["Nset = ",(Datamethods[["getNcolumn"]][fxQsamept2classfinal[[1,1]] ]-2) ];
 Print["#user-defined values = ", Length[UserArgValue] ];
@@ -447,15 +479,18 @@ Abort[]
 (*append data of uservalue to fxQsamept2classfinal for each expt ID*)
 Table[
 tmpclass=fxQsamept2classfinal[[iexpt,1]];
-tmpclass[["data"]]=tmpclass[["data"]]/.LF[a__]:>LF[{a}[[1]],{a}[[2]],Sequence@@UserArgValue];
+tmpclass[["data"]]=tmpclass[["data"]]/.LF[a__]\[RuleDelayed]LF[{a}[[1]],{a}[[2]],Sequence@@UserArgValue];
 fxQsamept2classfinal[[iexpt]]=Append[fxQsamept2classfinal[[iexpt]],tmpclass];
 tmpclass,
 {iexpt,1,Length[fxQsamept2classfinal]}
 ];
+*)
 ];
+
 
 fmax=Length[fxQsamept2classfinal[[1]] ];
 Print["total #flavours: ",fmax];
+(*test *)(*Print["flavours switch: ",CorrelationArgFlag];Abort[];*)
 
 (*calculate observables for plots from PDF data and residual data of all replicas*)
 (*observables: correlation: corr(Subscript[r, i],f(x,\[Mu])), sensitivity: Subscript[\[Delta]r, i]*corr(Subscript[r, i],f(x,\[Mu])), central values of residuals: Subscript[r, i], uncertainties of residuals: Subscript[\[Delta]r, i], expt error ratio: Subscript[\[Sigma], i]/Subscript[D, i]*)
@@ -925,6 +960,9 @@ Print["time to make plots is ",jpgtime," seconds"];
 (*20170508 if config file in plot path exist, remove it*)
 If[FileExistsQ[saveparentpath<>jobpath<>configfilename]==True,DeleteFile[saveparentpath<>jobpath<>configfilename] ];
 CopyFile[configDir<>configfilename,saveparentpath<>jobpath<>configfilename];
+(*20171119 copy user_func.txt to the output directory*)
+If[FileExistsQ[saveparentpath<>jobpath<>userfuncfilename]==True,DeleteFile[saveparentpath<>jobpath<>userfuncfilename] ];
+CopyFile[configDir<>userfuncfilename,saveparentpath<>jobpath<>userfuncfilename];
 
 (*make exptname table, 20170410: Sean asks to move this process to the final step*)
 rows=3;
@@ -1219,5 +1257,39 @@ If[irun==Length[Lexpt],Print["all processes are done"];Abort[]];
 
 (* ::Input:: *)
 (*(*20171109: seperate user difine function/data IO and configure file*)*)
-(*userdifinefuncfilename="user_define_func.txt";*)
-(*{UserArgName,UserArgValue}=ReadUserFunction["./",userdifinefuncfilename]*)
+(*userfuncfilename="user_define_func.txt";*)
+(*{UserArgName,UserArgValue}=ReadUserFunction["./",userfuncfilename]*)
+
+
+(* ::Input:: *)
+(*ReadUserFunctionV3["./",userfuncfilename]*)
+
+
+(* ::Input:: *)
+(*fxQsamept2classfinal[[3,17]]*)
+
+
+(* ::Input:: *)
+(*exptidDir*)
+
+
+(* ::Input:: *)
+(*exptid*)
+
+
+(* ::Input:: *)
+(*fxQDatabaseExptlist*)
+
+
+(* ::Input:: *)
+(*((fxQDatabaselist[[1,iu+6,3]]/.LF->List)-(fxQDatabaselist[[1,iubar+6,3]]/.LF->List))/((fxQDatabaselist[[1,iu+6,3]]/.LF->List)+(fxQDatabaselist[[1,iubar+6,3]]/.LF->List))*)
+(*fxQsamept2classfinal[[2,-1]][["data"]][[1]]*)
+
+
+(* ::Input:: *)
+(*((fxQDatabaselist[[10,iu+6,1]]/.LF->List)-(fxQDatabaselist[[10,iubar+6,1]]/.LF->List))/((fxQDatabaselist[[10,iu+6,1]]/.LF->List)+(fxQDatabaselist[[10,iubar+6,1]]/.LF->List))*)
+(*fxQsamept2classfinal[[1,-2]][["data"]][[1]]*)
+(*fxQsamept2classfinal[[1,1]][["exptinfo","exptid"]]*)
+
+
+
