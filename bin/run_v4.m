@@ -1018,8 +1018,9 @@ If[FileExistsQ[saveparentpath<>jobpath<>userfuncfilename]==True,DeleteFile[savep
 CopyFile[configDir<>userfuncfilename,saveparentpath<>jobpath<>userfuncfilename];
 
 (*make exptname table, 20170410: Sean asks to move this process to the final step*)
+Table[
 rows=3;
-filename="exptname_table"<>extensionname[[iext]];
+filename="exptname_table"<>extensionname[[iext[[i]] ]];
 (*20171114: need to show the jobid and time so that python script users know where to find the figures*)
 title="jobid: "<>ToString[Jobid](*<>"\n"<>DateString[{"Month","/","Day","/","Year"," ","Hour",":","Minute",":","Second"}]*);
 datemode=True;
@@ -1027,6 +1028,9 @@ exptnames=Table[ExptIDtoName[exptlistfinal[[iexpt]] ]<>"("<>ToString[exptlistfin
 Print["making table of experiments included in plots"];
 exptnamestable=makeGrid2[exptnames,rows,title,datemode];(*20171114: add date mode to write date*)
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,exptnamestable];
+"dummy",
+{i,Length[iext]}
+];
 
 (*merge .eps files into a pdf file*)
 implementeps[saveparentpath<>jobpath,PDFxQSelectMethod];
