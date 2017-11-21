@@ -134,6 +134,8 @@ Print["method to search (x,Q) points that dominate the process: ",PDFxQSelectMet
 (*set config file path*)
 configDir=Directory[]<>"/";(*NotebookDirectory[];*)(*DirectoryName[$InputFileName];*)
 configfilename="config1.txt";
+(*20171109: seperate user difine function/data IO and configure file*)
+userfuncfilename="user_func.txt";
 
 (*20170301: new config file
 {runfunc,figureDir,dummy1,dummy2,PDFname,dummy3,datalistFile,expttype,exptid}=
@@ -449,6 +451,8 @@ fxQDatabaseExptlist=Table[fxQsamept2class[[iexpt,1]][["exptinfo","exptid"]],{iex
 (*clear residualNsetclass, fxQsamept2class, dtacentralclass*)
 Clear[residualNsetclass];Clear[fxQsamept2class];Clear[dtacentralclass];
 
+(*20191120 need selected expt fxQ info*)
+fxQlist=Table[fxQsamept2classfinal[[iexpt,iflavour]][["data"]],{iexpt,Dimensions[fxQsamept2classfinal][[1]]},{iflavour,Dimensions[fxQsamept2classfinal][[2]]}];
 (*append user defined values into f(x,Q) as new flavour index*)
 If[
 CorrelationArgFlag[[-1]]==1,
@@ -465,9 +469,8 @@ pdfFamilyParseCTEQ["../fakePDFset/"<>PDFname<>"/"<>"*pds",ifamily];
 
 (*20171116: for new convention of user define function: read it's library first, then define global variable for List data of f(x,Q)*)
 (*Get["user_define_function.m"];*)
-fxQlist=Table[fxQsamept2classfinal[[iexpt,iflavour]][["data"]],{iexpt,Dimensions[fxQsamept2classfinal][[1]]},{iflavour,Dimensions[fxQsamept2classfinal][[2]]}];
-(*20171109: seperate user difine function/data IO and configure file*)
-userfuncfilename="user_func.txt";
+
+
 (*20171119 new user function format: {{user name 1, user function 1}, {user name 2, user function 2}...}*)
 (*{UserArgName,UserArgFunction}*)
 UserArgFunction=(*ReadUserFunctionV2*)ReadUserFunctionV3[configDir,userfuncfilename];
@@ -526,14 +529,24 @@ dRcorrdataclassfinal;
 ti=AbsoluteTime[];
 corrdataclassfinal=
 Table[
+(*20171120: save calculation time trick: don't calculate if we don't need to draw figures for the flavour data  (CorrelationArgFlag[[flavour]] = 0)*)
+If[
+CorrelationArgFlag[[flavour+6]]==1 || (flavour+6)==1,
 corrfxQdtaobs[residualNsetclassfinal[[iexpt]],fxQsamept2classfinal[[iexpt,flavour+6]] ],
+"unset"
+],
 {iexpt,1,Length[residualNsetclassfinal]},{flavour,-5,-5+fmax-1}
 ];
 
 (*calculate dr*correlation*)
 dRcorrdataclassfinal=
 Table[
+(*20171120: save calculation time trick: don't calculate if we don't need to draw figures for the flavour data  (CorrelationArgFlag[[flavour]] = 0)*)
+If[
+CorrelationArgFlag[[flavour+6]]==1 || (flavour+6)==1,
 dRcorrfxQdtaobs[residualNsetclassfinal[[iexpt]],fxQsamept2classfinal[[iexpt,flavour+6]] ],
+"unset"
+],
 {iexpt,1,Length[residualNsetclassfinal]},{flavour,-5,-5+fmax-1}
 ];
 
@@ -557,7 +570,13 @@ tf=AbsoluteTime[];
 GetCorrvalueTime=tf-ti;
 NCorrval=
 Sum[
+(*20171120: save calculation time trick: don't calculate if we don't need to draw figures for the flavour data  (CorrelationArgFlag[[flavour]] = 0)*)
+If[
+(*20171120: if corrdataclass is still Asocciation, it has been calculated. otherwise it will equal to "unset"*)
+(corrdataclassfinal[[iexpt,flavour+6]]//AssociationQ)==True,
 Datamethods[["getNpt"]][corrdataclassfinal[[iexpt,flavour+6]] ],
+0
+],
 {iexpt,1,Length[residualNsetclassfinal]},{flavour,-5,-5+fmax-1}
 ];
 Print["total number of correlation & sensitivity value calculations is ",NCorrval];
@@ -1347,6 +1366,26 @@ If[irun==Length[Lexpt],Print["all processes are done"];Abort[]];
 (*((fxQDatabaselist[[10,iu+6,1]]/.LF->List)-(fxQDatabaselist[[10,iubar+6,1]]/.LF->List))/((fxQDatabaselist[[10,iu+6,1]]/.LF->List)+(fxQDatabaselist[[10,iubar+6,1]]/.LF->List))*)
 (*fxQsamept2classfinal[[1,-2]][["data"]][[1]]*)
 (*fxQsamept2classfinal[[1,1]][["exptinfo","exptid"]]*)
+
+
+(* ::Input:: *)
+(*If[corrdataclassfinal[[1,1]]=="unset",100,1]*)
+
+
+(* ::Input:: *)
+(*corrdataclassfinal[[1,1]]//Head*)
+
+
+(* ::Input:: *)
+(*dRcorrdataclassfinal//Length*)
+
+
+(* ::Input:: *)
+(*dRcorrdataclassfinal[[1,5+6]]*)
+
+
+(* ::Input:: *)
+(*processdataplotsmultiexp7percentage[{dRcorrdataclassfinal},readcorrconfigfile5[configDir,configfilename],5,5]*)
 
 
 

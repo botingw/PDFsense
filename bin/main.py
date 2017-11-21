@@ -7,6 +7,8 @@ except:
     sys.exit()
 
 def submit():
+    print(texts[0])
+    print(texts[2])
     allradios = [i.get() for i in radios]
     allchecks = [[i.get() for i in j] for j in checks]
     alltexts = [i.get() for i in texts]
@@ -61,16 +63,22 @@ def submit():
 
         configFile.write("Color by data percentage: 50 70 85\n\n")
 
+##20171120 botingw: highlight input convention change, highlight mode = {{h1min,h1max},{h2min,h2max},...}
         if len(alltexts[0]) == 0:
-            alltexts[0] = 0
+            alltexts[0] = str("{{0,0}}")
             alltexts[1] = 0
         if len(alltexts[2]) == 0:
-            alltexts[2] = 0
+            alltexts[2] = str("{{0,0}}")
             alltexts[3] = 0
         configFile.write("Type:  1     2     3     4     5     6     7\n")
         configFile.write("Mode:  "+str([allradios[2] for i in range(7)])[1:-1].replace(',','    ')+"\n")
-        configFile.write("Mode 1 range: "+str([(float(alltexts[0]),float(alltexts[1])) for i in range(7)])[1:-1].replace('(','{{ ').replace('),','}}; ').replace(')','}} ')+"\n")
-        configFile.write("Mode 2 range: "+str([(float(alltexts[2]),float(alltexts[3])) for i in range(7)])[1:-1].replace('(','{{ ').replace('),','}}; ').replace(')','}} ')+"\n\n")
+##20171120 botingw: highlight input convention change, highlight mode = {{h1min,h1max},{h2min,h2max},...}
+#        configFile.write("Mode 1 range: "+str([(float(alltexts[0]),float(alltexts[1])) for i in range(7)])[1:-1].replace('(','{{ ').replace('),','}}; ').replace(')','}} ')+"\n")
+#        configFile.write("Mode 2 range: "+str([(float(alltexts[2]),float(alltexts[3])) for i in range(7)])[1:-1].replace('(','{{ ').replace('),','}}; ').replace(')','}} ')+"\n\n")
+        configFile.write("Mode 1 range: "+str([alltexts[0] for i in range(7)])[1:-1].replace('\',',';').replace('\'',' ')+"\n")
+        configFile.write("Mode 2 range: "+str([alltexts[2] for i in range(7)])[1:-1].replace('\',',';').replace('\'',' ')+"\n\n")
+        print(alltexts[0])
+        print(alltexts[2])
 
         configFile.write("Size: "+pointsizes[allradios[3]].lower()+"\n\n")
 
@@ -105,6 +113,15 @@ def changeHL(one,two,three):
             tk.Radiobutton(third,text=pointsizes[s],variable=pointsize,value=s).grid(row=s+1,sticky="w")
     elif hlmode.get() == 1:
         tk.Label(third,text="Input range of values:").grid(row=0,column=0,columnspan=2)
+##20171120 botingw: input convention of highlight mode = {{h1min,h1max},{h2min,h2max},...}
+        HLrange1 = tk.Entry(third)
+        texts[0] = HLrange1
+        HLrange1.insert(10,"{{-100,-1},{1,100}}")
+        HLrange1.grid(row=1,column=1)
+        tk.Label(third,text="Range:").grid(row=2,column=0)
+##to keep the length of text array, add a dummy variable
+        texts[1]=dummy1
+        '''
         tk.Label(third,text="Min:").grid(row=1,column=0)
         rangeMin = tk.Entry(third)
         texts[0] = rangeMin
@@ -115,8 +132,18 @@ def changeHL(one,two,three):
         texts[1] = rangeMax
         rangeMax.insert(10,"0.0")
         rangeMax.grid(row=2,column=1)
+        '''
     elif hlmode.get() == 2:
         tk.Label(third,text="Input range of percentages:").grid(row=0,column=0,columnspan=2)
+##20171120 botingw: input convention of highlight mode = {{h1min,h1max},{h2min,h2max},...}
+        HLrange2 = tk.Entry(third)
+        texts[2] = HLrange2
+        HLrange2.insert(10,"{{0,15},{85,100}}")
+        HLrange2.grid(row=1,column=1)
+        tk.Label(third,text="Range:").grid(row=2,column=0)
+##to keep the length of text array, add a dummy variable
+        texts[3]=dummy2
+        '''
         tk.Label(third,text="Min:").grid(row=1,column=0)
         rangeMin2 = tk.Entry(third)
         texts[2] = rangeMin2
@@ -127,7 +154,7 @@ def changeHL(one,two,three):
         texts[3] = rangeMax2
         rangeMax2.insert(10,"0.0")
         rangeMax2.grid(row=2,column=1)
-
+        '''
 def changeFunc(one,two,three):
     global subCell
     subCell.grid_forget()
@@ -347,6 +374,16 @@ third.grid(row=1,column=3,pady="10")
 #It's got multiple potential variables
 pointsize = tk.IntVar()
 radios.append(pointsize)
+##20171120 botingw: input convention of highlight mode = {{h1min,h1max},{h2min,h2max},...}
+HLrange1 = tk.Entry(third)
+dummy1 = tk.Entry(third)
+texts.append(HLrange1)
+texts.append(dummy1)
+HLrange2 = tk.Entry(third)
+dummy2 = tk.Entry(third)
+texts.append(HLrange2)
+texts.append(dummy2)
+'''
 rangeMin = tk.Entry(third)
 texts.append(rangeMin)
 rangeMax = tk.Entry(third)
@@ -355,6 +392,7 @@ rangeMin2 = tk.Entry(third)
 texts.append(rangeMin2)
 rangeMax2 = tk.Entry(third)
 texts.append(rangeMax2)
+'''
 for s in range(len(pointsizes)):
     tk.Label(third,text="Size of data points:").grid(row=0,column=0)
     tk.Radiobutton(third,text=pointsizes[s],variable=pointsize,value=s).grid(row=s+1,sticky="w")
@@ -379,7 +417,7 @@ funcName = tk.Entry(subCell)
 texts.append(funcName)
 vals = tk.Entry(subCell)
 texts.append(vals)
-#20171119: only show flavour =bbar ~ b
+#20171119 botingw: only show flavour =bbar ~ b
 Nflavour=11
 #for s in range(len(functions)):
 for s in range(Nflavour):

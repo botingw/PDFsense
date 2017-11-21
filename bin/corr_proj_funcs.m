@@ -5746,7 +5746,7 @@ If[PDFname=="2017.1008.0954.-0500_CT14HERA2-jet.ev",PDFname="CT14HERA2-jet.ev"];
 (*=============================================================================================================================*)
 (*read exptlist*)
 exptlist={};
-If[plottype==1  || plottype==5  || plottype==6,exptlist=Table[#[[iexpt,6]][["exptinfo","exptid"]],{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin ];
+If[plottype==1  || plottype==5  || plottype==6,exptlist=Table[#[[iexpt,(*6*)1]][["exptinfo","exptid"]],{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin ];
 If[plottype==2  || plottype==3  || plottype==4,
 exptlist=Table[#[[iexpt]][["exptinfo","exptid"]],{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin ];
 (*test*)Print["expts: ",exptlist];
@@ -7616,7 +7616,14 @@ Print[Head[UserDefFuncData]," ",Dimensions[UserDefFuncData][[1]]," ",Length[User
 Print["List, ","Next: ",Nexpt,", Nset: ",Nset];
 *)
 
-If[DataFormatMode!=1 && DataFormatMode!=2,Print["error, the input user define function data is not correct"];Abort[] ];
+If[
+DataFormatMode!=1 && DataFormatMode!=2,
+Print["error, the input user define function data is not correct"];
+Print["Head of the input: ",Head[UserDefFuncData] ];
+Print["Dimensions of the input: ",Dimensions[UserDefFuncData] ];
+Print["expected Dimensions: {Nset} = ",{Nset}," or {Nexpt,Npt,Nset} = ",Dimensions[fxQdataclasslist]~Join~{Nset} ];
+Abort[] 
+];
 
 (*for input is {Nset of values}*)
 (*append data of user define function to fxQ class for each expt ID*)
