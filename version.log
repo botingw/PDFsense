@@ -249,3 +249,8 @@ so users can input multi-line command
 2. change the main.py selection of flavours part: only shows bbar ~ b radios, but still write q6, q7, and q8 to config1.txt
 3. add more descriptions about how to write functions in the user_func.txt
 4. for .png in python script version, also generate .pdf files
+
+20171120
+1. change main.py so that the input for highlight mode become {{h1min,h1max},{h2min,h2max},...} 
+2. speed up by avoiding calculations of correlations/sensitivities for flavours not being selected in the config1.txt
+3. fix the bug that when setting "unset" for not being selected data, some commands will get the "unset" rather than useful info
