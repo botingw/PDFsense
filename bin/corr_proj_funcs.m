@@ -5746,7 +5746,7 @@ If[PDFname=="2017.1008.0954.-0500_CT14HERA2-jet.ev",PDFname="CT14HERA2-jet.ev"];
 (*=============================================================================================================================*)
 (*read exptlist*)
 exptlist={};
-If[plottype==1  || plottype==5  || plottype==6,exptlist=Table[#[[iexpt,(*6*)1]][["exptinfo","exptid"]],{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin ];
+If[plottype==1  || plottype==5  || plottype==6,exptlist=Table[#[[iexpt,6]][["exptinfo","exptid"]],{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin ];
 If[plottype==2  || plottype==3  || plottype==4,
 exptlist=Table[#[[iexpt]][["exptinfo","exptid"]],{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin ];
 (*test*)Print["expts: ",exptlist];
