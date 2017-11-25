@@ -3579,7 +3579,10 @@ PlotLabel->Style[title,titlesize,Black],
 FrameLabel->{Style[xtitle,xtitlesize,Black],Style[ytitle,ytitlesize,Black]},
 FrameTicksStyle->Black,
 ImageSize->imgsize,
-AspectRatio->1
+AspectRatio->1.0,
+(*20171125: add grid lines*)
+GridLines->Log[{{0.0000001,0.000001,0.00001,0.0001,0.001,0.01,0.1},{10,50,100,500,1000,5000,10000}}],
+GridLinesStyle->Directive[Dashed]
 ];
 
 AllPlots
@@ -5722,7 +5725,7 @@ histtitle,histabstitle,yhistabstitle,HistAutoMode,userdifinefuncfilename,
 hist1plotrangey,hist2plotrangey,BinWidth,hist1plotrange,hist2plotrange,highlightlines,
 xmintmp,xmaxtmp,ymintmp,hist1epilogtext,hist2epilogtext,hist1standardlines,hist2standardlines,LineWidth,HistAutoFixXrangeBool,
 datemode,HistDataList,HistAbsDataList,DataMax,DataMin,AbsDataMax,AbsDataMin,DataMean,AbsDataMean,DataMedian,AbsDataMedian,DataSD,AbsDataSD,
-ColorPaletteMode},
+ColorPaletteMode,PaletteMax,PaletteMin},
 (*read arguments in config file*)
 (*==============================*)
 {Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
@@ -6167,11 +6170,27 @@ epilogxQ={Npttext};
 
 (*20171115 color palette by histogram range*)
 If[
+ColorPaletteMode==4 || ColorPaletteMode==5,
+(*20171125: set max, min of the color palette range by mode*)
+If[
+ColorPaletteMode==4,
+PaletteMax=DataMax;
+PaletteMin=DataMin
+];
+If[
 ColorPaletteMode==5,
+PaletteMax=hist1plotrange[[2]];
+PaletteMin=hist1plotrange[[1]]
+];
+
 If[
- plottype==3 || plottype==5,
+ (*plottype==3 || *)plottype==5,
 legendlabel="";
+(*20171125: use log scale to seperate the colors min, min/3, min/9, min/27, max/27,max/9,max/3,max*)
+barseperator=Table[(DataMin+0.5*(DataMax-DataMin) )+If[isep>0,1.0,-1.0]*(1/3)^(Abs[isep]-1)*(0.5*(DataMax-DataMin) ),{isep,{-1,-2,-3,-4,4,3,2,1}}];
+(*
 barseperator=Table[DataMin+isep*(DataMax-DataMin)/7.0,{isep,0,7}];
+*)
 barseperator[[-1]]=barseperator[[-1]]*1.001;(*add a width*)
 epilogxQ={Npttext};
 
@@ -6180,15 +6199,65 @@ epilogxQ={Npttext};
 ];
 
 If[
- plottype==2 ||  plottype==4,
+ plottype==3(* || plottype==5*),
 legendlabel="";
-barseperator=Table[isep*(AbsDataMax)/4.0,{isep,0,4}];
+(*20171125: use log scale to seperate the colors min, min/3, min/9, min/27, max/27,max/9,max/3,max*)
+barseperator=Table[(DataMin+0.5*(DataMax-DataMin) )+If[isep>0,1.0,-1.0]*(1/1.5)^(Abs[isep]-1)*(0.5*(DataMax-DataMin) ),{isep,{-1,-2,-3,-4,4,3,2,1}}];
+(*
+barseperator=Table[DataMin+isep*(DataMax-DataMin)/7.0,{isep,0,7}];
+*)
 barseperator[[-1]]=barseperator[[-1]]*1.001;(*add a width*)
 epilogxQ={Npttext};
 
 "dummy"
 (*corr plot cut by |data|<0.5*)
 ];
+
+If[
+plottype==4,
+legendlabel="";
+(*20171125: use log scale to seperate the colors min, min/3, min/9, min/27, max/27,max/9,max/3,max*)
+barseperator={0}~Join~Table[(1/1.5)^(Abs[isep]-1)*(DataMax ),{isep,{4,3,2,1}}];
+(*
+barseperator=Table[DataMin+isep*(DataMax-DataMin)/7.0,{isep,0,7}];
+*)
+barseperator[[-1]]=barseperator[[-1]]*1.001;(*add a width*)
+epilogxQ={Npttext};
+
+"dummy"
+(*corr plot cut by |data|<0.5*)
+];
+
+If[
+ plottype==2(* ||  plottype\[Equal]4*),
+legendlabel="";
+(*20171125: use log scale to seperate the colors {0, max/27,max/9,max/3,max}*)
+barseperator={0}~Join~Table[(1/2)^(Abs[isep]-1)*(DataMax ),{isep,{4,3,2,1}}];
+(*
+barseperator=Table[isep*(AbsDataMax)/4.0,{isep,0,4}];
+*)
+barseperator[[-1]]=barseperator[[-1]]*1.001;(*add a width*)
+epilogxQ={Npttext};
+
+"dummy"
+(*corr plot cut by |data|<0.5*)
+];
+(*
+If[
+ plottype\[Equal]4,
+legendlabel="";
+(*20171125: use log scale to seperate the colors {0, max/27,max/9,max/3,max}*)
+barseperator={0}~Join~Table[DataMax-(1/2)^Abs[isep]*(DataMax ),{isep,{1,2,3,4}}];
+(*
+barseperator=Table[isep*(AbsDataMax)/4.0,{isep,0,4}];
+*)
+barseperator[[-1]]=barseperator[[-1]]*1.001;(*add a width*)
+epilogxQ={Npttext};
+
+"dummy"
+(*corr plot cut by |data|<0.5*)
+];
+*)
 
 If[
 plottype==6,
@@ -7621,7 +7690,7 @@ DataFormatMode!=1 && DataFormatMode!=2,
 Print["error, the input user define function data is not correct"];
 Print["Head of the input: ",Head[UserDefFuncData] ];
 Print["Dimensions of the input: ",Dimensions[UserDefFuncData] ];
-Print["expected Dimensions: {Nset} = ",{Nset}," or {Nexpt,Npt,Nset} = ",Dimensions[fxQdataclasslist]~Join~{Nset} ];
+Print["expected Dimensions: {Nset} = ",{Nset}," or {Nexpt,Npt,Nset} = ",Dimensions[fxQdataclasslist] ];
 Abort[] 
 ];
 
