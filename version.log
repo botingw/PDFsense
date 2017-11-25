@@ -253,3 +253,16 @@ so users can input multi-line command
 20171124
 1. organize printout messages
 2. .dat Plot files -> .m
+
+20171125
+1. new formulas for (x,mu): 565~568, jet processes (Expt ID > 500), ID = 267
+2. put executables in ./bin for generating f(x,Q)
+3. check (x,Q) are reasonable before save f(x,Q) and residuals into files ( 10^-10<x<1, <1mu<10^6)
+4. lower #precision to 4 so that data files become smaller and IO become faster
+
+20171125
+(in processdataplotsmultiexp7percentage)
+for the mode 4 & 5 of the color palette separator 
+(*mode 4: depend on max and min of data*)
+(*mode 5: depend on the range of histogram*)
+use evenly separation -> use pseudo-log separation
