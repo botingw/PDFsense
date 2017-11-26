@@ -2542,6 +2542,157 @@ output3
 
 
 (* ::Subsection:: *)
+(*tools for plots class*)
+
+
+(* ::Input::Initialization:: *)
+(*this function return markers and their normalized size by {shapes,sizes}*)
+(*shapes = {shape1,shape2,...}, sizes = {size1,size2,...}*)
+PlotMarkerList[]:=
+Module[{shapes0,shapes1,shapes2,shapes3,sizes0,sizes1,sizes2,sizes3},
+shapes1={\[FivePointedStar],\[ClubSuit],\[HeartSuit],\[SpadeSuit],\[EighthNote],\[Sharp],\[Yen],\[Section],\[BeamedSixteenthNote],\[EmptySet],\[Earth],"\[Times]","\[CircleMinus]","\[Superset]",">","<",\[LightBulb],\[Euro],\[Cent],\[Flat]};
+sizes1={800,800,800,800,800,1000,1000,1000,800,900,900,1200,800,800,1000,1000,1000,1000,1000,1200};
+shapes2={"\[FilledCircle]","\[FilledSquare]","\[FilledDiamond]","\[FilledUpTriangle]","\[FilledDownTriangle]","\[EmptyCircle]","\[EmptySquare]","\[EmptyDiamond]","\[EmptyUpTriangle]","\[EmptyDownTriangle]"};
+sizes2={750.0,1000.0,900.0,850.0,850.0,750.0,1000.0,900.0,850.0,850.0};
+shapes0={\[CloverLeaf],\[Currency],\[DownExclamation],\[Checkmark],"\[DoubleRightArrow]","\[DoubleLeftArrow]","\[DoubleUpArrow]","\[DoubleDownArrow]","\[SquareSubset]","\[SquareSuperset]","\[NotTilde]","\[NotEqual]","\[PartialD]","\[Intersection]","\[Infinity]","\[CapitalDifferentialD]"};
+sizes0={1000,1200,1200,1000,1000,1000,900,900,800,800,1400,1200,900,800,1000,800};
+
+(*check size and shape list Length are the same*)
+If[Length[shapes0]!=Length[sizes0],Print["error, #shapes0 and #sizes0 are not the same, {#shapes0,#sizes0} = ",{shapes0,sizes0}];Abort[] ];
+If[Length[shapes1]!=Length[sizes1],Print["error, #shapes1 and #sizes1 are not the same, {#shapes1,#sizes2} = ",{shapes1,sizes1}];Abort[] ];
+If[Length[shapes2]!=Length[sizes2],Print["error, #shapes2 and #sizes2 are not the same, {#shapes2,#sizes2} = ",{shapes2,sizes2}];Abort[] ];
+shapes3=Join[shapes2,shapes1,shapes0];
+sizes3=Join[sizes2,sizes1,sizes0];
+
+(*return*)
+{shapes3,sizes3}
+]
+
+
+(*input: RGB="R" or "G" or "B" or "Brown" or "Gray"*)
+(*output: red (red, deep red, deep orange...), green, blue, blown, gray color lists*)
+colorset[RGBin_]:=
+Module[{RGB=RGBin,colorset,Rcolor,Gcolor,Bcolor,Graycolor,Browncolor,output},
+colorset=ColorData["WebSafe","ColorList"];
+Rcolor={colorset[[12]],colorset[[14]],colorset[[32]],colorset[[18]],colorset[[23]],colorset[[29]],colorset[[36]],colorset[[22]],Red,colorset[[43*1+29]]};
+Gcolor={colorset[[43*4+12]],colorset[[43*4+14]],colorset[[43*4+20]],colorset[[43*4+26]],colorset[[43*4+32]],colorset[[43*2+40]],colorset[[41]],Green};
+Bcolor={colorset[[43*4+3]],colorset[[43*4+9]],colorset[[43*4+15]],colorset[[43*4+22]],colorset[[43]],colorset[[43*2+7]],colorset[[43*2+13]],colorset[[43*1+30]],Blue};
+Graycolor={colorset[[43*1+1]],colorset[[43*2+1]],colorset[[43*3+1]],colorset[[43*4+1]],Gray};
+Browncolor={colorset[[43*2+9]],colorset[[43*1+9]],colorset[[43*3+9]],colorset[[43*2+16]],colorset[[43*2+22]],Brown};
+
+output=
+Switch[
+RGB,
+"R",Rcolor,
+"G",Gcolor,
+"B",Bcolor,
+"Gray",Graycolor,
+"Brown",Browncolor,
+_,
+Print["error, input should be \"R\" or \"G\" or \"B\" or \"Brown\" or \"Gray\""]
+];
+
+output
+
+]
+
+
+(* ::Input::Initialization:: *)
+(*classify data by groups of ExptID lists*)
+(*
+data: {data1,data2,data3,...}
+dataExptID={ID1,ID2,...} corresponding to {data1,data2,...}
+grouplists: {group1,group2,group2,...}; groupN = {element1,element2,...}
+output the subgroups, if the Expt ID for a data belong to groupN, add the data in that subgroup 
+e.g.:
+if IDN belong to elementM, them put dataN in the M-th subgroup
+*)
+ClassifyByGroups[datain_,dataExptIDin_,groupnamesin_,grouplistsin_]:=
+Module[{data=datain,dataExptID=dataExptIDin,groupnames=groupnamesin,grouplists=grouplistsin,subgroupindexlist,otherindexlist,groupExptIDs,groupdata},
+(*check data and dataExptID have the same Length *)
+If[
+Length[data]!=Length[dataExptID],
+Print["error, data and dataExptID should have the same # of elements, {#data,#dataExptID} = ",{Length[data],Length[dataExptID]}];
+Abort[] 
+];
+(*check groupnames and grouplists have the same Length *)
+If[
+Length[groupnames]!=Length[grouplists],
+Print["error, groupnames and grouplists should have the same # of elements, {#groupnames,#grouplists} = ",{Length[groupnames],Length[grouplists]}];
+Abort[] 
+];
+(*check input subgroups do not overlap*)
+If[Length[Union[Flatten[grouplists] ] ]!=Length[Flatten[grouplists] ],Print["error, some elements are in multiple subgroups, grouplist: ",grouplists];Abort[] ];
+
+(*classify data by each subgroup*)
+subgroupindexlist=
+Table[
+(*if the dataExptID[[i]] belong to a subgroup, add it to this subgroup*)
+Select[Range[Length[dataExptID] ],Length[Intersection[{dataExptID[[#]]},grouplists[[igroup]] ] ]==1& ],
+{igroup,Length[grouplists]}
+];
+otherindexlist=Complement[Range[Length[dataExptID] ],Flatten[subgroupindexlist] ];
+
+(*add the other group (not belong to anyone)*)
+subgroupindexlist=Append[subgroupindexlist,otherindexlist];
+(*check all elements after being classified are still exist*)
+If[
+Length[subgroupindexlist//Flatten]!=Length[dataExptID],
+Print["error, elements of unclassified data and elements of classified data do not match, {#origin,#classified} = ",{Length[dataExptID],Length[subgroupindexlist//Flatten]}];
+Abort[] 
+];
+
+(*construct new data by categories*)
+groupnames=groupnames~Join~{"Others"};
+groupExptIDs=
+Table[
+dataExptID[[subgroupindexlist[[igroup]] ]],
+{igroup,Length[grouplists]+1}
+];
+groupdata=
+Table[
+data[[subgroupindexlist[[igroup]] ]],
+{igroup,Length[grouplists]+1}
+];
+
+(*output*)
+{groupnames,groupExptIDs,groupdata}
+]
+
+
+(*input classify modes, output *)
+(*
+this function input the groupnames & grouplists into ClassifyByGroups according to ClassifyMode,
+single: classify data by each expt ID
+all: define all data in one group
+...
+...
+
+output the {groupnames,groupExptIDs,groupdata} for corresponding ClassifyMode
+*)
+ClassifyPlottedData[datain_,dataExptIDin_,ClassifyModein_]:=
+Module[{(*data=datain,dataExptID=dataExptIDin,*)ClassifyMode=ClassifyModein,groupnames,grouplists,output},
+output=
+Switch[
+ClassifyMode,
+"single",
+groupnames=ToString[#]&/@dataExptIDin;
+grouplists={#}&/@dataExptIDin;
+ ClassifyByGroups[datain,dataExptIDin,groupnames,grouplists],
+"all",
+groupnames={"All"};
+grouplists={dataExptIDin};
+(*
+ ClassifyByGroups[datain,dataExptIDin,groupnames,grouplists]
+*){groupnames,grouplists,{datain}},
+_,Identity
+];
+
+output
+]
+
+
+(* ::Subsection:: *)
 (*plotsetting class*)
 
 
@@ -2574,34 +2725,6 @@ Plotsetting=
 
 (* ::Input::Initialization:: *)
 
-
-
-(*input: RGB="R" or "G" or "B" or "Brown" or "Gray"*)
-(*output: red (red, deep red, deep orange...), green, blue, blown, gray color lists*)
-colorset[RGBin_]:=
-Module[{RGB=RGBin,colorset,Rcolor,Gcolor,Bcolor,Graycolor,Browncolor,output},
-colorset=ColorData["WebSafe","ColorList"];
-Rcolor={colorset[[12]],colorset[[14]],colorset[[32]],colorset[[18]],colorset[[23]],colorset[[29]],colorset[[36]],colorset[[22]],Red,colorset[[43*1+29]]};
-Gcolor={colorset[[43*4+12]],colorset[[43*4+14]],colorset[[43*4+20]],colorset[[43*4+26]],colorset[[43*4+32]],colorset[[43*2+40]],colorset[[41]],Green};
-Bcolor={colorset[[43*4+3]],colorset[[43*4+9]],colorset[[43*4+15]],colorset[[43*4+22]],colorset[[43]],colorset[[43*2+7]],colorset[[43*2+13]],colorset[[43*1+30]],Blue};
-Graycolor={colorset[[43*1+1]],colorset[[43*2+1]],colorset[[43*3+1]],colorset[[43*4+1]],Gray};
-Browncolor={colorset[[43*2+9]],colorset[[43*1+9]],colorset[[43*3+9]],colorset[[43*2+16]],colorset[[43*2+22]],Brown};
-
-output=
-Switch[
-RGB,
-"R",Rcolor,
-"G",Gcolor,
-"B",Bcolor,
-"Gray",Graycolor,
-"Brown",Browncolor,
-_,
-Print["error, input should be \"R\" or \"G\" or \"B\" or \"Brown\" or \"Gray\""]
-];
-
-output
-
-]
 
 
 (* ::Input::Initialization:: *)
@@ -3398,7 +3521,8 @@ Module[{data=datain,title=titlein,xtitle=xtitlein,ytitle=ytitlein,plotrange=plot
 plotxQout,minx,maxx,miny,maxy,imgsize,titlesize,xtitlesize,ytitlesize,lgdlabelsize,ticklablesize,plotrangetmp,mycolorscheme,psizebase,psizenorm,p,datalist,drange,barcolor,mybarlegend,barmin,barmax,textsize,outlayertext,
 tickslist,tickslog,nolable,Loglable,xTicks,yTicks,p2,AllPlots,
 ptshape,ptshaperescale,
-barseperatordefault,barcolordefault,barseperator},
+barseperatordefault,barcolordefault,barseperator,
+dataordering},
 
 (*default*)
 minx=0.00001;
@@ -3541,13 +3665,22 @@ ptshape={"\[FilledCircle]",(*"*"*)(*"x"*)"\[EmptySquare]","\[FilledUpTriangle]",
 ptshaperescale={750.0,2000.0,850.0,800.0,750.0};
 {{"\[FilledCircle]",8.96`},{"\[FilledSquare]",8.96`},{"\[FilledDiamond]",10.88`},{"\[FilledUpTriangle]",10.24`},{"\[FilledDownTriangle]",10.24`},{"\[EmptyCircle]",10.24`},{"\[EmptySquare]",10.24`},{"\[EmptyDiamond]",10.24`},{"\[EmptyUpTriangle]",11.136`},{"\[EmptyDownTriangle]",11.136`}};
 
+(*20171126: use marker list*)
+{ptshape,ptshaperescale}=PlotMarkerList[];
+(*ptshaperescale=0.0075*ptshaperescale;*)
+
+(*20171126: for multi shape plotting, we need to sort data in all groups togather, otherwise the last group members with small values still cover the large values*)
+dataordering=Ordering[Flatten[datain]/.LF1[a__]:>Abs[{a}[[3]] ] ];
+
 AllPlots=Show[
 {
 p2,
 Graphics[
+(*20171126: sort all group members by ordering of Abs[values] (using dataordering)*)
+(
 Table[
 (*20170530: datain[[igroup]] \[Rule] sort from small value to large value so that deep color points would not be covered by light color points*)
-Sort[datain[[igroup]],Abs[#2[[3]] ]>Abs[#1[[3]] ]&]/.LF1[a__]:>Style[
+(*Sort[datain[[igroup]],Abs[#2[[3]] ]>Abs[#1[[3]] ]&]*)datain[[igroup]]/.LF1[a__]:>Style[
 Text[ptshape[[igroup]],{Log[{a}[[1]] ],Log[{a}[[2]] ]}],
 (*20171108: if highlighted, medium, unhighlighted, small
 (*PointSize[*)(*psizebase+psizenorm*(Abs[{a}[[3]] ]/drange)*)ptshaperescale[[igroup]]*Setpointsize2[{a}[[3]],highlightrange,unhighlightsize] (*]*),(*ColorData[{mycolorscheme,{-drange,drange} }][{a}[[3]]]*)
@@ -3569,6 +3702,7 @@ If[{a}[[3]]<barmax&&{a}[[3]]>barmin,Setbarcolorfunc2[barcolor,barseperator,{a}[[
 ]
 ],
 {igroup,1,Length[datain]}]//Flatten
+)[[dataordering]]
 ]
 },
 Frame->True,
@@ -5694,6 +5828,99 @@ plottype==1,
 
 
 (* ::Input::Initialization:: *)
+(*20171126*)
+(*
+when call processdataplotsmultiexp7percentage,
+if plot type = 1, call this function to draw data sets on (x,Q) plane
+*)
+PlotDataTypeOne[corrfxQdtaobsclassin_,pdfcorrin_,exptlistin_,xyrangein_,classifymodein_,configargumentsin_]:=
+Module[{corrfxQdtaobsclass=corrfxQdtaobsclassin,pdfcorr=pdfcorrin,exptlist=exptlistin,classifymode=classifymodein,configarguments=configargumentsin,
+plottype,expttype,
+Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
+XQfigureXrange,XQfigureYrange,Hist1figureNbin,Hist1figureXrange,Hist1figureYrange,
+ColorSeperator,
+Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2,
+lgdpos,xyrangeplot1,plotrange,
+myplotsetting,imgsize,title,xtitle,ytitle,lgdlabel,xrange,yrange,epilog,titlesize,xtitlesize,ytitlesize,lgdlabelsize,ticklablesize,myplotstyle,myMarker,
+plot1,
+xyrange=xyrangein,
+groupnames,groupExptIDs},
+
+(*read arguments in config file*)
+(*==============================*)
+{Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
+XQfigureXrange,XQfigureYrange,Hist1figureNbin,Hist1figureXrange,Hist1figureYrange,
+ColorSeperator,
+Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}=configarguments;
+(*=============================================================================================================================*)
+(*plot type 1: generate plots============================================================================================================*)
+(*=============================================================================================================================*)
+{myplotsetting,imgsize,title,xtitle,ytitle,lgdlabel,xrange,yrange,epilog,titlesize,xtitlesize,ytitlesize,lgdlabelsize,ticklablesize,myplotstyle,myMarker};
+
+(*plot1*)
+
+expttype="multi";
+(*20170515 groups of data, legend is exptids in all groups, using Flatten, PDFname should be took cared*)
+myplotsetting=setplotsetting[Flatten[corrfxQdtaobsclassin,1],exptlist//Flatten,expttype,1,"test","test"];
+imgsize=myplotsetting[["imgsize"]];
+title=myplotsetting[["title"]];
+xtitle=myplotsetting[["xtitle"]];
+ytitle=myplotsetting[["ytitle"]];
+lgdlabel=myplotsetting[["lgdlabel"]];
+xrange=myplotsetting[["xrange"]];
+yrange=myplotsetting[["yrange"]];
+epilog=myplotsetting[["epilog"]];
+titlesize=myplotsetting[["titlesize"]];
+xtitlesize=myplotsetting[["xtitlesize"]];
+ytitlesize=myplotsetting[["ytitlesize"]];
+lgdlabelsize=myplotsetting[["lgdlabelsize"]];
+ticklablesize=myplotsetting[["ticklablesize"]];
+
+myplotstyle=myplotsetting[["plotstyle"]];
+myMarker=myplotsetting[["marker"]];
+
+title="Experimental data in "<>PDFname<>" analysis";
+lgdpos={0.25,0.725};
+(*xyrangeplot1=plotrange;*)(*20170307 change it's name, avoid duplicate*)
+(*20170515: consider expts in all groups*)
+(*20170515: consider expts of all groups, so use Flatten[data,1] *)
+
+(*
+Print["dim of p1: ",Dimensions[pdfcorr] ];
+Print["dim of p1: ",Dimensions[Flatten[pdfcorr,1] ]];
+Print["data of p1: ",Flatten[pdfcorr,1][[1]] ];
+Print["data of p1: ",Flatten[pdfcorr,1][[2]] ];
+Print["data of p1: ",Flatten[pdfcorr,1][[3]] ];
+Print["data of p1: ",Flatten[pdfcorr,1][[4]] ];
+PDFloglogplot[Flatten[pdfcorr,1]/.LF1\[Rule]List,myMarker,myplotstyle,title,xtitle,ytitle,xyrangeplot1,lgdlabel,lgdpos,imgsize];
+Abort[];
+*)
+(*20171126: use marker list*)
+myMarker=PlotMarkerList[];
+myMarker[[2]]=0.0075*myMarker[[2]];
+myMarker=Transpose[myMarker,{2,1}];
+Print["dim of data: ",Dimensions[pdfcorr] ];
+Print["exptlist ",exptlist];
+{groupnames,groupExptIDs,(*groupdata*)pdfcorr}=ClassifyPlottedData[pdfcorr,exptlist,classifymode];
+pdfcorr=Table[Flatten[pdfcorr[[igroup]],1],{igroup,Length[pdfcorr]}];
+lgdlabel=
+Switch[classifymode,"single",lgdlabel,"all",groupnames];
+
+Print["dim of data: ",Dimensions[pdfcorr] ];
+
+plot1=PDFloglogplot[(*Flatten[pdfcorr,1]*)pdfcorr,myMarker,myplotstyle,title,xtitle,ytitle,xyrange(*plot1*),lgdlabel,lgdpos,imgsize];
+
+(*return*)
+
+{plot1}
+
+(*
+{myMarker,myplotstyle,title,xtitle,ytitle,xyrange,lgdlabel,lgdpos,imgsize}
+*)
+]
+
+
+(* ::Input::Initialization:: *)
 (*modify of 3: when plottype = 5, 6, extract data of that flavour*)
 (*modify of 4: don't set local variable of corrfxQdtaobsclassin, avoiding time to copy large data to local variable, for mode 5,6 only deal with 
 corresponding flavour data (by flavourin)*)
@@ -5725,7 +5952,8 @@ histtitle,histabstitle,yhistabstitle,HistAutoMode,userdifinefuncfilename,
 hist1plotrangey,hist2plotrangey,BinWidth,hist1plotrange,hist2plotrange,highlightlines,
 xmintmp,xmaxtmp,ymintmp,hist1epilogtext,hist2epilogtext,hist1standardlines,hist2standardlines,LineWidth,HistAutoFixXrangeBool,
 datemode,HistDataList,HistAbsDataList,DataMax,DataMin,AbsDataMax,AbsDataMin,DataMean,AbsDataMean,DataMedian,AbsDataMedian,DataSD,AbsDataSD,
-ColorPaletteMode,PaletteMax,PaletteMin},
+ColorPaletteMode,PaletteMax,PaletteMin,
+groupnames,groupExptIDs,classifymode},
 (*read arguments in config file*)
 (*==============================*)
 {Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
@@ -5754,6 +5982,8 @@ If[plottype==2  || plottype==3  || plottype==4,
 exptlist=Table[#[[iexpt]][["exptinfo","exptid"]],{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin ];
 (*test*)Print["expts: ",exptlist];
 
+(*20171126 classify mode for data \[Rule] different shape for each group*)
+classifymode="single";
 
 (*********************************)
 (*prepare for data input to processdataplotsmultiexp*)
@@ -5768,6 +5998,10 @@ fmax=Length[corrfxQdtaobsclassin[[1,1]] ];
 
 (*data format \[Equal] {LF[x,Q,obs],...,...}, to LF1*)
 pdfcorr=Table[#[[iexpt,flavourin+6]][["data"]]/.LF->LF1,{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin;
+
+(*20171126: classify exptid by defined groups with classifymode*)
+{groupnames,groupExptIDs,(*groupdata*)pdfcorr}=ClassifyPlottedData[pdfcorr[[1]],exptlist[[1]],classifymode];
+(*pdfcorr=Table[Flatten[pdfcorr[[igroup]],1],{igroup,Length[pdfcorr]}];*)
 
 (*merge all experimental data into one, for all flavours*)
 (*ex: corrdataforplot[[iexpt,flavour,Npt]] \[Rule] orrdataforplot[[flavour,Npt]]*)
@@ -6047,7 +6281,11 @@ If[hist2plotrangex[[1]]<0.0,hist2plotrangex[[1]]=0.0];
 "dummy"
 ];
 
-
+(*20171126 draw plot type 1 and return the figure, end this function*)
+If[
+plottype==1,
+Return[PlotDataTypeOne[corrfxQdtaobsclassin,pdfcorr[[1]],exptlist[[1]],plotrange,(*classifymode*)classifymode,configarguments] ]
+];
 (*=============================================================================================================================*)
 (*Histograms: Nbin and hist yrange============================================================================================================*)
 (*=============================================================================================================================*)
@@ -6314,7 +6552,7 @@ If[HighlightMode[[plottype]]\[Equal]1 || HighlightMode[[plottype]]\[Equal]2,barl
 (*=============================================================================================================================*)
 
 (*for highlight mode, always only have no choice of size*)
-If[HighlightMode[[plottype]]==1 || HighlightMode[[plottype]]==2,Size="small"];
+If[HighlightMode[[plottype]]==1 || HighlightMode[[plottype]]==2,Size=(*20171126\[Rule]tiny*)(*"small"*)"tiny"];
 (*set size*)
 unhighlightsize=
 Switch[Size,"tiny",0.005,"small",0.0075,"medium",0.01,"large",0.0125,_,Print["error,size type is not correct"];Abort[] ];
@@ -6340,7 +6578,17 @@ GraphicsGrid[{{xQplotcorr},{histplotcorr1,histplotcorr2}}];
 If[
  plottype==2 || plottype==3 || plottype==4 || plottype==5  || plottype==6,
 rows=3;
+(*20171126: set labels depend on different classifymode*)
+If[
+classifymode=="single",
+exptnames=Table[ToString[PlotMarkerList[][[1,iexpt]] ]<>ExptIDtoName[Flatten[exptlist][[iexpt]] ]<>"("<>ToString[Flatten[exptlist][[iexpt]] ]<>")",{iexpt,1,Length[exptlist//Flatten]}];
+"dummy"
+];
+If[
+classifymode=="all",
 exptnames=Table[ExptIDtoName[Flatten[exptlist][[iexpt]] ]<>"("<>ToString[Flatten[exptlist][[iexpt]] ]<>")",{iexpt,1,Length[exptlist//Flatten]}];
+"dummy"
+];
 Print["making table of experiments included in plots"];
 datemode=False;
 exptnamestable=makeGrid2[exptnames,rows,title<>"\n\n",datemode];
