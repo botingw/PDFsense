@@ -2551,9 +2551,9 @@ output3
 PlotMarkerList[]:=
 Module[{shapes0,shapes1,shapes2,shapes3,sizes0,sizes1,sizes2,sizes3},
 shapes1={\[FivePointedStar],\[ClubSuit],\[HeartSuit],\[SpadeSuit],\[EighthNote],\[Sharp],\[Yen],\[Section],\[BeamedSixteenthNote],\[EmptySet],\[Earth],"\[Times]","\[CircleMinus]","\[Superset]",">","<",\[LightBulb],\[Euro],\[Cent],\[Flat]};
-sizes1={800,800,800,800,800,1000,1000,1000,800,900,900,1200,800,800,1000,1000,1000,1000,1000,1200};
+sizes1={800,800,1000,800,800,1000,1000,1000,800,900,900,1200,900,800,1000,1000,1000,1000,1000,1200};
 shapes2={"\[FilledCircle]","\[FilledSquare]","\[FilledDiamond]","\[FilledUpTriangle]","\[FilledDownTriangle]","\[EmptyCircle]","\[EmptySquare]","\[EmptyDiamond]","\[EmptyUpTriangle]","\[EmptyDownTriangle]"};
-sizes2={750.0,1000.0,900.0,850.0,850.0,750.0,1000.0,900.0,850.0,850.0};
+sizes2={750.0,1000.0,900.0,850.0,850.0,1050.0,1300.0,1200.0,1150.0,1150.0};
 shapes0={\[CloverLeaf],\[Currency],\[DownExclamation],\[Checkmark],"\[DoubleRightArrow]","\[DoubleLeftArrow]","\[DoubleUpArrow]","\[DoubleDownArrow]","\[SquareSubset]","\[SquareSuperset]","\[NotTilde]","\[NotEqual]","\[PartialD]","\[Intersection]","\[Infinity]","\[CapitalDifferentialD]"};
 sizes0={1000,1200,1200,1000,1000,1000,900,900,800,800,1400,1200,900,800,1000,800};
 
@@ -2685,7 +2685,8 @@ grouplists={dataExptIDin};
 (*
  ClassifyByGroups[datain,dataExptIDin,groupnames,grouplists]
 *){groupnames,grouplists,{datain}},
-_,Identity
+_,
+Print["error, Classify Mode should be \"single\" or \"all\" "];Abort[]
 ];
 
 output
@@ -5901,6 +5902,8 @@ myMarker[[2]]=0.0075*myMarker[[2]];
 myMarker=Transpose[myMarker,{2,1}];
 Print["dim of data: ",Dimensions[pdfcorr] ];
 Print["exptlist ",exptlist];
+(*always don't show only one shape for all expt ID points*)
+If[classifymode=="all",classifymode="single"];
 {groupnames,groupExptIDs,(*groupdata*)pdfcorr}=ClassifyPlottedData[pdfcorr,exptlist,classifymode];
 pdfcorr=Table[Flatten[pdfcorr[[igroup]],1],{igroup,Length[pdfcorr]}];
 lgdlabel=
@@ -5983,7 +5986,7 @@ exptlist=Table[#[[iexpt]][["exptinfo","exptid"]],{iexpt,1,Length[#]}]&/@corrfxQd
 (*test*)Print["expts: ",exptlist];
 
 (*20171126 classify mode for data \[Rule] different shape for each group*)
-classifymode="single";
+classifymode=ClassifyMode;
 
 (*********************************)
 (*prepare for data input to processdataplotsmultiexp*)
@@ -6021,6 +6024,10 @@ plottype==2 || plottype==3 || plottype==4,
 pdfcorr=Table[#[[iexpt]][["data"]]/.LF->LF1,{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin;
 (*20171108 expt error ratio values should be absolute value*)
 If[plottype==2,pdfcorr=pdfcorr/.LF1[a__]:>LF1[{a}[[1]],{a}[[2]],Abs[{a}[[3]] ] ] ];
+
+(*20171126: classify exptid by defined groups with classifymode*)
+{groupnames,groupExptIDs,(*groupdata*)pdfcorr}=ClassifyPlottedData[pdfcorr[[1]],exptlist[[1]],classifymode];
+
 (*merge all data into one*)
 pdfcorr=Flatten[#,1]&/@pdfcorr;
 "dummy"

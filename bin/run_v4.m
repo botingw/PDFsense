@@ -106,6 +106,16 @@ modes:
 *)
 BranchMode=2;
 
+(*ClassifyMode*)
+(*
+classify data by various groups, e.g. DIS \[Equal] 100<ID<199, 200<VBP<299, etc
+then use different shapes to represent data points in their respective groups in output figures
+modes:
+"all": all data use one shape
+"single": each Expt ID one shape
+*)
+ClassifyMode="single";
+
 
 (* ::Section:: *)
 (*read correlation (and other data of FigureType in config1.txt) from the data in files*)
@@ -1386,4 +1396,17 @@ If[irun==Length[Lexpt],Print["all processes are done"];Abort[]];
 (*fxQsamept2classfinal[[1,1]][["exptinfo","exptid"]]*)
 
 
+(* ::Input:: *)
+(*processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile5[configDir,configfilename],1,0 ]*)
 
+
+(* ::Input:: *)
+(*Get["corr_proj_funcs.m"]*)
+
+
+(* ::Input:: *)
+(*ReadLisFile[datalistFile];*)
+
+
+(* ::Input:: *)
+(*lisTable*)
