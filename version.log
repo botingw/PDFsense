@@ -266,3 +266,20 @@ for the mode 4 & 5 of the color palette separator
 (*mode 4: depend on max and min of data*)
 (*mode 5: depend on the range of histogram*)
 use evenly separation -> use pseudo-log separation
+
+20171125
+1. define  marker shapes (PlotMarkerList)
+
+20171126
+1. apply different maker shapes on data by their categories, data after categorized by classifymode (processdataplotsmultiexp7percentage)
+functions generated: ClassifyPlottedData, ClassifyByGroups, MarkerList
+2. reorder the data points ordering of all groups (categories) by their absolute values 
+so that small values of later groups will not cover large values of prior groups
+3. for highlight mode, unhighlight size from small -> tiny for more complicated shapes in figures
+4. generate plot type 1 (data points on xQ plane) by new function PlotDataTypeOne 
+bacause the way we setup plot type 1 is totally different with other types (corr, sensitivy, ...)
+
+20171126
+1. apply multi-shape on all plot types (corr, sens, residual, etc)
+2. enlarge open shape size so that they become more clear
+3. classifymode difined as global variable in run_v4.m
