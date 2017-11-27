@@ -292,3 +292,10 @@ extract limited digits from a number -> save files with smaller sizes (fix the b
 bug fix: ExptIDinfo for JP category
 20171127
 delete strings for q6~q8 in processdataplotsmultiexp7percentage
+
+20171127:
+bug: 565 formula pT, y -> 0
+
+20171127
+fix bug: fraction numbers get error message when exceeding the maximum system accuracy. change fractions -> numerics 
+delete some printout 
