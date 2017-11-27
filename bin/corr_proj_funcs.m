@@ -6104,7 +6104,11 @@ corrdrtitle1=(*"\[Delta]r*Corr( ";*)"Sensitivity to ";
 title2=(*", r(x,\[Mu]))";*)", \!\(\*SubscriptBox[\(r\), \(i\)]\))";
 title3=(*" for dataset of "*)", "<>PDFname;
 obsname="";(*initialize*)
-pdfnamelable={"\!\(\*OverscriptBox[\(b\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(c\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(s\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(d\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(u\), \(_\)]\)(x,\[Mu])","g(x,\[Mu])","u(x,\[Mu])","d(x,\[Mu])","s(x,\[Mu])","c(x,\[Mu])","b(x,\[Mu])","\!\(\*FractionBox[\(\*OverscriptBox[\(d\), \(_\)] \((x, \[Mu])\)\), \(\*OverscriptBox[\(u\), \(_\)] \((x, \[Mu])\)\)]\)","\!\(\*FractionBox[\(d \((x, \[Mu])\)\), \(u \((x, \[Mu])\)\)]\)","\!\(\*FractionBox[\(s \((x, \[Mu])\) + \*OverscriptBox[\(s\), \(_\)] \((x, \[Mu])\)\), \(\*OverscriptBox[\(u\), \(_\)] \((x, \[Mu])\) + \*OverscriptBox[\(d\), \(_\)] \((x, \[Mu])\)\)]\)",Sequence@@UserArgName(*20171119 change to multi-user functions*)};
+pdfnamelable={"\!\(\*OverscriptBox[\(b\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(c\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(s\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(d\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(u\), \(_\)]\)(x,\[Mu])","g(x,\[Mu])","u(x,\[Mu])","d(x,\[Mu])","s(x,\[Mu])","c(x,\[Mu])","b(x,\[Mu])",
+(*20171126: delete q6~q8*)
+(*
+"\!\(\*FractionBox[\(\*OverscriptBox[\(d\), \(_\)] \((x, \[Mu])\)\), \(\*OverscriptBox[\(u\), \(_\)] \((x, \[Mu])\)\)]\)","\!\(\*FractionBox[\(d \((x, \[Mu])\)\), \(u \((x, \[Mu])\)\)]\)","\!\(\*FractionBox[\(s \((x, \[Mu])\) + \*OverscriptBox[\(s\), \(_\)] \((x, \[Mu])\)\), \(\*OverscriptBox[\(u\), \(_\)] \((x, \[Mu])\) + \*OverscriptBox[\(d\), \(_\)] \((x, \[Mu])\)\)]\)",
+*)Sequence@@UserArgName(*20171119 change to multi-user functions*)};
 
 (*20171107: simplify title labels*)
 If[
@@ -7879,7 +7883,7 @@ If[iSet>NSet,Print["error, the input iExpt > # of replicas ",NSet];Quit[] ];
 Nlayer=0;
 If[iExpt!="All",output=output[[iExpt]],Nlayer=Nlayer+1 ];(*if iExpt \[Equal] "All", layer = [[iExpt,...]], if iExpt\[NotEqual]"All", layer = [[iflavour,...]]*)
 If[iFlavour!="All",output=Map[#[[iFlavour+6]]&,output,{Nlayer}],Nlayer=Nlayer+1 ];
-If[iPt!="All",output=Map[#[[iPt]]&,output,{Nlayer}],,Nlayer=Nlayer+1 ];
+If[iPt!="All",output=Map[#[[iPt]]&,output,{Nlayer}],Nlayer=Nlayer+1 ];
 If[iSet!="All",output=output/.LF[x_,Q_,a__]:>LF[x,Q,{a}[[iSet]] ],Nlayer=Nlayer+1 ];
 (*
 If[iPt\[NotEqual]"All",output=Map[#[[iPt]]&,output,{2}] ];
