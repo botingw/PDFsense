@@ -298,7 +298,10 @@ Print["average time of one test of pdfCTEQ is ",GetPDFTimeTest/(100*(Datamethods
 (*add customized flavour for parton density function (flavour = 6,7,8)*)
 (*definition of 6, 7, 8 are in setextrafxQ: ubar/dbar, u/d,  s+sbar/ubar+dbar*)
 
+(*20171126 delete q6~q8*)
+(*
 fxQsamept2class=Table[Join[fxQsamept2class[[iexpt]],setextrafxQ[fxQsamept2class[[iexpt]] ]  ],{iexpt,1,Length[fxQsamept2class]}];
+*)
 
 
 (* ::Subsection:: *)
@@ -671,13 +674,37 @@ Export[CorrDataDir<>"dR_samept_data_"<>PDFname<>".m",deltaRclass,"ExpressionML"]
 
 (* ::Input::Initialization:: *)
 (*20171125: lower the precision of output files to 4 digits: save the space and reading time*)
+(*20171126 new way to extract digits of numbers*)
+SetNumberDigit[numbersin_,Ndigitin_]:=
+Module[{numbers=numbersin,Ndigit=Ndigitin,keepdigits,Norder,Nzero},
+(*check numbers are Real*)
+{keepdigits,Norder}=RealDigits[numbers];
+
+(*calculate values with the digit number, if digit number > #elements of Digit List, take #elements of Digit List*)
+(*we can not use 10.0 to evaluate because by that the number become the numarical number with large digits*)
+(*we only use A/B to store this number*)
+Sum[keepdigits[[i]]*10^(Norder-i),{i,Min[Ndigit,Length[keepdigits]]}]
+];
+
 Ndigits=4;
+
+Table[
+residualNsetclass[[iexpt]][["data"]]=residualNsetclass[[iexpt]][["data"]]/.LF[a__]:>LF@@(SetNumberDigit[#,Ndigits]&/@{a}),
+{iexpt,Length[residualNsetclass]}
+];
+
+Table[
+fxQsamept2class[[iexpt,flavour+6]][["data"]]=fxQsamept2class[[iexpt,flavour+6]][["data"]]/.LF[a__]:>LF@@(SetNumberDigit[#,Ndigits]&/@{a}),
+{iexpt,1,Length[fxQsamept2class]},{flavour,-5,-5+Length[fxQsamept2class[[1]] ]-1}
+];
+(*
 Table[residualNsetclass[[iexpt]][["data"]]=SetPrecision[residualNsetclass[[iexpt]][["data"]],Ndigits],{iexpt,Length[residualNsetclass]}];
 
 Table[
 fxQsamept2class[[iexpt,flavour+6]][["data"]]=SetPrecision[fxQsamept2class[[iexpt,flavour+6]][["data"]],Ndigits],
 {iexpt,1,Length[fxQsamept2class]},{flavour,-5,-5+Length[fxQsamept2class[[1]] ]-1}
 ];
+*)
 
 
 (* ::Input:: *)
@@ -690,9 +717,9 @@ fxQsamept2class[[iexpt,flavour+6]][["data"]]=SetPrecision[fxQsamept2class[[iexpt
 (*
 Export[CorrDataDir<>"residualNset_"<>CorrDataFile,residualNsetclass,"ExpressionML"];
 *)
-Put[residualNsetclass//OutputForm,(CorrDataDir<>"residualNset_"<>CorrDataFile)];
+Put[residualNsetclass,(CorrDataDir<>"residualNset_"<>CorrDataFile)];
 (*save Nset of fxQ*)
-Put[fxQsamept2class//OutputForm,(CorrDataDir<>"fxQNset_"<>CorrDataFile)];
+Put[fxQsamept2class,(CorrDataDir<>"fxQNset_"<>CorrDataFile)];
 (*save original data of.dta files (central value file)*)
 (*perhaps we only want to save the central set information so that we don't waste storage and time?*)
 (*here only extract the central set for each Expt ID*)
