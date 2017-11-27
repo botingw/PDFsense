@@ -287,3 +287,8 @@ bacause the way we setup plot type 1 is totally different with other types (corr
 20171126
 delete q8 when generating f(x,Q) data (in file fxQsamept_corr_v2.nb)
 extract limited digits from a number -> save files with smaller sizes (fix the bug that SetPrecision is no use)
+
+20171127
+bug fix: ExptIDinfo for JP category
+20171127
+delete strings for q6~q8 in processdataplotsmultiexp7percentage
