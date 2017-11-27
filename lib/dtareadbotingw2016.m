@@ -521,7 +521,7 @@ ExptID>199 && ExptID<300 && SubsetQ[ID267,{ExptID}],(*W \[Rule] lv, asym*)
 "DP",
  ExptID>399 && ExptID<500,
 "HQP",
- ExptID>499 && ExptID<600,
+ ExptID>499 && ExptID<600 &&  SubsetQ[JP,{ExptID}],
 "JP",
 ExptID>499 && ExptID<600 &&  SubsetQ[ttbarpT,{ExptID}],
 "ttbarpT",
@@ -622,9 +622,11 @@ output =expItype
 (**)
 (**)
 (**)
+(**)
 (*\!\(\*SuperscriptBox[\(\[ExponentialE]\), \({a}[\([1]\)]\)]\),{a}[[2]]},data/.LF[a__]:>{({a}[[2]]/Sqrt[S])*E^-{a}[[1]],{a}[[2]]}],(* x1 = (Q/sqrt(S))*exp(+-y) *)*)
 (*"VBP3",*)
 (*Join[data/.LF[a__]:>{({a}[[2]]/Sqrt[S])**)
+(**)
 (**)
 (**)
 (**)
@@ -697,6 +699,7 @@ Join[data/.LF[a__]:>LF@@{Sequence@@{a},({a}[[2]]/Sqrt[S])*
 
 
 
+
 \!\(\*SuperscriptBox[\(\[ExponentialE]\), \({a}[\([1]\)]\)]\),{a}[[2]]},data/.LF[a__]:>LF@@{Sequence@@{a},({a}[[2]]/Sqrt[S])*E^-{a}[[1]],{a}[[2]]}],(* x1 = (Q/sqrt(S))*exp(+-y) *)
 "VBP3",
 Join[data/.LF[a__]:>LF@@{Sequence@@{a},({a}[[2]]/Sqrt[S])*
@@ -711,9 +714,11 @@ Join[data/.LF[a__]:>LF@@{Sequence@@{a},({a}[[2]]/Sqrt[S])*
 
 
 
+
 \!\(\*SuperscriptBox[\(\[ExponentialE]\), \({a}[\([1]\)]\)]\),{a}[[2]]},data/.LF[a__]:>LF@@{Sequence@@{a},({a}[[2]]/Sqrt[S])*E^-{a}[[1]],{a}[[2]]}],(* formula not decided yet *)
 "ID267",
 Join[data/.LF[a__]:>LF@@{Sequence@@{a},(80.39/Sqrt[S])*
+
 
 
 
