@@ -393,6 +393,22 @@ Dimensions[#]&/@{dtacentralclass}
 ];
 Print[""];(*space*)
 
+(*20171127 for fraction number input, transfer them to numerical number*)
+ToNumericTime=
+AbsoluteTiming[
+Table[
+fxQsamept2class[[iexpt,iflavour]][["data"]]=fxQsamept2class[[iexpt,iflavour]][["data"]]/.LF[a__]:>LF@@(N[{a}]),
+{iexpt,Length[fxQsamept2class]},{iflavour,Length[fxQsamept2class[[1]] ]}
+];
+Table[
+residualNsetclass[[iexpt]][["data"]]=residualNsetclass[[iexpt]][["data"]]/.LF[a__]:>LF@@(N[{a}]),
+{iexpt,Length[fxQsamept2class]}
+];
+"dummy"
+];
+Print["fraction numbers in data transfer to numerical numbers, time = ",ToNumericTime," seconds"];
+Print[""];
+
 (*set expeiments by selecting expt data whose ID are in the config1.txt into corrdataclassfinal, ...*)
 residualNsetclassfinal={};
 fxQsamept2classfinal={};
@@ -466,6 +482,8 @@ fxQsamept2classfinal//Dimensions,
 dtacentralclassfinal//Dimensions
 ];
 Print[""];(*space*)
+
+
 (*20191119 need all expt fxQ info*)
 fxQDatabaselist=Table[fxQsamept2class[[iexpt,iflavour]][["data"]],{iexpt,Dimensions[fxQsamept2class][[1]]},{iflavour,Dimensions[fxQsamept2class][[2]]}];
 fxQDatabaseExptlist=Table[fxQsamept2class[[iexpt,1]][["exptinfo","exptid"]],{iexpt,Dimensions[fxQsamept2class][[1]]}];

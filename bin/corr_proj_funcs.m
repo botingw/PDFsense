@@ -5983,7 +5983,7 @@ exptlist={};
 If[plottype==1  || plottype==5  || plottype==6,exptlist=Table[#[[iexpt,6]][["exptinfo","exptid"]],{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin ];
 If[plottype==2  || plottype==3  || plottype==4,
 exptlist=Table[#[[iexpt]][["exptinfo","exptid"]],{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin ];
-(*test*)Print["expts: ",exptlist];
+(*test*)(*Print["expts: ",exptlist];*)
 
 (*20171126 classify mode for data \[Rule] different shape for each group*)
 classifymode=ClassifyMode;
