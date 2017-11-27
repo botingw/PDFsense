@@ -623,9 +623,11 @@ output =expItype
 (**)
 (**)
 (**)
+(**)
 (*\!\(\*SuperscriptBox[\(\[ExponentialE]\), \({a}[\([1]\)]\)]\),{a}[[2]]},data/.LF[a__]:>{({a}[[2]]/Sqrt[S])*E^-{a}[[1]],{a}[[2]]}],(* x1 = (Q/sqrt(S))*exp(+-y) *)*)
 (*"VBP3",*)
 (*Join[data/.LF[a__]:>{({a}[[2]]/Sqrt[S])**)
+(**)
 (**)
 (**)
 (**)
@@ -700,9 +702,11 @@ Join[data/.LF[a__]:>LF@@{Sequence@@{a},({a}[[2]]/Sqrt[S])*
 
 
 
+
 \!\(\*SuperscriptBox[\(\[ExponentialE]\), \({a}[\([1]\)]\)]\),{a}[[2]]},data/.LF[a__]:>LF@@{Sequence@@{a},({a}[[2]]/Sqrt[S])*E^-{a}[[1]],{a}[[2]]}],(* x1 = (Q/sqrt(S))*exp(+-y) *)
 "VBP3",
 Join[data/.LF[a__]:>LF@@{Sequence@@{a},({a}[[2]]/Sqrt[S])*
+
 
 
 
@@ -730,6 +734,7 @@ Join[data/.LF[a__]:>LF@@{Sequence@@{a},(80.39/Sqrt[S])*
 
 
 
+
 \!\(\*SuperscriptBox[\(\[ExponentialE]\), \({a}[\([1]\)]\)]\),80.39},data/.LF[a__]:>LF@@{Sequence@@{a},(80.39/Sqrt[S])*E^-{a}[[1]],80.39}],(* formula not decided yet *)
 "JP",
 (* this form is for q1q2 \[Rule] j1j2, estimate x1, x2 of jet as peak of y(j1), y(j2)*)
@@ -742,8 +747,9 @@ data/.LF[a__]\[RuleDelayed]{((2\[Times]{a}[[1]])/(Sqrt[S])),2\[Times]{a}[[1]]},
 *)
 (*20171118: add 565 ~568 (ttbar production) formulas*)
 (*pT, the same as the formula of JP*)
+(*20171126: pt events, <y> = 0*)
 "ttbarpT",
-Join[data/.LF[a__]:>LF@@{Sequence@@{a},((2*{a}[[1]])/(Sqrt[S]))*E^(({a}[[3]]-{a}[[2]])/2.0),2*{a}[[1]]},data/.LF[a__]:>LF@@{Sequence@@{a},((2*{a}[[1]])/(Sqrt[S]))*E^(({a}[[2]]-{a}[[3]])/2.0),2*{a}[[1]]}],
+data/.LF[a__]:>LF@@{Sequence@@{a},((2*{a}[[1]])/(Sqrt[S]))*E^(0.0),2*{a}[[1]]},
 (*mu = mtt, x = mtt (since y = 0 for this case)*)
 "ttbarmtt",
 data/.LF[a__]:>LF@@{Sequence@@{a},(({a}[[1]])/(Sqrt[S])),{a}[[1]]},
