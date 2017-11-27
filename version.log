@@ -283,3 +283,7 @@ bacause the way we setup plot type 1 is totally different with other types (corr
 1. apply multi-shape on all plot types (corr, sens, residual, etc)
 2. enlarge open shape size so that they become more clear
 3. classifymode difined as global variable in run_v4.m
+
+20171126
+delete q8 when generating f(x,Q) data (in file fxQsamept_corr_v2.nb)
+extract limited digits from a number -> save files with smaller sizes (fix the bug that SetPrecision is no use)
