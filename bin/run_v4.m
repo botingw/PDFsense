@@ -1065,9 +1065,13 @@ Print[""];(*space*)
 (*20170508 if config file in plot path exist, remove it*)
 If[FileExistsQ[saveparentpath<>jobpath<>configfilename]==True,DeleteFile[saveparentpath<>jobpath<>configfilename] ];
 CopyFile[configDir<>configfilename,saveparentpath<>jobpath<>configfilename];
-(*20171119 copy user_func.txt to the output directory*)
+(*20171119 copy user_func.txt to the output directory*)(*20171127: only copy it when user function mode is on*)
+If[
+CorrelationArgFlag[[-1]]==1,
 If[FileExistsQ[saveparentpath<>jobpath<>userfuncfilename]==True,DeleteFile[saveparentpath<>jobpath<>userfuncfilename] ];
 CopyFile[configDir<>userfuncfilename,saveparentpath<>jobpath<>userfuncfilename];
+"dummy"
+];
 
 (*make exptname table, 20170410: Sean asks to move this process to the final step*)
 Table[

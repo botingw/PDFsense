@@ -5970,8 +5970,13 @@ userdifinefuncfilename="user_func.txt";
 (*
 {UserArgName,UserArgValue}=ReadUserFunctionV2["./",userdifinefuncfilename];
 *)
+(*20171127*)
+If[
+CorrelationArgFlag[[-1]]==1,
 UserArgName=ReadUserFunctionV3["./",userdifinefuncfilename];
 UserArgName=#[[1]]&/@UserArgName;
+"dummy"
+];
 
 (*20171109: shorten the tiles of figures*)
 If[PDFname=="2017.1008.0954.-0500_CT14HERA2-jet.ev",PDFname="CT14HERA2-jet.ev"];
@@ -6104,11 +6109,18 @@ corrdrtitle1=(*"\[Delta]r*Corr( ";*)"Sensitivity to ";
 title2=(*", r(x,\[Mu]))";*)", \!\(\*SubscriptBox[\(r\), \(i\)]\))";
 title3=(*" for dataset of "*)", "<>PDFname;
 obsname="";(*initialize*)
-pdfnamelable={"\!\(\*OverscriptBox[\(b\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(c\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(s\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(d\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(u\), \(_\)]\)(x,\[Mu])","g(x,\[Mu])","u(x,\[Mu])","d(x,\[Mu])","s(x,\[Mu])","c(x,\[Mu])","b(x,\[Mu])",
+pdfnamelable={"\!\(\*OverscriptBox[\(b\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(c\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(s\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(d\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(u\), \(_\)]\)(x,\[Mu])","g(x,\[Mu])","u(x,\[Mu])","d(x,\[Mu])","s(x,\[Mu])","c(x,\[Mu])","b(x,\[Mu])"
 (*20171126: delete q6~q8*)
 (*
+,
 "\!\(\*FractionBox[\(\*OverscriptBox[\(d\), \(_\)] \((x, \[Mu])\)\), \(\*OverscriptBox[\(u\), \(_\)] \((x, \[Mu])\)\)]\)","\!\(\*FractionBox[\(d \((x, \[Mu])\)\), \(u \((x, \[Mu])\)\)]\)","\!\(\*FractionBox[\(s \((x, \[Mu])\) + \*OverscriptBox[\(s\), \(_\)] \((x, \[Mu])\)\), \(\*OverscriptBox[\(u\), \(_\)] \((x, \[Mu])\) + \*OverscriptBox[\(d\), \(_\)] \((x, \[Mu])\)\)]\)",
-*)Sequence@@UserArgName(*20171119 change to multi-user functions*)};
+*)(*Sequence@@UserArgName*)(*20171119 change to multi-user functions*)};
+(*20171127: only add new string when user function is mode on*)
+If[
+CorrelationArgFlag[[-1]]==1,
+pdfnamelable=pdfnamelable~Join~{Sequence@@UserArgName(*20171119 change to multi-user functions*)};
+"dummy"
+];
 
 (*20171107: simplify title labels*)
 If[
