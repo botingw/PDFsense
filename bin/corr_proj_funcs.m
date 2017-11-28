@@ -2335,6 +2335,257 @@ Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}
 
 
 (* ::Input::Initialization:: *)
+(*20171109: version 5: delete the user define function value part, ReadUserFunction will be in charge of it*)
+(*20171128: change hist xmin, xmax as zmin, zmax of color palette, delete color percentage, job id could be string*)
+readcorrconfigfile6[configDirin_,configfilenamein_]:=
+Module[{configDir=configDirin,configfilename=configfilenamein,
+JobidTag,PDFnameTag,FigureTypeTag,FigureFlagTag,ExptidTypeTag,ExptidFlagTag,CorrelationArgTypeTag,CorrelationArgFlagTag,UserArgNameTag,UserArgValueTag,
+XQfigureXrangeTag,XQfigureYrangeTag,Hist1figureNbinTag,Hist1figureXrangeTag,Hist1figureYrangeTag,ColorSeperatorTag,
+SizeTag,HighlightTypeTag,HighlightModeTag,HighlightMode1Tag,HighlightMode2Tag,
+Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,UserArgName,UserArgValue,
+XQfigureXrange,XQfigureYrange,Hist1figureNbin,Hist1figureXrange,Hist1figureYrange,ColorSeperator,
+Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2,
+itag,s,output,output2,output3,
+ColorPaletterange,ColorPaletterangeTag
+},
+
+JobidTag="Job ID (copy from the counter file)";
+PDFnameTag="PDF set";
+FigureTypeTag="Type";
+FigureFlagTag="Flag";
+ExptidTypeTag="Expt. ID";
+ExptidFlagTag="Expt. Flag";
+CorrelationArgTypeTag="Type";
+CorrelationArgFlagTag="Flag";
+(*20171109: delete the user define function value part, ReadUserFunction will be in charge of it*)
+(*
+UserArgNameTag="Name";
+UserArgValueTag="Values";
+*)
+
+XQfigureXrangeTag="xmin,   xmax";
+XQfigureYrangeTag="mumin, mumax";
+ColorPaletterangeTag="zmin, zmax";(*20171128*)
+Hist1figureNbinTag="Number of bins";
+(*
+Hist1figureXrangeTag="xmin, xmax";
+Hist1figureYrangeTag="ymin, ymax";
+*)
+(*
+Hist2figureXrangeTag
+Hist2figureYrangeTag
+*)
+ColorSeperatorTag="Color by data percentage";
+SizeTag="Size";
+HighlightTypeTag="Type";
+HighlightModeTag="Mode";
+HighlightMode1Tag="Mode 1 range";
+HighlightMode2Tag="Mode 2 range";
+
+Jobid="unset";
+PDFname="unset";
+FigureType="unset";
+FigureFlag="unset";
+ExptidType="unset";
+ExptidFlag="unset";
+CorrelationArgType="unset";
+CorrelationArgFlag="unset";
+(*20171109: delete the user define function value part, ReadUserFunction will be in charge of it*)
+(*
+UserArgName="unset";
+UserArgValue="unset";
+*)
+XQfigureXrange="unset";
+XQfigureYrange="unset";
+ColorPaletterange="unset";(*20171128*)
+Hist1figureNbin="unset";
+(*
+Hist1figureXrange="unset";
+Hist1figureYrange="unset";
+*)
+ColorSeperator="unset";
+Size="unset";
+HighlightType="unset";
+HighlightMode="unset";
+HighlightMode1="unset";
+HighlightMode2="unset";
+
+(*read config file line by line into list*)
+s=OpenRead[configDir<>configfilename];
+output=ReadList[s,String];
+Close[s];
+
+(*delete comments: with "#" at begining of line*)
+output2={};
+Table[
+If[StringTake[output[[i]],1]!="#",output2=Append[output2,output[[i]] ] ];
+"dummy"
+,{i,1,Length[output]}
+];
+(*seperate the tag of configure file and arguments by ":"*)
+output3=Table[StringSplit[output2[[i]],":"],{i,1,Length[output2]}];
+
+(*check tag exist, if a tag exist, read arguments corresponding to that tag*)
+(*read Job id*)
+itag=1;
+If[output3[[itag,1]]==JobidTag,Jobid=output3[[itag,2]];Jobid=Read[StringToStream[Jobid],(*Number*)(*20171128*)String] ];
+Head[Jobid];
+(*read PDFname*)
+itag=itag+1;
+If[output3[[itag,1]]==PDFnameTag,PDFname=output3[[itag,2]];PDFname=Read[StringToStream[PDFname],Word] ];
+Head[PDFname];
+(*read FigureType and FigureFlag*)
+itag=itag+1;
+If[output3[[itag,1]]==FigureTypeTag,FigureType=output3[[itag,2]] ];
+Head[FigureType];
+
+itag=itag+1;
+If[output3[[itag,1]]==FigureFlagTag,FigureFlag=output3[[itag,2]] ];
+Head[FigureFlag];
+
+FigureType=ReadList[StringToStream[FigureType],Word];
+FigureFlag=ReadList[StringToStream[FigureFlag],Number];
+
+(*read ExptidType and ExptidFlag*)
+itag=itag+1;
+If[output3[[itag,1]]==ExptidTypeTag,ExptidType=output3[[itag,2]] ];
+Head[ExptidType];
+
+itag=itag+1;
+If[output3[[itag,1]]==ExptidFlagTag,ExptidFlag=output3[[itag,2]] ];
+Head[ExptidFlag];
+
+ExptidType=ReadList[StringToStream[ExptidType],Number];
+ExptidFlag=ReadList[StringToStream[ExptidFlag],Number];
+
+(*read CorrelationArgType and CorrelationArgFlag*)
+itag=itag+1;
+If[output3[[itag,1]]==CorrelationArgTypeTag,CorrelationArgType=output3[[itag,2]] ];
+Head[CorrelationArgType];
+
+itag=itag+1;
+If[output3[[itag,1]]==CorrelationArgFlagTag,CorrelationArgFlag=output3[[itag,2]] ];
+Head[CorrelationArgFlag];
+
+CorrelationArgType=ReadList[StringToStream[CorrelationArgType],Word];
+CorrelationArgFlag=ReadList[StringToStream[CorrelationArgFlag],Number];
+
+(*20171109: delete the user define function value part, ReadUserFunction will be in charge of it*)
+(*
+(*read UserArgName*)
+itag=itag+1;
+If[output3[[itag,1]]==UserArgNameTag,UserArgName=output3[[itag,2]] ];
+Head[UserArgName];
+(*read UserArgValue*)
+itag=itag+1;
+If[output3[[itag,1]]==UserArgValueTag,UserArgValue=output3[[itag,2]] ];
+Head[UserArgValue];
+
+UserArgValue=ReadList[StringToStream[UserArgValue],Number];
+*)
+(*read XQfigureXrange and XQfigureYrange*)
+itag=itag+1;
+If[output3[[itag,1]]==XQfigureXrangeTag,XQfigureXrange=output3[[itag,2]] ];
+Head[XQfigureXrange];
+
+itag=itag+1;
+If[output3[[itag,1]]==XQfigureYrangeTag,XQfigureYrange=output3[[itag,2]] ];
+Head[XQfigureYrange];
+
+XQfigureXrange=ReadList[StringToStream[XQfigureXrange],Word];
+XQfigureYrange=ReadList[StringToStream[XQfigureYrange],Word];
+If[XQfigureXrange[[1]]!="auto",XQfigureXrange[[1]]=Read[StringToStream[XQfigureXrange[[1]] ],Number] ];
+If[XQfigureXrange[[2]]!="auto",XQfigureXrange[[2]]=Read[StringToStream[XQfigureXrange[[2]] ],Number] ];
+If[XQfigureYrange[[1]]!="auto",XQfigureYrange[[1]]=Read[StringToStream[XQfigureYrange[[1]] ],Number] ];
+If[XQfigureYrange[[2]]!="auto",XQfigureYrange[[2]]=Read[StringToStream[XQfigureYrange[[2]] ],Number] ];
+(*read Hist1figureNbin, Hist1figureXrange, Hist1figureYrange*)(*20171128 delete histogram ranges and add color palette*)
+itag=itag+1;
+If[output3[[itag,1]]==ColorPaletterangeTag,ColorPaletterange=output3[[itag,2]] ];
+Head[ColorPaletterange];
+ColorPaletterange=ReadList[StringToStream[ColorPaletterange],Word];
+If[ColorPaletterange[[1]]!="auto",ColorPaletterange[[1]]=Read[StringToStream[ColorPaletterange[[1]] ],Number] ];
+If[ColorPaletterange[[2]]!="auto",ColorPaletterange[[2]]=Read[StringToStream[ColorPaletterange[[2]] ],Number] ];
+
+
+itag=itag+1;
+If[output3[[itag,1]]==Hist1figureNbinTag,Hist1figureNbin=output3[[itag,2]];Hist1figureNbin=Read[StringToStream[Hist1figureNbin],Word] ];
+Head[Hist1figureNbin];
+If[Hist1figureNbin!="auto",Hist1figureNbin=Read[StringToStream[Hist1figureNbin],Number] ];
+(*20171128
+itag=itag+1;
+If[output3[[itag,1]]==Hist1figureXrangeTag,Hist1figureXrange=output3[[itag,2]] ];
+Head[Hist1figureXrange];
+
+itag=itag+1;
+If[output3[[itag,1]]==Hist1figureYrangeTag,Hist1figureYrange=output3[[itag,2]] ];
+Head[Hist1figureYrange];
+
+Hist1figureXrange=ReadList[StringToStream[Hist1figureXrange],Word];
+Hist1figureYrange=ReadList[StringToStream[Hist1figureYrange],Word];
+If[Hist1figureXrange[[1]]!="auto",Hist1figureXrange[[1]]=Read[StringToStream[Hist1figureXrange[[1]] ],Number] ];
+If[Hist1figureXrange[[2]]!="auto",Hist1figureXrange[[2]]=Read[StringToStream[Hist1figureXrange[[2]] ],Number] ];
+If[Hist1figureYrange[[1]]!="auto",Hist1figureYrange[[1]]=Read[StringToStream[Hist1figureYrange[[1]] ],Number] ];
+If[Hist1figureYrange[[2]]!="auto",Hist1figureYrange[[2]]=Read[StringToStream[Hist1figureYrange[[2]] ],Number] ];
+*)
+(*20170306: add color seperator*)
+itag=itag+1;
+If[output3[[itag,1]]==ColorSeperatorTag,ColorSeperator=output3[[itag,2]] ];
+Head[ColorSeperator];
+
+ColorSeperator=ReadList[StringToStream[ColorSeperator],Word];
+If[ColorSeperator[[1]]!="auto",
+Table[ColorSeperator[[i]]=Read[StringToStream[ColorSeperator[[i]] ],Number];"dummy",{i,1,Length[ColorSeperator]}] 
+];
+
+(*read HighlightType(FigureType) and HighlightMode*)
+itag=itag+1;
+If[output3[[itag,1]]==HighlightTypeTag,HighlightType=output3[[itag,2]] ];
+Head[HighlightType];
+
+itag=itag+1;
+If[output3[[itag,1]]==HighlightModeTag,HighlightMode=output3[[itag,2]] ];
+Head[HighlightMode];
+(*Print[output3[[itag,1]],"   ",HighlightModeTag];*)
+
+itag=itag+1;
+If[output3[[itag,1]]==HighlightMode1Tag,HighlightMode1=output3[[itag,2]] ];
+Head[HighlightMode1];
+(*Print[output3[[itag,1]],"   ",HighlightMode1Tag];*)
+
+itag=itag+1;
+If[output3[[itag,1]]==HighlightMode2Tag,HighlightMode2=output3[[itag,2]] ];
+Head[HighlightMode2];
+(*Print[output3[[itag,1]],"   ",HighlightMode2Tag];*)
+
+HighlightType=ReadList[StringToStream[HighlightType],Word];
+HighlightMode=ReadList[StringToStream[HighlightMode],Number];
+(*20171109: new convention of highlight range:  *)
+(* Mode:                        1                      2    3   4 ...*)
+(* Mode 1 range: {{hmin1,hmax1},{hmin2,hmax2},...};  ...; ...; ...*)
+HighlightMode1=StringSplit[Read[StringToStream[HighlightMode1],String],";"];(*ReadList[StringToStream[HighlightMode1],Number];*)
+HighlightMode2=StringSplit[Read[StringToStream[HighlightMode2],String],";"];(*ReadList[StringToStream[HighlightMode2],Number];*)
+(*read the List expression for every figure type*)
+HighlightMode1=Read[StringToStream[#],Expression]&/@HighlightMode1;
+HighlightMode2=Read[StringToStream[#],Expression]&/@HighlightMode2;
+(*20170307*)
+(*read Size*)
+(*20170315: size replace to the next of highlight mode*)
+itag=itag+1;
+If[output3[[itag,1]]==SizeTag,Size=output3[[itag,2]];Size=Read[StringToStream[Size],Word] ];
+Head[Size];
+(*Print[output3];*)
+
+
+"dummy";
+
+{Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
+XQfigureXrange,XQfigureYrange,ColorPaletterange(*20171128*),Hist1figureNbin,(*Hist1figureXrange,Hist1figureYrange,*)
+ColorSeperator,
+Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}
+]
+
+
+(* ::Input::Initialization:: *)
 (*20171109*)
 (*read user define function or data, input filename and output user define values*)
 ReadUserFunction[UserFuncDirin_,UserFuncfilenamein_]:=
@@ -5845,14 +6096,18 @@ lgdpos,xyrangeplot1,plotrange,
 myplotsetting,imgsize,title,xtitle,ytitle,lgdlabel,xrange,yrange,epilog,titlesize,xtitlesize,ytitlesize,lgdlabelsize,ticklablesize,myplotstyle,myMarker,
 plot1,
 xyrange=xyrangein,
-groupnames,groupExptIDs},
+groupnames,groupExptIDs,
+ColorPaletterange},
 
 (*read arguments in config file*)
 (*==============================*)
 {Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
-XQfigureXrange,XQfigureYrange,Hist1figureNbin,Hist1figureXrange,Hist1figureYrange,
+XQfigureXrange,XQfigureYrange,ColorPaletterange(*20171128*),Hist1figureNbin,(*Hist1figureXrange,Hist1figureYrange,*)
 ColorSeperator,
 Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}=configarguments;
+(*20171128: set hist xrange determined by the range of color palette, yrange alway auto*)
+Hist1figureXrange=ColorPaletterange;
+Hist1figureYrange={"auto","auto"};
 (*=============================================================================================================================*)
 (*plot type 1: generate plots============================================================================================================*)
 (*=============================================================================================================================*)
@@ -5956,13 +6211,17 @@ hist1plotrangey,hist2plotrangey,BinWidth,hist1plotrange,hist2plotrange,highlight
 xmintmp,xmaxtmp,ymintmp,hist1epilogtext,hist2epilogtext,hist1standardlines,hist2standardlines,LineWidth,HistAutoFixXrangeBool,
 datemode,HistDataList,HistAbsDataList,DataMax,DataMin,AbsDataMax,AbsDataMin,DataMean,AbsDataMean,DataMedian,AbsDataMedian,DataSD,AbsDataSD,
 ColorPaletteMode,PaletteMax,PaletteMin,
-groupnames,groupExptIDs,classifymode},
+groupnames,groupExptIDs,classifymode,
+ColorPaletterange},
 (*read arguments in config file*)
 (*==============================*)
 {Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
-XQfigureXrange,XQfigureYrange,Hist1figureNbin,Hist1figureXrange,Hist1figureYrange,
+XQfigureXrange,XQfigureYrange,ColorPaletterange(*20171128*),Hist1figureNbin,(*Hist1figureXrange,Hist1figureYrange,*)
 ColorSeperator,
 Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}=configarguments;
+(*20171128: set hist xrange determined by the range of color palette, yrange alway auto*)
+Hist1figureXrange=ColorPaletterange;
+Hist1figureYrange={"auto","auto"};
 
 (*20171109: seperate user difine function/data IO and configure file*)(*20171116: ->ReadUserFunctionV2, which read Expression from the file*)
 (*20171119 new user function format: {{user name 1, user function 1}, {user name 2, user function 2}...}*)

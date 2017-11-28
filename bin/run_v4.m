@@ -152,11 +152,11 @@ readcorrconfigfile[configDir,configfilename];
 (*new config file*)
 (*20171109 use readcorrconfigfile5 for new highlight range convention*)
 {Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
-XQfigureXrange,XQfigureYrange,Hist1figureNbin,Hist1figureXrange,(*Hist1figureYrange*)dummy12,
+XQfigureXrange,XQfigureYrange,ColorPaletterange(*20171128*),Hist1figureNbin,(*Hist1figureXrange,(*Hist1figureYrange*)dummy12,*)
 ColorSeperator,
 Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}=
-(*readcorrconfigfile4*)readcorrconfigfile5[configDir,configfilename];
-Print["input arguments: ",(*readcorrconfigfile4*)readcorrconfigfile5[configDir,configfilename] ];
+(*readcorrconfigfile4*)readcorrconfigfile6[configDir,configfilename];
+Print["input arguments: ",(*readcorrconfigfile4*)readcorrconfigfile6[configDir,configfilename] ];
 Print[""];(*space*)
 
 
@@ -814,7 +814,7 @@ If[
 (*correlation plots*)
 FigureFlag[[6]]==1,
 Print["making plot of figure type ",FigureType[[6]],", flavour = ",flavour];
-p6=processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile5[configDir,configfilename],6,flavour ];
+p6=processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],6,flavour ];
 (*add exptname table into output figure*)
 
 (*p6=GraphicsGrid[p6,Spacings\[Rule]Scaled[0.15] ];*)
@@ -847,7 +847,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,
 If[
 FigureFlag[[5]]==1,
 Print["making plot of figure type ",FigureType[[5]],", flavour = ",flavour];
-p5=processdataplotsmultiexp7percentage[{dRcorrdataclassfinal},readcorrconfigfile5[configDir,configfilename],5,flavour];
+p5=processdataplotsmultiexp7percentage[{dRcorrdataclassfinal},readcorrconfigfile6[configDir,configfilename],5,flavour];
 
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
 Table[
@@ -887,7 +887,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,
 If[
 FigureFlag[[2]]==1,
 Print["making plot of figure type ",FigureType[[2]],", flavour = ",flavour];
-p234=processdataplotsmultiexp7percentage[{expterrordataclassfinal},readcorrconfigfile5[configDir,configfilename],2,flavour];
+p234=processdataplotsmultiexp7percentage[{expterrordataclassfinal},readcorrconfigfile6[configDir,configfilename],2,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
 
 Table[
@@ -924,7 +924,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 If[
 FigureFlag[[3]]==1,
 Print["making plot of figure type ",FigureType[[3]],", flavour = ",flavour];
-p234=processdataplotsmultiexp7percentage[{residualdataclassfinal},readcorrconfigfile5[configDir,configfilename],3,flavour];
+p234=processdataplotsmultiexp7percentage[{residualdataclassfinal},readcorrconfigfile6[configDir,configfilename],3,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
 Table[
 filename=obsname[[3]]<>"_"<>representationname[[1]]<>"_samept"<>extensionname[[iext[[i]] ]];
@@ -955,7 +955,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 If[
 FigureFlag[[4]]==1,
 Print["making plot of figure type ",FigureType[[4]],", flavour = ",flavour];
-p234=processdataplotsmultiexp7percentage[{dRdataclassfinal},readcorrconfigfile5[configDir,configfilename],4,flavour];
+p234=processdataplotsmultiexp7percentage[{dRdataclassfinal},readcorrconfigfile6[configDir,configfilename],4,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
 Table[
 filename=obsname[[4]]<>"_"<>representationname[[1]]<>"_samept"<>extensionname[[iext[[i]] ]];
@@ -992,7 +992,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 If[
 FigureFlag[[1]]==1,
 Print["making plot of figure type ",FigureType[[1]] ];
-p1=processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile5[configDir,configfilename],1,0 ];
+p1=processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],1,0 ];
 
 Table[
 filename=obsname[[1]]<>"_"<>representationname[[1]]<>extensionname[[iext[[i]] ]];
@@ -1169,10 +1169,10 @@ readcorrconfigfile4[configDir,configfilename];
 *)
 (*20171109: for readcorrconfigfile5*)
 {dummy,dummy,dummy,dummy,ExptidType,ExptidFlag,dummy,dummy,(*dummy,dummy,*)
-dummy,dummy,dummy,dummy,(*Hist1figureYrange*)dummy,
+dummy,dummy,(*ColorPaletterange*)(*20171128*)dummy,dummy,(*dummy,(*Hist1figureYrange*)dummy,*)
 dummy,
 dummy,dummy,dummy,dummy,dummy}=
-readcorrconfigfile5[configDir,configfilename];
+readcorrconfigfile6[configDir,configfilename];
 
 Lexpt={};
 Table[
