@@ -1,26 +1,27 @@
-Job ID (copy from the counter file): 661283
-PDF set: CT14HERA2-jet.ev
+Job ID (copy from the counter file): TestJobIDString
+PDF set: CT14HERA2NNLOall
 
 Type:  1     2     3     4     5     6     7
-Flag:  0    0     0     0     0     0     0
+Flag:  1    0     0     0     1     1     0
 
-Expt. ID:   701   702   703   101   102   103   104   106   108   109   110   111   124   125   126   127   147   201   203   204   225   227   231   234   260   261   504   514   145   169   267   268   535   240   241   281   265   266   538   545   160   542   544   565   566   567   568
-Expt. Flag:  0     0     0     1     1     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+Expt. ID:   701   702   703   159   101   102   103   104   106   108   109   110   111   124   125   126   127   147   201   203   204   225   227   231   234   260   261   504   514   145   169   267   268   535   240   241   281   265   266   538
+Expt. Flag:  0     0     0     0     0     0     0     0     0     0     0     0     0     1     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     1     1     1     0     0     0     0     0
 
-Type:  bb  cb  sb  db  ub  g  u  d  s  c  b  q6  q7  q8  user
-Flag:  1   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+Type:  bb  cb  sb  db  ub  g  u  d  s  c  b  user
+Flag:  0   0   0   0   0   1   0   0   0   0   0   1
 
 xmin,   xmax:  auto  auto
-mumin, mumax:      auto  auto
-Number of bins: auto
-xmin, xmax: auto  auto
-ymin, ymax:  0 auto
+mumin, mumax:      1  6000
+zmin, zmax: auto  auto
+Number of bins: 100
+
+
 
 Color by data percentage: 50 70 85
 
 Type:  1     2     3     4     5     6     7
-Mode:  0     0     0     0     0     0     0
-Mode 1 range: {{ 0.0, 0.0}};  {{ 0.0, 0.0}};  {{ 0.0, 0.0}};  {{ 0.0, 0.0}};  {{ 0.0, 0.0}};  {{ 0.0, 0.0}};  {{ 0.0, 0.0}} 
+Mode:  0     0     0     0     1     1     0
+Mode 1 range: {{ 0.0, 0.0}};  {{ 0.0, 0.0}};  {{ 0.0, 0.0}};  {{ 0.0, 0.0}};  {{ -100, -0.25},{ 0.25, 100}};  {{ -100, -0.7},{ 0.7, 100}};  {{ 0.0, 0.0}} 
 Mode 2 range: {{ 0.0, 0.0}};  {{ 0.0, 0.0}};  {{ 0.0, 0.0}};  {{ 0.0, 0.0}};  {{ 0.0, 0.0}};  {{ 0.0, 0.0}};  {{ 0.0, 0.0}} 
 
 Size: tiny
