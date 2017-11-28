@@ -6702,12 +6702,20 @@ ColorPaletteMode==5,
 PaletteMax=hist1plotrange[[2]];
 PaletteMin=hist1plotrange[[1]]
 ];
+(*test*)
+(*
+Print["color palette ",{PaletteMin,PaletteMax}];
+Print["hist xrange ",{hist1plotrange[[1]],hist1plotrange[[2]]}];
+Print["hist xrange ",{hist1plotrangex[[1]],hist1plotrangex[[2]]}];
+Print["hist setting ",{Hist1figureXrange[[1]],Hist1figureXrange[[2]]}];
+Print["color palette setting ",{ColorPaletterange[[1]],ColorPaletterange[[2]]}];
+*)
 
 If[
  (*plottype==3 || *)plottype==5,
 legendlabel="";
 (*20171125: use log scale to seperate the colors min, min/3, min/9, min/27, max/27,max/9,max/3,max*)
-barseperator=Table[(DataMin+0.5*(DataMax-DataMin) )+If[isep>0,1.0,-1.0]*(1/3)^(Abs[isep]-1)*(0.5*(DataMax-DataMin) ),{isep,{-1,-2,-3,-4,4,3,2,1}}];
+barseperator=Table[(PaletteMin+0.5*(PaletteMax-PaletteMin) )+If[isep>0,1.0,-1.0]*(1/3)^(Abs[isep]-1)*(0.5*(PaletteMax-PaletteMin) ),{isep,{-1,-2,-3,-4,4,3,2,1}}];
 (*
 barseperator=Table[DataMin+isep*(DataMax-DataMin)/7.0,{isep,0,7}];
 *)
@@ -6722,7 +6730,7 @@ If[
  plottype==3(* || plottype==5*),
 legendlabel="";
 (*20171125: use log scale to seperate the colors min, min/3, min/9, min/27, max/27,max/9,max/3,max*)
-barseperator=Table[(DataMin+0.5*(DataMax-DataMin) )+If[isep>0,1.0,-1.0]*(1/1.5)^(Abs[isep]-1)*(0.5*(DataMax-DataMin) ),{isep,{-1,-2,-3,-4,4,3,2,1}}];
+barseperator=Table[(PaletteMin+0.5*(PaletteMax-PaletteMin) )+If[isep>0,1.0,-1.0]*(1/1.5)^(Abs[isep]-1)*(0.5*(PaletteMax-PaletteMin) ),{isep,{-1,-2,-3,-4,4,3,2,1}}];
 (*
 barseperator=Table[DataMin+isep*(DataMax-DataMin)/7.0,{isep,0,7}];
 *)
@@ -6737,7 +6745,7 @@ If[
 plottype==4,
 legendlabel="";
 (*20171125: use log scale to seperate the colors min, min/3, min/9, min/27, max/27,max/9,max/3,max*)
-barseperator={0}~Join~Table[(1/1.5)^(Abs[isep]-1)*(DataMax ),{isep,{4,3,2,1}}];
+barseperator={0}~Join~Table[(1/1.5)^(Abs[isep]-1)*(PaletteMax ),{isep,{4,3,2,1}}];
 (*
 barseperator=Table[DataMin+isep*(DataMax-DataMin)/7.0,{isep,0,7}];
 *)
@@ -6752,7 +6760,7 @@ If[
  plottype==2(* ||  plottype\[Equal]4*),
 legendlabel="";
 (*20171125: use log scale to seperate the colors {0, max/27,max/9,max/3,max}*)
-barseperator={0}~Join~Table[(1/2)^(Abs[isep]-1)*(DataMax ),{isep,{4,3,2,1}}];
+barseperator={0}~Join~Table[(1/2)^(Abs[isep]-1)*(PaletteMax ),{isep,{4,3,2,1}}];
 (*
 barseperator=Table[isep*(AbsDataMax)/4.0,{isep,0,4}];
 *)
