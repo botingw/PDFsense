@@ -305,3 +305,6 @@ only read/copy user function when user function mode in config1.txt is on (1)
 
 20171128
 replace hist xrange by color palette, delete hist yrange, and read jobid by string in config1.txt
+
+20171128
+fix the problem: when color palette range is not set as "auto", the color palette is not the histogram range
