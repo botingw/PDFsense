@@ -302,3 +302,6 @@ delete some printout
 
 20171127
 only read/copy user function when user function mode in config1.txt is on (1) 
+
+20171128
+replace hist xrange by color palette, delete hist yrange, and read jobid by string in config1.txt
