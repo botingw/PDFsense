@@ -299,3 +299,6 @@ bug: 565 formula pT, y -> 0
 20171127
 fix bug: fraction numbers get error message when exceeding the maximum system accuracy. change fractions -> numerics 
 delete some printout 
+
+20171127
+only read/copy user function when user function mode in config1.txt is on (1) 
