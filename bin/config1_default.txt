@@ -38,11 +38,13 @@ Values: 0.012   0.012   0.012   0.012   0.012   0.012   0.012   0.012   0.012   
 xmin,   xmax:  0.0001   1
 mumin, mumax:      1.0 500
 
+#color palette (of x-Q figure) parameters (input lines)
+#options can be auto
+zmin, zmax: auto  auto
+
 #Histogram figure parameters (input lines)
 #options can be auto 
 Number of bins: 20
-xmin, xmax: auto  auto
-ymin, ymax:  0 auto
 
 #in plots
 #show color by percentage of data (# of percentage for input is 3)
