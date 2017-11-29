@@ -244,6 +244,7 @@ mydtadata[[iexpt,iset]]=Datamethods[["LFglobal"]][mydtadata[[iexpt,iset]] ],
 
 (* ::Input:: *)
 (*mydtadata[[1,1]][["label"]]*)
+(*mydtadata[[1,1]][["data"]]*)
 (*mydtadata[[2,1]][["label"]]*)
 
 
@@ -262,6 +263,10 @@ Dtadatatmp=Datamethods[["take"]][mydtadata[[iexpt,1]],{-2,-1}];
 Pdsread[["fxQsamept"]][Dtadatatmp,myPDFsetDir,PDFsetmethod,flavour],
 {iexpt,1,Dimensions[mydtadata][[1]]},{flavour,-5,5(*Dimensions[mydtadata][[2]]*)}
 ];
+
+
+(* ::Input:: *)
+(*fxQsamept2class[[1,6]][["data"]][[1]]//Length*)
 
 
 (* ::Input::Initialization:: *)
@@ -676,17 +681,23 @@ Export[CorrDataDir<>"dR_samept_data_"<>PDFname<>".m",deltaRclass,"ExpressionML"]
 (*20171125: lower the precision of output files to 4 digits: save the space and reading time*)
 (*20171126 new way to extract digits of numbers*)
 SetNumberDigit[numbersin_,Ndigitin_]:=
-Module[{numbers=numbersin,Ndigit=Ndigitin,keepdigits,Norder,Nzero},
+Module[{numbers=numbersin,Ndigit=Ndigitin,keepdigits,Norder,Nzero,numbersign},
+If[numbers>=0,numbersign=1];
+If[numbers<0,numbersign=-1];
 (*check numbers are Real*)
 {keepdigits,Norder}=RealDigits[numbers];
 
 (*calculate values with the digit number, if digit number > #elements of Digit List, take #elements of Digit List*)
 (*we can not use 10.0 to evaluate because by that the number become the numarical number with large digits*)
 (*we only use A/B to store this number*)
-Sum[keepdigits[[i]]*10^(Norder-i),{i,Min[Ndigit,Length[keepdigits]]}]
+numbersign*Sum[keepdigits[[i]]*10^(Norder-i),{i,Min[Ndigit,Length[keepdigits]]}]
 ];
 
 Ndigits=4;
+
+cpfxQ=fxQsamept2class;
+cpresidual=residualNsetclass;
+Print["begin to transform numbers to only ",Ndigits," digits"];
 
 Table[
 residualNsetclass[[iexpt]][["data"]]=residualNsetclass[[iexpt]][["data"]]/.LF[a__]:>LF@@(SetNumberDigit[#,Ndigits]&/@{a}),
@@ -705,6 +716,25 @@ fxQsamept2class[[iexpt,flavour+6]][["data"]]=SetPrecision[fxQsamept2class[[iexpt
 {iexpt,1,Length[fxQsamept2class]},{flavour,-5,-5+Length[fxQsamept2class[[1]] ]-1}
 ];
 *)
+
+
+(* ::Input:: *)
+(*residualNsetclass[[2]][["data"]];*)
+
+
+(* ::Input::Initialization:: *)
+(*check the transformed numbers/untransformed numbers close to 1*)
+
+cpRratio=
+Table[
+Select[(((residualNsetclass[[iexpt]][["data"]]/.LF->List)/(cpresidual[[iexpt]][["data"]]/.LF->List))-1)//Flatten,(#>0.001 || #<-0.001)&],
+{iexpt,Length[residualNsetclass]}
+];
+Print["ratio of numbers after/before the transform: only shows Absolute ratio >0.001"];
+
+Print[cpRratio[[1]] ];
+
+
 
 
 (* ::Input:: *)
