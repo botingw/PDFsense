@@ -6422,9 +6422,10 @@ obsname="";
 ];
 If[
 plottype==2 ,
-obsname="\!\(\*SubscriptBox[\(\[Sigma]\), \(i\)]\)/\!\(\*SubscriptBox[\(D\), \(i\)]\)";
+(*20171128 fix the label: should has | |*)
+obsname="|\!\(\*SubscriptBox[\(\[Sigma]\), \(i\)]\)/\!\(\*SubscriptBox[\(D\), \(i\)]\)|";
 title=obsname<>title3;
-histabstitle="| "<>obsname<>" |"<>title3
+histabstitle=(*"| "<>*)obsname(*<>" |"*)<>title3
 ];
 If[
 plottype==3 ,
@@ -6437,7 +6438,7 @@ plottype==4 ,
 obsname="\!\(\*SubscriptBox[\(\[Delta]r\), \(i\)]\)";
 (*obsname=deltaRtitle1<>PDFname;*)
 title=obsname<>title3;
-histabstitle="| "<>obsname<>" |"<>title3
+histabstitle=(*"| "<>*)obsname(*<>" |"*)<>title3
 ];
 If[
 plottype==5 ,
@@ -6463,6 +6464,8 @@ yhisttitle="#points";
 
 histabstitle=histabstitle;
 xhistabstitle="| "<>obsname<>" |";
+(*20171128: for sigma/D, \[Delta]r, we don't need to show | | because their absolute values are themselve*)
+If[plottype==2 || plottype==4,xhistabstitle=obsname];
 yhistabstitle=yhisttitle;
 
 (*=============================================================================================================================*)
