@@ -308,3 +308,11 @@ replace hist xrange by color palette, delete hist yrange, and read jobid by stri
 
 20171128
 fix the problem: when color palette range is not set as "auto", the color palette is not the histogram range
+
+20171128
+fix the JobID reading, no space
+
+20171128:
+remove ColorSeperator from the config file
+add job description in the config file
+set job description in exptname_table output
