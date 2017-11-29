@@ -319,3 +319,11 @@ set job description in exptname_table output
 
 20171128
 update the 11 flavour quick_data in quick_data.zip
+
+20171128
+change the labels of delta residual and sigma/D for histograms of abs values and x-mu plot
+
+20171128
+fix the bug: when transform numbers to 4-digit fraction numbers, forgot to consider the positive/minus signs
+
+
