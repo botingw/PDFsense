@@ -2336,7 +2336,12 @@ Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}
 
 (* ::Input::Initialization:: *)
 (*20171109: version 5: delete the user define function value part, ReadUserFunction will be in charge of it*)
-(*20171128: change hist xmin, xmax as zmin, zmax of color palette, delete color percentage, job id could be string*)
+(*20171128: 
+change hist xmin, xmax as zmin, zmax of color palette, delete color percentage, job id could be string
+no ColorSeperator anymore
+add descriptions for Jobid 
+
+*)
 readcorrconfigfile6[configDirin_,configfilenamein_]:=
 Module[{configDir=configDirin,configfilename=configfilenamein,
 JobidTag,PDFnameTag,FigureTypeTag,FigureFlagTag,ExptidTypeTag,ExptidFlagTag,CorrelationArgTypeTag,CorrelationArgFlagTag,UserArgNameTag,UserArgValueTag,
@@ -2346,10 +2351,11 @@ Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,Cor
 XQfigureXrange,XQfigureYrange,Hist1figureNbin,Hist1figureXrange,Hist1figureYrange,ColorSeperator,
 Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2,
 itag,s,output,output2,output3,
-ColorPaletterange,ColorPaletterangeTag
+ColorPaletterange,ColorPaletterangeTag,JobDescription,JobDescriptionTag
 },
 
 JobidTag="Job ID (copy from the counter file)";
+JobDescriptionTag="Job description";(*20171128*)
 PDFnameTag="PDF set";
 FigureTypeTag="Type";
 FigureFlagTag="Flag";
@@ -2375,7 +2381,9 @@ Hist1figureYrangeTag="ymin, ymax";
 Hist2figureXrangeTag
 Hist2figureYrangeTag
 *)
+(*
 ColorSeperatorTag="Color by data percentage";
+*)
 SizeTag="Size";
 HighlightTypeTag="Type";
 HighlightModeTag="Mode";
@@ -2383,6 +2391,7 @@ HighlightMode1Tag="Mode 1 range";
 HighlightMode2Tag="Mode 2 range";
 
 Jobid="unset";
+JobDescription="unset";(*20171128*)
 PDFname="unset";
 FigureType="unset";
 FigureFlag="unset";
@@ -2403,7 +2412,9 @@ Hist1figureNbin="unset";
 Hist1figureXrange="unset";
 Hist1figureYrange="unset";
 *)
+(*
 ColorSeperator="unset";
+*)
 Size="unset";
 HighlightType="unset";
 HighlightMode="unset";
@@ -2433,6 +2444,10 @@ output3=Table[StringSplit[output2[[i]],":"],{i,1,Length[output2]}];
 itag=1;
 If[output3[[itag,1]]==JobidTag,Jobid=output3[[itag,2]];Jobid=Read[StringToStream[Jobid],(*Number*)(*20171128*)Word] ];
 Head[Jobid];
+(*20171128 add job description*)
+itag=itag+1;
+If[output3[[itag,1]]==JobDescriptionTag,JobDescription=output3[[itag,2]];JobDescription=Read[StringToStream[JobDescription],(*Number*)(*20171128*)String] ];
+Head[JobDescription];
 (*read PDFname*)
 itag=itag+1;
 If[output3[[itag,1]]==PDFnameTag,PDFname=output3[[itag,2]];PDFname=Read[StringToStream[PDFname],Word] ];
@@ -2531,6 +2546,8 @@ If[Hist1figureYrange[[1]]!="auto",Hist1figureYrange[[1]]=Read[StringToStream[His
 If[Hist1figureYrange[[2]]!="auto",Hist1figureYrange[[2]]=Read[StringToStream[Hist1figureYrange[[2]] ],Number] ];
 *)
 (*20170306: add color seperator*)
+(*20171128: delete it*)
+(*
 itag=itag+1;
 If[output3[[itag,1]]==ColorSeperatorTag,ColorSeperator=output3[[itag,2]] ];
 Head[ColorSeperator];
@@ -2539,6 +2556,7 @@ ColorSeperator=ReadList[StringToStream[ColorSeperator],Word];
 If[ColorSeperator[[1]]!="auto",
 Table[ColorSeperator[[i]]=Read[StringToStream[ColorSeperator[[i]] ],Number];"dummy",{i,1,Length[ColorSeperator]}] 
 ];
+*)
 
 (*read HighlightType(FigureType) and HighlightMode*)
 itag=itag+1;
@@ -2581,9 +2599,11 @@ Head[Size];
 
 "dummy";
 
-{Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
+
+
+{Jobid,JobDescription(*20171128*),PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
 XQfigureXrange,XQfigureYrange,ColorPaletterange(*20171128*),Hist1figureNbin,(*Hist1figureXrange,Hist1figureYrange,*)
-ColorSeperator,
+(*ColorSeperator,*)
 Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}
 ]
 
@@ -3432,8 +3452,9 @@ output
 (*make exptname table jpg*)
 (*input a List of string (exptnames), #row for every column and title for this table, output a Grid of string with #row*#column *)
 (*20171114: add date mode for track, if datemode = "True", write the date, False, don't write the date*)
-makeGrid2[strin_,rowsin_,titlein_,datemodein_]:=
-Module[{str=strin,rows=rowsin,title=titlein,datemode=datemodein,columns,
+(*20171128: add job description*)
+makeGrid2[strin_,rowsin_,titlein_,JobDescriptionin_,datemodein_]:=
+Module[{str=strin,rows=rowsin,title=titlein,JobDescription=JobDescriptionin,datemode=datemodein,columns,
 lastcolstr,strout,datestring},
 columns=Quotient[Length[str],rows];
 strout=Table[str[[ic*rows+ir]],{ic,0,columns-1},{ir,1,rows}];
@@ -3441,6 +3462,8 @@ lastcolstr=Table[str[[i]],{i,columns*rows+1,Length[str]}];
 strout=Append[strout,lastcolstr];
 strout=Insert[strout,{Text[Style[title,FontSize->24] ],SpanFromLeft},1];
 strout=Insert[strout,{"Data Sets"},2];
+(*20171128 add job description*)
+strout=Insert[strout,{Text[Style[JobDescription,FontSize->16] ],SpanFromLeft},-1];
 (*20171114: add date for track*)
 If[
 datemode==True,
@@ -6104,13 +6127,13 @@ myplotsetting,imgsize,title,xtitle,ytitle,lgdlabel,xrange,yrange,epilog,titlesiz
 plot1,
 xyrange=xyrangein,
 groupnames,groupExptIDs,
-ColorPaletterange},
+ColorPaletterange,JobDescription},
 
 (*read arguments in config file*)
 (*==============================*)
-{Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
+{Jobid,JobDescription(*20171128*),PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
 XQfigureXrange,XQfigureYrange,ColorPaletterange(*20171128*),Hist1figureNbin,(*Hist1figureXrange,Hist1figureYrange,*)
-ColorSeperator,
+(*ColorSeperator,*)
 Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}=configarguments;
 (*20171128: set hist xrange determined by the range of color palette, yrange alway auto*)
 Hist1figureXrange=ColorPaletterange;
@@ -6219,16 +6242,18 @@ xmintmp,xmaxtmp,ymintmp,hist1epilogtext,hist2epilogtext,hist1standardlines,hist2
 datemode,HistDataList,HistAbsDataList,DataMax,DataMin,AbsDataMax,AbsDataMin,DataMean,AbsDataMean,DataMedian,AbsDataMedian,DataSD,AbsDataSD,
 ColorPaletteMode,PaletteMax,PaletteMin,
 groupnames,groupExptIDs,classifymode,
-ColorPaletterange},
+ColorPaletterange,JobDescription},
 (*read arguments in config file*)
 (*==============================*)
-{Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
+{Jobid,JobDescription(*20171128*),PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
 XQfigureXrange,XQfigureYrange,ColorPaletterange(*20171128*),Hist1figureNbin,(*Hist1figureXrange,Hist1figureYrange,*)
-ColorSeperator,
+(*ColorSeperator,*)
 Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}=configarguments;
 (*20171128: set hist xrange determined by the range of color palette, yrange alway auto*)
 Hist1figureXrange=ColorPaletterange;
 Hist1figureYrange={"auto","auto"};
+(*should be three numbers, representing percentage, and from small to large, ex: 30, 50, 70*)
+ColorSeperator={50,70,85};
 
 (*20171109: seperate user difine function/data IO and configure file*)(*20171116: ->ReadUserFunctionV2, which read Expression from the file*)
 (*20171119 new user function format: {{user name 1, user function 1}, {user name 2, user function 2}...}*)
@@ -6888,7 +6913,9 @@ exptnames=Table[ExptIDtoName[Flatten[exptlist][[iexpt]] ]<>"("<>ToString[Flatten
 ];
 Print["making table of experiments included in plots"];
 datemode=False;
-exptnamestable=makeGrid2[exptnames,rows,title<>"\n\n",datemode];
+(*20171128: for legend, don't show job description*)
+JobDescription="";
+exptnamestable=makeGrid2[exptnames,rows,title<>"\n\n",JobDescription,datemode];
 "dummy"
 ];
 

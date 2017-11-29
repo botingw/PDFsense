@@ -129,7 +129,8 @@ Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,Cor
 XQfigureXrange,XQfigureYrange,Hist1figureNbin,Hist1figureXrange,Hist1figureYrange,
 ColorSeperator,
 Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2,
-UserArgFunction(*20171116*)
+UserArgFunction(*20171116*),
+JobDescription,ColorPaletterange
 },
 Print["begin function"];
 (*set input arguments *)
@@ -151,9 +152,9 @@ readcorrconfigfile[configDir,configfilename];
 *)
 (*new config file*)
 (*20171109 use readcorrconfigfile5 for new highlight range convention*)
-{Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
+{Jobid,JobDescription(*20171128*),PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
 XQfigureXrange,XQfigureYrange,ColorPaletterange(*20171128*),Hist1figureNbin,(*Hist1figureXrange,(*Hist1figureYrange*)dummy12,*)
-ColorSeperator,
+(*ColorSeperator,*)
 Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}=
 (*readcorrconfigfile4*)readcorrconfigfile6[configDir,configfilename];
 Print["input arguments: ",(*readcorrconfigfile4*)readcorrconfigfile6[configDir,configfilename] ];
@@ -175,10 +176,13 @@ If[Hist1figureYrange[[1]]\[Equal]"auto",Hist1figureYrange[[1]]=1.3];
 If[Hist1figureYrange[[2]]\[Equal]"auto",Hist1figureYrange[[2]]=1200];
 *)
 
+(*
 (*bar seperator input has only 3 elements*)
-If[Length[ColorSeperator]!=3,Print["color seperator percentage should be three numbers"];Abort[]];
+If[Length[ColorSeperator]\[NotEqual]3,Print["color seperator percentage should be three numbers"];Abort[]];
 (*should be small to large, ex: 30, 50, 70*)
-If[Sort[ColorSeperator]!=ColorSeperator,Print["color seperator percentage should from small to large"];Abort[]];
+If[Sort[ColorSeperator]\[NotEqual]ColorSeperator,Print["color seperator percentage should from small to large"];Abort[]];
+*)
+
 (*should in 0% to 100%, ex: 35,55,77.5; 35,76,140.5 is illegal*)
 
 (*size: if highlight mode, set size as small, can't set here, need to set when reading highlight mode of a figure type*)
@@ -1082,7 +1086,9 @@ title="jobid: "<>ToString[Jobid](*<>"\n"<>DateString[{"Month","/","Day","/","Yea
 datemode=True;
 exptnames=Table[ExptIDtoName[exptlistfinal[[iexpt]] ]<>"("<>ToString[exptlistfinal[[iexpt]] ]<>")",{iexpt,1,Length[exptlistfinal]}];
 Print["making table of experiments included in plots"];
-exptnamestable=makeGrid2[exptnames,rows,title,datemode];(*20171114: add date mode to write date*)
+(*20171128: add job description in exptname_table file*)
+JobDescription="Job description: "<>JobDescription;
+exptnamestable=makeGrid2[exptnames,rows,title,JobDescription,datemode];(*20171114: add date mode to write date*)
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,exptnamestable];
 "dummy",
 {i,Length[iext]}
@@ -1168,9 +1174,9 @@ dummy,dummy,dummy,dummy,dummy}=
 readcorrconfigfile4[configDir,configfilename];
 *)
 (*20171109: for readcorrconfigfile5*)
-{dummy,dummy,dummy,dummy,ExptidType,ExptidFlag,dummy,dummy,(*dummy,dummy,*)
+{dummy,dummy(*20171128*),dummy,dummy,dummy,ExptidType,ExptidFlag,dummy,dummy,(*dummy,dummy,*)
 dummy,dummy,(*ColorPaletterange*)(*20171128*)dummy,dummy,(*dummy,(*Hist1figureYrange*)dummy,*)
-dummy,
+(*dummy,*)
 dummy,dummy,dummy,dummy,dummy}=
 readcorrconfigfile6[configDir,configfilename];
 
@@ -1432,3 +1438,15 @@ If[irun==Length[Lexpt],Print["all processes are done"];Abort[]];
 
 (* ::Input:: *)
 (*lisTable*)
+
+
+(* ::Input:: *)
+(*readcorrconfigfile6[configDir,configfilename]//TableForm*)
+
+
+(* ::Input:: *)
+(*readcorrconfigfile6[configDir,configfilename]//TableForm*)
+
+
+(* ::Input:: *)
+(*readcorrconfigfile6[configDir,configfilename]//TableForm*)
