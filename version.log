@@ -326,4 +326,5 @@ change the labels of delta residual and sigma/D for histograms of abs values and
 20171128
 fix the bug: when transform numbers to 4-digit fraction numbers, forgot to consider the positive/minus signs
 
-
+20171128
+update quick_data.zip with both positive and negative values
