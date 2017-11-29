@@ -316,3 +316,6 @@ fix the JobID reading, no space
 remove ColorSeperator from the config file
 add job description in the config file
 set job description in exptname_table output
+
+20171128
+update the 11 flavour quick_data in quick_data.zip
