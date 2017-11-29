@@ -2422,13 +2422,16 @@ If[StringTake[output[[i]],1]!="#",output2=Append[output2,output[[i]] ] ];
 "dummy"
 ,{i,1,Length[output]}
 ];
+(*20171128 delete text after # for each line*)
+output2=Table[StringSplit[output2[[i]],"#"][[1]],{i,1,Length[output2]}];
+
 (*seperate the tag of configure file and arguments by ":"*)
 output3=Table[StringSplit[output2[[i]],":"],{i,1,Length[output2]}];
 
 (*check tag exist, if a tag exist, read arguments corresponding to that tag*)
 (*read Job id*)
 itag=1;
-If[output3[[itag,1]]==JobidTag,Jobid=output3[[itag,2]];Jobid=Read[StringToStream[Jobid],(*Number*)(*20171128*)String] ];
+If[output3[[itag,1]]==JobidTag,Jobid=output3[[itag,2]];Jobid=Read[StringToStream[Jobid],(*Number*)(*20171128*)Word] ];
 Head[Jobid];
 (*read PDFname*)
 itag=itag+1;
@@ -3968,7 +3971,9 @@ ImageSize->imgsize,
 AspectRatio->1.0,
 (*20171125: add grid lines*)
 GridLines->Log[{{0.0000001,0.000001,0.00001,0.0001,0.001,0.01,0.1},{10,50,100,500,1000,5000,10000}}],
-GridLinesStyle->Directive[Dashed]
+GridLinesStyle->Directive[Dashed],
+(*20171128*)
+PlotRangeClipping->True
 ];
 
 AllPlots
@@ -4301,7 +4306,9 @@ Axes->False,
 PlotLabel->Style[title,titlesize,Black],
 FrameLabel->{Style[xtitle,xtitlesize,Black],Style[ytitle,ytitlesize,Black]},
 ImageSize->imgsize,
-AspectRatio->1
+AspectRatio->1,
+(*20171128*)
+PlotRangeClipping->True
 ];
 
 AllPlots
