@@ -106,6 +106,16 @@ modes:
 *)
 BranchMode=2;
 
+(*ClassifyMode*)
+(*
+classify data by various groups, e.g. DIS \[Equal] 100<ID<199, 200<VBP<299, etc
+then use different shapes to represent data points in their respective groups in output figures
+modes:
+"all": all data use one shape
+"single": each Expt ID one shape
+*)
+ClassifyMode="single";
+
 
 (* ::Section:: *)
 (*read correlation (and other data of FigureType in config1.txt) from the data in files*)
@@ -119,7 +129,8 @@ Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,Cor
 XQfigureXrange,XQfigureYrange,Hist1figureNbin,Hist1figureXrange,Hist1figureYrange,
 ColorSeperator,
 Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2,
-UserArgFunction(*20171116*)
+UserArgFunction(*20171116*),
+JobDescription,ColorPaletterange
 },
 Print["begin function"];
 (*set input arguments *)
@@ -134,19 +145,21 @@ Print["method to search (x,Q) points that dominate the process: ",PDFxQSelectMet
 (*set config file path*)
 configDir=Directory[]<>"/";(*NotebookDirectory[];*)(*DirectoryName[$InputFileName];*)
 configfilename="config1.txt";
-
+Print["reading arguments from ",configfilename];
 (*20170301: new config file
 {runfunc,figureDir,dummy1,dummy2,PDFname,dummy3,datalistFile,expttype,exptid}=
 readcorrconfigfile[configDir,configfilename];
 *)
 (*new config file*)
 (*20171109 use readcorrconfigfile5 for new highlight range convention*)
-{Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
-XQfigureXrange,XQfigureYrange,Hist1figureNbin,Hist1figureXrange,(*Hist1figureYrange*)dummy12,
-ColorSeperator,
+{Jobid,JobDescription(*20171128*),PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
+XQfigureXrange,XQfigureYrange,ColorPaletterange(*20171128*),Hist1figureNbin,(*Hist1figureXrange,(*Hist1figureYrange*)dummy12,*)
+(*ColorSeperator,*)
 Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}=
-(*readcorrconfigfile4*)readcorrconfigfile5[configDir,configfilename];
-Print["input arguments: ",(*readcorrconfigfile4*)readcorrconfigfile5[configDir,configfilename] ];
+(*readcorrconfigfile4*)readcorrconfigfile6[configDir,configfilename];
+Print["input arguments: ",(*readcorrconfigfile4*)readcorrconfigfile6[configDir,configfilename] ];
+Print[""];(*space*)
+
 
 (*check format of arguments*)
 (*xyrange*)
@@ -163,10 +176,13 @@ If[Hist1figureYrange[[1]]\[Equal]"auto",Hist1figureYrange[[1]]=1.3];
 If[Hist1figureYrange[[2]]\[Equal]"auto",Hist1figureYrange[[2]]=1200];
 *)
 
+(*
 (*bar seperator input has only 3 elements*)
-If[Length[ColorSeperator]!=3,Print["color seperator percentage should be three numbers"];Abort[]];
+If[Length[ColorSeperator]\[NotEqual]3,Print["color seperator percentage should be three numbers"];Abort[]];
 (*should be small to large, ex: 30, 50, 70*)
-If[Sort[ColorSeperator]!=ColorSeperator,Print["color seperator percentage should from small to large"];Abort[]];
+If[Sort[ColorSeperator]\[NotEqual]ColorSeperator,Print["color seperator percentage should from small to large"];Abort[]];
+*)
+
 (*should in 0% to 100%, ex: 35,55,77.5; 35,76,140.5 is illegal*)
 
 (*size: if highlight mode, set size as small, can't set here, need to set when reading highlight mode of a figure type*)
@@ -228,6 +244,7 @@ Print["file status: ",FileExistsQ[CorrDataDir<>"corr_samept_data_"<>PDFname<>".d
 *)
 Print["present directory:\n",Directory[]];
 Print["quick correlation data:\n",FileNames[CorrDataDir<>"*samept_data_"<>PDFname<>"*"] ];
+Print[""];(*space*)
 (*
 If[
 FileExistsQ[correlationdatapackage]\[Equal]True,
@@ -274,6 +291,9 @@ If[LoopExptBool==True,exptlist={exptlist[[irun]]}];
 (*20170301: exptid = exptlist*)
 exptid = exptlist;
 
+Print["selected Expt IDs = ",exptid];
+Print[""];(*space*)
+
 
 
 
@@ -315,13 +335,17 @@ CorrDataDir="default";CorrDataFile="default";
 If[CorrDataDir\[Equal]"default",CorrDataDir=quickdataDir];
 If[CorrDataFile\[Equal]"default",CorrDataFile="samept_data_"<>PDFname<>".dat"];
 *)
-Print["filenames of data"];
+Print["filenames of plotted data:"];
 Print["Directory: ",CorrDataDir];
 (*20171101 
 Print["corrdataclass: ","corr_"<>CorrDataFile,"\nexpterrordataclass: ","expterror_"<>CorrDataFile,"\nresidualdataclass: ","residual_"<>CorrDataFile,"\ndRdataclass: ","dR_"<>CorrDataFile,"\ndRcorrdataclass: ","dRcorr_"<>CorrDataFile,"\nresidualNsetdataclass: ","residualNset_"<>CorrDataFile,"\n"];
 *)
 (*20171101 change  data format*)
 Print["residualNsetclass: ","residualNset_"<>CorrDataFile,"\nfxQsamept2class: ","fxQNset_"<>CorrDataFile,"\ndtacentralclass: ","dtacentral_"<>CorrDataFile,"\n"];
+(*20171124 check whether plotted data files exist*)
+If[FileExistsQ[(CorrDataDir<>"residualNset_"<>CorrDataFile)]==False,Print["error, file ",(CorrDataDir<>"residualNset_"<>CorrDataFile)," doesn't exist"];Abort[] ];
+If[FileExistsQ[(CorrDataDir<>"fxQNset_"<>CorrDataFile)]==False,Print["error, file ",(CorrDataDir<>"fxQNset_"<>CorrDataFile)," doesn't exist"];Abort[] ];
+If[FileExistsQ[(CorrDataDir<>"dtacentral_"<>CorrDataFile)]==False,Print["error, file ",(CorrDataDir<>"dtacentral_"<>CorrDataFile)," doesn't exist"];Abort[] ];
 
 (*read correlation data of grid*)
 (*20171101: change data file format: fxQ Nset: [[iexpt,iflavour]], [["data"]]=LF[x,Q,fSubscript[(x,Q), 1],...,fSubscript[(x,Q), N]], residual Nset: [[iexpt]], LF[x,Q,Subscript[r, 1],...,Subscript[r, N]], dtacentralclass: [[iexpt]], LF[Subscript[val, 1],Subscript[val, 2],...Subscript[val, l],x,Q]
@@ -354,6 +378,7 @@ fmax=Length[corrdataclass[[1]] ];
 *)
 fmax=Length[fxQsamept2class[[1]] ];
 
+Print["Dimensions of plotted data"];
 Print[
 (*20171101 change  data format
 "corrdataclass: ",
@@ -370,6 +395,23 @@ Dimensions[#]&/@{fxQsamept2class},
 "{dta central class}: ",
 Dimensions[#]&/@{dtacentralclass}
 ];
+Print[""];(*space*)
+
+(*20171127 for fraction number input, transfer them to numerical number*)
+ToNumericTime=
+AbsoluteTiming[
+Table[
+fxQsamept2class[[iexpt,iflavour]][["data"]]=fxQsamept2class[[iexpt,iflavour]][["data"]]/.LF[a__]:>LF@@(N[{a}]),
+{iexpt,Length[fxQsamept2class]},{iflavour,Length[fxQsamept2class[[1]] ]}
+];
+Table[
+residualNsetclass[[iexpt]][["data"]]=residualNsetclass[[iexpt]][["data"]]/.LF[a__]:>LF@@(N[{a}]),
+{iexpt,Length[fxQsamept2class]}
+];
+"dummy"
+];
+Print["fraction numbers in data transfer to numerical numbers, time = ",ToNumericTime," seconds"];
+Print[""];
 
 (*set expeiments by selecting expt data whose ID are in the config1.txt into corrdataclassfinal, ...*)
 residualNsetclassfinal={};
@@ -395,7 +437,7 @@ exptlistfinal=Append[exptlistfinal,exptlist[[iexptlist]] ];
 expttakeindex;
 (*print error message for exptids exptlist don't appear in database*)
 exptlistnotfound=Complement[exptlist,exptlistfinal];
-If[Length[exptlistnotfound]!=0,Print["the exptid = ",exptlistnotfound,"are not found in database"]];
+If[Length[exptlistnotfound]!=0,Print["the exptid = ",exptlistnotfound," are not found in database"]];
 
 (*pick the data of experiments for plot *)
 residualNsetclassfinal=
@@ -416,16 +458,17 @@ dtacentralclass[[expttakeindex[[iexpttakeindex]] ]],
 {iexpttakeindex,1,Length[expttakeindex]}
 ];
 
-
+Print["check whether the selected expts are also in the plotted data files"];
 Print["expt list: ",exptlist];
 Print["expt list in the ./quick_data: ",exptlistfinal];
 (*for run_loopexpts_v4.nb: users want to generate figures of all Expt ID in the config1.txt, so we don't want the program breaks down when some Expt IDs in config.txt are not in data files*)
 (*when we find exptlistfinal contains no expt ID, we skip this loop*)
-If[Length[exptlistfinal]==0,Print["Expt IDs in config.txt are not in data files"];Return["end Quicksaveplot"] ];
+If[Length[exptlistfinal]==0,Print["All Expt IDs in ",configfilename," are not in data files"];Return["end Quicksaveplot"] ];
+Print[""];(*space*)
 
 
 (*test corrfxQdtaobsclassfinal*)
-Print["data of final expts"];
+Print["Dimensions of data of selected and available expts"];
 Print[
 (*
 "corrdataclass: ",
@@ -442,6 +485,9 @@ fxQsamept2classfinal//Dimensions,
 "{dtacentralclassfinal}: ",
 dtacentralclassfinal//Dimensions
 ];
+Print[""];(*space*)
+
+
 (*20191119 need all expt fxQ info*)
 fxQDatabaselist=Table[fxQsamept2class[[iexpt,iflavour]][["data"]],{iexpt,Dimensions[fxQsamept2class][[1]]},{iflavour,Dimensions[fxQsamept2class][[2]]}];
 fxQDatabaseExptlist=Table[fxQsamept2class[[iexpt,1]][["exptinfo","exptid"]],{iexpt,Dimensions[fxQsamept2class][[1]]}];
@@ -468,11 +514,14 @@ pdfFamilyParseCTEQ["../fakePDFset/"<>PDFname<>"/"<>"*pds",ifamily];
 fxQlist=Table[fxQsamept2classfinal[[iexpt,iflavour]][["data"]],{iexpt,Dimensions[fxQsamept2classfinal][[1]]},{iflavour,Dimensions[fxQsamept2classfinal][[2]]}];
 (*20171109: seperate user difine function/data IO and configure file*)
 userfuncfilename="user_func.txt";
+Print["reading user functions from ",userfuncfilename];
 (*20171119 new user function format: {{user name 1, user function 1}, {user name 2, user function 2}...}*)
 (*{UserArgName,UserArgFunction}*)
 UserArgFunction=(*ReadUserFunctionV2*)ReadUserFunctionV3[configDir,userfuncfilename];
 UserArgName=(#[[1]]&/@UserArgFunction);
 UserArgFunction=(#[[2]]&/@UserArgFunction);
+
+Print["function names: ",UserArgName];
 (*20171116: new convention of user define function and new way to add it as new flavour*)
 (*20171119 new user function format: {{user name 1, user function 1}, {user name 2, user function 2}...}*)
 (*fxQdataNewFlavour format: [[ifunc,iexpt]]*)
@@ -515,6 +564,7 @@ tmpclass,
 
 fmax=Length[fxQsamept2classfinal[[1]] ];
 Print["total #flavours: ",fmax];
+Print[""];(*space*)
 (*test *)(*Print["flavours switch: ",CorrelationArgFlag];Abort[];*)
 
 (*calculate observables for plots from PDF data and residual data of all replicas*)
@@ -560,15 +610,18 @@ Sum[
 Datamethods[["getNpt"]][corrdataclassfinal[[iexpt,flavour+6]] ],
 {iexpt,1,Length[residualNsetclassfinal]},{flavour,-5,-5+fmax-1}
 ];
+Print["The time for calculating statistical quantities used in plotting"];
 Print["total number of correlation & sensitivity value calculations is ",NCorrval];
 Print["average time of one correlation + sensitivity value calculations is roughly ",GetCorrvalueTime/NCorrval];
 Print["time of calculating all observable data (correlation + sensitivity + ...)  values is ",GetCorrvalueTime];
+Print[""];(*space*)
 
 (*calculate experimental error ratio*)
 (*check columns used to extract Subscript[\[Sigma], i]/Subscript[D, i] is correct (check the labels are (x,Q,TotErr/Exp) ) *)
 (*check whether the elements used to calculate Expt error/expt are correct*)
 ExpIndex=4;ExpErrIndex=6;XIndex=-3;QIndex=-2;
 Print["begin to calculate \!\(\*SubscriptBox[\(\[Sigma]\), \(i\)]\)/\!\(\*SubscriptBox[\(D\), \(i\)]\) from data, labels of indexes used for each experiment:"];
+Print[""];(*space*)
 
 Table[
 Print[
@@ -598,6 +651,7 @@ Dimensions[dRcorrdataclassfinal],
 "{expterrordataclass,residualdataclass,dRdataclass}: ",
 Dimensions[#]&/@{expterrordataclassfinal,residualdataclassfinal,dRdataclassfinal}
 ];
+Print[""];(*space*)
 (**)
 (*test abort*)
 (*
@@ -617,7 +671,7 @@ Print[plot2];
 (*set dir for saved figures*)
 saveparentpath=figureDir;(*"/home/botingw/code/pdf_correlation/code/mathematica/"*)
 (*make name of subdir(s)*)
-pdfnameexpttypeDir=PDFname<>"_"<>expttype<>"/";
+(*pdfnameexpttypeDir=PDFname<>"_"<>expttype<>"/";*)
 (*20170313: use job dir*)
 jobpath="Jobs/"<>ToString[Jobid]<>"/";
 (*if version 2 (LoopExptBool==True;), put the produced figures under the folder with it's name=Expt ID*)
@@ -752,6 +806,7 @@ the input format of dataclasses are the same format of the dataclasses in data f
 "residualNset":[[iflavour]]
 "expterror":[[iflavour]]
 *)
+Print["generating figures..."];
 jpgtime=
 AbsoluteTiming[
 (*20171109 use processdataplotsmultiexp7percentage to replace version 6 and readcorrconfigfile5 to replace version4: for new highlight range convention*)
@@ -763,7 +818,7 @@ If[
 (*correlation plots*)
 FigureFlag[[6]]==1,
 Print["making plot of figure type ",FigureType[[6]],", flavour = ",flavour];
-p6=processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile5[configDir,configfilename],6,flavour ];
+p6=processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],6,flavour ];
 (*add exptname table into output figure*)
 
 (*p6=GraphicsGrid[p6,Spacings\[Rule]Scaled[0.15] ];*)
@@ -781,13 +836,13 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,
 ];
 
 (*20171103: add files storing mathematica expressions so that users can change details of every figure*)
-filename=obsname[[6]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".dat";
+filename=obsname[[6]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,1]] ];
-filename=obsname[[6]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".dat";
+filename=obsname[[6]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,2]]];
-filename=obsname[[6]]<>"_"<>representationname[[3]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".dat";
+filename=obsname[[6]]<>"_"<>representationname[[3]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,1]] ];
-filename=obsname[[6]]<>"_"<>representationname[[4]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".dat";
+filename=obsname[[6]]<>"_"<>representationname[[4]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,2]] ];
 
 ];
@@ -796,7 +851,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,
 If[
 FigureFlag[[5]]==1,
 Print["making plot of figure type ",FigureType[[5]],", flavour = ",flavour];
-p5=processdataplotsmultiexp7percentage[{dRcorrdataclassfinal},readcorrconfigfile5[configDir,configfilename],5,flavour];
+p5=processdataplotsmultiexp7percentage[{dRcorrdataclassfinal},readcorrconfigfile6[configDir,configfilename],5,flavour];
 
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
 Table[
@@ -813,13 +868,13 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,
 ];
 
 (*20171103: add files storing mathematica expressions so that users can change details of every figure*)
-filename=obsname[[5]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".dat";
+filename=obsname[[5]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,1]]  ];
-filename=obsname[[5]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".dat";
+filename=obsname[[5]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,2]] ];
-filename=obsname[[5]]<>"_"<>representationname[[3]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".dat";
+filename=obsname[[5]]<>"_"<>representationname[[3]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,1]]  ];
-filename=obsname[[5]]<>"_"<>representationname[[4]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".dat";
+filename=obsname[[5]]<>"_"<>representationname[[4]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,2]]  ];
 
 ];
@@ -836,7 +891,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,
 If[
 FigureFlag[[2]]==1,
 Print["making plot of figure type ",FigureType[[2]],", flavour = ",flavour];
-p234=processdataplotsmultiexp7percentage[{expterrordataclassfinal},readcorrconfigfile5[configDir,configfilename],2,flavour];
+p234=processdataplotsmultiexp7percentage[{expterrordataclassfinal},readcorrconfigfile6[configDir,configfilename],2,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
 
 Table[
@@ -856,16 +911,16 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 ];
 
 (*20171103: add files storing mathematica expressions so that users can change details of every figure*)
-filename=obsname[[2]]<>"_"<>representationname[[1]]<>"_samept"<>".dat";
+filename=obsname[[2]]<>"_"<>representationname[[1]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]]  ];
-filename=obsname[[2]]<>"_"<>representationname[[2]]<>"_samept"<>".dat";
+filename=obsname[[2]]<>"_"<>representationname[[2]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]]  ];
 (*20171108: \[Sigma]/D has no negative data, so delete histogram of range = (-x, x)*)
 (*
-filename=obsname[[2]]<>"_"<>representationname[[3]]<>"_samept"<>".dat";
+filename=obsname[[2]]<>"_"<>representationname[[3]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]]  ];
 *)
-filename=obsname[[2]]<>"_"<>representationname[[4]]<>"_samept"<>".dat";
+filename=obsname[[2]]<>"_"<>representationname[[4]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]]  ];
 
 ];
@@ -873,7 +928,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 If[
 FigureFlag[[3]]==1,
 Print["making plot of figure type ",FigureType[[3]],", flavour = ",flavour];
-p234=processdataplotsmultiexp7percentage[{residualdataclassfinal},readcorrconfigfile5[configDir,configfilename],3,flavour];
+p234=processdataplotsmultiexp7percentage[{residualdataclassfinal},readcorrconfigfile6[configDir,configfilename],3,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
 Table[
 filename=obsname[[3]]<>"_"<>representationname[[1]]<>"_samept"<>extensionname[[iext[[i]] ]];
@@ -889,13 +944,13 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 ];
 
 (*20171103: add files storing mathematica expressions so that users can change details of every figure*)
-filename=obsname[[3]]<>"_"<>representationname[[1]]<>"_samept"<>".dat";
+filename=obsname[[3]]<>"_"<>representationname[[1]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]]  ];
-filename=obsname[[3]]<>"_"<>representationname[[2]]<>"_samept"<>".dat";
+filename=obsname[[3]]<>"_"<>representationname[[2]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]]  ];
-filename=obsname[[3]]<>"_"<>representationname[[3]]<>"_samept"<>".dat";
+filename=obsname[[3]]<>"_"<>representationname[[3]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]]  ];
-filename=obsname[[3]]<>"_"<>representationname[[4]]<>"_samept"<>".dat";
+filename=obsname[[3]]<>"_"<>representationname[[4]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]]  ];
 
 
@@ -904,7 +959,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 If[
 FigureFlag[[4]]==1,
 Print["making plot of figure type ",FigureType[[4]],", flavour = ",flavour];
-p234=processdataplotsmultiexp7percentage[{dRdataclassfinal},readcorrconfigfile5[configDir,configfilename],4,flavour];
+p234=processdataplotsmultiexp7percentage[{dRdataclassfinal},readcorrconfigfile6[configDir,configfilename],4,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
 Table[
 filename=obsname[[4]]<>"_"<>representationname[[1]]<>"_samept"<>extensionname[[iext[[i]] ]];
@@ -923,16 +978,16 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 ];
 
 (*20171103: add files storing mathematica expressions so that users can change details of every figure*)
-filename=obsname[[4]]<>"_"<>representationname[[1]]<>"_samept"<>".dat";
+filename=obsname[[4]]<>"_"<>representationname[[1]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]]  ];
-filename=obsname[[4]]<>"_"<>representationname[[2]]<>"_samept"<>".dat";
+filename=obsname[[4]]<>"_"<>representationname[[2]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]]  ];
 (*20171108: \[Delta]r has no negative data, so delete histogram of range = (-x, x)*)
 (*
-filename=obsname[[4]]<>"_"<>representationname[[3]]<>"_samept"<>".dat";
+filename=obsname[[4]]<>"_"<>representationname[[3]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]]  ];
 *)
-filename=obsname[[4]]<>"_"<>representationname[[4]]<>"_samept"<>".dat";
+filename=obsname[[4]]<>"_"<>representationname[[4]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]]  ];
 
 
@@ -941,7 +996,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 If[
 FigureFlag[[1]]==1,
 Print["making plot of figure type ",FigureType[[1]] ];
-p1=processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile5[configDir,configfilename],1,0 ];
+p1=processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],1,0 ];
 
 Table[
 filename=obsname[[1]]<>"_"<>representationname[[1]]<>extensionname[[iext[[i]] ]];
@@ -950,7 +1005,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p1[[1]
 {i,Length[iext]}
 ];
 
-filename=obsname[[1]]<>"_"<>representationname[[1]]<>".dat";
+filename=obsname[[1]]<>"_"<>representationname[[1]]<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p1[[1]] ];
 ];
 
@@ -1006,16 +1061,21 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p4[[2,
 ];
 *)
 ];
+Print[""];(*space*)
 Print["time to make plots is ",jpgtime," seconds"];
-
+Print[""];(*space*)
 
 (*copy configure file to job dir*)
 (*20170508 if config file in plot path exist, remove it*)
 If[FileExistsQ[saveparentpath<>jobpath<>configfilename]==True,DeleteFile[saveparentpath<>jobpath<>configfilename] ];
 CopyFile[configDir<>configfilename,saveparentpath<>jobpath<>configfilename];
-(*20171119 copy user_func.txt to the output directory*)
+(*20171119 copy user_func.txt to the output directory*)(*20171127: only copy it when user function mode is on*)
+If[
+CorrelationArgFlag[[-1]]==1,
 If[FileExistsQ[saveparentpath<>jobpath<>userfuncfilename]==True,DeleteFile[saveparentpath<>jobpath<>userfuncfilename] ];
 CopyFile[configDir<>userfuncfilename,saveparentpath<>jobpath<>userfuncfilename];
+"dummy"
+];
 
 (*make exptname table, 20170410: Sean asks to move this process to the final step*)
 Table[
@@ -1026,14 +1086,20 @@ title="jobid: "<>ToString[Jobid](*<>"\n"<>DateString[{"Month","/","Day","/","Yea
 datemode=True;
 exptnames=Table[ExptIDtoName[exptlistfinal[[iexpt]] ]<>"("<>ToString[exptlistfinal[[iexpt]] ]<>")",{iexpt,1,Length[exptlistfinal]}];
 Print["making table of experiments included in plots"];
-exptnamestable=makeGrid2[exptnames,rows,title,datemode];(*20171114: add date mode to write date*)
+(*20171128: add job description in exptname_table file*)
+JobDescription="Job description: "<>JobDescription;
+exptnamestable=makeGrid2[exptnames,rows,title,JobDescription,datemode];(*20171114: add date mode to write date*)
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,exptnamestable];
 "dummy",
 {i,Length[iext]}
 ];
 
 (*merge .eps files into a pdf file*)
-implementeps[saveparentpath<>jobpath,PDFxQSelectMethod];
+(*20171124*)
+If[
+BranchMode==1,
+implementeps[saveparentpath<>jobpath,PDFxQSelectMethod]
+];
 
 (*copy directory to job directory*)
 (*make jobid directory*)
@@ -1051,6 +1117,15 @@ filescopyto=Table[tmpfile=StringSplit[filescopyfrom[[i]],"/"][[-1]];saveparentpa
 Print[filescopyto];
 Table[CopyFile[filescopyfrom[[i]],filescopyto[[i]]],{i,1,Length[filescopyfrom]}];
 CopyFile["config1",saveparentpath<>jobpath<>"config1"];
+*)
+
+(*20171124 print final info*)
+Print["The job is finished.All figures are in",saveparentpath<>jobpath];
+(*
+Print["search figures under",saveparentpath<>jobpath];
+Print["extension = ",extensionname[[#]]&/@iext ];
+Print["total #flavour for check = ",CorrelationArgFlag];
+Print["epspdfcat: combine several eps files into a PDF file using LaTeX"];
 *)
 
 "complete the function"
@@ -1099,11 +1174,11 @@ dummy,dummy,dummy,dummy,dummy}=
 readcorrconfigfile4[configDir,configfilename];
 *)
 (*20171109: for readcorrconfigfile5*)
-{dummy,dummy,dummy,dummy,ExptidType,ExptidFlag,dummy,dummy,(*dummy,dummy,*)
-dummy,dummy,dummy,dummy,(*Hist1figureYrange*)dummy,
-dummy,
+{dummy,dummy(*20171128*),dummy,dummy,dummy,ExptidType,ExptidFlag,dummy,dummy,(*dummy,dummy,*)
+dummy,dummy,(*ColorPaletterange*)(*20171128*)dummy,dummy,(*dummy,(*Hist1figureYrange*)dummy,*)
+(*dummy,*)
 dummy,dummy,dummy,dummy,dummy}=
-readcorrconfigfile5[configDir,configfilename];
+readcorrconfigfile6[configDir,configfilename];
 
 Lexpt={};
 Table[
@@ -1119,7 +1194,7 @@ AbsoluteTiming[
 Quicksaveplot[];
 ];
 
-Print["total time to run is ",timefunc," seconds"];
+Print["total running time is ",timefunc," seconds"];
 If[irun==Length[Lexpt],Print["all processes are done"];Abort[]];
 "dummy",
 {irun,1,Length[Lexpt]}
@@ -1349,4 +1424,29 @@ If[irun==Length[Lexpt],Print["all processes are done"];Abort[]];
 (*fxQsamept2classfinal[[1,1]][["exptinfo","exptid"]]*)
 
 
+(* ::Input:: *)
+(*processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile5[configDir,configfilename],1,0 ]*)
 
+
+(* ::Input:: *)
+(*Get["corr_proj_funcs.m"]*)
+
+
+(* ::Input:: *)
+(*ReadLisFile[datalistFile];*)
+
+
+(* ::Input:: *)
+(*lisTable*)
+
+
+(* ::Input:: *)
+(*readcorrconfigfile6[configDir,configfilename]//TableForm*)
+
+
+(* ::Input:: *)
+(*readcorrconfigfile6[configDir,configfilename]//TableForm*)
+
+
+(* ::Input:: *)
+(*readcorrconfigfile6[configDir,configfilename]//TableForm*)

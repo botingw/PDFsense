@@ -467,7 +467,8 @@ tmpTable
 
 
 ExptIDinfo[ExptIDin_]:=
-Module[{ExptID=ExptIDin,output,expItype,VBPtype1,VBPtype2,VBPtype3},
+Module[{ExptID=ExptIDin,output,expItype,VBPtype1,VBPtype2,VBPtype3,
+JP,ttbarpT,ttbarmtt,ttbary,ID267},
 (*
 1:DIS;
 2:VBP (VectorBosonProd.;real/virtual photon;W,Z,...)
@@ -492,7 +493,15 @@ however, since VBPtype2, 3 formulas are the same, I still add them into VBPtype2
 (*20170606: 248 W/Z mix*)
 VBPtype1={};
 VBPtype2={201,203,204,260,261,268,240}~Join~{246,245,250,248};
-VBPtype3={225,227,234,267,281,241,266}~Join~{249};
+VBPtype3={225,227,234,(*267,*)281,241,266}~Join~{249};
+
+(*20171118*)
+JP={504,514,535,538,542,544,545};
+ttbarpT={565};
+ttbarmtt={567};
+ttbary={566,568};
+(*20171121: it's Q = 0, set it as W mass*)
+ID267={267};
 
 expItype=
 Which[
@@ -504,14 +513,22 @@ ExptID>99 && ExptID<200,
 "VBP2",
  ExptID>199 && ExptID<300 && SubsetQ[VBPtype3,{ExptID}],(*W \[Rule] lv, asym*)
 "VBP3",
+ExptID>199 && ExptID<300 && SubsetQ[ID267,{ExptID}],(*W \[Rule] lv, asym*)
+"ID267",
  ExptID>199 && ExptID<300,
 "VBPothers",
  ExptID>299 && ExptID<400,
 "DP",
  ExptID>399 && ExptID<500,
 "HQP",
- ExptID>499 && ExptID<600,
+ ExptID>499 && ExptID<600 &&  SubsetQ[JP,{ExptID}],
 "JP",
+ExptID>499 && ExptID<600 &&  SubsetQ[ttbarpT,{ExptID}],
+"ttbarpT",
+ ExptID>499 && ExptID<600 &&  SubsetQ[ttbarmtt,{ExptID}],
+"ttbarmtt",
+ ExptID>499 && ExptID<600 &&  SubsetQ[ttbary,{ExptID}],
+"ttbary",
  ExptID>599 && ExptID<700,
 "undefine",
  ExptID>699 && ExptID<800,
@@ -604,9 +621,15 @@ output =expItype
 (**)
 (**)
 (**)
+(**)
+(**)
+(**)
 (*\!\(\*SuperscriptBox[\(\[ExponentialE]\), \({a}[\([1]\)]\)]\),{a}[[2]]},data/.LF[a__]:>{({a}[[2]]/Sqrt[S])*E^-{a}[[1]],{a}[[2]]}],(* x1 = (Q/sqrt(S))*exp(+-y) *)*)
 (*"VBP3",*)
 (*Join[data/.LF[a__]:>{({a}[[2]]/Sqrt[S])**)
+(**)
+(**)
+(**)
 (**)
 (**)
 (**)
@@ -674,6 +697,12 @@ Join[data/.LF[a__]:>LF@@{Sequence@@{a},({a}[[2]]/Sqrt[S])*
 
 
 
+
+
+
+
+
+
 \!\(\*SuperscriptBox[\(\[ExponentialE]\), \({a}[\([1]\)]\)]\),{a}[[2]]},data/.LF[a__]:>LF@@{Sequence@@{a},({a}[[2]]/Sqrt[S])*E^-{a}[[1]],{a}[[2]]}],(* x1 = (Q/sqrt(S))*exp(+-y) *)
 "VBP3",
 Join[data/.LF[a__]:>LF@@{Sequence@@{a},({a}[[2]]/Sqrt[S])*
@@ -684,16 +713,49 @@ Join[data/.LF[a__]:>LF@@{Sequence@@{a},({a}[[2]]/Sqrt[S])*
 
 
 
+
+
+
+
+
+
 \!\(\*SuperscriptBox[\(\[ExponentialE]\), \({a}[\([1]\)]\)]\),{a}[[2]]},data/.LF[a__]:>LF@@{Sequence@@{a},({a}[[2]]/Sqrt[S])*E^-{a}[[1]],{a}[[2]]}],(* formula not decided yet *)
+"ID267",
+Join[data/.LF[a__]:>LF@@{Sequence@@{a},(80.39/Sqrt[S])*
+
+
+
+
+
+
+
+
+
+
+
+
+
+\!\(\*SuperscriptBox[\(\[ExponentialE]\), \({a}[\([1]\)]\)]\),80.39},data/.LF[a__]:>LF@@{Sequence@@{a},(80.39/Sqrt[S])*E^-{a}[[1]],80.39}],(* formula not decided yet *)
 "JP",
 (* this form is for q1q2 \[Rule] j1j2, estimate x1, x2 of jet as peak of y(j1), y(j2)*)
 
-Join[data/.LF[a__]:>LF@@{Sequence@@{a},((2*{a}[[1]])/(Sqrt[S]))*E^(({a}[[3]]-{a}[[2]])/2.0),{a}[[1]]},data/.LF[a__]:>LF@@{Sequence@@{a},((2*{a}[[1]])/(Sqrt[S]))*E^(({a}[[2]]-{a}[[3]])/2.0),{a}[[1]]}],(*x1=(Subscript[p, Tj]/(2Sqrt[S]))*e^Subscript[y, j]*)
+Join[data/.LF[a__]:>LF@@{Sequence@@{a},((2*{a}[[1]])/(Sqrt[S]))*E^(({a}[[3]]-{a}[[2]])/2.0),2*{a}[[1]]},data/.LF[a__]:>LF@@{Sequence@@{a},((2*{a}[[1]])/(Sqrt[S]))*E^(({a}[[2]]-{a}[[3]])/2.0),2*{a}[[1]]}],(*x1=(Subscript[p, Tj]/(2Sqrt[S]))*e^Subscript[y, j]*)
 
 (*this form is for q1q2 \[Rule] W, Z or something, so rapidity is yjj, estimating x as peak of yjj*)
 (*
 data/.LF[a__]\[RuleDelayed]{((2\[Times]{a}[[1]])/(Sqrt[S])),2\[Times]{a}[[1]]},
 *)
+(*20171118: add 565 ~568 (ttbar production) formulas*)
+(*pT, the same as the formula of JP*)
+(*20171126: pt events, <y> = 0*)
+"ttbarpT",
+data/.LF[a__]:>LF@@{Sequence@@{a},((2*{a}[[1]])/(Sqrt[S]))*E^(0.0),2*{a}[[1]]},
+(*mu = mtt, x = mtt (since y = 0 for this case)*)
+"ttbarmtt",
+data/.LF[a__]:>LF@@{Sequence@@{a},(({a}[[1]])/(Sqrt[S])),{a}[[1]]},
+(*ytt, ya==(yt+ytbar)/2: mu~ 2mt+100GeV = 450 GeV, x = (Q/\[Sqrt]S)*e^+-y*)
+"ttbary",
+Join[data/.LF[a__]:>LF@@{Sequence@@{a},((400)/(Sqrt[S]))*E^(({a}[[3]]-{a}[[2]])/2.0),400},data/.LF[a__]:>LF@@{Sequence@@{a},((400)/(Sqrt[S]))*E^(({a}[[2]]-{a}[[3]])/2.0),400}],
 _,
 Print["Wrong expItype value, ",expItype,", ",ExptID] (*data/.LF[a__]\[RuleDelayed]{{a}[[1]],{a}[[2]]}*)
 ];
@@ -707,6 +769,7 @@ datatmp=output[[i]]/.List\[RuleDelayed]LF,
 
 output 
 ];
+
 
 
 

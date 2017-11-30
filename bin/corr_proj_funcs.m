@@ -2335,6 +2335,280 @@ Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}
 
 
 (* ::Input::Initialization:: *)
+(*20171109: version 5: delete the user define function value part, ReadUserFunction will be in charge of it*)
+(*20171128: 
+change hist xmin, xmax as zmin, zmax of color palette, delete color percentage, job id could be string
+no ColorSeperator anymore
+add descriptions for Jobid 
+
+*)
+readcorrconfigfile6[configDirin_,configfilenamein_]:=
+Module[{configDir=configDirin,configfilename=configfilenamein,
+JobidTag,PDFnameTag,FigureTypeTag,FigureFlagTag,ExptidTypeTag,ExptidFlagTag,CorrelationArgTypeTag,CorrelationArgFlagTag,UserArgNameTag,UserArgValueTag,
+XQfigureXrangeTag,XQfigureYrangeTag,Hist1figureNbinTag,Hist1figureXrangeTag,Hist1figureYrangeTag,ColorSeperatorTag,
+SizeTag,HighlightTypeTag,HighlightModeTag,HighlightMode1Tag,HighlightMode2Tag,
+Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,UserArgName,UserArgValue,
+XQfigureXrange,XQfigureYrange,Hist1figureNbin,Hist1figureXrange,Hist1figureYrange,ColorSeperator,
+Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2,
+itag,s,output,output2,output3,
+ColorPaletterange,ColorPaletterangeTag,JobDescription,JobDescriptionTag
+},
+
+JobidTag="Job ID (copy from the counter file)";
+JobDescriptionTag="Job description";(*20171128*)
+PDFnameTag="PDF set";
+FigureTypeTag="Type";
+FigureFlagTag="Flag";
+ExptidTypeTag="Expt. ID";
+ExptidFlagTag="Expt. Flag";
+CorrelationArgTypeTag="Type";
+CorrelationArgFlagTag="Flag";
+(*20171109: delete the user define function value part, ReadUserFunction will be in charge of it*)
+(*
+UserArgNameTag="Name";
+UserArgValueTag="Values";
+*)
+
+XQfigureXrangeTag="xmin,   xmax";
+XQfigureYrangeTag="mumin, mumax";
+ColorPaletterangeTag="zmin, zmax";(*20171128*)
+Hist1figureNbinTag="Number of bins";
+(*
+Hist1figureXrangeTag="xmin, xmax";
+Hist1figureYrangeTag="ymin, ymax";
+*)
+(*
+Hist2figureXrangeTag
+Hist2figureYrangeTag
+*)
+(*
+ColorSeperatorTag="Color by data percentage";
+*)
+SizeTag="Size";
+HighlightTypeTag="Type";
+HighlightModeTag="Mode";
+HighlightMode1Tag="Mode 1 range";
+HighlightMode2Tag="Mode 2 range";
+
+Jobid="unset";
+JobDescription="unset";(*20171128*)
+PDFname="unset";
+FigureType="unset";
+FigureFlag="unset";
+ExptidType="unset";
+ExptidFlag="unset";
+CorrelationArgType="unset";
+CorrelationArgFlag="unset";
+(*20171109: delete the user define function value part, ReadUserFunction will be in charge of it*)
+(*
+UserArgName="unset";
+UserArgValue="unset";
+*)
+XQfigureXrange="unset";
+XQfigureYrange="unset";
+ColorPaletterange="unset";(*20171128*)
+Hist1figureNbin="unset";
+(*
+Hist1figureXrange="unset";
+Hist1figureYrange="unset";
+*)
+(*
+ColorSeperator="unset";
+*)
+Size="unset";
+HighlightType="unset";
+HighlightMode="unset";
+HighlightMode1="unset";
+HighlightMode2="unset";
+
+(*read config file line by line into list*)
+s=OpenRead[configDir<>configfilename];
+output=ReadList[s,String];
+Close[s];
+
+(*delete comments: with "#" at begining of line*)
+output2={};
+Table[
+If[StringTake[output[[i]],1]!="#",output2=Append[output2,output[[i]] ] ];
+"dummy"
+,{i,1,Length[output]}
+];
+(*20171128 delete text after # for each line*)
+output2=Table[StringSplit[output2[[i]],"#"][[1]],{i,1,Length[output2]}];
+
+(*seperate the tag of configure file and arguments by ":"*)
+output3=Table[StringSplit[output2[[i]],":"],{i,1,Length[output2]}];
+
+(*check tag exist, if a tag exist, read arguments corresponding to that tag*)
+(*read Job id*)
+itag=1;
+If[output3[[itag,1]]==JobidTag,Jobid=output3[[itag,2]];Jobid=Read[StringToStream[Jobid],(*Number*)(*20171128*)Word] ];
+Head[Jobid];
+(*20171128 add job description*)
+itag=itag+1;
+If[output3[[itag,1]]==JobDescriptionTag,JobDescription=output3[[itag,2]];JobDescription=Read[StringToStream[JobDescription],(*Number*)(*20171128*)String] ];
+Head[JobDescription];
+(*read PDFname*)
+itag=itag+1;
+If[output3[[itag,1]]==PDFnameTag,PDFname=output3[[itag,2]];PDFname=Read[StringToStream[PDFname],Word] ];
+Head[PDFname];
+(*read FigureType and FigureFlag*)
+itag=itag+1;
+If[output3[[itag,1]]==FigureTypeTag,FigureType=output3[[itag,2]] ];
+Head[FigureType];
+
+itag=itag+1;
+If[output3[[itag,1]]==FigureFlagTag,FigureFlag=output3[[itag,2]] ];
+Head[FigureFlag];
+
+FigureType=ReadList[StringToStream[FigureType],Word];
+FigureFlag=ReadList[StringToStream[FigureFlag],Number];
+
+(*read ExptidType and ExptidFlag*)
+itag=itag+1;
+If[output3[[itag,1]]==ExptidTypeTag,ExptidType=output3[[itag,2]] ];
+Head[ExptidType];
+
+itag=itag+1;
+If[output3[[itag,1]]==ExptidFlagTag,ExptidFlag=output3[[itag,2]] ];
+Head[ExptidFlag];
+
+ExptidType=ReadList[StringToStream[ExptidType],Number];
+ExptidFlag=ReadList[StringToStream[ExptidFlag],Number];
+
+(*read CorrelationArgType and CorrelationArgFlag*)
+itag=itag+1;
+If[output3[[itag,1]]==CorrelationArgTypeTag,CorrelationArgType=output3[[itag,2]] ];
+Head[CorrelationArgType];
+
+itag=itag+1;
+If[output3[[itag,1]]==CorrelationArgFlagTag,CorrelationArgFlag=output3[[itag,2]] ];
+Head[CorrelationArgFlag];
+
+CorrelationArgType=ReadList[StringToStream[CorrelationArgType],Word];
+CorrelationArgFlag=ReadList[StringToStream[CorrelationArgFlag],Number];
+
+(*20171109: delete the user define function value part, ReadUserFunction will be in charge of it*)
+(*
+(*read UserArgName*)
+itag=itag+1;
+If[output3[[itag,1]]==UserArgNameTag,UserArgName=output3[[itag,2]] ];
+Head[UserArgName];
+(*read UserArgValue*)
+itag=itag+1;
+If[output3[[itag,1]]==UserArgValueTag,UserArgValue=output3[[itag,2]] ];
+Head[UserArgValue];
+
+UserArgValue=ReadList[StringToStream[UserArgValue],Number];
+*)
+(*read XQfigureXrange and XQfigureYrange*)
+itag=itag+1;
+If[output3[[itag,1]]==XQfigureXrangeTag,XQfigureXrange=output3[[itag,2]] ];
+Head[XQfigureXrange];
+
+itag=itag+1;
+If[output3[[itag,1]]==XQfigureYrangeTag,XQfigureYrange=output3[[itag,2]] ];
+Head[XQfigureYrange];
+
+XQfigureXrange=ReadList[StringToStream[XQfigureXrange],Word];
+XQfigureYrange=ReadList[StringToStream[XQfigureYrange],Word];
+If[XQfigureXrange[[1]]!="auto",XQfigureXrange[[1]]=Read[StringToStream[XQfigureXrange[[1]] ],Number] ];
+If[XQfigureXrange[[2]]!="auto",XQfigureXrange[[2]]=Read[StringToStream[XQfigureXrange[[2]] ],Number] ];
+If[XQfigureYrange[[1]]!="auto",XQfigureYrange[[1]]=Read[StringToStream[XQfigureYrange[[1]] ],Number] ];
+If[XQfigureYrange[[2]]!="auto",XQfigureYrange[[2]]=Read[StringToStream[XQfigureYrange[[2]] ],Number] ];
+(*read Hist1figureNbin, Hist1figureXrange, Hist1figureYrange*)(*20171128 delete histogram ranges and add color palette*)
+itag=itag+1;
+If[output3[[itag,1]]==ColorPaletterangeTag,ColorPaletterange=output3[[itag,2]] ];
+Head[ColorPaletterange];
+ColorPaletterange=ReadList[StringToStream[ColorPaletterange],Word];
+If[ColorPaletterange[[1]]!="auto",ColorPaletterange[[1]]=Read[StringToStream[ColorPaletterange[[1]] ],Number] ];
+If[ColorPaletterange[[2]]!="auto",ColorPaletterange[[2]]=Read[StringToStream[ColorPaletterange[[2]] ],Number] ];
+
+
+itag=itag+1;
+If[output3[[itag,1]]==Hist1figureNbinTag,Hist1figureNbin=output3[[itag,2]];Hist1figureNbin=Read[StringToStream[Hist1figureNbin],Word] ];
+Head[Hist1figureNbin];
+If[Hist1figureNbin!="auto",Hist1figureNbin=Read[StringToStream[Hist1figureNbin],Number] ];
+(*20171128
+itag=itag+1;
+If[output3[[itag,1]]==Hist1figureXrangeTag,Hist1figureXrange=output3[[itag,2]] ];
+Head[Hist1figureXrange];
+
+itag=itag+1;
+If[output3[[itag,1]]==Hist1figureYrangeTag,Hist1figureYrange=output3[[itag,2]] ];
+Head[Hist1figureYrange];
+
+Hist1figureXrange=ReadList[StringToStream[Hist1figureXrange],Word];
+Hist1figureYrange=ReadList[StringToStream[Hist1figureYrange],Word];
+If[Hist1figureXrange[[1]]!="auto",Hist1figureXrange[[1]]=Read[StringToStream[Hist1figureXrange[[1]] ],Number] ];
+If[Hist1figureXrange[[2]]!="auto",Hist1figureXrange[[2]]=Read[StringToStream[Hist1figureXrange[[2]] ],Number] ];
+If[Hist1figureYrange[[1]]!="auto",Hist1figureYrange[[1]]=Read[StringToStream[Hist1figureYrange[[1]] ],Number] ];
+If[Hist1figureYrange[[2]]!="auto",Hist1figureYrange[[2]]=Read[StringToStream[Hist1figureYrange[[2]] ],Number] ];
+*)
+(*20170306: add color seperator*)
+(*20171128: delete it*)
+(*
+itag=itag+1;
+If[output3[[itag,1]]==ColorSeperatorTag,ColorSeperator=output3[[itag,2]] ];
+Head[ColorSeperator];
+
+ColorSeperator=ReadList[StringToStream[ColorSeperator],Word];
+If[ColorSeperator[[1]]!="auto",
+Table[ColorSeperator[[i]]=Read[StringToStream[ColorSeperator[[i]] ],Number];"dummy",{i,1,Length[ColorSeperator]}] 
+];
+*)
+
+(*read HighlightType(FigureType) and HighlightMode*)
+itag=itag+1;
+If[output3[[itag,1]]==HighlightTypeTag,HighlightType=output3[[itag,2]] ];
+Head[HighlightType];
+
+itag=itag+1;
+If[output3[[itag,1]]==HighlightModeTag,HighlightMode=output3[[itag,2]] ];
+Head[HighlightMode];
+(*Print[output3[[itag,1]],"   ",HighlightModeTag];*)
+
+itag=itag+1;
+If[output3[[itag,1]]==HighlightMode1Tag,HighlightMode1=output3[[itag,2]] ];
+Head[HighlightMode1];
+(*Print[output3[[itag,1]],"   ",HighlightMode1Tag];*)
+
+itag=itag+1;
+If[output3[[itag,1]]==HighlightMode2Tag,HighlightMode2=output3[[itag,2]] ];
+Head[HighlightMode2];
+(*Print[output3[[itag,1]],"   ",HighlightMode2Tag];*)
+
+HighlightType=ReadList[StringToStream[HighlightType],Word];
+HighlightMode=ReadList[StringToStream[HighlightMode],Number];
+(*20171109: new convention of highlight range:  *)
+(* Mode:                        1                      2    3   4 ...*)
+(* Mode 1 range: {{hmin1,hmax1},{hmin2,hmax2},...};  ...; ...; ...*)
+HighlightMode1=StringSplit[Read[StringToStream[HighlightMode1],String],";"];(*ReadList[StringToStream[HighlightMode1],Number];*)
+HighlightMode2=StringSplit[Read[StringToStream[HighlightMode2],String],";"];(*ReadList[StringToStream[HighlightMode2],Number];*)
+(*read the List expression for every figure type*)
+HighlightMode1=Read[StringToStream[#],Expression]&/@HighlightMode1;
+HighlightMode2=Read[StringToStream[#],Expression]&/@HighlightMode2;
+(*20170307*)
+(*read Size*)
+(*20170315: size replace to the next of highlight mode*)
+itag=itag+1;
+If[output3[[itag,1]]==SizeTag,Size=output3[[itag,2]];Size=Read[StringToStream[Size],Word] ];
+Head[Size];
+(*Print[output3];*)
+
+
+"dummy";
+
+
+
+{Jobid,JobDescription(*20171128*),PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
+XQfigureXrange,XQfigureYrange,ColorPaletterange(*20171128*),Hist1figureNbin,(*Hist1figureXrange,Hist1figureYrange,*)
+(*ColorSeperator,*)
+Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}
+]
+
+
+(* ::Input::Initialization:: *)
 (*20171109*)
 (*read user define function or data, input filename and output user define values*)
 ReadUserFunction[UserFuncDirin_,UserFuncfilenamein_]:=
@@ -2542,6 +2816,158 @@ output3
 
 
 (* ::Subsection:: *)
+(*tools for plots class*)
+
+
+(* ::Input::Initialization:: *)
+(*this function return markers and their normalized size by {shapes,sizes}*)
+(*shapes = {shape1,shape2,...}, sizes = {size1,size2,...}*)
+PlotMarkerList[]:=
+Module[{shapes0,shapes1,shapes2,shapes3,sizes0,sizes1,sizes2,sizes3},
+shapes1={\[FivePointedStar],\[ClubSuit],\[HeartSuit],\[SpadeSuit],\[EighthNote],\[Sharp],\[Yen],\[Section],\[BeamedSixteenthNote],\[EmptySet],\[Earth],"\[Times]","\[CircleMinus]","\[Superset]",">","<",\[LightBulb],\[Euro],\[Cent],\[Flat]};
+sizes1={800,800,1000,800,800,1000,1000,1000,800,900,900,1200,900,800,1000,1000,1000,1000,1000,1200};
+shapes2={"\[FilledCircle]","\[FilledSquare]","\[FilledDiamond]","\[FilledUpTriangle]","\[FilledDownTriangle]","\[EmptyCircle]","\[EmptySquare]","\[EmptyDiamond]","\[EmptyUpTriangle]","\[EmptyDownTriangle]"};
+sizes2={750.0,1000.0,900.0,850.0,850.0,1050.0,1300.0,1200.0,1150.0,1150.0};
+shapes0={\[CloverLeaf],\[Currency],\[DownExclamation],\[Checkmark],"\[DoubleRightArrow]","\[DoubleLeftArrow]","\[DoubleUpArrow]","\[DoubleDownArrow]","\[SquareSubset]","\[SquareSuperset]","\[NotTilde]","\[NotEqual]","\[PartialD]","\[Intersection]","\[Infinity]","\[CapitalDifferentialD]"};
+sizes0={1000,1200,1200,1000,1000,1000,900,900,800,800,1400,1200,900,800,1000,800};
+
+(*check size and shape list Length are the same*)
+If[Length[shapes0]!=Length[sizes0],Print["error, #shapes0 and #sizes0 are not the same, {#shapes0,#sizes0} = ",{shapes0,sizes0}];Abort[] ];
+If[Length[shapes1]!=Length[sizes1],Print["error, #shapes1 and #sizes1 are not the same, {#shapes1,#sizes2} = ",{shapes1,sizes1}];Abort[] ];
+If[Length[shapes2]!=Length[sizes2],Print["error, #shapes2 and #sizes2 are not the same, {#shapes2,#sizes2} = ",{shapes2,sizes2}];Abort[] ];
+shapes3=Join[shapes2,shapes1,shapes0];
+sizes3=Join[sizes2,sizes1,sizes0];
+
+(*return*)
+{shapes3,sizes3}
+]
+
+
+(*input: RGB="R" or "G" or "B" or "Brown" or "Gray"*)
+(*output: red (red, deep red, deep orange...), green, blue, blown, gray color lists*)
+colorset[RGBin_]:=
+Module[{RGB=RGBin,colorset,Rcolor,Gcolor,Bcolor,Graycolor,Browncolor,output},
+colorset=ColorData["WebSafe","ColorList"];
+Rcolor={colorset[[12]],colorset[[14]],colorset[[32]],colorset[[18]],colorset[[23]],colorset[[29]],colorset[[36]],colorset[[22]],Red,colorset[[43*1+29]]};
+Gcolor={colorset[[43*4+12]],colorset[[43*4+14]],colorset[[43*4+20]],colorset[[43*4+26]],colorset[[43*4+32]],colorset[[43*2+40]],colorset[[41]],Green};
+Bcolor={colorset[[43*4+3]],colorset[[43*4+9]],colorset[[43*4+15]],colorset[[43*4+22]],colorset[[43]],colorset[[43*2+7]],colorset[[43*2+13]],colorset[[43*1+30]],Blue};
+Graycolor={colorset[[43*1+1]],colorset[[43*2+1]],colorset[[43*3+1]],colorset[[43*4+1]],Gray};
+Browncolor={colorset[[43*2+9]],colorset[[43*1+9]],colorset[[43*3+9]],colorset[[43*2+16]],colorset[[43*2+22]],Brown};
+
+output=
+Switch[
+RGB,
+"R",Rcolor,
+"G",Gcolor,
+"B",Bcolor,
+"Gray",Graycolor,
+"Brown",Browncolor,
+_,
+Print["error, input should be \"R\" or \"G\" or \"B\" or \"Brown\" or \"Gray\""]
+];
+
+output
+
+]
+
+
+(* ::Input::Initialization:: *)
+(*classify data by groups of ExptID lists*)
+(*
+data: {data1,data2,data3,...}
+dataExptID={ID1,ID2,...} corresponding to {data1,data2,...}
+grouplists: {group1,group2,group2,...}; groupN = {element1,element2,...}
+output the subgroups, if the Expt ID for a data belong to groupN, add the data in that subgroup 
+e.g.:
+if IDN belong to elementM, them put dataN in the M-th subgroup
+*)
+ClassifyByGroups[datain_,dataExptIDin_,groupnamesin_,grouplistsin_]:=
+Module[{data=datain,dataExptID=dataExptIDin,groupnames=groupnamesin,grouplists=grouplistsin,subgroupindexlist,otherindexlist,groupExptIDs,groupdata},
+(*check data and dataExptID have the same Length *)
+If[
+Length[data]!=Length[dataExptID],
+Print["error, data and dataExptID should have the same # of elements, {#data,#dataExptID} = ",{Length[data],Length[dataExptID]}];
+Abort[] 
+];
+(*check groupnames and grouplists have the same Length *)
+If[
+Length[groupnames]!=Length[grouplists],
+Print["error, groupnames and grouplists should have the same # of elements, {#groupnames,#grouplists} = ",{Length[groupnames],Length[grouplists]}];
+Abort[] 
+];
+(*check input subgroups do not overlap*)
+If[Length[Union[Flatten[grouplists] ] ]!=Length[Flatten[grouplists] ],Print["error, some elements are in multiple subgroups, grouplist: ",grouplists];Abort[] ];
+
+(*classify data by each subgroup*)
+subgroupindexlist=
+Table[
+(*if the dataExptID[[i]] belong to a subgroup, add it to this subgroup*)
+Select[Range[Length[dataExptID] ],Length[Intersection[{dataExptID[[#]]},grouplists[[igroup]] ] ]==1& ],
+{igroup,Length[grouplists]}
+];
+otherindexlist=Complement[Range[Length[dataExptID] ],Flatten[subgroupindexlist] ];
+
+(*add the other group (not belong to anyone)*)
+subgroupindexlist=Append[subgroupindexlist,otherindexlist];
+(*check all elements after being classified are still exist*)
+If[
+Length[subgroupindexlist//Flatten]!=Length[dataExptID],
+Print["error, elements of unclassified data and elements of classified data do not match, {#origin,#classified} = ",{Length[dataExptID],Length[subgroupindexlist//Flatten]}];
+Abort[] 
+];
+
+(*construct new data by categories*)
+groupnames=groupnames~Join~{"Others"};
+groupExptIDs=
+Table[
+dataExptID[[subgroupindexlist[[igroup]] ]],
+{igroup,Length[grouplists]+1}
+];
+groupdata=
+Table[
+data[[subgroupindexlist[[igroup]] ]],
+{igroup,Length[grouplists]+1}
+];
+
+(*output*)
+{groupnames,groupExptIDs,groupdata}
+]
+
+
+(*input classify modes, output *)
+(*
+this function input the groupnames & grouplists into ClassifyByGroups according to ClassifyMode,
+single: classify data by each expt ID
+all: define all data in one group
+...
+...
+
+output the {groupnames,groupExptIDs,groupdata} for corresponding ClassifyMode
+*)
+ClassifyPlottedData[datain_,dataExptIDin_,ClassifyModein_]:=
+Module[{(*data=datain,dataExptID=dataExptIDin,*)ClassifyMode=ClassifyModein,groupnames,grouplists,output},
+output=
+Switch[
+ClassifyMode,
+"single",
+groupnames=ToString[#]&/@dataExptIDin;
+grouplists={#}&/@dataExptIDin;
+ ClassifyByGroups[datain,dataExptIDin,groupnames,grouplists],
+"all",
+groupnames={"All"};
+grouplists={dataExptIDin};
+(*
+ ClassifyByGroups[datain,dataExptIDin,groupnames,grouplists]
+*){groupnames,grouplists,{datain}},
+_,
+Print["error, Classify Mode should be \"single\" or \"all\" "];Abort[]
+];
+
+output
+]
+
+
+(* ::Subsection:: *)
 (*plotsetting class*)
 
 
@@ -2574,34 +3000,6 @@ Plotsetting=
 
 (* ::Input::Initialization:: *)
 
-
-
-(*input: RGB="R" or "G" or "B" or "Brown" or "Gray"*)
-(*output: red (red, deep red, deep orange...), green, blue, blown, gray color lists*)
-colorset[RGBin_]:=
-Module[{RGB=RGBin,colorset,Rcolor,Gcolor,Bcolor,Graycolor,Browncolor,output},
-colorset=ColorData["WebSafe","ColorList"];
-Rcolor={colorset[[12]],colorset[[14]],colorset[[32]],colorset[[18]],colorset[[23]],colorset[[29]],colorset[[36]],colorset[[22]],Red,colorset[[43*1+29]]};
-Gcolor={colorset[[43*4+12]],colorset[[43*4+14]],colorset[[43*4+20]],colorset[[43*4+26]],colorset[[43*4+32]],colorset[[43*2+40]],colorset[[41]],Green};
-Bcolor={colorset[[43*4+3]],colorset[[43*4+9]],colorset[[43*4+15]],colorset[[43*4+22]],colorset[[43]],colorset[[43*2+7]],colorset[[43*2+13]],colorset[[43*1+30]],Blue};
-Graycolor={colorset[[43*1+1]],colorset[[43*2+1]],colorset[[43*3+1]],colorset[[43*4+1]],Gray};
-Browncolor={colorset[[43*2+9]],colorset[[43*1+9]],colorset[[43*3+9]],colorset[[43*2+16]],colorset[[43*2+22]],Brown};
-
-output=
-Switch[
-RGB,
-"R",Rcolor,
-"G",Gcolor,
-"B",Bcolor,
-"Gray",Graycolor,
-"Brown",Browncolor,
-_,
-Print["error, input should be \"R\" or \"G\" or \"B\" or \"Brown\" or \"Gray\""]
-];
-
-output
-
-]
 
 
 (* ::Input::Initialization:: *)
@@ -3054,8 +3452,9 @@ output
 (*make exptname table jpg*)
 (*input a List of string (exptnames), #row for every column and title for this table, output a Grid of string with #row*#column *)
 (*20171114: add date mode for track, if datemode = "True", write the date, False, don't write the date*)
-makeGrid2[strin_,rowsin_,titlein_,datemodein_]:=
-Module[{str=strin,rows=rowsin,title=titlein,datemode=datemodein,columns,
+(*20171128: add job description*)
+makeGrid2[strin_,rowsin_,titlein_,JobDescriptionin_,datemodein_]:=
+Module[{str=strin,rows=rowsin,title=titlein,JobDescription=JobDescriptionin,datemode=datemodein,columns,
 lastcolstr,strout,datestring},
 columns=Quotient[Length[str],rows];
 strout=Table[str[[ic*rows+ir]],{ic,0,columns-1},{ir,1,rows}];
@@ -3063,6 +3462,8 @@ lastcolstr=Table[str[[i]],{i,columns*rows+1,Length[str]}];
 strout=Append[strout,lastcolstr];
 strout=Insert[strout,{Text[Style[title,FontSize->24] ],SpanFromLeft},1];
 strout=Insert[strout,{"Data Sets"},2];
+(*20171128 add job description*)
+strout=Insert[strout,{Text[Style[JobDescription,FontSize->16] ],SpanFromLeft},-1];
 (*20171114: add date for track*)
 If[
 datemode==True,
@@ -3398,7 +3799,8 @@ Module[{data=datain,title=titlein,xtitle=xtitlein,ytitle=ytitlein,plotrange=plot
 plotxQout,minx,maxx,miny,maxy,imgsize,titlesize,xtitlesize,ytitlesize,lgdlabelsize,ticklablesize,plotrangetmp,mycolorscheme,psizebase,psizenorm,p,datalist,drange,barcolor,mybarlegend,barmin,barmax,textsize,outlayertext,
 tickslist,tickslog,nolable,Loglable,xTicks,yTicks,p2,AllPlots,
 ptshape,ptshaperescale,
-barseperatordefault,barcolordefault,barseperator},
+barseperatordefault,barcolordefault,barseperator,
+dataordering},
 
 (*default*)
 minx=0.00001;
@@ -3541,13 +3943,22 @@ ptshape={"\[FilledCircle]",(*"*"*)(*"x"*)"\[EmptySquare]","\[FilledUpTriangle]",
 ptshaperescale={750.0,2000.0,850.0,800.0,750.0};
 {{"\[FilledCircle]",8.96`},{"\[FilledSquare]",8.96`},{"\[FilledDiamond]",10.88`},{"\[FilledUpTriangle]",10.24`},{"\[FilledDownTriangle]",10.24`},{"\[EmptyCircle]",10.24`},{"\[EmptySquare]",10.24`},{"\[EmptyDiamond]",10.24`},{"\[EmptyUpTriangle]",11.136`},{"\[EmptyDownTriangle]",11.136`}};
 
+(*20171126: use marker list*)
+{ptshape,ptshaperescale}=PlotMarkerList[];
+(*ptshaperescale=0.0075*ptshaperescale;*)
+
+(*20171126: for multi shape plotting, we need to sort data in all groups togather, otherwise the last group members with small values still cover the large values*)
+dataordering=Ordering[Flatten[datain]/.LF1[a__]:>Abs[{a}[[3]] ] ];
+
 AllPlots=Show[
 {
 p2,
 Graphics[
+(*20171126: sort all group members by ordering of Abs[values] (using dataordering)*)
+(
 Table[
 (*20170530: datain[[igroup]] \[Rule] sort from small value to large value so that deep color points would not be covered by light color points*)
-Sort[datain[[igroup]],Abs[#2[[3]] ]>Abs[#1[[3]] ]&]/.LF1[a__]:>Style[
+(*Sort[datain[[igroup]],Abs[#2[[3]] ]>Abs[#1[[3]] ]&]*)datain[[igroup]]/.LF1[a__]:>Style[
 Text[ptshape[[igroup]],{Log[{a}[[1]] ],Log[{a}[[2]] ]}],
 (*20171108: if highlighted, medium, unhighlighted, small
 (*PointSize[*)(*psizebase+psizenorm*(Abs[{a}[[3]] ]/drange)*)ptshaperescale[[igroup]]*Setpointsize2[{a}[[3]],highlightrange,unhighlightsize] (*]*),(*ColorData[{mycolorscheme,{-drange,drange} }][{a}[[3]]]*)
@@ -3569,6 +3980,7 @@ If[{a}[[3]]<barmax&&{a}[[3]]>barmin,Setbarcolorfunc2[barcolor,barseperator,{a}[[
 ]
 ],
 {igroup,1,Length[datain]}]//Flatten
+)[[dataordering]]
 ]
 },
 Frame->True,
@@ -3579,7 +3991,12 @@ PlotLabel->Style[title,titlesize,Black],
 FrameLabel->{Style[xtitle,xtitlesize,Black],Style[ytitle,ytitlesize,Black]},
 FrameTicksStyle->Black,
 ImageSize->imgsize,
-AspectRatio->1
+AspectRatio->1.0,
+(*20171125: add grid lines*)
+GridLines->Log[{{0.0000001,0.000001,0.00001,0.0001,0.001,0.01,0.1},{10,50,100,500,1000,5000,10000}}],
+GridLinesStyle->Directive[Dashed],
+(*20171128*)
+PlotRangeClipping->True
 ];
 
 AllPlots
@@ -3912,7 +4329,9 @@ Axes->False,
 PlotLabel->Style[title,titlesize,Black],
 FrameLabel->{Style[xtitle,xtitlesize,Black],Style[ytitle,ytitlesize,Black]},
 ImageSize->imgsize,
-AspectRatio->1
+AspectRatio->1,
+(*20171128*)
+PlotRangeClipping->True
 ];
 
 AllPlots
@@ -5691,6 +6110,105 @@ plottype==1,
 
 
 (* ::Input::Initialization:: *)
+(*20171126*)
+(*
+when call processdataplotsmultiexp7percentage,
+if plot type = 1, call this function to draw data sets on (x,Q) plane
+*)
+PlotDataTypeOne[corrfxQdtaobsclassin_,pdfcorrin_,exptlistin_,xyrangein_,classifymodein_,configargumentsin_]:=
+Module[{corrfxQdtaobsclass=corrfxQdtaobsclassin,pdfcorr=pdfcorrin,exptlist=exptlistin,classifymode=classifymodein,configarguments=configargumentsin,
+plottype,expttype,
+Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
+XQfigureXrange,XQfigureYrange,Hist1figureNbin,Hist1figureXrange,Hist1figureYrange,
+ColorSeperator,
+Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2,
+lgdpos,xyrangeplot1,plotrange,
+myplotsetting,imgsize,title,xtitle,ytitle,lgdlabel,xrange,yrange,epilog,titlesize,xtitlesize,ytitlesize,lgdlabelsize,ticklablesize,myplotstyle,myMarker,
+plot1,
+xyrange=xyrangein,
+groupnames,groupExptIDs,
+ColorPaletterange,JobDescription},
+
+(*read arguments in config file*)
+(*==============================*)
+{Jobid,JobDescription(*20171128*),PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
+XQfigureXrange,XQfigureYrange,ColorPaletterange(*20171128*),Hist1figureNbin,(*Hist1figureXrange,Hist1figureYrange,*)
+(*ColorSeperator,*)
+Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}=configarguments;
+(*20171128: set hist xrange determined by the range of color palette, yrange alway auto*)
+Hist1figureXrange=ColorPaletterange;
+Hist1figureYrange={"auto","auto"};
+(*=============================================================================================================================*)
+(*plot type 1: generate plots============================================================================================================*)
+(*=============================================================================================================================*)
+{myplotsetting,imgsize,title,xtitle,ytitle,lgdlabel,xrange,yrange,epilog,titlesize,xtitlesize,ytitlesize,lgdlabelsize,ticklablesize,myplotstyle,myMarker};
+
+(*plot1*)
+
+expttype="multi";
+(*20170515 groups of data, legend is exptids in all groups, using Flatten, PDFname should be took cared*)
+myplotsetting=setplotsetting[Flatten[corrfxQdtaobsclassin,1],exptlist//Flatten,expttype,1,"test","test"];
+imgsize=myplotsetting[["imgsize"]];
+title=myplotsetting[["title"]];
+xtitle=myplotsetting[["xtitle"]];
+ytitle=myplotsetting[["ytitle"]];
+lgdlabel=myplotsetting[["lgdlabel"]];
+xrange=myplotsetting[["xrange"]];
+yrange=myplotsetting[["yrange"]];
+epilog=myplotsetting[["epilog"]];
+titlesize=myplotsetting[["titlesize"]];
+xtitlesize=myplotsetting[["xtitlesize"]];
+ytitlesize=myplotsetting[["ytitlesize"]];
+lgdlabelsize=myplotsetting[["lgdlabelsize"]];
+ticklablesize=myplotsetting[["ticklablesize"]];
+
+myplotstyle=myplotsetting[["plotstyle"]];
+myMarker=myplotsetting[["marker"]];
+
+title="Experimental data in "<>PDFname<>" analysis";
+lgdpos={0.25,0.725};
+(*xyrangeplot1=plotrange;*)(*20170307 change it's name, avoid duplicate*)
+(*20170515: consider expts in all groups*)
+(*20170515: consider expts of all groups, so use Flatten[data,1] *)
+
+(*
+Print["dim of p1: ",Dimensions[pdfcorr] ];
+Print["dim of p1: ",Dimensions[Flatten[pdfcorr,1] ]];
+Print["data of p1: ",Flatten[pdfcorr,1][[1]] ];
+Print["data of p1: ",Flatten[pdfcorr,1][[2]] ];
+Print["data of p1: ",Flatten[pdfcorr,1][[3]] ];
+Print["data of p1: ",Flatten[pdfcorr,1][[4]] ];
+PDFloglogplot[Flatten[pdfcorr,1]/.LF1\[Rule]List,myMarker,myplotstyle,title,xtitle,ytitle,xyrangeplot1,lgdlabel,lgdpos,imgsize];
+Abort[];
+*)
+(*20171126: use marker list*)
+myMarker=PlotMarkerList[];
+myMarker[[2]]=0.0075*myMarker[[2]];
+myMarker=Transpose[myMarker,{2,1}];
+Print["dim of data: ",Dimensions[pdfcorr] ];
+Print["exptlist ",exptlist];
+(*always don't show only one shape for all expt ID points*)
+If[classifymode=="all",classifymode="single"];
+{groupnames,groupExptIDs,(*groupdata*)pdfcorr}=ClassifyPlottedData[pdfcorr,exptlist,classifymode];
+pdfcorr=Table[Flatten[pdfcorr[[igroup]],1],{igroup,Length[pdfcorr]}];
+lgdlabel=
+Switch[classifymode,"single",lgdlabel,"all",groupnames];
+
+Print["dim of data: ",Dimensions[pdfcorr] ];
+
+plot1=PDFloglogplot[(*Flatten[pdfcorr,1]*)pdfcorr,myMarker,myplotstyle,title,xtitle,ytitle,xyrange(*plot1*),lgdlabel,lgdpos,imgsize];
+
+(*return*)
+
+{plot1}
+
+(*
+{myMarker,myplotstyle,title,xtitle,ytitle,xyrange,lgdlabel,lgdpos,imgsize}
+*)
+]
+
+
+(* ::Input::Initialization:: *)
 (*modify of 3: when plottype = 5, 6, extract data of that flavour*)
 (*modify of 4: don't set local variable of corrfxQdtaobsclassin, avoiding time to copy large data to local variable, for mode 5,6 only deal with 
 corresponding flavour data (by flavourin)*)
@@ -5722,13 +6240,20 @@ histtitle,histabstitle,yhistabstitle,HistAutoMode,userdifinefuncfilename,
 hist1plotrangey,hist2plotrangey,BinWidth,hist1plotrange,hist2plotrange,highlightlines,
 xmintmp,xmaxtmp,ymintmp,hist1epilogtext,hist2epilogtext,hist1standardlines,hist2standardlines,LineWidth,HistAutoFixXrangeBool,
 datemode,HistDataList,HistAbsDataList,DataMax,DataMin,AbsDataMax,AbsDataMin,DataMean,AbsDataMean,DataMedian,AbsDataMedian,DataSD,AbsDataSD,
-ColorPaletteMode},
+ColorPaletteMode,PaletteMax,PaletteMin,
+groupnames,groupExptIDs,classifymode,
+ColorPaletterange,JobDescription},
 (*read arguments in config file*)
 (*==============================*)
-{Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
-XQfigureXrange,XQfigureYrange,Hist1figureNbin,Hist1figureXrange,Hist1figureYrange,
-ColorSeperator,
+{Jobid,JobDescription(*20171128*),PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
+XQfigureXrange,XQfigureYrange,ColorPaletterange(*20171128*),Hist1figureNbin,(*Hist1figureXrange,Hist1figureYrange,*)
+(*ColorSeperator,*)
 Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}=configarguments;
+(*20171128: set hist xrange determined by the range of color palette, yrange alway auto*)
+Hist1figureXrange=ColorPaletterange;
+Hist1figureYrange={"auto","auto"};
+(*should be three numbers, representing percentage, and from small to large, ex: 30, 50, 70*)
+ColorSeperator={50,70,85};
 
 (*20171109: seperate user difine function/data IO and configure file*)(*20171116: ->ReadUserFunctionV2, which read Expression from the file*)
 (*20171119 new user function format: {{user name 1, user function 1}, {user name 2, user function 2}...}*)
@@ -5736,8 +6261,13 @@ userdifinefuncfilename="user_func.txt";
 (*
 {UserArgName,UserArgValue}=ReadUserFunctionV2["./",userdifinefuncfilename];
 *)
+(*20171127*)
+If[
+CorrelationArgFlag[[-1]]==1,
 UserArgName=ReadUserFunctionV3["./",userdifinefuncfilename];
 UserArgName=#[[1]]&/@UserArgName;
+"dummy"
+];
 
 (*20171109: shorten the tiles of figures*)
 If[PDFname=="2017.1008.0954.-0500_CT14HERA2-jet.ev",PDFname="CT14HERA2-jet.ev"];
@@ -5749,8 +6279,10 @@ exptlist={};
 If[plottype==1  || plottype==5  || plottype==6,exptlist=Table[#[[iexpt,6]][["exptinfo","exptid"]],{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin ];
 If[plottype==2  || plottype==3  || plottype==4,
 exptlist=Table[#[[iexpt]][["exptinfo","exptid"]],{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin ];
-(*test*)Print["expts: ",exptlist];
+(*test*)(*Print["expts: ",exptlist];*)
 
+(*20171126 classify mode for data \[Rule] different shape for each group*)
+classifymode=ClassifyMode;
 
 (*********************************)
 (*prepare for data input to processdataplotsmultiexp*)
@@ -5765,6 +6297,10 @@ fmax=Length[corrfxQdtaobsclassin[[1,1]] ];
 
 (*data format \[Equal] {LF[x,Q,obs],...,...}, to LF1*)
 pdfcorr=Table[#[[iexpt,flavourin+6]][["data"]]/.LF->LF1,{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin;
+
+(*20171126: classify exptid by defined groups with classifymode*)
+{groupnames,groupExptIDs,(*groupdata*)pdfcorr}=ClassifyPlottedData[pdfcorr[[1]],exptlist[[1]],classifymode];
+(*pdfcorr=Table[Flatten[pdfcorr[[igroup]],1],{igroup,Length[pdfcorr]}];*)
 
 (*merge all experimental data into one, for all flavours*)
 (*ex: corrdataforplot[[iexpt,flavour,Npt]] \[Rule] orrdataforplot[[flavour,Npt]]*)
@@ -5784,6 +6320,10 @@ plottype==2 || plottype==3 || plottype==4,
 pdfcorr=Table[#[[iexpt]][["data"]]/.LF->LF1,{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin;
 (*20171108 expt error ratio values should be absolute value*)
 If[plottype==2,pdfcorr=pdfcorr/.LF1[a__]:>LF1[{a}[[1]],{a}[[2]],Abs[{a}[[3]] ] ] ];
+
+(*20171126: classify exptid by defined groups with classifymode*)
+{groupnames,groupExptIDs,(*groupdata*)pdfcorr}=ClassifyPlottedData[pdfcorr[[1]],exptlist[[1]],classifymode];
+
 (*merge all data into one*)
 pdfcorr=Flatten[#,1]&/@pdfcorr;
 "dummy"
@@ -5860,7 +6400,18 @@ corrdrtitle1=(*"\[Delta]r*Corr( ";*)"Sensitivity to ";
 title2=(*", r(x,\[Mu]))";*)", \!\(\*SubscriptBox[\(r\), \(i\)]\))";
 title3=(*" for dataset of "*)", "<>PDFname;
 obsname="";(*initialize*)
-pdfnamelable={"\!\(\*OverscriptBox[\(b\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(c\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(s\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(d\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(u\), \(_\)]\)(x,\[Mu])","g(x,\[Mu])","u(x,\[Mu])","d(x,\[Mu])","s(x,\[Mu])","c(x,\[Mu])","b(x,\[Mu])","\!\(\*FractionBox[\(\*OverscriptBox[\(d\), \(_\)] \((x, \[Mu])\)\), \(\*OverscriptBox[\(u\), \(_\)] \((x, \[Mu])\)\)]\)","\!\(\*FractionBox[\(d \((x, \[Mu])\)\), \(u \((x, \[Mu])\)\)]\)","\!\(\*FractionBox[\(s \((x, \[Mu])\) + \*OverscriptBox[\(s\), \(_\)] \((x, \[Mu])\)\), \(\*OverscriptBox[\(u\), \(_\)] \((x, \[Mu])\) + \*OverscriptBox[\(d\), \(_\)] \((x, \[Mu])\)\)]\)",Sequence@@UserArgName(*20171119 change to multi-user functions*)};
+pdfnamelable={"\!\(\*OverscriptBox[\(b\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(c\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(s\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(d\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(u\), \(_\)]\)(x,\[Mu])","g(x,\[Mu])","u(x,\[Mu])","d(x,\[Mu])","s(x,\[Mu])","c(x,\[Mu])","b(x,\[Mu])"
+(*20171126: delete q6~q8*)
+(*
+,
+"\!\(\*FractionBox[\(\*OverscriptBox[\(d\), \(_\)] \((x, \[Mu])\)\), \(\*OverscriptBox[\(u\), \(_\)] \((x, \[Mu])\)\)]\)","\!\(\*FractionBox[\(d \((x, \[Mu])\)\), \(u \((x, \[Mu])\)\)]\)","\!\(\*FractionBox[\(s \((x, \[Mu])\) + \*OverscriptBox[\(s\), \(_\)] \((x, \[Mu])\)\), \(\*OverscriptBox[\(u\), \(_\)] \((x, \[Mu])\) + \*OverscriptBox[\(d\), \(_\)] \((x, \[Mu])\)\)]\)",
+*)(*Sequence@@UserArgName*)(*20171119 change to multi-user functions*)};
+(*20171127: only add new string when user function is mode on*)
+If[
+CorrelationArgFlag[[-1]]==1,
+pdfnamelable=pdfnamelable~Join~{Sequence@@UserArgName(*20171119 change to multi-user functions*)};
+"dummy"
+];
 
 (*20171107: simplify title labels*)
 If[
@@ -5871,9 +6422,10 @@ obsname="";
 ];
 If[
 plottype==2 ,
-obsname="\!\(\*SubscriptBox[\(\[Sigma]\), \(i\)]\)/\!\(\*SubscriptBox[\(D\), \(i\)]\)";
+(*20171128 fix the label: should has | |*)
+obsname="|\!\(\*SubscriptBox[\(\[Sigma]\), \(i\)]\)/\!\(\*SubscriptBox[\(D\), \(i\)]\)|";
 title=obsname<>title3;
-histabstitle="| "<>obsname<>" |"<>title3
+histabstitle=(*"| "<>*)obsname(*<>" |"*)<>title3
 ];
 If[
 plottype==3 ,
@@ -5886,7 +6438,7 @@ plottype==4 ,
 obsname="\!\(\*SubscriptBox[\(\[Delta]r\), \(i\)]\)";
 (*obsname=deltaRtitle1<>PDFname;*)
 title=obsname<>title3;
-histabstitle="| "<>obsname<>" |"<>title3
+histabstitle=(*"| "<>*)obsname(*<>" |"*)<>title3
 ];
 If[
 plottype==5 ,
@@ -5912,6 +6464,8 @@ yhisttitle="#points";
 
 histabstitle=histabstitle;
 xhistabstitle="| "<>obsname<>" |";
+(*20171128: for sigma/D, \[Delta]r, we don't need to show | | because their absolute values are themselve*)
+If[plottype==2 || plottype==4,xhistabstitle=obsname];
 yhistabstitle=yhisttitle;
 
 (*=============================================================================================================================*)
@@ -6044,7 +6598,11 @@ If[hist2plotrangex[[1]]<0.0,hist2plotrangex[[1]]=0.0];
 "dummy"
 ];
 
-
+(*20171126 draw plot type 1 and return the figure, end this function*)
+If[
+plottype==1,
+Return[PlotDataTypeOne[corrfxQdtaobsclassin,pdfcorr[[1]],exptlist[[1]],plotrange,(*classifymode*)classifymode,configarguments] ]
+];
 (*=============================================================================================================================*)
 (*Histograms: Nbin and hist yrange============================================================================================================*)
 (*=============================================================================================================================*)
@@ -6167,11 +6725,35 @@ epilogxQ={Npttext};
 
 (*20171115 color palette by histogram range*)
 If[
+ColorPaletteMode==4 || ColorPaletteMode==5,
+(*20171125: set max, min of the color palette range by mode*)
+If[
+ColorPaletteMode==4,
+PaletteMax=DataMax;
+PaletteMin=DataMin
+];
+If[
 ColorPaletteMode==5,
+PaletteMax=hist1plotrange[[2]];
+PaletteMin=hist1plotrange[[1]]
+];
+(*test*)
+(*
+Print["color palette ",{PaletteMin,PaletteMax}];
+Print["hist xrange ",{hist1plotrange[[1]],hist1plotrange[[2]]}];
+Print["hist xrange ",{hist1plotrangex[[1]],hist1plotrangex[[2]]}];
+Print["hist setting ",{Hist1figureXrange[[1]],Hist1figureXrange[[2]]}];
+Print["color palette setting ",{ColorPaletterange[[1]],ColorPaletterange[[2]]}];
+*)
+
 If[
- plottype==3 || plottype==5,
+ (*plottype==3 || *)plottype==5,
 legendlabel="";
+(*20171125: use log scale to seperate the colors min, min/3, min/9, min/27, max/27,max/9,max/3,max*)
+barseperator=Table[(PaletteMin+0.5*(PaletteMax-PaletteMin) )+If[isep>0,1.0,-1.0]*(1/3)^(Abs[isep]-1)*(0.5*(PaletteMax-PaletteMin) ),{isep,{-1,-2,-3,-4,4,3,2,1}}];
+(*
 barseperator=Table[DataMin+isep*(DataMax-DataMin)/7.0,{isep,0,7}];
+*)
 barseperator[[-1]]=barseperator[[-1]]*1.001;(*add a width*)
 epilogxQ={Npttext};
 
@@ -6180,15 +6762,65 @@ epilogxQ={Npttext};
 ];
 
 If[
- plottype==2 ||  plottype==4,
+ plottype==3(* || plottype==5*),
 legendlabel="";
-barseperator=Table[isep*(AbsDataMax)/4.0,{isep,0,4}];
+(*20171125: use log scale to seperate the colors min, min/3, min/9, min/27, max/27,max/9,max/3,max*)
+barseperator=Table[(PaletteMin+0.5*(PaletteMax-PaletteMin) )+If[isep>0,1.0,-1.0]*(1/1.5)^(Abs[isep]-1)*(0.5*(PaletteMax-PaletteMin) ),{isep,{-1,-2,-3,-4,4,3,2,1}}];
+(*
+barseperator=Table[DataMin+isep*(DataMax-DataMin)/7.0,{isep,0,7}];
+*)
 barseperator[[-1]]=barseperator[[-1]]*1.001;(*add a width*)
 epilogxQ={Npttext};
 
 "dummy"
 (*corr plot cut by |data|<0.5*)
 ];
+
+If[
+plottype==4,
+legendlabel="";
+(*20171125: use log scale to seperate the colors min, min/3, min/9, min/27, max/27,max/9,max/3,max*)
+barseperator={0}~Join~Table[(1/1.5)^(Abs[isep]-1)*(PaletteMax ),{isep,{4,3,2,1}}];
+(*
+barseperator=Table[DataMin+isep*(DataMax-DataMin)/7.0,{isep,0,7}];
+*)
+barseperator[[-1]]=barseperator[[-1]]*1.001;(*add a width*)
+epilogxQ={Npttext};
+
+"dummy"
+(*corr plot cut by |data|<0.5*)
+];
+
+If[
+ plottype==2(* ||  plottype\[Equal]4*),
+legendlabel="";
+(*20171125: use log scale to seperate the colors {0, max/27,max/9,max/3,max}*)
+barseperator={0}~Join~Table[(1/2)^(Abs[isep]-1)*(PaletteMax ),{isep,{4,3,2,1}}];
+(*
+barseperator=Table[isep*(AbsDataMax)/4.0,{isep,0,4}];
+*)
+barseperator[[-1]]=barseperator[[-1]]*1.001;(*add a width*)
+epilogxQ={Npttext};
+
+"dummy"
+(*corr plot cut by |data|<0.5*)
+];
+(*
+If[
+ plottype\[Equal]4,
+legendlabel="";
+(*20171125: use log scale to seperate the colors {0, max/27,max/9,max/3,max}*)
+barseperator={0}~Join~Table[DataMax-(1/2)^Abs[isep]*(DataMax ),{isep,{1,2,3,4}}];
+(*
+barseperator=Table[isep*(AbsDataMax)/4.0,{isep,0,4}];
+*)
+barseperator[[-1]]=barseperator[[-1]]*1.001;(*add a width*)
+epilogxQ={Npttext};
+
+"dummy"
+(*corr plot cut by |data|<0.5*)
+];
+*)
 
 If[
 plottype==6,
@@ -6245,7 +6877,7 @@ If[HighlightMode[[plottype]]\[Equal]1 || HighlightMode[[plottype]]\[Equal]2,barl
 (*=============================================================================================================================*)
 
 (*for highlight mode, always only have no choice of size*)
-If[HighlightMode[[plottype]]==1 || HighlightMode[[plottype]]==2,Size="small"];
+If[HighlightMode[[plottype]]==1 || HighlightMode[[plottype]]==2,Size=(*20171126\[Rule]tiny*)(*"small"*)"tiny"];
 (*set size*)
 unhighlightsize=
 Switch[Size,"tiny",0.005,"small",0.0075,"medium",0.01,"large",0.0125,_,Print["error,size type is not correct"];Abort[] ];
@@ -6271,10 +6903,22 @@ GraphicsGrid[{{xQplotcorr},{histplotcorr1,histplotcorr2}}];
 If[
  plottype==2 || plottype==3 || plottype==4 || plottype==5  || plottype==6,
 rows=3;
+(*20171126: set labels depend on different classifymode*)
+If[
+classifymode=="single",
+exptnames=Table[ToString[PlotMarkerList[][[1,iexpt]] ]<>ExptIDtoName[Flatten[exptlist][[iexpt]] ]<>"("<>ToString[Flatten[exptlist][[iexpt]] ]<>")",{iexpt,1,Length[exptlist//Flatten]}];
+"dummy"
+];
+If[
+classifymode=="all",
 exptnames=Table[ExptIDtoName[Flatten[exptlist][[iexpt]] ]<>"("<>ToString[Flatten[exptlist][[iexpt]] ]<>")",{iexpt,1,Length[exptlist//Flatten]}];
+"dummy"
+];
 Print["making table of experiments included in plots"];
 datemode=False;
-exptnamestable=makeGrid2[exptnames,rows,title<>"\n\n",datemode];
+(*20171128: for legend, don't show job description*)
+JobDescription="";
+exptnamestable=makeGrid2[exptnames,rows,title<>"\n\n",JobDescription,datemode];
 "dummy"
 ];
 
@@ -7555,7 +8199,7 @@ If[iSet>NSet,Print["error, the input iExpt > # of replicas ",NSet];Quit[] ];
 Nlayer=0;
 If[iExpt!="All",output=output[[iExpt]],Nlayer=Nlayer+1 ];(*if iExpt \[Equal] "All", layer = [[iExpt,...]], if iExpt\[NotEqual]"All", layer = [[iflavour,...]]*)
 If[iFlavour!="All",output=Map[#[[iFlavour+6]]&,output,{Nlayer}],Nlayer=Nlayer+1 ];
-If[iPt!="All",output=Map[#[[iPt]]&,output,{Nlayer}],,Nlayer=Nlayer+1 ];
+If[iPt!="All",output=Map[#[[iPt]]&,output,{Nlayer}],Nlayer=Nlayer+1 ];
 If[iSet!="All",output=output/.LF[x_,Q_,a__]:>LF[x,Q,{a}[[iSet]] ],Nlayer=Nlayer+1 ];
 (*
 If[iPt\[NotEqual]"All",output=Map[#[[iPt]]&,output,{2}] ];
@@ -7616,7 +8260,14 @@ Print[Head[UserDefFuncData]," ",Dimensions[UserDefFuncData][[1]]," ",Length[User
 Print["List, ","Next: ",Nexpt,", Nset: ",Nset];
 *)
 
-If[DataFormatMode!=1 && DataFormatMode!=2,Print["error, the input user define function data is not correct"];Abort[] ];
+If[
+DataFormatMode!=1 && DataFormatMode!=2,
+Print["error, the input user define function data is not correct"];
+Print["Head of the input: ",Head[UserDefFuncData] ];
+Print["Dimensions of the input: ",Dimensions[UserDefFuncData] ];
+Print["expected Dimensions: {Nset} = ",{Nset}," or {Nexpt,Npt,Nset} = ",Dimensions[fxQdataclasslist] ];
+Abort[] 
+];
 
 (*for input is {Nset of values}*)
 (*append data of user define function to fxQ class for each expt ID*)
