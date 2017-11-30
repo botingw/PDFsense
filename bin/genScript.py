@@ -13,31 +13,40 @@ os.system("/usr/local/bin/math -script ./run_v4.m")
 
 def data():
     image = Image.open("../plots/Jobs/"+sys.argv[1]+"/exptname_table.png")
+    image = image.resize((500,500*image.size[1]/image.size[0]),Image.ANTIALIAS)
     tmp = ImageTk.PhotoImage(image)
     l = tk.Label(frame,compound=tk.CENTER,image=tmp)
     l.image = tmp
-    l.pack(fill=tk.X)
+    l.grid(row=0,column=1,columnspan=2)
 
     ExptxQfig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/xQbyexpt_xQ.png"))
     xQfig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_xQ_*.png"))
     hist1fig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_hist1_*.png"))
     hist2fig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_hist2_*.png"))
     legendfig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_legend_*.png"))
-    orderfigs=ExptxQfig+xQfig+hist1fig+hist2fig#+legendfig
+    orderfigs=ExptxQfig+hist1fig+hist2fig#+legendfig
 
-    for f in orderfigs:
-        if "exptname_table" not in f:
-            image = Image.open(f)
-            image = image.resize((600,600),Image.ANTIALIAS)
+    if len(xQfig) > 0:
+        image = Image.open(xQfig[0])
+        image = image.resize((500,500),Image.ANTIALIAS)
+        tmp = ImageTk.PhotoImage(image)
+        l = tk.Label(frame,compound=tk.CENTER,image=tmp)
+        l.image = tmp
+        l.grid(row=0,column=0)
+
+    for f in range(len(orderfigs)):
+        if "exptname_table" not in orderfigs[f]:
+            image = Image.open(orderfigs[f])
+            image = image.resize((300,300),Image.ANTIALIAS)
             tmp = ImageTk.PhotoImage(image)
             l = tk.Label(frame,compound=tk.CENTER,image=tmp)
             l.image = tmp
-            l.pack(fill=tk.X)
+            l.grid(row=(f/3)+1,column=f%3)
 
 def myfunction(event):
     canvas.configure(scrollregion=canvas.bbox("all"))
 
-w = 600
+w = 1000
 h = 600
 
 root = tk.Tk()

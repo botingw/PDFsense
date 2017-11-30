@@ -72,6 +72,7 @@ def submit():
             alltexts[3] = 0
         configFile.write("Type:  1     2     3     4     5     6     7\n")
         configFile.write("Mode:  "+str([allradios[2] for i in range(7)])[1:-1].replace(',','    ')+"\n")
+
 ##20171120 botingw: highlight input convention change, highlight mode = {{h1min,h1max},{h2min,h2max},...}
 #        configFile.write("Mode 1 range: "+str([(float(alltexts[0]),float(alltexts[1])) for i in range(7)])[1:-1].replace('(','{{ ').replace('),','}}; ').replace(')','}} ')+"\n")
 #        configFile.write("Mode 2 range: "+str([(float(alltexts[2]),float(alltexts[3])) for i in range(7)])[1:-1].replace('(','{{ ').replace('),','}}; ').replace(')','}} ')+"\n\n")
@@ -79,6 +80,7 @@ def submit():
         configFile.write("Mode 2 range: "+str([alltexts[2] for i in range(7)])[1:-1].replace('\',',';').replace('\'',' ')+"\n\n")
         print(alltexts[0])
         print(alltexts[2])
+
 
         configFile.write("Size: "+pointsizes[allradios[3]].lower()+"\n\n")
 
@@ -98,13 +100,13 @@ def reset():
     #[i.set(0) for i in radios]
     [[i.set(0) for i in j] for j in checks[:-4]]
     [[i.set(1) for i in j] for j in checks[-4:]]
-    [i.delete(0,tk.END) for i in texts]
+    [i.delete(0,tk.END) for i in texts[2:]]
 
 def changeHL(one,two,three):
     global third
     third.grid_forget()
     third = tk.Frame(figuresCell)
-    third.grid(row=2,column=1,pady="10")
+    third.grid(row=1,column=3,pady="10")
     if hlmode.get() == 0:
         options = pointsizes
         var = pointsize
@@ -113,6 +115,7 @@ def changeHL(one,two,three):
             tk.Radiobutton(third,text=pointsizes[s],variable=pointsize,value=s).grid(row=s+1,sticky="w")
     elif hlmode.get() == 1:
         tk.Label(third,text="Input range of values:").grid(row=0,column=0,columnspan=2)
+
 ##20171120 botingw: input convention of highlight mode = {{h1min,h1max},{h2min,h2max},...}
         HLrange1 = tk.Entry(third)
         texts[0] = HLrange1
@@ -123,16 +126,20 @@ def changeHL(one,two,three):
         texts[1]=dummy1
         '''
         tk.Label(third,text="Min:").grid(row=1,column=0)
+
         rangeMin = tk.Entry(third)
         texts[0] = rangeMin
-        rangeMin.insert(10,"0.0")
+        rangeMin.insert(10,"0.5, 0.1")
         rangeMin.grid(row=1,column=1)
+
         tk.Label(third,text="Max:").grid(row=2,column=0)
         rangeMax = tk.Entry(third)
         texts[1] = rangeMax
         rangeMax.insert(10,"0.0")
         rangeMax.grid(row=2,column=1)
         '''
+
+
     elif hlmode.get() == 2:
         tk.Label(third,text="Input range of percentages:").grid(row=0,column=0,columnspan=2)
 ##20171120 botingw: input convention of highlight mode = {{h1min,h1max},{h2min,h2max},...}
@@ -146,15 +153,17 @@ def changeHL(one,two,three):
         '''
         tk.Label(third,text="Min:").grid(row=1,column=0)
         rangeMin2 = tk.Entry(third)
-        texts[2] = rangeMin2
-        rangeMin2.insert(10,"0.0")
+        texts[1] = rangeMin2
+        rangeMin2.insert(10,"90.0, 100.0")
         rangeMin2.grid(row=1,column=1)
+
         tk.Label(third,text="Max:").grid(row=2,column=0)
         rangeMax2 = tk.Entry(third)
         texts[3] = rangeMax2
         rangeMax2.insert(10,"0.0")
         rangeMax2.grid(row=2,column=1)
         '''
+
 def changeFunc(one,two,three):
     global subCell
     subCell.grid_forget()
@@ -254,6 +263,7 @@ def changeR4(one,two,three):
 def changeExp(one,two,three):
     global experiments
     global expids
+    global selectall
     if pdfset.get() == 0:
         expidFile = open("./exptidname_inconfig.txt","r")
         experiments = [i.split() for i in expidFile.readlines()]
@@ -269,8 +279,13 @@ def changeExp(one,two,three):
     experimentsCell.grid_forget()
     experimentsCell = tk.Frame(table,padx="8",pady="8")
     experimentsCell.grid(row=0,column=1,columnspan=3)
-    tk.Label(experimentsCell,text="Experiments to include:").grid(row=0,columnspan=int(numcols))
+    tk.Label(experimentsCell,text="Experiments to include:").grid(row=0,column=0,columnspan=2)
     experiment = [tk.IntVar() for i in range(len(experiments))]
+    
+    selectall = tk.IntVar()
+    selectall.trace('w',selectAll)
+    tk.Checkbutton(experimentsCell,text="Select all",variable=selectall).grid(row=0,column=2)
+
     checks[0] = experiment
     for e in range(len(experiments)):
         tk.Checkbutton(experimentsCell,text=experiments[e],variable=experiment[e]).grid(row=int(e%(len(experiments)/numcols)+1),column=int(e/(len(experiments)/numcols)))
@@ -385,14 +400,18 @@ texts.append(HLrange2)
 texts.append(dummy2)
 '''
 rangeMin = tk.Entry(third)
+rangeMin.insert(10,"0.5, 0.1")
 texts.append(rangeMin)
-rangeMax = tk.Entry(third)
-texts.append(rangeMax)
+#rangeMax = tk.Entry(third)
+#texts.append(rangeMax)
 rangeMin2 = tk.Entry(third)
+rangeMin2.insert(10,"90.0, 100.0")
 texts.append(rangeMin2)
+
 rangeMax2 = tk.Entry(third)
 texts.append(rangeMax2)
 '''
+
 for s in range(len(pointsizes)):
     tk.Label(third,text="Size of data points:").grid(row=0,column=0)
     tk.Radiobutton(third,text=pointsizes[s],variable=pointsize,value=s).grid(row=s+1,sticky="w")
