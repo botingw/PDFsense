@@ -14,43 +14,32 @@
 ##......
 ##......
 
-## Examples of the allowed formats. Comment out any unneeded formats using "#", otherwise the figures will be produced for
-## all of them
+## Examples of the allowed formats. Comment out any unneeded formats using "#", otherwise the figures will be produced for all of them
 
-
-## Example 1. To compute correlations and sensitivities for a given observable X such as Higgs production cross section, 
-## provide a list of values of X for 57 CTXX error PDF sets
-Name: sigma(H0), LHC 7 TeV
-
-!Function Begin:  {0.00098942, 0.00098173, 0.00098396, 0.00097558, 0.00099351, 0.00095067, 0.00101211, 0.00099413, 0.00097181, 0.00101561, 0.00097453,
- 0.00099632, 0.00097541, 0.00094744, 0.00098743, 0.00100186, 0.00094726, 0.00098585, 0.00099331, 0.00097051, 0.00100608, 0.00099326, 0.0009868, 
-0.00097291, 0.00100699, 0.00098791, 0.00099058, 0.00101748, 0.00094195, 0.00094426, 0.0010162, 0.00095969, 0.0010322, 0.00096181, 0.00101368, 
-0.00094068, 0.00102951, 0.00096548, 0.00101539, 0.00105604, 0.00095553, 0.00097095, 0.00099036, 0.00101176, 0.00092786, 0.00104997, 0.00097324, 
-0.00098937, 0.00101352, 0.00099091, 0.00099408, 0.00099629, 0.00098689, 0.00092023, 0.00101062, 0.00096475, 0.00102149}
-
+## Total Higgs cross section, LHC 7 TeV, CT14HERA2NNLO, a list of values
+# for 57 error PDF sets
+Name: sig(H0), 7 TeV
+!Function Begin:  
+{14.5989, 14.5951, 14.6151, 14.5008, 14.6602, 14.7631, 14.4664, 14.6992, 14.3996, 14.7171, 14.5393, 14.6322, 14.5672, 14.8007, 14.3577, 14.7272, 14.4667, 14.6612, 14.5472, 14.5432, 14.6409, 14.4376, 14.7263, 14.5917, 14.5965, 14.7001, 14.4669, 14.5329, 14.6616, 14.5873, 14.604, 14.589, 14.6095, 14.5498, 14.6351, 14.6282, 14.5547, 14.6343, 14.5766, 14.623, 14.5751, 14.6106, 14.5667, 14.5982, 14.5893, 14.6385, 14.5676, 14.4672, 14.6291, 14.5933, 14.6025, 14.444, 14.5549, 14.5728, 14.6264, 14.4848, 14.6715}
 !Function End
 
-## Example 2. To compute correlation and sensitivities for a function of a PDF of flavor iflavor, use the function FxQ
-##  iflavor is defined according to the CTEQ convention, with u and d flavors switched compared to the LHAPDF convention
-##    PDF flavor: bb cb sb db ub g u d s c b
-##       iflavor: -5 -4 -3 -2 -1 0 1 2 3 4 5
-#
-## 2.1. FxQ[iflavour] returns f(x_i,Q_i, iflavor) at the same typical {x_i, Q_i} as in the experimental data points  
-## 2.2. FxQ[ExptID,iflavour,ipt] returns f(x,Q,iflavor) for the typical {x_i, Q_i} of the point ipt in the experimental data set ExptID 
-
-Name: Asym(u)
-
+## Total strangeness, point-by-point
+Name: s+(x,mu)
 !Function Begin: 
-(FxQ[iu]-FxQ[iubar])/(FxQ[iu]+FxQ[iubar])
-
+FxQ[is]+FxQ[isbar]
 !Function End
 
-Name: Asym(u), Expt 538, point 3
-
+## Valence u, point-by-point
+Name: u_val(x,mu)
 !Function Begin: 
-#be careful not to define the variables that do not exist in run_v4.nb (.m), or you may overrewrite wrong values in the code
-ExptIDin=538;iptin=3;(FxQ[ExptIDin,iu,iptin]-FxQ[ExptIDin,iubar,iptin])/(FxQ[ExptIDin,iu,iptin]+FxQ[ExptIDin,iubar,iptin])
+FxQ[iu]-FxQ[iubar]
+!Function End
 
+## Valence d, point-by-point
+
+Name: d_val(x,mu)
+!Function Begin: 
+FxQ[id]-FxQ[idbar]
 !Function End
 
 
