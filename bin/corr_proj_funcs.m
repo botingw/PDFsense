@@ -2823,7 +2823,11 @@ output3
 (*this function return markers and their normalized size by {shapes,sizes}*)
 (*shapes = {shape1,shape2,...}, sizes = {size1,size2,...}*)
 PlotMarkerList[]:=
-Module[{shapes0,shapes1,shapes2,shapes3,sizes0,sizes1,sizes2,sizes3},
+Module[{shapes0,shapes1,shapes2,shapes3,sizes0,sizes1,sizes2,sizes3,
+simpleMode},
+(*20171130 only pick up simple shapes*)
+simpleMode=True;
+
 shapes1={\[FivePointedStar],\[ClubSuit],\[HeartSuit],\[SpadeSuit],\[EighthNote],\[Sharp],\[Yen],\[Section],\[BeamedSixteenthNote],\[EmptySet],\[Earth],"\[Times]","\[CircleMinus]","\[Superset]",">","<",\[LightBulb],\[Euro],\[Cent],\[Flat]};
 sizes1={800,800,1000,800,800,1000,1000,1000,800,900,900,1200,900,800,1000,1000,1000,1000,1000,1200};
 shapes2={"\[FilledCircle]","\[FilledSquare]","\[FilledDiamond]","\[FilledUpTriangle]","\[FilledDownTriangle]","\[EmptyCircle]","\[EmptySquare]","\[EmptyDiamond]","\[EmptyUpTriangle]","\[EmptyDownTriangle]"};
@@ -2838,6 +2842,13 @@ If[Length[shapes2]!=Length[sizes2],Print["error, #shapes2 and #sizes2 are not th
 shapes3=Join[shapes2,shapes1,shapes0];
 sizes3=Join[sizes2,sizes1,sizes0];
 
+(*20171130 only pick up simple shapes*)
+If[
+simpleMode==True,
+shapes3=Join[shapes2,{"\[Times]","\[CircleMinus]",\[FivePointedStar]}];
+sizes3=Join[sizes2,{1200,900,800}];
+"dummy"
+];
 (*return*)
 {shapes3,sizes3}
 ]
@@ -3703,7 +3714,8 @@ AllPlots
 (*output a 7 colors palette (blue to red)*)
 Set2DxqBarLegend[barseperatorin_,legendlabelin_(*,highlightrangein_*)]:=
 Module[{barseperator=barseperatorin,legendlabel=legendlabelin,(*highlightrange=highlightrangein,*)
-mycolorscheme,barmin,barmax,barcolor,mybarlegend,greycolor},
+mycolorscheme,barmin,barmax,barcolor,mybarlegend,greycolor,
+edgeWidth},
 
 (*20171108: check #seperator elements is correct*)
 If[Length[barseperator]!=8,Print["error, the input color discrete list should include 8 elements, yours: ",barseperator] ];
@@ -3728,6 +3740,11 @@ barcolor={RGBColor[0.,0.,0.7],RGBColor[0.,0.5,0.75],RGBColor[0.0,0.75,0.75],RGBC
 (*
 barcolor[[(Length[barcolor]+1)/2 ]]=greycolor;
 *)
+(*20171130: to show the max, min values of the palette, add the edge color for max and min *)
+edgeWidth=0.001*(barmax-barmin);
+barcolor=Append[barcolor,barcolor[[-1]] ];barcolor=Prepend[barcolor,barcolor[[1]] ];
+barseperator=Append[barseperator,(barseperator[[-1]]+edgeWidth) ];barseperator=Prepend[barseperator,(barseperator[[1]]-edgeWidth) ];
+barmin=Min[barseperator];barmax=Max[barseperator];
 
 mybarlegend=BarLegend[{barcolor,{barmin,barmax}},barseperator,LegendLabel->legendlabel,LabelStyle->{FontSize->14,Black}];
 mybarlegend
@@ -3738,7 +3755,8 @@ mybarlegend
 (*output a 4 colors palette (green to red)*)
 Set2DxqRedBarLegend[barseperatorin_,legendlabelin_(*,highlightrangein_*)]:=
 Module[{barseperator=barseperatorin,legendlabel=legendlabelin,(*highlightrange=highlightrangein,*)
-mycolorscheme,barmin,barmax,barcolor,mybarlegend,greycolor},
+mycolorscheme,barmin,barmax,barcolor,mybarlegend,greycolor,
+edgeWidth},
 
 (*20171108: check #seperator elements is correct*)
 If[Length[barseperator]!=5,Print["error, the input color discrete list should include 5 elements, yours: ",barseperator] ];
@@ -3763,6 +3781,12 @@ barcolor={RGBColor[0,0.7,0],RGBColor[0.75,0.75,0.],RGBColor[0.75,0.55,0.],RGBCol
 (*
 barcolor[[(Length[barcolor]+1)/2 ]]=greycolor;
 *)
+
+(*20171130: to show the max, min values of the palette, add the edge color for max and min *)
+edgeWidth=0.001*(barmax-barmin);
+barcolor=Append[barcolor,barcolor[[-1]] ];barcolor=Prepend[barcolor,barcolor[[1]] ];
+barseperator=Append[barseperator,(barseperator[[-1]]+edgeWidth) ];barseperator=Prepend[barseperator,(barseperator[[1]]-edgeWidth) ];
+barmin=Min[barseperator];barmax=Max[barseperator];
 
 mybarlegend=BarLegend[{barcolor,{barmin,barmax}},barseperator,LegendLabel->legendlabel,LabelStyle->{FontSize->14,Black}];
 mybarlegend
@@ -3945,6 +3969,8 @@ ptshaperescale={750.0,2000.0,850.0,800.0,750.0};
 
 (*20171126: use marker list*)
 {ptshape,ptshaperescale}=PlotMarkerList[];
+(*20171130 marker list repeat*)
+ptshape=(ptshape&/@Range[10])//Flatten;ptshaperescale=(ptshaperescale&/@Range[10])//Flatten;
 (*ptshaperescale=0.0075*ptshaperescale;*)
 
 (*20171126: for multi shape plotting, we need to sort data in all groups togather, otherwise the last group members with small values still cover the large values*)
@@ -6127,7 +6153,8 @@ myplotsetting,imgsize,title,xtitle,ytitle,lgdlabel,xrange,yrange,epilog,titlesiz
 plot1,
 xyrange=xyrangein,
 groupnames,groupExptIDs,
-ColorPaletterange,JobDescription},
+ColorPaletterange,JobDescription,
+Ncolor},
 
 (*read arguments in config file*)
 (*==============================*)
@@ -6185,6 +6212,14 @@ Abort[];
 myMarker=PlotMarkerList[];
 myMarker[[2]]=0.0075*myMarker[[2]];
 myMarker=Transpose[myMarker,{2,1}];
+(*20171130 set color for points, everytime the shape return to the first shape, change to another color*)
+Ncolor={RGBColor[0.7, 0., 0.], RGBColor[0., 0., 0.7], RGBColor[0., 0.7, 0.], RGBColor[0.6, 0.4, 0.2], RGBColor[0.8, 0.4, 0.], 
+ RGBColor[0.7, 0., 0.7], RGBColor[0.6, 0.6, 0.6], RGBColor[0.7, 0.7, 0.]};
+
+myplotstyle=Table[Table[Ncolor[[icolor]],{imarker,Length[myMarker]}],{icolor,Length[Ncolor]}]//Flatten;
+(*when all shapes are used out, return to the first one*)
+myMarker=Flatten[(myMarker&/@Range[Length[Ncolor] ]),1];
+
 Print["dim of data: ",Dimensions[pdfcorr] ];
 Print["exptlist ",exptlist];
 (*always don't show only one shape for all expt ID points*)
@@ -6242,7 +6277,8 @@ xmintmp,xmaxtmp,ymintmp,hist1epilogtext,hist2epilogtext,hist1standardlines,hist2
 datemode,HistDataList,HistAbsDataList,DataMax,DataMin,AbsDataMax,AbsDataMin,DataMean,AbsDataMean,DataMedian,AbsDataMedian,DataSD,AbsDataSD,
 ColorPaletteMode,PaletteMax,PaletteMin,
 groupnames,groupExptIDs,classifymode,
-ColorPaletterange,JobDescription},
+ColorPaletterange,JobDescription,
+shapeslist},
 (*read arguments in config file*)
 (*==============================*)
 {Jobid,JobDescription(*20171128*),PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
@@ -6906,7 +6942,9 @@ rows=3;
 (*20171126: set labels depend on different classifymode*)
 If[
 classifymode=="single",
-exptnames=Table[ToString[PlotMarkerList[][[1,iexpt]] ]<>ExptIDtoName[Flatten[exptlist][[iexpt]] ]<>"("<>ToString[Flatten[exptlist][[iexpt]] ]<>")",{iexpt,1,Length[exptlist//Flatten]}];
+(*20171130: if shapes are used out, repeat the shapes*)
+shapeslist=(PlotMarkerList[][[1]]&/@Range[10])//Flatten;
+exptnames=Table[ToString[shapeslist[[iexpt]] ]<>ExptIDtoName[Flatten[exptlist][[iexpt]] ]<>"("<>ToString[Flatten[exptlist][[iexpt]] ]<>")",{iexpt,1,Length[exptlist//Flatten]}];
 "dummy"
 ];
 If[
