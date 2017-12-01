@@ -6278,7 +6278,7 @@ datemode,HistDataList,HistAbsDataList,DataMax,DataMin,AbsDataMax,AbsDataMin,Data
 ColorPaletteMode,PaletteMax,PaletteMin,
 groupnames,groupExptIDs,classifymode,
 ColorPaletterange,JobDescription,
-shapeslist},
+shapeslist,abstitle,absPaletteMax,absbarseperator,absbarlegend,xQplotcorr2,exptnamestitle},
 (*read arguments in config file*)
 (*==============================*)
 {Jobid,JobDescription(*20171128*),PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
@@ -6461,12 +6461,14 @@ plottype==2 ,
 (*20171128 fix the label: should has | |*)
 obsname="|\!\(\*SubscriptBox[\(\[Sigma]\), \(i\)]\)/\!\(\*SubscriptBox[\(D\), \(i\)]\)|";
 title=obsname<>title3;
+abstitle=obsname<>title3;
 histabstitle=(*"| "<>*)obsname(*<>" |"*)<>title3
 ];
 If[
 plottype==3 ,
 obsname="\!\(\*SubscriptBox[\(r\), \(i\)]\) (Residual)";
 title=obsname<>title3;
+abstitle="| "<>obsname<>" |"<>title3;
 histabstitle="| "<>obsname<>" |"<>title3
 ];
 If[
@@ -6474,18 +6476,21 @@ plottype==4 ,
 obsname="\!\(\*SubscriptBox[\(\[Delta]r\), \(i\)]\)";
 (*obsname=deltaRtitle1<>PDFname;*)
 title=obsname<>title3;
+abstitle=obsname<>title3;
 histabstitle=(*"| "<>*)obsname(*<>" |"*)<>title3
 ];
 If[
 plottype==5 ,
 obsname=corrdrtitle1<>pdfnamelable[[flavourin+6]](*<>title2*);
 title=obsname<>title3;
+abstitle="| "<>obsname<>" |"<>title3;
 histabstitle="| "<>obsname<>" |"<>title3
 ];
 If[
 plottype==6 ,
 obsname=corrtitle1<>pdfnamelable[[flavourin+6]]<>title2;
 title=obsname<>title3;
+abstitle="| "<>obsname<>" |"<>title3;
 histabstitle="| "<>obsname<>" |"<>title3
 ];
 
@@ -6495,10 +6500,11 @@ xtitle="x";
 ytitle="\[Mu] [GeV]";
 (*20171109: histogram title for data and |data|*)
 histtitle=title;
+histabstitle=abstitle;
 xhisttitle=obsname;
 yhisttitle="#points";
 
-histabstitle=histabstitle;
+(*histabstitle=histabstitle;*)
 xhistabstitle="| "<>obsname<>" |";
 (*20171128: for sigma/D, \[Delta]r, we don't need to show | | because their absolute values are themselve*)
 If[plottype==2 || plottype==4,xhistabstitle=obsname];
@@ -6688,6 +6694,7 @@ binset={Table[i*hist1plotrangex[[2]]/20.0,{i,-100,100}]};
 (*mode 6: depend on the percentage of |data|*)
 ColorPaletteMode=5;
 (*20170515: for statistics of total data, the all data are considered, so here Flatten the data pdfcorr*)
+(*20171201: add  x-\[Mu] plot of |data|, ColorPaletteMode\[Equal]6: not yet update for it *)
 If[
 ColorPaletteMode==6,
 If[
@@ -6704,12 +6711,14 @@ epilogxQ={Npttext,(*maxtext,maxmarker,mintext,minmarker*)percentagetext};
 "dummy"
 ];
 
+(*20171201: add  x-\[Mu] plot of |data|*)
 If[
 ColorPaletteMode==2,
 If[
 plottype==6,
 legendlabel="";
 barseperator={-1,-0.85,-0.7,-0.5,0.5,0.7,0.85,1};
+absbarseperator={0,0.5,0.7,0.85,1};
 epilogxQ={Npttext};
 
 "dummy"
@@ -6724,6 +6733,7 @@ legendlabel="";
 barseperator={-100,-0.85,-0.7,-0.5,0.5,0.7,0.85,100};
 *)
 barseperator={-100,-5.0,-2.0,-0.5,0.5,2.0,5.0,100};
+absbarseperator={0,0.5,2.0,5.0,100};
 epilogxQ={Npttext};
 
 "dummy"
@@ -6733,6 +6743,7 @@ If[
 plottype==3 (*|| plottype==4*),
 legendlabel="";
 barseperator={-100,-5.0,-2.0,-0.5,0.5,2.0,5.0,100};
+absbarseperator={0,0.5,2.0,5.0,100};
 epilogxQ={Npttext};
 
 "dummy"
@@ -6742,6 +6753,7 @@ If[
 plottype==4,
 legendlabel="";
 barseperator={0,0.5,2.0,5.0,100};
+absbarseperator=={0,0.5,2.0,5.0,100};
 epilogxQ={Npttext};
 
 "dummy"
@@ -6752,6 +6764,7 @@ If[
 plottype==2,
 legendlabel="";
 barseperator={(*-100,-0.3,-0.1,-0.05*)0,0.05,0.1,0.3,100};
+absbarseperator={0,0.05,0.1,0.3,100};
 epilogxQ={Npttext};
 "dummy"
 ];
@@ -6760,18 +6773,21 @@ epilogxQ={Npttext};
 ];
 
 (*20171115 color palette by histogram range*)
+(*20171201: add  x-\[Mu] plot of |data|*)
 If[
 ColorPaletteMode==4 || ColorPaletteMode==5,
 (*20171125: set max, min of the color palette range by mode*)
 If[
 ColorPaletteMode==4,
 PaletteMax=DataMax;
-PaletteMin=DataMin
+PaletteMin=DataMin;
+absPaletteMax=AbsDataMax  (*20171201*)
 ];
 If[
 ColorPaletteMode==5,
 PaletteMax=hist1plotrange[[2]];
-PaletteMin=hist1plotrange[[1]]
+PaletteMin=hist1plotrange[[1]];
+absPaletteMax=hist2plotrange[[2]]  (*20171201*)
 ];
 (*test*)
 (*
@@ -6787,10 +6803,12 @@ If[
 legendlabel="";
 (*20171125: use log scale to seperate the colors min, min/3, min/9, min/27, max/27,max/9,max/3,max*)
 barseperator=Table[(PaletteMin+0.5*(PaletteMax-PaletteMin) )+If[isep>0,1.0,-1.0]*(1/3)^(Abs[isep]-1)*(0.5*(PaletteMax-PaletteMin) ),{isep,{-1,-2,-3,-4,4,3,2,1}}];
+absbarseperator={0}~Join~Table[(1/3)^(Abs[isep]-1)*(absPaletteMax ),{isep,{4,3,2,1}}];  (*20171201*)
 (*
 barseperator=Table[DataMin+isep*(DataMax-DataMin)/7.0,{isep,0,7}];
 *)
 barseperator[[-1]]=barseperator[[-1]]*1.001;(*add a width*)
+absbarseperator[[-1]]=absbarseperator[[-1]]*1.001;  (*20171201*)
 epilogxQ={Npttext};
 
 "dummy"
@@ -6802,10 +6820,12 @@ If[
 legendlabel="";
 (*20171125: use log scale to seperate the colors min, min/3, min/9, min/27, max/27,max/9,max/3,max*)
 barseperator=Table[(PaletteMin+0.5*(PaletteMax-PaletteMin) )+If[isep>0,1.0,-1.0]*(1/1.5)^(Abs[isep]-1)*(0.5*(PaletteMax-PaletteMin) ),{isep,{-1,-2,-3,-4,4,3,2,1}}];
+absbarseperator={0}~Join~Table[(1/1.5)^(Abs[isep]-1)*(absPaletteMax ),{isep,{4,3,2,1}}];  (*20171201*)
 (*
 barseperator=Table[DataMin+isep*(DataMax-DataMin)/7.0,{isep,0,7}];
 *)
 barseperator[[-1]]=barseperator[[-1]]*1.001;(*add a width*)
+absbarseperator[[-1]]=absbarseperator[[-1]]*1.001;  (*20171201*)
 epilogxQ={Npttext};
 
 "dummy"
@@ -6821,6 +6841,7 @@ barseperator={0}~Join~Table[(1/1.5)^(Abs[isep]-1)*(PaletteMax ),{isep,{4,3,2,1}}
 barseperator=Table[DataMin+isep*(DataMax-DataMin)/7.0,{isep,0,7}];
 *)
 barseperator[[-1]]=barseperator[[-1]]*1.001;(*add a width*)
+absbarseperator=barseperator;  (*20171201*)
 epilogxQ={Npttext};
 
 "dummy"
@@ -6836,6 +6857,7 @@ barseperator={0}~Join~Table[(1/2)^(Abs[isep]-1)*(PaletteMax ),{isep,{4,3,2,1}}];
 barseperator=Table[isep*(AbsDataMax)/4.0,{isep,0,4}];
 *)
 barseperator[[-1]]=barseperator[[-1]]*1.001;(*add a width*)
+absbarseperator=barseperator;  (*20171201*)
 epilogxQ={Npttext};
 
 "dummy"
@@ -6862,6 +6884,7 @@ If[
 plottype==6,
 legendlabel="";
 barseperator={-1,-0.85,-0.7,-0.5,0.5,0.7,0.85,1};
+absbarseperator={0,0.5,0.7,0.85,1};  (*20171201*)
 epilogxQ={Npttext};
 
 "dummy"
@@ -6875,6 +6898,7 @@ epilogxQ={Npttext};
 If[
 plottype==1,
 barseperator={-1,-0.85,-0.7,-0.5,0.5,0.7,0.85,1};
+absbarseperator={0,0.5,0.7,0.85,1}  (*20171201*)
 ];
 (*20170517: if highlight mode = 1 && not correlation data, then if highlight uplimit > max of data, automatically adjust it to the max of the data*)
 (*20171106: don't choose max of data as highlightrange[[2]], just use the input number*)
@@ -6896,11 +6920,13 @@ If[
 (HighlightMode[[plottype]]==0 || HighlightMode[[plottype]]==1 || HighlightMode[[plottype]]==2),
 If[
 (plottype==3|| plottype==5  || plottype==6),
-barlegend=Set2DxqBarLegend[barseperator,legendlabel] 
+barlegend=Set2DxqBarLegend[barseperator,legendlabel];
+absbarlegend=Set2DxqRedBarLegend[absbarseperator,legendlabel] 
 ];
 If[
 (plottype==2 || plottype==4),
-barlegend=Set2DxqRedBarLegend[barseperator,legendlabel] 
+barlegend=Set2DxqRedBarLegend[barseperator,legendlabel];
+absbarlegend= barlegend
 ];
 "dummy"
 ];
@@ -6952,11 +6978,13 @@ classifymode=="all",
 exptnames=Table[ExptIDtoName[Flatten[exptlist][[iexpt]] ]<>"("<>ToString[Flatten[exptlist][[iexpt]] ]<>")",{iexpt,1,Length[exptlist//Flatten]}];
 "dummy"
 ];
-Print["making table of experiments included in plots"];
+(*Print["making table of experiments included in plots"];*)
 datemode=False;
 (*20171128: for legend, don't show job description*)
 JobDescription="";
-exptnamestable=makeGrid2[exptnames,rows,title<>"\n\n",JobDescription,datemode];
+
+exptnamestitle=Switch[FigureFlag[[plottype]],-1,title,1,abstitle,_,Print["error, plot type flag should be 1 or -1"];Abort[] ];
+exptnamestable=makeGrid2[exptnames,rows,exptnamestitle<>"\n\n",JobDescription,datemode];
 "dummy"
 ];
 
@@ -6969,6 +6997,7 @@ exptnamestable=makeGrid2[exptnames,rows,title<>"\n\n",JobDescription,datemode];
 (*set outlayer points label in plot*)
 textsize=16;
 Npttext=Text[Style["Npt: "<>ToString[Length[pdfcorr//Flatten] ],textsize,Black],Scaled[{0.1,0.9}] ];
+  (*20171201: add x-\[Mu] plot of |data|, this part does not update for it yet*)
 maxtext=Text[Style[ToString[ColorSeperator[[3]] ]<>"%",textsize,Black],Scaled[{0.1,0.8}] ];
 maxmarker={Red,PointSize->0.02,Point[Scaled[{0.175,0.8}] ]};
 mintext=Text[Style[ToString[ColorSeperator[[3]] ]<>"%(-)",textsize,Black],Scaled[{0.1,0.7}] ];
@@ -7060,13 +7089,24 @@ stretchx=1;stretchy=1;
 If[PlotTitleBool==False,title=""];
 If[
  plottype==2 || plottype==3 || plottype==4 || plottype==5  || plottype==6,
+(*20171201: if plot type = -1: draw data, if plot type = 1, draw |data|*)
+If[
+FigureFlag[[plottype]]==-1,
 xQplotcorr=PDFCorrelationplot8[pdfcorr,title,xtitle,ytitle,plotrange,stretchx,stretchy,barlegend,(*barseperator,legendlabel,*)(*Append[epilogxQ,cuttext]*)epilogxQ,highlightrange,unhighlightsize ];
+xQplotcorr=xQplotcorr
+];
+If[
+FigureFlag[[plottype]]==1,
+xQplotcorr2=PDFCorrelationplot8[pdfcorr/.LF1[a__]:>LF1[{a}[[1]],{a}[[2]],Abs[{a}[[3]] ] ],abstitle,xtitle,ytitle,plotrange,stretchx,stretchy,absbarlegend,(*barseperator,legendlabel,*)(*Append[epilogxQ,cuttext]*)epilogxQ,highlightrange,unhighlightsize ];
+xQplotcorr=xQplotcorr2
+];
 "dummy"
 ];
 
 (*=============================================================================================================================*)
 (*Histogram: generate plots============================================================================================================*)
 (*=============================================================================================================================*)
+
 (*20171111 new histplot function*)
 hist1epilogtext={hist1standardlines,highlightlines,Npttext};
 hist2epilogtext={hist2standardlines,highlightlines,Npttext};
@@ -7114,6 +7154,8 @@ histplotcorr2=histplot5[Flatten[pdfcorr]/.LF1[a__]:>Abs[{a}[[3]] ],histabstitle,
 (*plot type 1: generate plots============================================================================================================*)
 (*=============================================================================================================================*)
 
+(*20171201: plot1 will be generated in function PlotDataTypeOne*)
+(*
 If[
  plottype==1,
 (*plot1*)
@@ -7157,6 +7199,7 @@ Abort[];
 
 plot1=PDFloglogplot[Flatten[pdfcorr,1],myMarker,myplotstyle,title,xtitle,ytitle,xyrangeplot1,lgdlabel,lgdpos,imgsize];
 ];
+*)
 
 (*=============================================================================================================================*)
 (*Output============================================================================================================*)
@@ -7164,7 +7207,7 @@ plot1=PDFloglogplot[Flatten[pdfcorr,1],myMarker,myplotstyle,title,xtitle,ytitle,
 
 Which[
  plottype==2 || plottype==3 || plottype==4 || plottype==5  || plottype==6,
-{{xQplotcorr,exptnamestable},{histplotcorr1,histplotcorr2}},
+{{xQplotcorr,exptnamestable},{histplotcorr1,histplotcorr2}(*,{xQplotcorr2}*)},
 plottype==1,
 {plot1}
 ]
