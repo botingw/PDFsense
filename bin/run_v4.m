@@ -810,13 +810,14 @@ Print["generating figures..."];
 jpgtime=
 AbsoluteTiming[
 (*20171109 use processdataplotsmultiexp7percentage to replace version 6 and readcorrconfigfile5 to replace version4: for new highlight range convention*)
+(*20171201: CorrelationArgFlag[[iplottype]]\[Equal]1, draw |data| (absolute value), CorrelationArgFlag[[iplottype]]\[Equal]-1, draw data (sign data)*)
 Table[
 Print["now flavour = ",flavour];
 If[
 CorrelationArgFlag[[flavour+6]]==1,
 If[
 (*correlation plots*)
-FigureFlag[[6]]==1,
+FigureFlag[[6]]==1 || FigureFlag[[6]]==-1,
 Print["making plot of figure type ",FigureType[[6]],", flavour = ",flavour];
 p6=processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],6,flavour ];
 (*add exptname table into output figure*)
@@ -827,10 +828,20 @@ filename=obsname[[6]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,1]],ImageResolution->imgresol ];
 filename=obsname[[6]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,2]],ImageResolution->imgresol ];
+(*20171201 for +1: absolute values of data, for -1: sign data*)
+If[
+FigureFlag[[6]]==-1,
 filename=obsname[[6]]<>"_"<>representationname[[3]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,1]],ImageResolution->imgresol ];
+"dummy"
+];
+If[
+FigureFlag[[6]]==1,
 filename=obsname[[6]]<>"_"<>representationname[[4]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,2]],ImageResolution->imgresol ];
+"dummy"
+];
+
 "dummy",
 {i,Length[iext]}
 ];
@@ -840,16 +851,25 @@ filename=obsname[[6]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,1]] ];
 filename=obsname[[6]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,2]]];
+(*20171201 for +1: absolute values of data, for -1: sign data*)
+If[
+FigureFlag[[6]]==-1,
 filename=obsname[[6]]<>"_"<>representationname[[3]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,1]] ];
+"dummy"
+];
+If[
+FigureFlag[[6]]==1,
 filename=obsname[[6]]<>"_"<>representationname[[4]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,2]] ];
+"dummy"
+];
 
 ];
 
 (*dr*corr plots*)
 If[
-FigureFlag[[5]]==1,
+FigureFlag[[5]]==1 || FigureFlag[[5]]==-1,
 Print["making plot of figure type ",FigureType[[5]],", flavour = ",flavour];
 p5=processdataplotsmultiexp7percentage[{dRcorrdataclassfinal},readcorrconfigfile6[configDir,configfilename],5,flavour];
 
@@ -859,10 +879,20 @@ filename=obsname[[5]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,1]],ImageResolution->imgresol  ];
 filename=obsname[[5]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,2]],ImageResolution->imgresol  ];
+(*20171201 for +1: absolute values of data, for -1: sign data*)
+If[
+FigureFlag[[5]]==-1,
 filename=obsname[[5]]<>"_"<>representationname[[3]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,1]],ImageResolution->imgresol  ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,1]],ImageResolution->imgresol ];
+"dummy"
+];
+If[
+FigureFlag[[5]]==1,
 filename=obsname[[5]]<>"_"<>representationname[[4]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,2]],ImageResolution->imgresol  ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,2]],ImageResolution->imgresol ];
+"dummy"
+];
+
 "dummy",
 {i,Length[iext]}
 ];
@@ -872,10 +902,19 @@ filename=obsname[[5]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,1]]  ];
 filename=obsname[[5]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,2]] ];
+(*20171201 for +1: absolute values of data, for -1: sign data*)
+If[
+FigureFlag[[5]]==-1,
 filename=obsname[[5]]<>"_"<>representationname[[3]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,1]]  ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,1]] ];
+"dummy"
+];
+If[
+FigureFlag[[5]]==1,
 filename=obsname[[5]]<>"_"<>representationname[[4]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,2]]  ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,2]] ];
+"dummy"
+];
 
 ];
 
@@ -889,7 +928,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,
 (*2, 3, 4*)
 (*dr*corr plots*)
 If[
-FigureFlag[[2]]==1,
+FigureFlag[[2]]==1 || FigureFlag[[2]]==-1,
 Print["making plot of figure type ",FigureType[[2]],", flavour = ",flavour];
 p234=processdataplotsmultiexp7percentage[{expterrordataclassfinal},readcorrconfigfile6[configDir,configfilename],2,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
@@ -926,7 +965,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 ];
 
 If[
-FigureFlag[[3]]==1,
+FigureFlag[[3]]==1 || FigureFlag[[3]]==-1,
 Print["making plot of figure type ",FigureType[[3]],", flavour = ",flavour];
 p234=processdataplotsmultiexp7percentage[{residualdataclassfinal},readcorrconfigfile6[configDir,configfilename],3,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
@@ -935,10 +974,20 @@ filename=obsname[[3]]<>"_"<>representationname[[1]]<>"_samept"<>extensionname[[i
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]],ImageResolution->imgresol  ];
 filename=obsname[[3]]<>"_"<>representationname[[2]]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]],ImageResolution->imgresol  ];
-filename=obsname[[3]]<>"_"<>representationname[[3]]<>"_samept"<>extensionname[[iext[[i]] ]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]],ImageResolution->imgresol  ];
-filename=obsname[[3]]<>"_"<>representationname[[4]]<>"_samept"<>extensionname[[iext[[i]] ]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]],ImageResolution->imgresol  ];
+(*20171201 for +1: absolute values of data, for -1: sign data*)
+If[
+FigureFlag[[3]]==-1,
+filename=obsname[[3]]<>"_"<>representationname[[3]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]],ImageResolution->imgresol ];
+"dummy"
+];
+If[
+FigureFlag[[3]]==1,
+filename=obsname[[3]]<>"_"<>representationname[[4]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]],ImageResolution->imgresol ];
+"dummy"
+];
+
 "dummy",
 {i,Length[iext]}
 ];
@@ -948,16 +997,25 @@ filename=obsname[[3]]<>"_"<>representationname[[1]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]]  ];
 filename=obsname[[3]]<>"_"<>representationname[[2]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]]  ];
-filename=obsname[[3]]<>"_"<>representationname[[3]]<>"_samept"<>".m";
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]]  ];
-filename=obsname[[3]]<>"_"<>representationname[[4]]<>"_samept"<>".m";
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]]  ];
+(*20171201 for +1: absolute values of data, for -1: sign data*)
+If[
+FigureFlag[[3]]==-1,
+filename=obsname[[3]]<>"_"<>representationname[[3]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]] ];
+"dummy"
+];
+If[
+FigureFlag[[3]]==1,
+filename=obsname[[3]]<>"_"<>representationname[[4]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]] ];
+"dummy"
+];
 
 
 ];
 
 If[
-FigureFlag[[4]]==1,
+FigureFlag[[4]]==1 || FigureFlag[[4]]==-1,
 Print["making plot of figure type ",FigureType[[4]],", flavour = ",flavour];
 p234=processdataplotsmultiexp7percentage[{dRdataclassfinal},readcorrconfigfile6[configDir,configfilename],4,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
@@ -994,7 +1052,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 ];
 
 If[
-FigureFlag[[1]]==1,
+FigureFlag[[1]]==1 || FigureFlag[[1]]==-1,
 Print["making plot of figure type ",FigureType[[1]] ];
 p1=processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],1,0 ];
 
@@ -1355,19 +1413,19 @@ If[irun==Length[Lexpt],Print["all processes are done"];Abort[]];
 
 
 (* ::Input:: *)
-(*processdataplotsmultiexp7percentage[{residualdataclassfinal},readcorrconfigfile5[configDir,configfilename],3,flavour]*)
+(*processdataplotsmultiexp7percentage[{residualdataclassfinal},readcorrconfigfile6[configDir,configfilename],3,flavour]*)
 
 
 (* ::Input:: *)
-(*processdataplotsmultiexp7percentage[{dRdataclassfinal},readcorrconfigfile5[configDir,configfilename],4,flavour]*)
+(*processdataplotsmultiexp7percentage[{dRdataclassfinal},readcorrconfigfile6[configDir,configfilename],4,flavour]*)
 
 
 (* ::Input:: *)
-(*processdataplotsmultiexp7percentage[{dRcorrdataclassfinal},readcorrconfigfile5[configDir,configfilename],5,0]*)
+(*processdataplotsmultiexp7percentage[{dRcorrdataclassfinal},readcorrconfigfile6[configDir,configfilename],5,0]*)
 
 
 (* ::Input:: *)
-(*processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile5[configDir,configfilename],6,0 ]*)
+(*processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],6,0 ]*)
 
 
 (* ::Input:: *)
@@ -1425,7 +1483,7 @@ If[irun==Length[Lexpt],Print["all processes are done"];Abort[]];
 
 
 (* ::Input:: *)
-(*processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile5[configDir,configfilename],1,0 ]*)
+(*processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],1,0 ]*)
 
 
 (* ::Input:: *)
