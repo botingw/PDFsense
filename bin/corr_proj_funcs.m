@@ -2829,7 +2829,7 @@ simpleMode},
 simpleMode=True;
 
 shapes1={\[FivePointedStar],\[ClubSuit],\[HeartSuit],\[SpadeSuit],\[EighthNote],\[Sharp],\[Yen],\[Section],\[BeamedSixteenthNote],\[EmptySet],\[Earth],"\[Times]","\[CircleMinus]","\[Superset]",">","<",\[LightBulb],\[Euro],\[Cent],\[Flat]};
-sizes1={800,800,1000,800,800,1000,1000,1000,800,900,900,1200,900,800,1000,1000,1000,1000,1000,1200};
+sizes1={1000,800,1000,800,800,1000,1000,1000,800,900,900,1200,900,800,1000,1000,1000,1000,1000,1200};
 shapes2={"\[FilledCircle]","\[FilledSquare]","\[FilledDiamond]","\[FilledUpTriangle]","\[FilledDownTriangle]","\[EmptyCircle]","\[EmptySquare]","\[EmptyDiamond]","\[EmptyUpTriangle]","\[EmptyDownTriangle]"};
 sizes2={750.0,1000.0,900.0,850.0,850.0,1050.0,1300.0,1200.0,1150.0,1150.0};
 shapes0={\[CloverLeaf],\[Currency],\[DownExclamation],\[Checkmark],"\[DoubleRightArrow]","\[DoubleLeftArrow]","\[DoubleUpArrow]","\[DoubleDownArrow]","\[SquareSubset]","\[SquareSuperset]","\[NotTilde]","\[NotEqual]","\[PartialD]","\[Intersection]","\[Infinity]","\[CapitalDifferentialD]"};
@@ -2846,7 +2846,7 @@ sizes3=Join[sizes2,sizes1,sizes0];
 If[
 simpleMode==True,
 shapes3=Join[shapes2,{"\[Times]","\[CircleMinus]",\[FivePointedStar]}];
-sizes3=Join[sizes2,{1200,900,800}];
+sizes3=Join[sizes2,{1200,900,1000}];
 "dummy"
 ];
 (*return*)
@@ -6213,10 +6213,11 @@ myMarker=PlotMarkerList[];
 myMarker[[2]]=0.0075*myMarker[[2]];
 myMarker=Transpose[myMarker,{2,1}];
 (*20171130 set color for points, everytime the shape return to the first shape, change to another color*)
-Ncolor={RGBColor[0.7, 0., 0.], RGBColor[0., 0., 0.7], RGBColor[0., 0.7, 0.], RGBColor[0.6, 0.4, 0.2], RGBColor[0.8, 0.4, 0.], 
- RGBColor[0.7, 0., 0.7], RGBColor[0.6, 0.6, 0.6], RGBColor[0.7, 0.7, 0.]};
+Ncolor={RGBColor[0.7, 0.2, 0.2], RGBColor[0.2, 0.2, 0.7], RGBColor[0.2, 0.7, 0.2], RGBColor[0.6, 0.4, 0.2], RGBColor[0.8, 0.4, 0.], 
+ RGBColor[0.7, 0., 0.7], (*RGBColor[0.6, 0.6, 0.6],*) RGBColor[0.7, 0.7, 0.]};
 
-myplotstyle=Table[Table[Ncolor[[icolor]],{imarker,Length[myMarker]}],{icolor,Length[Ncolor]}]//Flatten;
+(*myplotstyle=Table[Table[Ncolor[[icolor]],{imarker,Length[myMarker]}],{icolor,Length[Ncolor]}]//Flatten;*)
+myplotstyle=Flatten[(Ncolor&/@Range[Length[myMarker] ])];(*20171201: color also rotation for every Expt ID*)
 (*when all shapes are used out, return to the first one*)
 myMarker=Flatten[(myMarker&/@Range[Length[Ncolor] ]),1];
 
@@ -6411,7 +6412,16 @@ HighlightMode[[plottype]],
 (*20171109: use new highlight range convention*)
 1,(*{HighlightMode1[[2*plottype-1]],HighlightMode1[[2*plottype]]}*)HighlightMode1[[plottype]],
 (*20171111: percentage highlight: don't take absolute values for data*)
-2,GetDataPercentage[(*Flatten[pdfcorr]/.LF1[a__]\[RuleDelayed]{a}[[3]]*)HistDataList,(*{HighlightMode2[[2*plottype-1]],HighlightMode2[[2*plottype]]}*)#]&/@HighlightMode2[[plottype]]
+(*20171201: percentage highlight depends on drawing data, if draw |data|, use percentage of |data|*)
+2,Switch[
+FigureFlag[[plottype]],
+-1,
+GetDataPercentage[(*Flatten[pdfcorr]/.LF1[a__]\[RuleDelayed]{a}[[3]]*)HistDataList,(*{HighlightMode2[[2*plottype-1]],HighlightMode2[[2*plottype]]}*)#]&/@HighlightMode2[[plottype]],
+1,
+GetDataPercentage[(*Flatten[pdfcorr]/.LF1[a__]\[RuleDelayed]{a}[[3]]*)HistAbsDataList,(*{HighlightMode2[[2*plottype-1]],HighlightMode2[[2*plottype]]}*)#]&/@HighlightMode2[[plottype]],
+_,
+Print["error, figure flag should be 1 or -1"];Abort[]
+]
 (*
 Which[
 plottype\[Equal]5  || plottype\[Equal]6,
@@ -6421,6 +6431,17 @@ GetDataPercentage[pdfcorr/.LF1[a__]\[RuleDelayed]Abs[{a}[[3]] ] ,{HighlightMode2
 True,Print["presently plottype is only 2~6 "];Abort[]
 ]*),
 _,Print["error, highlight mode should be 0, 1, 2"];Abort[]
+];
+(*20171201 for percentage highlight the largest one should have a range of width to include the highest percentage point*)
+If[
+HighlightMode[[plottype]]==2,
+Table[
+safewidth=0.000001*(highlightrange[[iHL,2]]-highlightrange[[iHL,1]]);
+highlightrange[[iHL,1]]=highlightrange[[iHL,1]]-safewidth;
+highlightrange[[iHL,2]]=highlightrange[[iHL,2]]+safewidth,
+{iHL,Length[highlightrange]}
+];
+"dummy" 
 ];
 
 (*=============================================================================================================================*)
@@ -6807,8 +6828,10 @@ absbarseperator={0}~Join~Table[(1/3)^(Abs[isep]-1)*(absPaletteMax ),{isep,{4,3,2
 (*
 barseperator=Table[DataMin+isep*(DataMax-DataMin)/7.0,{isep,0,7}];
 *)
+(* 20171201: add a safe color region so we don't need have a safe width 
 barseperator[[-1]]=barseperator[[-1]]*1.001;(*add a width*)
 absbarseperator[[-1]]=absbarseperator[[-1]]*1.001;  (*20171201*)
+*)
 epilogxQ={Npttext};
 
 "dummy"
@@ -6824,8 +6847,10 @@ absbarseperator={0}~Join~Table[(1/1.5)^(Abs[isep]-1)*(absPaletteMax ),{isep,{4,3
 (*
 barseperator=Table[DataMin+isep*(DataMax-DataMin)/7.0,{isep,0,7}];
 *)
+(* 20171201: add a safe color region so we don't need have a safe width 
 barseperator[[-1]]=barseperator[[-1]]*1.001;(*add a width*)
 absbarseperator[[-1]]=absbarseperator[[-1]]*1.001;  (*20171201*)
+*)
 epilogxQ={Npttext};
 
 "dummy"
@@ -6840,8 +6865,11 @@ barseperator={0}~Join~Table[(1/1.5)^(Abs[isep]-1)*(PaletteMax ),{isep,{4,3,2,1}}
 (*
 barseperator=Table[DataMin+isep*(DataMax-DataMin)/7.0,{isep,0,7}];
 *)
+(* 20171201: add a safe color region so we don't need have a safe width 
 barseperator[[-1]]=barseperator[[-1]]*1.001;(*add a width*)
+*)
 absbarseperator=barseperator;  (*20171201*)
+
 epilogxQ={Npttext};
 
 "dummy"
@@ -6856,7 +6884,9 @@ barseperator={0}~Join~Table[(1/2)^(Abs[isep]-1)*(PaletteMax ),{isep,{4,3,2,1}}];
 (*
 barseperator=Table[isep*(AbsDataMax)/4.0,{isep,0,4}];
 *)
+(* 20171201: add a safe color region so we don't need have a safe width 
 barseperator[[-1]]=barseperator[[-1]]*1.001;(*add a width*)
+*)
 absbarseperator=barseperator;  (*20171201*)
 epilogxQ={Npttext};
 
