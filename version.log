@@ -356,3 +356,10 @@ we don't need max value * 1.001 to get the safe range anymore
 20171201
 for |data| plots (flag = +1), add +1 in their filenames (xQ+1, hist+1)
 the same for data plots (flag = -1)
+
+20171202
+save files with info of data for each plot type
+all .m figure files with the same plot type are saved in one file
+
+20171202
+fix the bug that each flavour index of correlation/sensitivity has a .m file
