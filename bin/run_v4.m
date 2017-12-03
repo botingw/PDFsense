@@ -864,6 +864,9 @@ the input format of dataclasses are the same format of the dataclasses in data f
 "residualNset":[[iflavour]]
 "expterror":[[iflavour]]
 *)
+(*20171202 save all figures with the same plot type into one .m file*)
+p5expression={};p6expression={};
+
 Print["generating figures..."];
 jpgtime=
 AbsoluteTiming[
@@ -914,8 +917,11 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,
 (*20171201 for +1: absolute values of data, for -1: sign data*)
 If[
 FigureFlag[[6]]==-1,
+p6expression=Append[p6expression,{p6[[1,1]],p6[[1,2]],p6[[2,1]]}];
+(*
 filename=obsname[[6]]<>"_"<>"plotlist"<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,{p6[[1,1]],p6[[1,2]],p6[[2,1]]}  ];
+*)
 (*
 filename=obsname[[6]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,1]] ];
@@ -926,8 +932,11 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,
 ];
 If[
 FigureFlag[[6]]==1,
+p6expression=Append[p6expression,{p6[[1,1]],p6[[1,2]],p6[[2,1]]}];
+(*
 filename=obsname[[6]]<>"_"<>"plotlist"<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,{p6[[1,1]],p6[[1,2]],p6[[2,1]]}  ];
+*)
 (*
 filename=obsname[[6]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,1]] ];
@@ -980,8 +989,11 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,
 (*20171201 for +1: absolute values of data, for -1: sign data*)
 If[
 FigureFlag[[5]]==-1,
+p5expression=Append[p5expression,{p5[[1,1]],p5[[1,2]],p5[[2,1]]}];
+(*
 filename=obsname[[5]]<>"_"<>"plotlist"<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,{p5[[1,1]],p5[[1,2]],p5[[2,1]]}  ];
+*)
 (*
 filename=obsname[[5]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,1]]  ];
@@ -992,8 +1004,11 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,
 ];
 If[
 FigureFlag[[5]]==1,
+p5expression=Append[p5expression,{p5[[1,1]],p5[[1,2]],p5[[2,2]]}];
+(*
 filename=obsname[[5]]<>"_"<>"plotlist"<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,{p5[[1,1]],p5[[1,2]],p5[[2,2]]}  ];
+*)
 (*
 filename=obsname[[5]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,1]]  ];
@@ -1011,6 +1026,12 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,
 "dummy"
 ,{flavour,-5,-5+fmax-1}
 ];
+
+(*20171202 save .m file containing all figures of flavours *)
+filename=obsname[[5]]<>"_"<>"plotlist"<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5expression  ];
+filename=obsname[[6]]<>"_"<>"plotlist"<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6expression  ];
 
 (*2, 3, 4*)
 (*dr*corr plots*)
