@@ -363,3 +363,6 @@ all .m figure files with the same plot type are saved in one file
 
 20171202
 fix the bug that each flavour index of correlation/sensitivity has a .m file
+
+20171203
+modify the number format in data info .txt files: for too large or small numbers, use the format like 2.33E6 
