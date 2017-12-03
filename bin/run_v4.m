@@ -907,24 +907,33 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,
 ];
 
 (*20171103: add files storing mathematica expressions so that users can change details of every figure*)
-
+(*
 filename=obsname[[6]]<>"_"<>representationname[[5]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,2]]];
+*)
 (*20171201 for +1: absolute values of data, for -1: sign data*)
 If[
 FigureFlag[[6]]==-1,
+filename=obsname[[6]]<>"_"<>"plotlist"<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,{p6[[1,1]],p6[[1,2]],p6[[2,1]]}  ];
+(*
 filename=obsname[[6]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,1]] ];
 filename=obsname[[6]]<>"_"<>representationname[[3]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,1]] ];
+*)
 "dummy"
 ];
 If[
 FigureFlag[[6]]==1,
+filename=obsname[[6]]<>"_"<>"plotlist"<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,{p6[[1,1]],p6[[1,2]],p6[[2,1]]}  ];
+(*
 filename=obsname[[6]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,1]] ];
 filename=obsname[[6]]<>"_"<>representationname[[4]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,2]] ];
+*)
 "dummy"
 ];
 
@@ -964,24 +973,33 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,
 ];
 
 (*20171103: add files storing mathematica expressions so that users can change details of every figure*)
-
+(*
 filename=obsname[[5]]<>"_"<>representationname[[5]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,2]] ];
+*)
 (*20171201 for +1: absolute values of data, for -1: sign data*)
 If[
 FigureFlag[[5]]==-1,
+filename=obsname[[5]]<>"_"<>"plotlist"<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,{p5[[1,1]],p5[[1,2]],p5[[2,1]]}  ];
+(*
 filename=obsname[[5]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,1]]  ];
 filename=obsname[[5]]<>"_"<>representationname[[3]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,1]] ];
+*)
 "dummy"
 ];
 If[
 FigureFlag[[5]]==1,
+filename=obsname[[5]]<>"_"<>"plotlist"<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,{p5[[1,1]],p5[[1,2]],p5[[2,2]]}  ];
+(*
 filename=obsname[[5]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,1]]  ];
 filename=obsname[[5]]<>"_"<>representationname[[4]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,2]] ];
+*)
 "dummy"
 ];
 
@@ -1021,6 +1039,10 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 ];
 
 (*20171103: add files storing mathematica expressions so that users can change details of every figure*)
+(*20171202 only save in one file*)
+filename=obsname[[2]]<>"_"<>"plotlist"<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,{p234[[1,1]],p234[[1,2]],p234[[2,2]]}  ];
+(*
 filename=obsname[[2]]<>"_"<>representationname[[2]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]]  ];
 filename=obsname[[2]]<>"_"<>representationname[[5]]<>"_samept"<>".m";
@@ -1032,6 +1054,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 *)
 filename=obsname[[2]]<>"_"<>representationname[[4]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]]  ];
+*)
 
 (*20171202 add important data info*)
 filename=obsname[[2]]<>"_"<>representationname[[8]]<>"_samept"<>".txt";
@@ -1074,16 +1097,22 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 ];
 
 (*20171103: add files storing mathematica expressions so that users can change details of every figure*)
-
+(*
 filename=obsname[[3]]<>"_"<>representationname[[5]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]]  ];
+*)
 (*20171201 for +1: absolute values of data, for -1: sign data*)
 If[
 FigureFlag[[3]]==-1,
+(*20171202 only save in one file*)
+filename=obsname[[3]]<>"_"<>"plotlist"<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,{p234[[1,1]],p234[[1,2]],p234[[2,1]]}  ];
+(*
 filename=obsname[[3]]<>"_"<>representationname[[1]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]]  ];
 filename=obsname[[3]]<>"_"<>representationname[[3]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]] ];
+*)
 (*20171202 add important data info*)
 filename=obsname[[3]]<>"_"<>representationname[[7]]<>"_samept"<>".txt";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,datainfostr  ];
@@ -1091,10 +1120,15 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,datain
 ];
 If[
 FigureFlag[[3]]==1,
+(*20171202 only save in one file*)
+filename=obsname[[3]]<>"_"<>"plotlist"<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,{p234[[1,1]],p234[[1,2]],p234[[2,2]]}  ];
+(*
 filename=obsname[[3]]<>"_"<>representationname[[2]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]]  ];
 filename=obsname[[3]]<>"_"<>representationname[[4]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]] ];
+*)
 (*20171202 add important data info*)
 filename=obsname[[3]]<>"_"<>representationname[[8]]<>"_samept"<>".txt";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,datainfostr  ];
@@ -1127,6 +1161,10 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 {i,Length[iext]}
 ];
 
+(*20171202 only save in one file*)
+filename=obsname[[4]]<>"_"<>"plotlist"<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,{p234[[1,1]],p234[[1,2]],p234[[2,2]]}  ];
+(*
 (*20171103: add files storing mathematica expressions so that users can change details of every figure*)
 filename=obsname[[4]]<>"_"<>representationname[[2]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]]  ];
@@ -1139,7 +1177,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 *)
 filename=obsname[[4]]<>"_"<>representationname[[4]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]]  ];
-
+*)
 (*20171202 add important data info*)
 filename=obsname[[4]]<>"_"<>representationname[[8]]<>"_samept"<>".txt";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,datainfostr  ];
