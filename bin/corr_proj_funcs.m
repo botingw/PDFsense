@@ -7457,18 +7457,18 @@ fmax=Length[corrfxQdtaobsclassin[[1,1]] ];
 
 (*data format \[Equal] {LF[x,Q,obs],...,...}, to LF1*)
 pdfcorr=Table[#[[iexpt,flavourin+6]][["data"]]/.LF->LF1,{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin;
-Print[Length[exptlist[[1]] ],"  ",Length[pdfcorr[[1]] ] ];(*test length data*)
+(*Print[Length[exptlist[[1]] ],"  ",Length[pdfcorr[[1]] ] ];*)(*test length data*)
 
 (*20171126: classify exptid by defined groups with classifymode*)
 {groupnames,groupExptIDs,(*groupdata*)pdfcorr}=ClassifyPlottedData[pdfcorr[[1]],exptlist[[1]],classifymode];
-Print[Length[exptlist[[1]] ],"  ",Length[pdfcorr] ];(*test length data*)
+(*Print[Length[exptlist[[1]] ],"  ",Length[pdfcorr] ];*)(*test length data*)
 (*pdfcorr=Table[Flatten[pdfcorr[[igroup]],1],{igroup,Length[pdfcorr]}];*)
 
 (*merge all experimental data into one, for all flavours*)
 (*ex: corrdataforplot[[iexpt,flavour,Npt]] \[Rule] orrdataforplot[[flavour,Npt]]*)
 (*{pdfcorr ,dummy1,dummy2}=mergeplotdata[{pdfcorr ,pdfcorr,pdfcorr}];*)
 pdfcorr=Flatten[#,1]&/@pdfcorr;
-Print[Length[exptlist[[1]] ],"  ",Length[pdfcorr]," ",Length[groupnames]," ",Length[groupExptIDs] ];(*test length data*)
+(*Print[Length[exptlist[[1]] ],"  ",Length[pdfcorr]," ",Length[groupnames]," ",Length[groupExptIDs] ];*)(*test length data*)
 
 (* deletezerovalue: delete data with 0 value (0 value usually from mb, mc cut)*)
 (*{pdfcorr ,dummy1,dummy2}=deletezerovalue[{pdfcorr ,pdfcorr,pdfcorr}];*)
@@ -7506,7 +7506,7 @@ pdfcorr=Table[Datamethods[["take"]][#[[iexpt,flavourin+6]],2][["data"]]/.LF->LF1
 (*20171202: if the "other" type has no expt ID, delete it*)
 If[Length[groupExptIDs[[-1]] ]==0,{groupnames,groupExptIDs,(*groupdata*)pdfcorr}=Drop[#,-1]&/@{groupnames,groupExptIDs,(*groupdata*)pdfcorr}];
 
-Print[Length[exptlist[[1]] ],"  ",Length[pdfcorr] ];(*test length data*)
+(*Print[Length[exptlist[[1]] ],"  ",Length[pdfcorr] ];*)(*test length data*)
 (*=============================================================================================================================*)
 (*Statistical quantities of data============================================================================================================*)
 (*=============================================================================================================================*)
@@ -7603,7 +7603,7 @@ Length[Intersection[Table[If[(#[[3]]>=highlightrange[[i,1]] && #[[3]]<highlightr
 {iexpt,Length[pdfcorr]}
 ];
 
-Print[Length[exptlist[[1]] ]," ",Length[pdfcorr] ];
+(*Print[Length[exptlist[[1]] ]," ",Length[pdfcorr] ];*)
 (*output*)
 
 (*if |data|, define get statistical quantities of |data|*)
@@ -7701,11 +7701,14 @@ infostring=infostring<>ToString[input[[1,ilabel]] ]<>": "<>ToString[input[[2,ila
 (*show the data part, format: {{exptname, data with in the highlight range},...}*)
 infostring=infostring<>ToString[input[[1,-1]] ]<>"\n";
 
+(*20171203 delete the exptid with no data in the highlighted ranges*)
+input[[2,-1]]=Select[input[[2,-1]],Length[#[[2]] ]>0&];
+
 Nexpt=Length[input[[2,-1]] ];
 Table[
 exptID=input[[2,-1,iexpt,1]]//ToString;
 xqvaluestr="{x, Q, value}";
-exptdata=(ToString[#]<>"\n")&/@(input[[2,-1,iexpt,2]]/.LF1->List);
+exptdata=(ToString[#]<>"\n")&/@(input[[2,-1,iexpt,2]]/.LF1[a__]:>(If[Abs[#]<10.0^5 && Abs[#]>10.0^-5,#,ToSciForm[#,4] ]&/@{a}) );
 infostring=infostring<>exptID<>"\n"<>xqvaluestr<>"\n"<>exptdata<>"\n";
 "dummy",
 {iexpt,Nexpt}
