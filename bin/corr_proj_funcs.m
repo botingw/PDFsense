@@ -7401,7 +7401,8 @@ ColorPaletteMode,PaletteMax,PaletteMin,
 groupnames,groupExptIDs,classifymode,
 ColorPaletterange,JobDescription,
 shapeslist,abstitle,absPaletteMax,absbarseperator,absbarlegend,xQplotcorr2,exptnamestitle,
-safewidth,datatype,output},
+safewidth,datatype,output,
+DataStatsByIDLabel,DataStatsByID,AbsDataStatsByID},
 
 (*read arguments in config file*)
 (*==============================*)
@@ -7528,6 +7529,17 @@ DataSD=StandardDeviation[HistDataList];
 AbsDataSD=StandardDeviation[HistAbsDataList];
 "dummy"
 ];
+
+(*20171204 we need info for each expt ID*)
+{DataStatsByIDLabel,DataStatsByID,AbsDataStatsByID};
+DataStatsByIDLabel={"ID","Max","Min","Mean","Median","StandardDeviation"};
+DataStatsByID={Max[#],Min[#],Mean[#],Median[#],StandardDeviation[#]}&/@(pdfcorr/.LF1[a__]:>{a}[[3]]);
+AbsDataStatsByID={Max[#],Min[#],Mean[#],Median[#],StandardDeviation[#]}&/@(pdfcorr/.LF1[a__]:>Abs[{a}[[3]] ]);
+(*add row label (expt names)*)
+Table[DataStatsByID[[iexpt]]=Prepend[DataStatsByID[[iexpt]],groupnames[[iexpt]] ],{iexpt,Length[groupnames]}];
+Table[AbsDataStatsByID[[iexpt]]=Prepend[AbsDataStatsByID[[iexpt]],groupnames[[iexpt]] ],{iexpt,Length[groupnames]}];
+DataStatsByID=Prepend[DataStatsByID,DataStatsByIDLabel];
+AbsDataStatsByID=Prepend[AbsDataStatsByID,DataStatsByIDLabel];
 (*=============================================================================================================================*)
 (*Highlight range setting============================================================================================================*)
 (*=============================================================================================================================*)
@@ -7607,23 +7619,31 @@ Length[Intersection[Table[If[(#[[3]]>=highlightrange[[i,1]] && #[[3]]<highlightr
 (*output*)
 
 (*if |data|, define get statistical quantities of |data|*)
-If[FigureFlag[[plottype]]==1,DataMax=AbsDataMax;DataMin=AbsDataMin;DataMean=AbsDataMean;DataMedian=AbsDataMedian;DataSD=AbsDataSD];
+If[
+FigureFlag[[plottype]]==1,
+DataMax=AbsDataMax;
+DataMin=AbsDataMin;
+DataMean=AbsDataMean;
+DataMedian=AbsDataMedian;
+DataSD=AbsDataSD;
+DataStatsByID=AbsDataStatsByID
+];
 (*output {{labels},{values or descriptions}}*)
 
 If[
 (plottype==5 || plottype==6),
 output=
 {
-{"datatype","flavour","Expts","DataMax","DataMin","DataMean","DataMedian","DataSD","highlightrange","highlighted data"},
-{datatype,pdfnamelable[[flavourin+6]],{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,DataMax,DataMin,DataMean,DataMedian,DataSD,highlightrange,Transpose[{{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,pdfcorr},{2,1}]}
+{"datatype","flavour","Expts","DataMax","DataMin","DataMean","DataMedian","DataSD","data stats by ID","highlightrange","highlighted data"},
+{datatype,pdfnamelable[[flavourin+6]],{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,DataMax,DataMin,DataMean,DataMedian,DataSD,DataStatsByID,highlightrange,Transpose[{{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,pdfcorr},{2,1}]}
 }
 ];
 If[
 (plottype==2 || plottype==3 || plottype==4),
 output=
 {
-{"datatype",(*"flavour",*)"Expts","DataMax","DataMin","DataMean","DataMedian","DataSD","highlightrange","highlighted data"},
-{datatype,(*pdfnamelable[[flavourin+6]],*){#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,DataMax,DataMin,DataMean,DataMedian,DataSD,highlightrange,Transpose[{{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,pdfcorr},{2,1}]}
+{"datatype",(*"flavour",*)"Expts","DataMax","DataMin","DataMean","DataMedian","DataSD","data stats by ID","highlightrange","highlighted data"},
+{datatype,(*pdfnamelable[[flavourin+6]],*){#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,DataMax,DataMin,DataMean,DataMedian,DataSD,DataStatsByID,highlightrange,Transpose[{{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,pdfcorr},{2,1}]}
 }
 
 ];
@@ -7696,8 +7716,13 @@ infostring="";
 (*only show the meta data part*)
 Table[
 infostring=infostring<>ToString[input[[1,ilabel]] ]<>": "<>ToString[input[[2,ilabel]] ]<>"\n",
-{ilabel,Nlabel-1}
+{ilabel,Nlabel-3}
 ];
+(*20171204 show the stats of data for each Expt ID*)
+infostring=infostring<>ToString[input[[1,-3]] ]<>":"<>"\n";
+infostring=infostring<>( (input[[2,-3]]//TableForm)//ToString)<>"\n";
+(*show highlight range*)
+infostring=infostring<>ToString[input[[1,-2]] ]<>": "<>ToString[input[[2,-2]] ]<>"\n";
 (*show the data part, format: {{exptname, data with in the highlight range},...}*)
 infostring=infostring<>ToString[input[[1,-1]] ]<>"\n";
 
