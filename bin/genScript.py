@@ -46,7 +46,7 @@ def data():
 def myfunction(event):
     canvas.configure(scrollregion=canvas.bbox("all"))
 
-w = 1000
+w = 1100
 h = 600
 
 root = tk.Tk()

@@ -1,0 +1,13 @@
+These data should put in ./quick_data/ of PDFsense
+they are 
+CT14NNLO = exptids in CT14NNLO, 2017.0604.1856.-0500_CT14-1_mod, 2017.0604.1856.-0500_CT14-2_mod
+CT14HERA2NNLO  = exptids in CT14HERA2NNLO, 2017.0604.1858.-0500_CT14HERA2-1_mod, 2017.0604.1858.-0500_CT14HERA2-2_mod
+CT14HERA2-jet.ev = exptids in2017.1008.0954.-0500_CT14HERA2-jet.ev
+
+ExptIDs with problems:
+247: ZpT, no formula
+248: Wasym, rapidity values are too large, so (x, mu) diverge (x > 1 or x<<10-5)
+
+replicas with problems:
+the last replica (57) of CT14HERA2-1_mod & CT14HERA2-2_mod: f(x,Q) diverge
+impact Expt IDs: ( 245 246 247 248 249 250 542 544 565 566 567 568)
