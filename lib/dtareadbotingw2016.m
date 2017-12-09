@@ -221,7 +221,9 @@ expidsqrtS=
 {248,7000},
 {247,7000},
 (*20171016: add 545*)
-{545,8000}
+{545,8000},
+(*20171208 TJ's new data in HERA2 ev02*)
+{252,8000},{253,8000},{254,8000},{255,8000}
 };
 
 (*find position of exptID*)
@@ -468,7 +470,7 @@ tmpTable
 
 ExptIDinfo[ExptIDin_]:=
 Module[{ExptID=ExptIDin,output,expItype,VBPtype1,VBPtype2,VBPtype3,
-JP,ttbarpT,ttbarmtt,ttbary,ID267},
+JP,ttbarpT,ttbarmtt,ttbary,ID267,ID247,ID252,ID253,ID254,ID255},
 (*
 1:DIS;
 2:VBP (VectorBosonProd.;real/virtual photon;W,Z,...)
@@ -502,6 +504,13 @@ ttbarmtt={567};
 ttbary={566,568};
 (*20171121: it's Q = 0, set it as W mass*)
 ID267={267};
+(*20171130: Zpt, Q^2=Subscript[M, Z]^2+Subscript[p^2, T]*)
+ID247={247};
+(*20171208 add customized formulas for 252 ~ 255*)
+ID252={252};
+ID253={253};
+ID254={254};
+ID255={255};
 
 expItype=
 Which[
@@ -515,6 +524,16 @@ ExptID>99 && ExptID<200,
 "VBP3",
 ExptID>199 && ExptID<300 && SubsetQ[ID267,{ExptID}],(*W \[Rule] lv, asym*)
 "ID267",
+ExptID>199 && ExptID<300 && SubsetQ[ID247,{ExptID}],(*W \[Rule] lv, asym*)
+"ID247",
+ExptID>199 && ExptID<300 && SubsetQ[ID252,{ExptID}],(*W \[Rule] lv, asym*)
+"ID252",
+ExptID>199 && ExptID<300 && SubsetQ[ID253,{ExptID}],(*W \[Rule] lv, asym*)
+"ID253",
+ExptID>199 && ExptID<300 && SubsetQ[ID254,{ExptID}],(*W \[Rule] lv, asym*)
+"ID254",
+ExptID>199 && ExptID<300 && SubsetQ[ID255,{ExptID}],(*W \[Rule] lv, asym*)
+"ID255",
  ExptID>199 && ExptID<300,
 "VBPothers",
  ExptID>299 && ExptID<400,
@@ -624,7 +643,10 @@ output =expItype
 (**)
 (**)
 (**)
-(*\!\(\*SuperscriptBox[\(\[ExponentialE]\), \({a}[\([1]\)]\)]\),{a}[[2]]},data/.LF[a__]:>{({a}[[2]]/Sqrt[S])*E^-{a}[[1]],{a}[[2]]}],(* x1 = (Q/sqrt(S))*exp(+-y) *)*)
+(**)
+(**)
+(**)
+(*\!\(\*SuperscriptBox[\(\[ExponentialE]\), \({a}[\([\)\(1\)\(]\)]\)]\),{a}[[2]]},data/.LF[a__]:>{({a}[[2]]/Sqrt[S])*E^-{a}[[1]],{a}[[2]]}],(* x1 = (Q/sqrt(S))*exp(+-y) *)*)
 (*"VBP3",*)
 (*Join[data/.LF[a__]:>{({a}[[2]]/Sqrt[S])**)
 (**)
@@ -637,7 +659,10 @@ output =expItype
 (**)
 (**)
 (**)
-(*\!\(\*SuperscriptBox[\(\[ExponentialE]\), \({a}[\([1]\)]\)]\),{a}[[2]]},data/.LF[a__]:>{({a}[[2]]/Sqrt[S])*E^-{a}[[1]],{a}[[2]]}],(* formula not decided yet *)*)
+(**)
+(**)
+(**)
+(*\!\(\*SuperscriptBox[\(\[ExponentialE]\), \({a}[\([\)\(1\)\(]\)]\)]\),{a}[[2]]},data/.LF[a__]:>{({a}[[2]]/Sqrt[S])*E^-{a}[[1]],{a}[[2]]}],(* formula not decided yet *)*)
 (*"JP",*)
 (*(* this form is for q1q2 \[Rule] j1j2, estimate x1, x2 of jet as peak of y(j1), y(j2)*)*)
 (**)
@@ -665,7 +690,30 @@ output =expItype
 (* ::Input::Initialization:: *)
 (*2017.01.15, like selectExptxQ, but keep other data*)
 selectExptxQv2[ExptIDin_,datain_,Sin_]:=
-Module[{ExptID=ExptIDin,data=datain,S=Sin,sqrtS,expItype,datatmp,output,i},
+Module[{ExptID=ExptIDin,data=datain,S=Sin,sqrtS,expItype,datatmp,output,i,
+GetAveByBinUp,GetAveByBinLow,mllrange,yrange},
+
+(*20171208: for some input values from .dta files are max, min rather than the average values, use following two functions to get the average values*)
+(*we need to know 1. the input value is binup or binlow, 2. we need to have values of each bin ticks*)
+(*we find the bin tick index for the input binup/binlow, then we output the bin center as the average value we need*)
+GetAveByBinUp[binupin_,binsin_]:=
+Module[{binup=binupin,bins=binsin,Posbinup,BoolYmaxExist,binave},
+BoolYmaxExist=False;
+Table[If[binup==bins[[i]],Posbinup=i;BoolYmaxExist=True],{i,Length[bins]}]; 
+If[BoolYmaxExist==False,Print["GetYAve: error, the input binup is not in the list of bin list, the average bin value could not be calculated "];Abort[] ];
+If[Posbinup==1,Print["GetYAve: error, the input binup could not be the first element of the input bin list "];Abort[] ];
+binave=(bins[[Posbinup]]+bins[[Posbinup-1]])/2.0;
+binave
+];
+GetAveByBinLow[binlowin_,binsin_]:=
+Module[{binlow=binlowin,bins=binsin,Posbinlow,BoolYmaxExist,binave},
+BoolYmaxExist=False;
+Table[If[binlow==bins[[i]],Posbinlow=i;BoolYmaxExist=True],{i,Length[bins]}]; 
+If[BoolYmaxExist==False,Print["GetYAve: error, the input binlow is not in the list of bin list, the average bin value could not be calculated "];Abort[] ];
+If[Posbinlow==Length[bins],Print["GetYAve: error, the input binlow could not be the last element of the input bin list "];Abort[] ];
+binave=(bins[[Posbinlow]]+bins[[Posbinlow+1]])/2.0;
+binave
+];
 (*
 data=data/.List\[RuleDelayed]LF;
 data=data/.LF[x__]\[RuleDelayed]{x}[[Xindex]];
@@ -682,64 +730,84 @@ expItype=ExptIDinfo[ExptID];
 sqrtS=ExptIDEcm[ExptID];
 S=sqrtS^2;
 
+(*test mathematica symbols*)
+Sqrt[S];E^1.5;Log[39];8/1;5/3;5/Sqrt[S];
+
+
 output=
 Switch[expItype,
 "DIS",
 data/.LF[a__]:>LF@@{Sequence@@{a},{a}[[2]],{a}[[1]]},
+(*20171130: VBP1 no data set, formula will not affect the result*)
 "VBP1",
-data/.LF[a__]:>LF@@{Sequence@@{a},{a}[[2]]/Sqrt[S],{a}[[2]]},
+data/.LF[a__]:>LF@@{Sequence@@{a},(*{a}[[2]]/Sqrt[S],*){a}[[2]]/Sqrt[S],{a}[[2]]},
 "VBP2",
 Join[data/.LF[a__]:>LF@@{Sequence@@{a},({a}[[2]]/Sqrt[S])*
 
 
 
 
+\!\(\*SuperscriptBox[\(\[ExponentialE]\), \({a}[\([\)\(1\)\(]\)]\)]\),{a}[[2]]},data/.LF[a__]:>LF@@{Sequence@@{a},({a}[[2]]/Sqrt[S])*
 
-
-
-
-
-
-
-
-
-\!\(\*SuperscriptBox[\(\[ExponentialE]\), \({a}[\([1]\)]\)]\),{a}[[2]]},data/.LF[a__]:>LF@@{Sequence@@{a},({a}[[2]]/Sqrt[S])*E^-{a}[[1]],{a}[[2]]}],(* x1 = (Q/sqrt(S))*exp(+-y) *)
+E^-{a}[[1]],{a}[[2]]}],(* x1 = (Q/sqrt(S))*exp(+-y) *)
 "VBP3",
 Join[data/.LF[a__]:>LF@@{Sequence@@{a},({a}[[2]]/Sqrt[S])*
 
 
 
 
-
-
-
-
-
-
-
-
-
-\!\(\*SuperscriptBox[\(\[ExponentialE]\), \({a}[\([1]\)]\)]\),{a}[[2]]},data/.LF[a__]:>LF@@{Sequence@@{a},({a}[[2]]/Sqrt[S])*E^-{a}[[1]],{a}[[2]]}],(* formula not decided yet *)
+\!\(\*SuperscriptBox[\(\[ExponentialE]\), \({a}[\([\)\(1\)\(]\)]\)]\),{a}[[2]]},data/.LF[a__]:>LF@@{Sequence@@{a},({a}[[2]]/Sqrt[S])*E^-{a}[[1]],{a}[[2]]}],(* formula not decided yet *)
 "ID267",
 Join[data/.LF[a__]:>LF@@{Sequence@@{a},(80.39/Sqrt[S])*
 
 
 
 
-
-
-
-
-
-
-
-
-
-\!\(\*SuperscriptBox[\(\[ExponentialE]\), \({a}[\([1]\)]\)]\),80.39},data/.LF[a__]:>LF@@{Sequence@@{a},(80.39/Sqrt[S])*E^-{a}[[1]],80.39}],(* formula not decided yet *)
+\!\(\*SuperscriptBox[\(\[ExponentialE]\), \({a}[\([\)\(1\)\(]\)]\)]\),80.39},data/.LF[a__]:>LF@@{Sequence@@{a},(80.39/Sqrt[S])*E^-{a}[[1]],80.39}],(* formula not decided yet *)
+"ID247",
+data/.LF[a__]:>LF@@{Sequence@@{a},(Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S]),Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]},
+(*20171208 new data from TJ's HERA2 ev02 *)
+"ID252",
+(*d\[Sigma]/Subscript[dm, ll]dy*)
+(*pT(l1)>40 GeV, pT(l2)>30 GeV, so mll > 70 GeV for the formula*)
+(*in .dta files: col1 \[Equal] <y>, col2 \[Equal] Subscript[mll, min], col3 \[Equal] unset*)
+mllrange={116.0,150.0,200.0,300.0,500.0,1500.0};
+Select[
+Join[data/.LF[a__]:>{Sequence@@{a},(GetAveByBinLow[{a}[[2]],mllrange]/Sqrt[S])*E^({a}[[1]]),GetAveByBinLow[{a}[[2]],mllrange]},
+data/.LF[a__]:>{Sequence@@{a},(GetAveByBinLow[{a}[[2]],mllrange]/Sqrt[S])*E^-({a}[[1]]),GetAveByBinLow[{a}[[2]],mllrange]}],
+(GetAveByBinLow[#[[2]],mllrange]>70.0)&
+],
+"ID253",
+(*mll ZpT (d\[Sigma]/Subscript[dp, T] in ranges of Subscript[m, ll])*)
+(*in .dta files: column 1 \[Equal] Subscript[mll, max], col2 \[Equal] ptmin, col3 \[Equal] ptmax*)
+mllrange={12.0,20.0,30.0,40.0,60.0,116.0,150.0};
+data/.LF[a__]:>{Sequence@@{a},(Sqrt[GetAveByBinUp[{a}[[1]],mllrange]^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S]),Sqrt[GetAveByBinUp[{a}[[1]],mllrange]^2+(({a}[[2]]+{a}[[3]])/2.0)^2]},
+"ID254",
+(*d\[Sigma]/Subscript[dp, T]dy*)
+(*in .dta files: col1 \[Equal] Subscript[y, max], col2 \[Equal] Subscript[pT, min], col3 \[Equal] Subscript[pT, max]*)
+yrange={0.0,0.4,0.8,1.2,1.6,2.0};
+Join[
+data/.LF[a__]:>{Sequence@@{a},(Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S])*E^(GetAveByBinUp[{a}[[1]],yrange]),Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]},
+data/.LF[a__]:>{Sequence@@{a},(Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S])*E^-(GetAveByBinUp[{a}[[1]],yrange]),Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]}
+],
+"ID255",
+(*d\[Sigma]/pT(W/Z)*)
+(*in .dta files: column 1 \[Equal] ycut < 2.5, col2 \[Equal] ptmin, col3 \[Equal] ptmax*)
+(*in HERA2 ev02, the first 4 points are W process events, the last 5 points are Z process events*)
+Join[
+(*W*)
+Take[data,4]/.LF[a__]:>{Sequence@@{a},(Sqrt[80.39^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S]),Sqrt[80.39^2+(({a}[[2]]+{a}[[3]])/2.0)^2]},
+(*Z*)
+Take[data,-5]/.LF[a__]:>{Sequence@@{a},(Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S]),Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]}
+],
+(* formula not decided yet *)
 "JP",
 (* this form is for q1q2 \[Rule] j1j2, estimate x1, x2 of jet as peak of y(j1), y(j2)*)
-
-Join[data/.LF[a__]:>LF@@{Sequence@@{a},((2*{a}[[1]])/(Sqrt[S]))*E^(({a}[[3]]-{a}[[2]])/2.0),2*{a}[[1]]},data/.LF[a__]:>LF@@{Sequence@@{a},((2*{a}[[1]])/(Sqrt[S]))*E^(({a}[[2]]-{a}[[3]])/2.0),2*{a}[[1]]}],(*x1=(Subscript[p, Tj]/(2Sqrt[S]))*e^Subscript[y, j]*)
+Select[
+Join[data/.LF[a__]:>LF@@{Sequence@@{a},((2*{a}[[1]])/Sqrt[S])*E^(({a}[[2]]+{a}[[3]])/2.0),2*{a}[[1]]},data/.LF[a__]:>LF@@{Sequence@@{a},((2*{a}[[1]])/Sqrt[S])*E^-(({a}[[2]]+{a}[[3]])/2.0),2*{a}[[1]]}],
+( ((2*#[[1]])/Sqrt[S])*E^((#[[2]]+#[[3]])/2.0)<1.0 && ((2*#[[1]])/Sqrt[S])*E^((#[[2]]+#[[3]])/2.0)>10.0^-10 &&
+((2*#[[1]])/Sqrt[S])*E^-((#[[2]]+#[[3]])/2.0)<1.0 && ((2*#[[1]])/Sqrt[S])*E^-((#[[2]]+#[[3]])/2.0)>10.0^-10 )&
+],(*x1=(Subscript[p, Tj]/(2Sqrt[S]))*e^Subscript[y, j]*)
 
 (*this form is for q1q2 \[Rule] W, Z or something, so rapidity is yjj, estimating x as peak of yjj*)
 (*
@@ -749,13 +817,23 @@ data/.LF[a__]\[RuleDelayed]{((2\[Times]{a}[[1]])/(Sqrt[S])),2\[Times]{a}[[1]]},
 (*pT, the same as the formula of JP*)
 (*20171126: pt events, <y> = 0*)
 "ttbarpT",
-data/.LF[a__]:>LF@@{Sequence@@{a},((2*{a}[[1]])/(Sqrt[S]))*E^(0.0),2*{a}[[1]]},
+Select[
+data/.LF[a__]:>LF@@{Sequence@@{a},((2*{a}[[1]])/Sqrt[S]),2*{a}[[1]]},
+( ((2*#[[1]])/Sqrt[S])<1.0 && ((2*#[[1]])/Sqrt[S])>10.0^-10 )&
+],
 (*mu = mtt, x = mtt (since y = 0 for this case)*)
 "ttbarmtt",
-data/.LF[a__]:>LF@@{Sequence@@{a},(({a}[[1]])/(Sqrt[S])),{a}[[1]]},
+Select[
+data/.LF[a__]:>LF@@{Sequence@@{a},({a}[[1]]/Sqrt[S]),{a}[[1]]},
+( (#[[1]]/Sqrt[S])<1.0 && (#[[1]]/Sqrt[S])>10.0^-10 )&
+],
 (*ytt, ya==(yt+ytbar)/2: mu~ 2mt+100GeV = 450 GeV, x = (Q/\[Sqrt]S)*e^+-y*)
 "ttbary",
-Join[data/.LF[a__]:>LF@@{Sequence@@{a},((400)/(Sqrt[S]))*E^(({a}[[3]]-{a}[[2]])/2.0),400},data/.LF[a__]:>LF@@{Sequence@@{a},((400)/(Sqrt[S]))*E^(({a}[[2]]-{a}[[3]])/2.0),400}],
+Select[
+Join[data/.LF[a__]:>LF@@{Sequence@@{a},(400.0/Sqrt[S])*E^(({a}[[2]]+{a}[[3]])/2.0),400.0},data/.LF[a__]:>LF@@{Sequence@@{a},(400.0/Sqrt[S])*E^-(({a}[[2]]+{a}[[3]])/2.0),400.0}],
+( (400.0/Sqrt[S])*E^((#[[2]]+#[[3]])/2.0)<1.0 && (400.0/Sqrt[S])*E^((#[[2]]+#[[3]])/2.0)>10.0^-10
+(400.0/Sqrt[S])*E^-((#[[2]]+#[[3]])/2.0)<1.0 && (400.0/Sqrt[S])*E^-((#[[2]]+#[[3]])/2.0)>10.0^-10 )&
+],
 _,
 Print["Wrong expItype value, ",expItype,", ",ExptID] (*data/.LF[a__]\[RuleDelayed]{{a}[[1]],{a}[[2]]}*)
 ];
