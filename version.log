@@ -334,6 +334,38 @@ update the default configure files
 
 20171130
 fix the bug for ID = 5xx, y = (ymin+ymax)/2, -y = -(ymin+ymax)/2
+rewrite the formulas of (x,Q) transform in more readable mathematica symbols
+
+20171201
+point shapes simplify
+show max and min values of the color palettes
+For plot type Flag, mode 1 -> mode 1 or -1, 1: absolute values of data, -1: sign data
+
+20171201
+fix bug: when plot type = 1, xQ plot is not the figure of |data|
+
+20171201
+1. fix the upbound = max value * 1.001, 
+because we add the same color interval after the max color interval for showing max and min values of the color palettes
+we don't need max value * 1.001 to get the safe range anymore
+2. fix bug: when drawing |data|, percentage highlight should choose the percentage of |data| rather than the percentage of data
+3. enlarge star symbol
+4. for plot type 1, color change for every new Expt ID
+5. modify colors of shapes in plot type 1, delete grey 
+ 
+20171201
+for |data| plots (flag = +1), add +1 in their filenames (xQ+1, hist+1)
+the same for data plots (flag = -1)
+
+20171202
+save files with info of data for each plot type
+all .m figure files with the same plot type are saved in one file
+
+20171202
+fix the bug that each flavour index of correlation/sensitivity has a .m file
+
+20171203
+modify the number format in data info .txt files: for too large or small numbers, use the format like 2.33E6 
 
 20171206
 update the pdf combine function to fit the new output filenames (GetxQplotListSameptV2) 
