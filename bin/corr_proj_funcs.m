@@ -7402,7 +7402,7 @@ groupnames,groupExptIDs,classifymode,
 ColorPaletterange,JobDescription,
 shapeslist,abstitle,absPaletteMax,absbarseperator,absbarlegend,xQplotcorr2,exptnamestitle,
 safewidth,datatype,output,
-DataStatsByIDLabel,DataStatsByID,AbsDataStatsByID},
+DataStatsByIDLabel,DataStatsByID,AbsDataStatsByID,Npt},
 
 (*read arguments in config file*)
 (*==============================*)
@@ -7527,14 +7527,16 @@ DataMedian=Median[HistDataList];
 AbsDataMedian=Median[HistAbsDataList];
 DataSD=StandardDeviation[HistDataList];
 AbsDataSD=StandardDeviation[HistAbsDataList];
+(*20171208*)
+Npt=Length[HistDataList];
 "dummy"
 ];
 
-(*20171204 we need info for each expt ID*)
+(*20171204 we need info for each expt ID*)(*20171208 add Npt for each expt ID*)
 {DataStatsByIDLabel,DataStatsByID,AbsDataStatsByID};
-DataStatsByIDLabel={"ID","Max","Min","Mean","Median","StandardDeviation"};
-DataStatsByID={Max[#],Min[#],Mean[#],Median[#],StandardDeviation[#]}&/@(pdfcorr/.LF1[a__]:>{a}[[3]]);
-AbsDataStatsByID={Max[#],Min[#],Mean[#],Median[#],StandardDeviation[#]}&/@(pdfcorr/.LF1[a__]:>Abs[{a}[[3]] ]);
+DataStatsByIDLabel={"ID","Npt","SumVals","Max","Min","Mean","Median","StandardDeviation"};
+DataStatsByID={Length[#],Length[#]*Mean[#],Max[#],Min[#],Mean[#],Median[#],StandardDeviation[#]}&/@(pdfcorr/.LF1[a__]:>{a}[[3]]);
+AbsDataStatsByID={Length[#],Length[#]*Mean[#],Max[#],Min[#],Mean[#],Median[#],StandardDeviation[#]}&/@(pdfcorr/.LF1[a__]:>Abs[{a}[[3]] ]);
 (*add row label (expt names)*)
 Table[DataStatsByID[[iexpt]]=Prepend[DataStatsByID[[iexpt]],groupnames[[iexpt]] ],{iexpt,Length[groupnames]}];
 Table[AbsDataStatsByID[[iexpt]]=Prepend[AbsDataStatsByID[[iexpt]],groupnames[[iexpt]] ],{iexpt,Length[groupnames]}];
@@ -7634,16 +7636,16 @@ If[
 (plottype==5 || plottype==6),
 output=
 {
-{"datatype","flavour","Expts","DataMax","DataMin","DataMean","DataMedian","DataSD","data stats by ID","highlightrange","highlighted data"},
-{datatype,pdfnamelable[[flavourin+6]],{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,DataMax,DataMin,DataMean,DataMedian,DataSD,DataStatsByID,highlightrange,Transpose[{{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,pdfcorr},{2,1}]}
+{"datatype","flavour","Expts","Npt","SumVals","DataMax","DataMin","DataMean","DataMedian","DataSD","data stats by ID","highlightrange","highlighted data"},
+{datatype,pdfnamelable[[flavourin+6]],{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,Npt,Npt*DataMean,DataMax,DataMin,DataMean,DataMedian,DataSD,DataStatsByID,highlightrange,Transpose[{{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,pdfcorr},{2,1}]}
 }
 ];
 If[
 (plottype==2 || plottype==3 || plottype==4),
 output=
 {
-{"datatype",(*"flavour",*)"Expts","DataMax","DataMin","DataMean","DataMedian","DataSD","data stats by ID","highlightrange","highlighted data"},
-{datatype,(*pdfnamelable[[flavourin+6]],*){#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,DataMax,DataMin,DataMean,DataMedian,DataSD,DataStatsByID,highlightrange,Transpose[{{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,pdfcorr},{2,1}]}
+{"datatype",(*"flavour",*)"Expts","Npt","SumVals","DataMax","DataMin","DataMean","DataMedian","DataSD","data stats by ID","highlightrange","highlighted data"},
+{datatype,(*pdfnamelable[[flavourin+6]],*){#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,Npt,Npt*DataMean,DataMax,DataMin,DataMean,DataMedian,DataSD,DataStatsByID,highlightrange,Transpose[{{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,pdfcorr},{2,1}]}
 }
 
 ];
@@ -7720,6 +7722,8 @@ infostring=infostring<>ToString[input[[1,ilabel]] ]<>": "<>ToString[input[[2,ila
 ];
 (*20171204 show the stats of data for each Expt ID*)
 infostring=infostring<>ToString[input[[1,-3]] ]<>":"<>"\n";
+(*20171208 if numbers are large, save in xxxExxx format*)
+input[[2,-3]]=Map[If[(Abs[#]<10^5 && Abs[#]>10^-5)||StringQ[#] || IntegerQ[#],#,ToSciForm[#,4]]&,input[[2,-3]],{2}];
 infostring=infostring<>( (input[[2,-3]]//TableForm)//ToString)<>"\n";
 (*show highlight range*)
 infostring=infostring<>ToString[input[[1,-2]] ]<>": "<>ToString[input[[2,-2]] ]<>"\n";
@@ -8334,6 +8338,63 @@ filename=obsname[[4]]<>"_"<>representationname[[3]]<>"_samept";
 If[FileExistsQ[PlotDir<>filename<>extensionname[[iext]]]==True,AppendTo[filenamelist,PlotDir<>filename<>extensionname[[iext]] ] ];
 filename=obsname[[4]]<>"_"<>representationname[[4]]<>"_samept";
 If[FileExistsQ[PlotDir<>filename<>extensionname[[iext]]]==True,AppendTo[filenamelist,PlotDir<>filename<>extensionname[[iext]] ] ];
+
+
+filename=obsname[[1]]<>"_"<>representationname[[1]];
+If[FileExistsQ[PlotDir<>filename<>extensionname[[iext]]]==True,AppendTo[filenamelist,PlotDir<>filename<>extensionname[[iext]] ] ];
+(*output*)
+filenamelist
+
+]
+
+
+(*20171206*)
+(*input the plot Directory (output of this package), then this function show the list of figures under this directory*)
+GetxQplotListSameptV2[PlotDirin_,extIndexin_]:=
+Module[{PlotDir=PlotDirin,extIndex=extIndexin,
+filenamelist,filename,iext,obsname,representationname,extensionname,fmax},
+
+(*set observables, different kinds of plot, available extension of output files *)
+obsname={"xQbyexpt","expt_error_ratio","residual","dr","corrdr","corr"};
+representationname={"xQ","legend","hist1","hist2"};
+extensionname={".eps",".png",".pdf",".jpg"};
+
+(*set observables, different kinds of plot, available extension of output files *)
+obsname={"xQbyexpt","expt_error_ratio","residual","dr","corrdr","corr"};
+representationname={"xQ-1","xQ+1","hist-1","hist+1","legend","xQ","info-1","info+1"};(*20171201 change filename format*)
+extensionname={".eps",".png",".pdf",".jpg"};
+
+(*make all figuretype plots *)
+filenamelist={};
+iext=extIndex;
+fmax=100;
+
+Print["search figures under",PlotDir,", extension = ",extensionname[[extIndex]],", total #flavour for check = ",fmax];
+Table[
+(*Print["now flavour = ",flavour];*)
+(*add exptname table into output figure*)
+
+(*p6=GraphicsGrid[p6,Spacings\[Rule]Scaled[0.15] ];*)
+
+filename=obsname[[iobs]]<>"_"<>representationname[[irep]]<>"_"<>"f"<>ToString[flavour]<>"_samept";
+If[FileExistsQ[PlotDir<>filename<>extensionname[[iext]]]==True,AppendTo[filenamelist,PlotDir<>filename<>extensionname[[iext]] ] ];
+
+"dummy"
+,{flavour,-5,-5+fmax-1},{iobs,{6,5}},{irep,representationname//Length}
+];
+
+Table[
+(*Print["now flavour = ",flavour];*)
+(*add exptname table into output figure*)
+
+(*p6=GraphicsGrid[p6,Spacings\[Rule]Scaled[0.15] ];*)
+
+filename=obsname[[iobs]]<>"_"<>representationname[[irep]]<>"_samept";
+If[FileExistsQ[PlotDir<>filename<>extensionname[[iext]]]==True,AppendTo[filenamelist,PlotDir<>filename<>extensionname[[iext]] ] ];
+
+"dummy"
+,{iobs,{2,3,4}},{irep,representationname//Length}
+];
 
 
 filename=obsname[[1]]<>"_"<>representationname[[1]];
