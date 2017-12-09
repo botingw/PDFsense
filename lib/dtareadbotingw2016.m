@@ -700,8 +700,20 @@ GetAveByBinUp[binupin_,binsin_]:=
 Module[{binup=binupin,bins=binsin,Posbinup,BoolYmaxExist,binave},
 BoolYmaxExist=False;
 Table[If[binup==bins[[i]],Posbinup=i;BoolYmaxExist=True],{i,Length[bins]}]; 
-If[BoolYmaxExist==False,Print["GetYAve: error, the input binup is not in the list of bin list, the average bin value could not be calculated "];Abort[] ];
-If[Posbinup==1,Print["GetYAve: error, the input binup could not be the first element of the input bin list "];Abort[] ];
+If[
+BoolYmaxExist==False,
+Print["GetAveByBinUp: error, the input binup is not in the list of bin list, the average bin value could not be calculated "];
+Print["binup value: ",binup];
+Print["bin list: ",bins];
+Abort[] 
+];
+If[
+Posbinup==1,
+Print["GetAveByBinUp: error, the input binup could not be the first element of the input bin list "];
+Print["binup value: ",binup];
+Print["bin list: ",bins];
+Abort[] 
+];
 binave=(bins[[Posbinup]]+bins[[Posbinup-1]])/2.0;
 binave
 ];
@@ -709,8 +721,20 @@ GetAveByBinLow[binlowin_,binsin_]:=
 Module[{binlow=binlowin,bins=binsin,Posbinlow,BoolYmaxExist,binave},
 BoolYmaxExist=False;
 Table[If[binlow==bins[[i]],Posbinlow=i;BoolYmaxExist=True],{i,Length[bins]}]; 
-If[BoolYmaxExist==False,Print["GetYAve: error, the input binlow is not in the list of bin list, the average bin value could not be calculated "];Abort[] ];
-If[Posbinlow==Length[bins],Print["GetYAve: error, the input binlow could not be the last element of the input bin list "];Abort[] ];
+If[
+BoolYmaxExist==False,
+Print["GetAveByBinLow: error, the input binlow is not in the list of bin list, the average bin value could not be calculated "];
+Print["binlow value: ",binlow];
+Print["bin list: ",bins];
+Abort[] 
+];
+If[
+Posbinlow==Length[bins],
+Print["GetAveByBinLow: error, the input binlow could not be the last element of the input bin list "];
+Print["binlow value: ",binlow];
+Print["bin list: ",bins];
+Abort[] 
+];
 binave=(bins[[Posbinlow]]+bins[[Posbinlow+1]])/2.0;
 binave
 ];
@@ -773,22 +797,25 @@ data/.LF[a__]:>LF@@{Sequence@@{a},(Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqr
 (*in .dta files: col1 \[Equal] <y>, col2 \[Equal] Subscript[mll, min], col3 \[Equal] unset*)
 mllrange={116.0,150.0,200.0,300.0,500.0,1500.0};
 Select[
-Join[data/.LF[a__]:>{Sequence@@{a},(GetAveByBinLow[{a}[[2]],mllrange]/Sqrt[S])*E^({a}[[1]]),GetAveByBinLow[{a}[[2]],mllrange]},
-data/.LF[a__]:>{Sequence@@{a},(GetAveByBinLow[{a}[[2]],mllrange]/Sqrt[S])*E^-({a}[[1]]),GetAveByBinLow[{a}[[2]],mllrange]}],
-(GetAveByBinLow[#[[2]],mllrange]>70.0)&
+Join[data/.LF[a__]:>LF@@{Sequence@@{a},(GetAveByBinLow[{a}[[2]],mllrange]/Sqrt[S])*E^({a}[[1]]),GetAveByBinLow[{a}[[2]],mllrange]},
+data/.LF[a__]:>LF@@{Sequence@@{a},(GetAveByBinLow[{a}[[2]],mllrange]/Sqrt[S])*E^-({a}[[1]]),GetAveByBinLow[{a}[[2]],mllrange]}],
+( 
+(GetAveByBinLow[#[[2]],mllrange]>70.0) && 
+( (GetAveByBinLow[#[[2]],mllrange]/Sqrt[S])*E^(#[[1]])<1.0 && (GetAveByBinLow[#[[2]],mllrange]/Sqrt[S])*E^(#[[1]])> 10.0^-10 && (GetAveByBinLow[#[[2]],mllrange]/Sqrt[S])*E^-(#[[1]])<1.0 && (GetAveByBinLow[#[[2]],mllrange]/Sqrt[S])*E^-(#[[1]])>10.0^-10) 
+)&
 ],
 "ID253",
 (*mll ZpT (d\[Sigma]/Subscript[dp, T] in ranges of Subscript[m, ll])*)
 (*in .dta files: column 1 \[Equal] Subscript[mll, max], col2 \[Equal] ptmin, col3 \[Equal] ptmax*)
-mllrange={12.0,20.0,30.0,40.0,60.0,116.0,150.0};
-data/.LF[a__]:>{Sequence@@{a},(Sqrt[GetAveByBinUp[{a}[[1]],mllrange]^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S]),Sqrt[GetAveByBinUp[{a}[[1]],mllrange]^2+(({a}[[2]]+{a}[[3]])/2.0)^2]},
+mllrange={12.0,20.0,30.0,46.0,66.0,116.0,150.0};
+data/.LF[a__]:>LF@@{Sequence@@{a},(Sqrt[GetAveByBinUp[{a}[[1]],mllrange]^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S]),Sqrt[GetAveByBinUp[{a}[[1]],mllrange]^2+(({a}[[2]]+{a}[[3]])/2.0)^2]},
 "ID254",
 (*d\[Sigma]/Subscript[dp, T]dy*)
 (*in .dta files: col1 \[Equal] Subscript[y, max], col2 \[Equal] Subscript[pT, min], col3 \[Equal] Subscript[pT, max]*)
 yrange={0.0,0.4,0.8,1.2,1.6,2.0};
 Join[
-data/.LF[a__]:>{Sequence@@{a},(Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S])*E^(GetAveByBinUp[{a}[[1]],yrange]),Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]},
-data/.LF[a__]:>{Sequence@@{a},(Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S])*E^-(GetAveByBinUp[{a}[[1]],yrange]),Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]}
+data/.LF[a__]:>LF@@{Sequence@@{a},(Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S])*E^(GetAveByBinUp[{a}[[1]],yrange]),Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]},
+data/.LF[a__]:>LF@@{Sequence@@{a},(Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S])*E^-(GetAveByBinUp[{a}[[1]],yrange]),Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]}
 ],
 "ID255",
 (*d\[Sigma]/pT(W/Z)*)
@@ -796,9 +823,9 @@ data/.LF[a__]:>{Sequence@@{a},(Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S]
 (*in HERA2 ev02, the first 4 points are W process events, the last 5 points are Z process events*)
 Join[
 (*W*)
-Take[data,4]/.LF[a__]:>{Sequence@@{a},(Sqrt[80.39^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S]),Sqrt[80.39^2+(({a}[[2]]+{a}[[3]])/2.0)^2]},
+Take[data,4]/.LF[a__]:>LF@@{Sequence@@{a},(Sqrt[80.39^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S]),Sqrt[80.39^2+(({a}[[2]]+{a}[[3]])/2.0)^2]},
 (*Z*)
-Take[data,-5]/.LF[a__]:>{Sequence@@{a},(Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S]),Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]}
+Take[data,-5]/.LF[a__]:>LF@@{Sequence@@{a},(Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S]),Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]}
 ],
 (* formula not decided yet *)
 "JP",
