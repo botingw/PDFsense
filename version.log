@@ -380,4 +380,10 @@ update the formulas for 252~255 (in selectExptxQv2)
 20171209
 for the info file, add Npt and total values info (Sum of values in all points)
 update the quick_data
- 
+
+20171209
+1. renew the convert figure format function and merge figures function
+2. add nonepspdfcat, which merge files by latex code and pdflatex command.
+this script is used for input files are not .eps files 
+when using .eps files, users need to use epspdfcat
+3. show fail message for unsuccessful generating the merged pdf file
