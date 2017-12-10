@@ -866,7 +866,7 @@ Take[data,-5]/.LF[a__]:>LF@@{Sequence@@{a},(Sqrt[91.19^2+(WeightBinAveBySpectrum
 (* formula not decided yet *)
 "JP",
 (* this form is for q1q2 \[Rule] j1j2, estimate x1, x2 of jet as peak of y(j1), y(j2)*)
-peakposin=0.0;weightcloserin=2.0;
+peakposin=0.0;weightcloserin=2.0;(*test strong weight*)
 Select[
 Join[data/.LF[a__]:>LF@@{Sequence@@{a},((2*{a}[[1]])/Sqrt[S])*E^(WeightBinAveBySpectrumPeak[{a}[[2]],{a}[[3]],peakposin,weightcloserin]),2*{a}[[1]]},data/.LF[a__]:>LF@@{Sequence@@{a},((2*{a}[[1]])/Sqrt[S])*E^-(WeightBinAveBySpectrumPeak[{a}[[2]],{a}[[3]],peakposin,weightcloserin]),2*{a}[[1]]}],
 ( ((2*#[[1]])/Sqrt[S])*E^(WeightBinAveBySpectrumPeak[#[[2]],#[[3]],peakposin,weightcloserin])<1.0 && ((2*#[[1]])/Sqrt[S])*E^(WeightBinAveBySpectrumPeak[#[[2]],#[[3]],peakposin,weightcloserin])>10.0^-10 &&
