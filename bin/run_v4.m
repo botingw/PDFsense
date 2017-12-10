@@ -54,7 +54,7 @@
 (*this switch is for controling of .nb& .m versions, the option of the switch depends this file is saved as .nb/.m (package) extension  *)
 (*.m file could be implemented in the terminal*)
 (*option: "nb" or "m"*)
-ThisFileExtension="m";
+ThisFileExtension="nb";
 
 
 (* ::Input::Initialization:: *)
@@ -1310,9 +1310,29 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,exptna
 
 (*merge .eps files into a pdf file*)
 (*20171124*)
+(*20171209 add error message when fail to generating merge file, and input the extension depend on the BranchMode *)
+Print["merge files to allfigs.pdf..."];
 If[
 BranchMode==1,
+(*
 implementeps[saveparentpath<>jobpath,PDFxQSelectMethod]
+*)
+FigsMergeToPDF[saveparentpath<>jobpath,PDFxQSelectMethod,".eps"];
+If[
+FileExistsQ[saveparentpath<>jobpath<>"allfigs.pdf"]==True,
+Print["generate merge file: ",saveparentpath<>jobpath<>"allfigs.pdf"],
+Print["fail to generate merge file ",saveparentpath<>jobpath<>"allfigs.pdf"]
+]
+];
+
+If[
+BranchMode==2,
+FigsMergeToPDF[saveparentpath<>jobpath,PDFxQSelectMethod,".pdf"];
+If[
+FileExistsQ[saveparentpath<>jobpath<>"allfigs.pdf"]==True,
+Print["generate merge file: ",saveparentpath<>jobpath<>"allfigs.pdf"],
+Print["fail to generate merge file ",saveparentpath<>jobpath<>"allfigs.pdf"]
+]
 ];
 
 (*copy directory to job directory*)
@@ -2306,4 +2326,15 @@ If[irun==Length[Lexpt],Print["all processes are done"];Abort[]];
 (**)
 
 
+(* ::Input:: *)
+(*saveparentpath<>jobpath*)
+(*PDFxQSelectMethod*)
+(*".pdf"*)
 
+
+(* ::Input:: *)
+(**)
+
+
+(* ::Input:: *)
+(*BranchMode*)

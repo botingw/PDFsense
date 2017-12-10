@@ -3,10 +3,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[         0,          0]
-NotebookDataLength[   1597937,      38550]
-NotebookOptionsPosition[   1584745,      38125]
-NotebookOutlinePosition[   1585078,      38140]
-CellTagsIndexPosition[   1585035,      38137]
+NotebookDataLength[   1626491,      39217]
+NotebookOptionsPosition[   1613003,      38784]
+NotebookOutlinePosition[   1613336,      38799]
+CellTagsIndexPosition[   1613293,      38796]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -101,29 +101,30 @@ Cell[BoxData[
      "*)"}]}]}]], "Input",
  InitializationCell->True,
  CellChangeTimes->CompressedData["
-1:eJwd0Hs0FQYcB/A7Yoc885g1FVbcmS55ZA0ddzN5ZJlJTuMeWYWyiNa6HtdR
-Zo1rWTa5zNXMPCqivC4jdO9m5srznMW9aLs426WcMO/a73v/+J3PH9/zO99z
-vpaRcUGn1BgMRigdtFgP/8D8tpLt2eV1CI7dMy4Ku69kK2RvqEwRZGxmNyjZ
-HpL6lzChPGw3nwwWhdrATA2JFzxTojgEjx91D4HaM86h0Pls4A140+SkALrM
-7ZXBE5UsOYyfH3X/lhzeNekBFXW6PQLyFk/7D9gnTn+7iOQ4cu1gt6bvWhm5
-NOW/DtMdZFcbSKaNXRaMa5kfgj3WwcMw4kKURysZfj/gIGQ+NJK3oV/CGIe8
-zc1rHeTTsj9zodnGYWknOVvq1QfHGz85KyXz1/ix8GT/Z85DpF5JrAtcqTD5
-EXbkjqi0DC0cHiXVw8tG4Hf2R43HyIXp7SaQlXbMb4Isnknzh3620mUoXheu
-QI/zsYaT5I47edvgrugXPtaNtNOjMV/oUxHlxCS3R3KdIbOHV7mf1PvJuwr2
-9ivd/EmZ5nN3mF+SvNBLzjITF6EtL9JXir8r0X7Qu+Nx1SPyt4S2W9CtOejN
-IZJv6rcbBh+QuI6QLGHeOzCvUFMmJ+ejTeXQocY8cJx898t/VFpNZvBhmUtf
-DqyZfrVble9ZVPnhD+WpjCYlO7SmmAfVCzJYWuSl1wLt4eJqVDTUSWTFwC3L
-lzqhYOeNLqg28MxCl9wnl1nCQq3xaD2SMTMSAxsilu7kkNIrT6thxFfL2QUk
-T7LAh3zzTLGAtPP9SAILHLoUQjIgRj4FHVeTXl5tpp30uYyvybs/G3JzyIvf
-OyXBioPxcQLS79fD8XBg1DS1lLQWv86DIcf7kurI8QcPkuG/iW1dMDQt/SG0
-6xYt1JNz3vxFODVYndhAxvYnXYC1ETerG0lt86oaaOa6f2szGcg10IGOXI59
-H5keYOsAjXv0RZOks/eEytGWELe/yfrqcHf4inQsWUEq+vNTYOxG6/UtIiX7
-LQ1RHrx7pGJSg8yqFT+BLJ3PzbVI36UjO+CC8FqBNhk3clEA11JFp/RIscXk
-afie67P39clfzGa84Pwqz8aALOddZ8Km1JE2Q+SPB9uhRrj5x9vILpZBMGzf
-19tkSjLFtc1wUEddsJNUfKqrknNZ2HQGfbPCZpj35AvxOfJFVroExnJ48gzS
-hZM5DoMuW2fnk1YJmnzoNNC+p570WSu0hsfCnqf9TvacY6TDb+xbjcbIFa7I
-GKqdnouXkUUthgnQa95BukAOn9jaB+c92yoWyem9dZXwwMZto5YWJbtkJscY
-5hYUp8C//itNhRv3Kj3byZSJCja0c+HEd5JWJr7n4f8o8RTR
+1:eJwd0H04FAYcB/CbYg/JS2HWrsKKm+lIZA09bjN5yTKTPA2PrELdIlrrcOdR
+suIsyybHUGZeKlJ5O0borpl1QjzP4o5rOzzbpe4J8177fe+P3/P54/v8nu/z
+fK2j44OP6DAYjIN00Gop4hPmDTXHq8t7Dxy5Y1YUflfNUcnf0ZoqyljJblBz
+PKX1r2FiRfgWIRkiDrODmbpSb3isVLUHHtzvEQoNJl3CoMvxoCvwqvlhEXSd
+2iaHh6rYCpigGfb4nhzcrPSEqttre0TkdYHBH7BXkv5+ERnpzHOA3Xp+i+Xk
+7HjAEkx3kl9oIFl2DlkwvkXzGPbYhgzCqFMxnq1kxN3A3ZB1f72iDf1SxigU
+rKxc6iCfl/+ZCy2X98o6yWdl3r1wtPGL4zIyf1HIhYf7vnJ5TBqVcl3hfKX5
+NdiRO6TVOqxwcJhcFVE+BH9w3G82Qk5PbDCH7LQD/mNk8WRaAPS3l81ByVLJ
+PPQ8yTVVkhtv5q2Dm2Nf+do20k6PRvygb2XMDha5IZrnAlk9gqqdpNHPPtXw
+YZ/aPYCU6730gPmlKdMPyWespBloL4j2k+HvXKw/9Ol4Uv2I/C2x7Tp0bw5+
+9zEptPDfAkN2Sd2GSHZJ3gcwr1BPriA1sRYK6FTLDBolPzz/j1YbZYYQlrv2
+5sDaiTe7tfnWGa2f/lTBZzSpOWG1xQK4qiCDrU+eeSvIEc4sxMRCwyR2HFw9
+d6YTijZd6YI6/S+s1pLbFXJrWKg/GmtEMiaH4mBD1OzNHFJ27nkNjPp2LruA
+FEinhVDIzJSISAe/z6SwwKlLVUIGxinGofNC8usLzbSTMY9xkbz1iykvhzz9
+445kWLk7IV5E+j/YmwD7hy34ZaSt5G0BDD3Ym3ybHL13LwX+m9TWBcPS0u9D
+h27xdD055SOcgeMDNUkNJLcv+RSsi7pa00gaMKtroaXbzjXNZBDPxBA68yId
+e8n0QHsnaNZjLFaSLj5jWodbQt3/JutrIjzgG7KRFBWp6stPhdzl1surxWrO
+e7riPHhrX6VSl8yqkzyFbMOvmfqk3+y+jXC65FKBARk/dFoEF/niI0akxEp5
+FH7k9uJjY/JXy0lvqFkQ2JmQFYLLLNjEH2ozRf5koB3qRjA/X0d2sU1CYPv2
+h00WJEtS1wwHDFeJNpGqL9dqjTxb0nQMfc9KmmHe028kJ8hXWelSyI0UKDJI
+18jMURh81jY7n7RJ1BPCHf3tW+tJ38VCW3gg/GXa72TPCUY6/M6xdf0IOc8T
+m0Gdo1MJcrKoxTQRemucZNPk4KE1vVDj1VY5Q05su10Fdy3fWN/SouaUTuaY
+wdyC4lT4139lfLh8p8qrnUwdq+RAB9fIhE7SxtzvJAwu5F4bJ5kyfhkcjM+S
+TpAXC6oewP8BEospIw==
   "]],
 
 Cell[CellGroupData[{
@@ -34679,71 +34680,169 @@ Cell[CellGroupData[{
 Cell["convert figure files into eps, png, pdf, jpg format", "Section"],
 
 Cell[BoxData[
- RowBox[{
-  RowBox[{"ConvertPlotExtension", "[", 
-   RowBox[{"filenamelistin_", ",", "extIndexin_"}], "]"}], ":=", "\n", 
-  RowBox[{"Module", "[", 
-   RowBox[{
-    RowBox[{"{", 
-     RowBox[{
-      RowBox[{"filenamelist", "=", "filenamelistin"}], ",", 
-      RowBox[{"extIndex", "=", "extIndexin"}], ",", "\n", "convertstr", ",", 
-      "extensionname", ",", "iext", ",", "filenamelistnew"}], "}"}], ",", 
-    "\n", 
+ RowBox[{"(*", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"ConvertPlotExtension", "[", 
+    RowBox[{"filenamelistin_", ",", "extIndexin_"}], "]"}], ":=", "\n", 
+   RowBox[{"Module", "[", 
     RowBox[{
-     RowBox[{"convertstr", "=", "\"\<convert \>\""}], ";", "\n", 
-     RowBox[{"extensionname", "=", 
-      RowBox[{"{", 
-       RowBox[{
-       "\"\<.eps\>\"", ",", "\"\<.png\>\"", ",", "\"\<.pdf\>\"", ",", 
-        "\"\<.jpg\>\""}], "}"}]}], ";", "\n", 
-     RowBox[{"iext", "=", "extIndex"}], ";", "\n", "\n", "\n", 
-     RowBox[{"(*", 
+     RowBox[{"{", 
       RowBox[{
-      "cut", " ", "extension", " ", "part", " ", "and", " ", "add", " ", 
-       "the", " ", "new", " ", "extension", " ", "we", " ", "want", " ", "to",
-        " ", "convert"}], "*)"}], "\n", 
-     RowBox[{"filenamelistnew", "=", 
+       RowBox[{"filenamelist", "=", "filenamelistin"}], ",", 
+       RowBox[{"extIndex", "=", "extIndexin"}], ",", "\n", "convertstr", ",", 
+       "extensionname", ",", "iext", ",", "filenamelistnew"}], "}"}], ",", 
+     "\n", 
+     RowBox[{
+      RowBox[{"convertstr", "=", "\"\<convert \>\""}], ";", "\n", 
+      RowBox[{"extensionname", "=", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<.eps\>\"", ",", "\"\<.png\>\"", ",", "\"\<.pdf\>\"", ",", 
+         "\"\<.jpg\>\""}], "}"}]}], ";", "\n", 
+      RowBox[{"iext", "=", "extIndex"}], ";", "\n", "\n", "\n", 
+      RowBox[{"(*", 
+       RowBox[{
+       "cut", " ", "extension", " ", "part", " ", "and", " ", "add", " ", 
+        "the", " ", "new", " ", "extension", " ", "we", " ", "want", " ", 
+        "to", " ", "convert"}], "*)"}], "\n", 
+      RowBox[{"filenamelistnew", "=", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"StringDrop", "[", 
+           RowBox[{
+            RowBox[{"filenamelist", "[", 
+             RowBox[{"[", "ifile", "]"}], "]"}], ",", 
+            RowBox[{
+             RowBox[{"-", "1"}], "-", 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"FileExtension", "[", 
+                RowBox[{"filenamelist", "[", 
+                 RowBox[{"[", "ifile", "]"}], "]"}], " ", "]"}], "//", 
+               "StringLength"}], ")"}]}]}], " ", "]"}], "<>", 
+          RowBox[{"extensionname", "[", 
+           RowBox[{"[", "iext", "]"}], "]"}]}], ",", 
+         RowBox[{"{", 
+          RowBox[{"ifile", ",", "1", ",", 
+           RowBox[{"Length", "[", "filenamelist", "]"}]}], "}"}]}], "]"}]}], 
+      ";", "\n", "\n", 
+      RowBox[{"(*", 
+       RowBox[{
+       "convert", " ", "files", " ", "to", " ", "new", " ", "extension"}], 
+       "*)"}], "\n", 
       RowBox[{"Table", "[", 
        RowBox[{
         RowBox[{
-         RowBox[{"StringDrop", "[", 
-          RowBox[{
+         RowBox[{"Run", "[", 
+          RowBox[{"convertstr", "<>", 
            RowBox[{"filenamelist", "[", 
-            RowBox[{"[", "ifile", "]"}], "]"}], ",", 
-           RowBox[{
-            RowBox[{"-", "1"}], "-", 
-            RowBox[{"(", 
-             RowBox[{
-              RowBox[{"FileExtension", "[", 
-               RowBox[{"filenamelist", "[", 
-                RowBox[{"[", "ifile", "]"}], "]"}], " ", "]"}], "//", 
-              "StringLength"}], ")"}]}]}], " ", "]"}], "<>", 
-         RowBox[{"extensionname", "[", 
-          RowBox[{"[", "iext", "]"}], "]"}]}], ",", 
+            RowBox[{"[", "ifile", "]"}], "]"}], "<>", "\"\< \>\"", "<>", 
+           RowBox[{"filenamelistnew", "[", 
+            RowBox[{"[", "ifile", "]"}], "]"}]}], " ", "]"}], ";", 
+         "\"\<dummy\>\""}], ",", 
         RowBox[{"{", 
          RowBox[{"ifile", ",", "1", ",", 
-          RowBox[{"Length", "[", "filenamelist", "]"}]}], "}"}]}], "]"}]}], 
-     ";", "\n", "\n", 
-     RowBox[{"(*", 
+          RowBox[{"Length", "[", "filenamelist", "]"}]}], "}"}]}], "]"}], ";",
+       "\n", "\n", "\"\<dummy\>\""}]}], "\n", "]"}]}], "\[IndentingNewLine]", 
+  "*)"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.7218671436661043`*^9, 3.721867147477057*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"input", " ", "an", " ", "image", " ", "file", " ", "list"}], ",",
+     " ", 
+    RowBox[{
+    "convert", " ", "their", " ", "file", " ", "format", " ", "to", " ", 
+     "new", " ", "n"}]}], "  ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"ConvertPlotExtension", "[", 
+    RowBox[{"filenamelistin_", ",", "extin_"}], "]"}], ":=", "\n", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
       RowBox[{
-      "convert", " ", "files", " ", "to", " ", "new", " ", "extension"}], 
-      "*)"}], "\n", 
-     RowBox[{"Table", "[", 
-      RowBox[{
+       RowBox[{"filenamelist", "=", "filenamelistin"}], ",", 
+       RowBox[{"ext", "=", "extin"}], ",", "extIndex", ",", "\n", 
+       "convertstr", ",", "extensionname", ",", "iext", ",", 
+       "filenamelistnew"}], "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"{", 
        RowBox[{
-        RowBox[{"Run", "[", 
-         RowBox[{"convertstr", "<>", 
-          RowBox[{"filenamelist", "[", 
-           RowBox[{"[", "ifile", "]"}], "]"}], "<>", "\"\< \>\"", "<>", 
-          RowBox[{"filenamelistnew", "[", 
-           RowBox[{"[", "ifile", "]"}], "]"}]}], " ", "]"}], ";", 
-        "\"\<dummy\>\""}], ",", 
+       "\"\<.eps\>\"", ",", "\"\<.png\>\"", ",", "\"\<.pdf\>\"", ",", 
+        "\"\<.jpg\>\""}], "}"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"extIndex", "=", 
+       RowBox[{"Switch", "[", 
+        RowBox[{
+        "ext", ",", "\"\<.eps\>\"", ",", "1", ",", "\"\<.png\>\"", ",", "2", 
+         ",", "\"\<.pdf\>\"", ",", "3", ",", "\"\<.jpg\>\"", ",", "4", ",", 
+         "_", ",", 
+         RowBox[{
+          RowBox[{
+          "Print", "[", 
+           "\"\<the input extension is not supported, merge pdf end\>\"", 
+           "]"}], ";", 
+          RowBox[{"Return", "[", "\"\<dummy\>\"", "]"}]}]}], " ", "]"}]}], 
+      ";", "\[IndentingNewLine]", "\n", 
+      RowBox[{"convertstr", "=", "\"\<convert \>\""}], ";", "\n", 
+      RowBox[{"extensionname", "=", 
        RowBox[{"{", 
-        RowBox[{"ifile", ",", "1", ",", 
-         RowBox[{"Length", "[", "filenamelist", "]"}]}], "}"}]}], "]"}], ";", 
-     "\n", "\n", "\"\<dummy\>\""}]}], "\n", "]"}]}]], "Input",
- InitializationCell->True]
+        RowBox[{
+        "\"\<.eps\>\"", ",", "\"\<.png\>\"", ",", "\"\<.pdf\>\"", ",", 
+         "\"\<.jpg\>\""}], "}"}]}], ";", "\n", 
+      RowBox[{"iext", "=", "extIndex"}], ";", "\n", "\n", "\n", 
+      RowBox[{"(*", 
+       RowBox[{
+       "cut", " ", "extension", " ", "part", " ", "and", " ", "add", " ", 
+        "the", " ", "new", " ", "extension", " ", "we", " ", "want", " ", 
+        "to", " ", "convert"}], "*)"}], "\n", 
+      RowBox[{"filenamelistnew", "=", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"StringDrop", "[", 
+           RowBox[{
+            RowBox[{"filenamelist", "[", 
+             RowBox[{"[", "ifile", "]"}], "]"}], ",", 
+            RowBox[{
+             RowBox[{"-", "1"}], "-", 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"FileExtension", "[", 
+                RowBox[{"filenamelist", "[", 
+                 RowBox[{"[", "ifile", "]"}], "]"}], " ", "]"}], "//", 
+               "StringLength"}], ")"}]}]}], " ", "]"}], "<>", 
+          RowBox[{"extensionname", "[", 
+           RowBox[{"[", "extIndex", "]"}], "]"}]}], ",", 
+         RowBox[{"{", 
+          RowBox[{"ifile", ",", "1", ",", 
+           RowBox[{"Length", "[", "filenamelist", "]"}]}], "}"}]}], "]"}]}], 
+      ";", "\n", "\n", 
+      RowBox[{"(*", 
+       RowBox[{
+       "convert", " ", "files", " ", "to", " ", "new", " ", "extension"}], 
+       "*)"}], "\n", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Run", "[", 
+          RowBox[{"convertstr", "<>", 
+           RowBox[{"filenamelist", "[", 
+            RowBox[{"[", "ifile", "]"}], "]"}], "<>", "\"\< \>\"", "<>", 
+           RowBox[{"filenamelistnew", "[", 
+            RowBox[{"[", "ifile", "]"}], "]"}]}], " ", "]"}], ";", 
+         "\"\<dummy\>\""}], ",", 
+        RowBox[{"{", 
+         RowBox[{"ifile", ",", "1", ",", 
+          RowBox[{"Length", "[", "filenamelist", "]"}]}], "}"}]}], "]"}], ";",
+       "\n", "\n", "\"\<dummy\>\""}]}], "\n", "]"}]}]}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.721580981652866*^9, 3.721580983237371*^9}, {
+  3.72158120202031*^9, 3.721581264064227*^9}, {3.7215813118835497`*^9, 
+  3.7215813316072407`*^9}, {3.7215813857058496`*^9, 3.721581438337098*^9}}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -35324,6 +35423,213 @@ Cell[BoxData[
     "then", " ", "this", " ", "function", " ", "show", " ", "the", " ", 
      "list", " ", "of", " ", "figures", " ", "under", " ", "this", " ", 
      "directory"}]}], "*)"}], "\n", 
+  RowBox[{"(*", "\n", 
+   RowBox[{
+    RowBox[{"GetxQplotListSameptV2", "[", 
+     RowBox[{"PlotDirin_", ",", "extIndexin_"}], "]"}], ":=", "\n", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"PlotDir", "=", "PlotDirin"}], ",", 
+        RowBox[{"extIndex", "=", "extIndexin"}], ",", "\n", "filenamelist", 
+        ",", "filename", ",", "iext", ",", "obsname", ",", 
+        "representationname", ",", "extensionname", ",", "fmax"}], "}"}], ",",
+       "\n", "\n", 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{"set", " ", "observables"}], ",", " ", 
+        RowBox[{"different", " ", "kinds", " ", "of", " ", "plot"}], ",", " ", 
+        RowBox[{
+        "available", " ", "extension", " ", "of", " ", "output", " ", 
+         "files"}]}], " ", "*)"}], "\n", 
+      RowBox[{
+       RowBox[{"obsname", "=", 
+        RowBox[{"{", 
+         RowBox[{
+         "\"\<xQbyexpt\>\"", ",", "\"\<expt_error_ratio\>\"", ",", 
+          "\"\<residual\>\"", ",", "\"\<dr\>\"", ",", "\"\<corrdr\>\"", ",", 
+          "\"\<corr\>\""}], "}"}]}], ";", "\n", 
+       RowBox[{"representationname", "=", 
+        RowBox[{"{", 
+         RowBox[{
+         "\"\<xQ\>\"", ",", "\"\<legend\>\"", ",", "\"\<hist1\>\"", ",", 
+          "\"\<hist2\>\""}], "}"}]}], ";", "\n", 
+       RowBox[{"extensionname", "=", 
+        RowBox[{"{", 
+         RowBox[{
+         "\"\<.eps\>\"", ",", "\"\<.png\>\"", ",", "\"\<.pdf\>\"", ",", 
+          "\"\<.jpg\>\""}], "}"}]}], ";", "\n", "\n", 
+       RowBox[{"(*", 
+        RowBox[{
+         RowBox[{"set", " ", "observables"}], ",", " ", 
+         RowBox[{"different", " ", "kinds", " ", "of", " ", "plot"}], ",", 
+         " ", 
+         RowBox[{
+         "available", " ", "extension", " ", "of", " ", "output", " ", 
+          "files"}]}], " ", "*)"}], "\[IndentingNewLine]", 
+       RowBox[{"obsname", "=", 
+        RowBox[{"{", 
+         RowBox[{
+         "\"\<xQbyexpt\>\"", ",", "\"\<expt_error_ratio\>\"", ",", 
+          "\"\<residual\>\"", ",", "\"\<dr\>\"", ",", "\"\<corrdr\>\"", ",", 
+          "\"\<corr\>\""}], "}"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"representationname", "=", 
+        RowBox[{"{", 
+         RowBox[{
+         "\"\<xQ-1\>\"", ",", "\"\<xQ+1\>\"", ",", "\"\<hist-1\>\"", ",", 
+          "\"\<hist+1\>\"", ",", "\"\<legend\>\"", ",", "\"\<xQ\>\"", ",", 
+          "\"\<info-1\>\"", ",", "\"\<info+1\>\""}], "}"}]}], ";", 
+       RowBox[{"(*", 
+        RowBox[{"20171201", " ", "change", " ", "filename", " ", "format"}], 
+        "*)"}], "\[IndentingNewLine]", 
+       RowBox[{"extensionname", "=", 
+        RowBox[{"{", 
+         RowBox[{
+         "\"\<.eps\>\"", ",", "\"\<.png\>\"", ",", "\"\<.pdf\>\"", ",", 
+          "\"\<.jpg\>\""}], "}"}]}], ";", "\n", "\n", 
+       RowBox[{"(*", 
+        RowBox[{"make", " ", "all", " ", "figuretype", " ", "plots"}], " ", 
+        "*)"}], "\n", 
+       RowBox[{"filenamelist", "=", 
+        RowBox[{"{", "}"}]}], ";", "\n", 
+       RowBox[{"iext", "=", "extIndex"}], ";", "\n", 
+       RowBox[{"fmax", "=", "100"}], ";", "\n", "\n", 
+       RowBox[{"Print", "[", 
+        RowBox[{
+        "\"\<search figures under\>\"", ",", "PlotDir", ",", 
+         "\"\<, extension = \>\"", ",", 
+         RowBox[{"extensionname", "[", 
+          RowBox[{"[", "extIndex", "]"}], "]"}], ",", 
+         "\"\<, total #flavour for check = \>\"", ",", "fmax"}], "]"}], ";", 
+       "\n", 
+       RowBox[{"Table", "[", "\n", 
+        RowBox[{"(*", 
+         RowBox[{
+          RowBox[{"Print", "[", 
+           RowBox[{"\"\<now flavour = \>\"", ",", "flavour"}], "]"}], ";"}], 
+         "*)"}], "\n", 
+        RowBox[{"(*", 
+         RowBox[{
+         "add", " ", "exptname", " ", "table", " ", "into", " ", "output", 
+          " ", "figure"}], "*)"}], "\n", "\n", 
+        RowBox[{"(*", 
+         RowBox[{
+          RowBox[{"p6", "=", 
+           RowBox[{"GraphicsGrid", "[", 
+            RowBox[{"p6", ",", 
+             RowBox[{"Spacings", "\[Rule]", 
+              RowBox[{"Scaled", "[", "0.15", "]"}]}]}], " ", "]"}]}], ";"}], 
+         "*)"}], "\n", "\n", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"filename", "=", 
+           RowBox[{
+            RowBox[{"obsname", "[", 
+             RowBox[{"[", "iobs", "]"}], "]"}], "<>", "\"\<_\>\"", "<>", 
+            RowBox[{"representationname", "[", 
+             RowBox[{"[", "irep", "]"}], "]"}], "<>", "\"\<_\>\"", "<>", 
+            "\"\<f\>\"", "<>", 
+            RowBox[{"ToString", "[", "flavour", "]"}], "<>", 
+            "\"\<_samept\>\""}]}], ";", "\n", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"FileExistsQ", "[", 
+              RowBox[{"PlotDir", "<>", "filename", "<>", 
+               RowBox[{"extensionname", "[", 
+                RowBox[{"[", "iext", "]"}], "]"}]}], "]"}], "==", "True"}], 
+            ",", 
+            RowBox[{"AppendTo", "[", 
+             RowBox[{"filenamelist", ",", 
+              RowBox[{"PlotDir", "<>", "filename", "<>", 
+               RowBox[{"extensionname", "[", 
+                RowBox[{"[", "iext", "]"}], "]"}]}]}], " ", "]"}]}], " ", 
+           "]"}], ";", "\n", "\n", "\"\<dummy\>\""}], "\n", ",", 
+         RowBox[{"{", 
+          RowBox[{"flavour", ",", 
+           RowBox[{"-", "5"}], ",", 
+           RowBox[{
+            RowBox[{"-", "5"}], "+", "fmax", "-", "1"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"iobs", ",", 
+           RowBox[{"{", 
+            RowBox[{"6", ",", "5"}], "}"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"irep", ",", 
+           RowBox[{"representationname", "//", "Length"}]}], "}"}]}], "\n", 
+        "]"}], ";", "\n", "\n", 
+       RowBox[{"Table", "[", "\n", 
+        RowBox[{"(*", 
+         RowBox[{
+          RowBox[{"Print", "[", 
+           RowBox[{"\"\<now flavour = \>\"", ",", "flavour"}], "]"}], ";"}], 
+         "*)"}], "\n", 
+        RowBox[{"(*", 
+         RowBox[{
+         "add", " ", "exptname", " ", "table", " ", "into", " ", "output", 
+          " ", "figure"}], "*)"}], "\n", "\n", 
+        RowBox[{"(*", 
+         RowBox[{
+          RowBox[{"p6", "=", 
+           RowBox[{"GraphicsGrid", "[", 
+            RowBox[{"p6", ",", 
+             RowBox[{"Spacings", "\[Rule]", 
+              RowBox[{"Scaled", "[", "0.15", "]"}]}]}], " ", "]"}]}], ";"}], 
+         "*)"}], "\n", "\n", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"filename", "=", 
+           RowBox[{
+            RowBox[{"obsname", "[", 
+             RowBox[{"[", "iobs", "]"}], "]"}], "<>", "\"\<_\>\"", "<>", 
+            RowBox[{"representationname", "[", 
+             RowBox[{"[", "irep", "]"}], "]"}], "<>", "\"\<_samept\>\""}]}], 
+          ";", "\n", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"FileExistsQ", "[", 
+              RowBox[{"PlotDir", "<>", "filename", "<>", 
+               RowBox[{"extensionname", "[", 
+                RowBox[{"[", "iext", "]"}], "]"}]}], "]"}], "==", "True"}], 
+            ",", 
+            RowBox[{"AppendTo", "[", 
+             RowBox[{"filenamelist", ",", 
+              RowBox[{"PlotDir", "<>", "filename", "<>", 
+               RowBox[{"extensionname", "[", 
+                RowBox[{"[", "iext", "]"}], "]"}]}]}], " ", "]"}]}], " ", 
+           "]"}], ";", "\n", "\n", "\"\<dummy\>\""}], "\n", ",", 
+         RowBox[{"{", 
+          RowBox[{"iobs", ",", 
+           RowBox[{"{", 
+            RowBox[{"2", ",", "3", ",", "4"}], "}"}]}], "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"irep", ",", 
+           RowBox[{"representationname", "//", "Length"}]}], "}"}]}], "\n", 
+        "]"}], ";", "\n", "\n", "\n", 
+       RowBox[{"filename", "=", 
+        RowBox[{
+         RowBox[{"obsname", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "<>", "\"\<_\>\"", "<>", 
+         RowBox[{"representationname", "[", 
+          RowBox[{"[", "1", "]"}], "]"}]}]}], ";", "\n", 
+       RowBox[{"If", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"FileExistsQ", "[", 
+           RowBox[{"PlotDir", "<>", "filename", "<>", 
+            RowBox[{"extensionname", "[", 
+             RowBox[{"[", "iext", "]"}], "]"}]}], "]"}], "==", "True"}], ",", 
+         
+         RowBox[{"AppendTo", "[", 
+          RowBox[{"filenamelist", ",", 
+           RowBox[{"PlotDir", "<>", "filename", "<>", 
+            RowBox[{"extensionname", "[", 
+             RowBox[{"[", "iext", "]"}], "]"}]}]}], " ", "]"}]}], " ", "]"}], 
+       ";", "\n", 
+       RowBox[{"(*", "output", "*)"}], "\n", "filenamelist"}]}], "\n", "\n", 
+     "]"}]}], "\n", "*)"}], "\n", 
   RowBox[{
    RowBox[{"GetxQplotListSameptV2", "[", 
     RowBox[{"PlotDirin_", ",", "extIndexin_"}], "]"}], ":=", "\n", 
@@ -35535,7 +35841,7 @@ Cell[BoxData[
   3.7215563942842207`*^9, 3.7215563972012157`*^9}, {3.721556428283354*^9, 
   3.721556457511004*^9}, {3.72155654319444*^9, 3.721556544851788*^9}, {
   3.721556612321261*^9, 3.721556631362726*^9}, {3.7215567089815598`*^9, 
-  3.721556785031403*^9}}],
+  3.721556785031403*^9}, {3.721866457147705*^9, 3.7218664631859083`*^9}}],
 
 Cell[BoxData[
  RowBox[{
@@ -36643,89 +36949,229 @@ Cell[CellGroupData[{
 Cell["make a pdf file to merge filenames ", "Subsection"],
 
 Cell[BoxData[
- RowBox[{
-  RowBox[{"MergePDFfiles", "[", "filenamelistin_", "]"}], ":=", "\n", 
-  RowBox[{"Module", "[", 
-   RowBox[{
-    RowBox[{"{", 
-     RowBox[{
-      RowBox[{"filenamelist", "=", "filenamelistin"}], ",", "\n", 
-      "pdfmergestr", ",", "pdfmergefiles", ",", "nofileflag"}], "}"}], ",", 
-    "\n", 
-    RowBox[{"(*", 
-     RowBox[{
-      RowBox[{"pdfmergestr", "=", "\"\<convert -density 300 \>\""}], ";"}], 
-     "*)"}], "\n", 
+ RowBox[{"(*", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"MergePDFfiles", "[", "filenamelistin_", "]"}], ":=", "\n", 
+   RowBox[{"Module", "[", 
     RowBox[{
-     RowBox[{"pdfmergestr", "=", "\"\<bash epspdfcat \>\""}], ";", "\n", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"filenamelist", "=", "filenamelistin"}], ",", "\n", 
+       "pdfmergestr", ",", "pdfmergefiles", ",", "nofileflag"}], "}"}], ",", 
+     "\n", 
      RowBox[{"(*", 
       RowBox[{
-       RowBox[{"pdffinalfile", "=", "\"\<allfig.pdf\>\""}], ";"}], "*)"}], 
-     "\n", "\n", "\n", 
+       RowBox[{"pdfmergestr", "=", "\"\<convert -density 300 \>\""}], ";"}], 
+      "*)"}], "\n", 
+     RowBox[{
+      RowBox[{"pdfmergestr", "=", "\"\<bash epspdfcat \>\""}], ";", "\n", 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{"pdffinalfile", "=", "\"\<allfig.pdf\>\""}], ";"}], "*)"}], 
+      "\n", "\n", "\n", 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{
+        "if", " ", "any", " ", "files", " ", "are", " ", "not", " ", 
+         "exist"}], ",", " ", 
+        RowBox[{"print", " ", "it"}]}], "*)"}], "\n", 
+      RowBox[{"nofileflag", "=", "False"}], ";", "\n", 
+      RowBox[{"Table", "[", "\n", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"If", "[", "\n", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"FileExistsQ", "[", 
+             RowBox[{"filenamelist", "[", 
+              RowBox[{"[", "ifile", "]"}], "]"}], " ", "]"}], "==", "False"}],
+            ",", "\n", 
+           RowBox[{
+            RowBox[{"Print", "[", 
+             RowBox[{"\"\<the file doesn't exist: \>\"", ",", 
+              RowBox[{"filenamelist", "[", 
+               RowBox[{"[", "ifile", "]"}], "]"}]}], " ", "]"}], ";", "\n", 
+            RowBox[{"nofileflag", "=", "True"}], ";", "\n", 
+            "\"\<dummy\>\""}]}], "\n", "]"}], ";", "\n", "\"\<dummy\>\""}], 
+        ",", "\n", 
+        RowBox[{"{", 
+         RowBox[{"ifile", ",", "1", ",", 
+          RowBox[{"Length", "[", "filenamelist", "]"}]}], "}"}]}], "\n", 
+       "]"}], ";", "\n", 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{
+        "if", " ", "any", " ", "files", " ", "are", " ", "not", " ", 
+         "exist"}], ",", " ", 
+        RowBox[{"stop", " ", "the", " ", "function"}]}], "*)"}], "\n", 
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{"nofileflag", "==", "True"}], ",", 
+        RowBox[{"Abort", "[", "]"}]}], "]"}], ";", "\n", "\n", 
+      RowBox[{"pdfmergefiles", "=", "\"\<\>\""}], ";", "\n", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"pdfmergefiles", "=", 
+          RowBox[{"pdfmergefiles", "<>", 
+           RowBox[{"filenamelist", "[", 
+            RowBox[{"[", "ifile", "]"}], "]"}], "<>", "\"\< \>\""}]}], ";", 
+         "\"\<dummy\>\""}], ",", 
+        RowBox[{"{", 
+         RowBox[{"ifile", ",", "1", ",", 
+          RowBox[{"Length", "[", "filenamelist", "]"}]}], "}"}]}], "]"}], ";",
+       "\n", "\n", 
+      RowBox[{"Run", "[", 
+       RowBox[{"pdfmergestr", "<>", "pdfmergefiles"}], "]"}], ";", "\n", 
+      "\"\<dummy\>\""}]}], "\n", "]"}]}], "\[IndentingNewLine]", 
+  "*)"}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.7218654973795567`*^9, 3.7218655036149797`*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+   "this", " ", "function", " ", "input", " ", "a", " ", "list", " ", "of", 
+    " ", "filenames", " ", "and", " ", "their", " ", "extension", " ", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{".", "eps"}], ",", " ", 
+      RowBox[{".", "png"}], ",", " ", 
+      RowBox[{".", "pdf"}], ",", " ", 
+      RowBox[{".", "jpg"}]}], ")"}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+   "the", " ", "function", " ", "collect", " ", "them", " ", "in", " ", "a", 
+    " ", "pdf", " ", "file", " ", "by", " ", "script", " ", "epspdfcat", " ", 
+    "or", " ", "nonepspdfcat"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{"the", " ", "pdf", " ", "file", " ", 
+    RowBox[{"allfigs", ".", "pdf"}], " ", "is", " ", "put", " ", "in", " ", 
+    "MergePDFDir"}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"MergePDFfiles", "[", 
+    RowBox[{"filenamelistin_", ",", "FilesExtin_", ",", "MergePDFDirin_"}], 
+    "]"}], ":=", "\n", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"filenamelist", "=", "filenamelistin"}], ",", 
+       RowBox[{"FilesExt", "=", "FilesExtin"}], ",", 
+       RowBox[{"MergePDFDir", "=", "MergePDFDirin"}], ",", "\n", 
+       "pdfmergestr", ",", "pdfmergefiles", ",", "nofileflag"}], "}"}], ",", 
+     "\n", 
+     RowBox[{"(*", 
+      RowBox[{
+       RowBox[{"pdfmergestr", "=", "\"\<convert -density 300 \>\""}], ";"}], 
+      "*)"}], "\[IndentingNewLine]", 
      RowBox[{"(*", 
       RowBox[{
        RowBox[{
-       "if", " ", "any", " ", "files", " ", "are", " ", "not", " ", "exist"}],
-        ",", " ", 
-       RowBox[{"print", " ", "it"}]}], "*)"}], "\n", 
-     RowBox[{"nofileflag", "=", "False"}], ";", "\n", 
-     RowBox[{"Table", "[", "\n", 
-      RowBox[{
+       "20171206", " ", "when", " ", "merge", " ", "eps", " ", "and", " ", 
+        "other", " ", "extensions"}], ",", " ", 
        RowBox[{
-        RowBox[{"If", "[", "\n", 
+       "we", " ", "need", " ", "to", " ", "use", " ", "different", " ", "way",
+         " ", "to", " ", "merge"}]}], "*)"}], "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"pdfmergestr", "=", "\[IndentingNewLine]", 
+       RowBox[{"Switch", "[", "\[IndentingNewLine]", 
+        RowBox[{
+        "FilesExt", ",", "\[IndentingNewLine]", "\"\<.eps\>\"", ",", "\n", 
+         RowBox[{"pdfmergestr", "=", "\"\<bash epspdfcat \>\""}], ",", 
+         "\[IndentingNewLine]", "\"\<.png\>\"", ",", "\[IndentingNewLine]", 
+         RowBox[{"pdfmergestr", "=", "\"\<bash nonepspdfcat \>\""}], ",", 
+         "\[IndentingNewLine]", "\"\<.pdf\>\"", ",", "\[IndentingNewLine]", 
+         RowBox[{"pdfmergestr", "=", "\"\<bash nonepspdfcat \>\""}], ",", 
+         "\[IndentingNewLine]", "\"\<.jpg\>\"", ",", "\[IndentingNewLine]", 
+         RowBox[{"pdfmergestr", "=", "\"\<bash nonepspdfcat \>\""}], ",", 
+         "\[IndentingNewLine]", "_", ",", "\[IndentingNewLine]", 
          RowBox[{
           RowBox[{
-           RowBox[{"FileExistsQ", "[", 
-            RowBox[{"filenamelist", "[", 
-             RowBox[{"[", "ifile", "]"}], "]"}], " ", "]"}], "==", "False"}], 
-          ",", "\n", 
+          "Print", "[", 
+           "\"\<the extension you input is not supported, merge pdf files end\
+\>\"", "]"}], ";", 
+          RowBox[{"Return", "[", "\"\<dummy\>\"", "]"}]}]}], 
+        "\[IndentingNewLine]", "]"}]}], ";", "\n", 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{"pdffinalfile", "=", "\"\<allfig.pdf\>\""}], ";"}], "*)"}], 
+      "\n", "\n", "\n", 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{
+        "if", " ", "any", " ", "files", " ", "are", " ", "not", " ", 
+         "exist"}], ",", " ", 
+        RowBox[{"print", " ", "it"}]}], "*)"}], "\n", 
+      RowBox[{"nofileflag", "=", "False"}], ";", "\n", 
+      RowBox[{"Table", "[", "\n", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"If", "[", "\n", 
           RowBox[{
-           RowBox[{"Print", "[", 
-            RowBox[{"\"\<the file doesn't exist: \>\"", ",", 
+           RowBox[{
+            RowBox[{"FileExistsQ", "[", 
              RowBox[{"filenamelist", "[", 
-              RowBox[{"[", "ifile", "]"}], "]"}]}], " ", "]"}], ";", "\n", 
-           RowBox[{"nofileflag", "=", "True"}], ";", "\n", 
-           "\"\<dummy\>\""}]}], "\n", "]"}], ";", "\n", "\"\<dummy\>\""}], 
-       ",", "\n", 
-       RowBox[{"{", 
-        RowBox[{"ifile", ",", "1", ",", 
-         RowBox[{"Length", "[", "filenamelist", "]"}]}], "}"}]}], "\n", "]"}],
-      ";", "\n", 
-     RowBox[{"(*", 
-      RowBox[{
+              RowBox[{"[", "ifile", "]"}], "]"}], " ", "]"}], "==", "False"}],
+            ",", "\n", 
+           RowBox[{
+            RowBox[{"Print", "[", 
+             RowBox[{"\"\<the file doesn't exist: \>\"", ",", 
+              RowBox[{"filenamelist", "[", 
+               RowBox[{"[", "ifile", "]"}], "]"}]}], " ", "]"}], ";", "\n", 
+            RowBox[{"nofileflag", "=", "True"}], ";", "\n", 
+            "\"\<dummy\>\""}]}], "\n", "]"}], ";", "\n", "\"\<dummy\>\""}], 
+        ",", "\n", 
+        RowBox[{"{", 
+         RowBox[{"ifile", ",", "1", ",", 
+          RowBox[{"Length", "[", "filenamelist", "]"}]}], "}"}]}], "\n", 
+       "]"}], ";", "\n", 
+      RowBox[{"(*", 
        RowBox[{
-       "if", " ", "any", " ", "files", " ", "are", " ", "not", " ", "exist"}],
-        ",", " ", 
-       RowBox[{"stop", " ", "the", " ", "function"}]}], "*)"}], "\n", 
-     RowBox[{"If", "[", 
-      RowBox[{
-       RowBox[{"nofileflag", "==", "True"}], ",", 
-       RowBox[{"Abort", "[", "]"}]}], "]"}], ";", "\n", "\n", 
-     RowBox[{"pdfmergefiles", "=", "\"\<\>\""}], ";", "\n", 
-     RowBox[{"Table", "[", 
-      RowBox[{
+        RowBox[{
+        "if", " ", "any", " ", "files", " ", "are", " ", "not", " ", 
+         "exist"}], ",", " ", 
+        RowBox[{"stop", " ", "the", " ", "function"}]}], "*)"}], "\n", 
+      RowBox[{"If", "[", 
        RowBox[{
-        RowBox[{"pdfmergefiles", "=", 
-         RowBox[{"pdfmergefiles", "<>", 
-          RowBox[{"filenamelist", "[", 
-           RowBox[{"[", "ifile", "]"}], "]"}], "<>", "\"\< \>\""}]}], ";", 
-        "\"\<dummy\>\""}], ",", 
-       RowBox[{"{", 
-        RowBox[{"ifile", ",", "1", ",", 
-         RowBox[{"Length", "[", "filenamelist", "]"}]}], "}"}]}], "]"}], ";", 
-     "\n", "\n", 
-     RowBox[{"Run", "[", 
-      RowBox[{"pdfmergestr", "<>", "pdfmergefiles"}], "]"}], ";", "\n", 
-     "\"\<dummy\>\""}]}], "\n", "]"}]}]], "Input",
+        RowBox[{"nofileflag", "==", "True"}], ",", 
+        RowBox[{
+         RowBox[{
+         "Print", "[", 
+          "\"\<some files in the list do not exist, merge pdf files end\>\"", 
+          "]"}], ";", 
+         RowBox[{"Return", "[", "\"\<dummy\>\"", "]"}]}]}], " ", "]"}], ";", 
+      "\n", "\n", 
+      RowBox[{"pdfmergefiles", "=", "\"\<\>\""}], ";", "\n", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"pdfmergefiles", "=", 
+          RowBox[{"pdfmergefiles", "<>", 
+           RowBox[{"filenamelist", "[", 
+            RowBox[{"[", "ifile", "]"}], "]"}], "<>", "\"\< \>\""}]}], ";", 
+         "\"\<dummy\>\""}], ",", 
+        RowBox[{"{", 
+         RowBox[{"ifile", ",", "1", ",", 
+          RowBox[{"Length", "[", "filenamelist", "]"}]}], "}"}]}], "]"}], ";",
+       "\n", "\n", 
+      RowBox[{"Run", "[", 
+       RowBox[{"pdfmergestr", "<>", "pdfmergefiles"}], "]"}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"Run", "[", 
+       RowBox[{"\"\<mv allfigs.pdf \>\"", "<>", "MergePDFDir"}], "]"}], ";", 
+      "\n", "\"\<dummy\>\""}]}], "\n", "]"}]}]}]], "Input",
  InitializationCell->True]
 }, Open  ]],
 
 Cell[CellGroupData[{
 
 Cell["\<\
-make a pdf file to merge filenames which are output of figure making \
+make a pdf file that merge filenames which are output of figure making \
 executables (3 kinds of output figures: samept, grid, sameptgrid)\
-\>", "Subsection"],
+\>", "Subsection",
+ CellChangeTimes->{{3.721866233793848*^9, 3.7218662341085463`*^9}}],
 
 Cell[BoxData[
  RowBox[{
@@ -36742,81 +37188,86 @@ Cell[BoxData[
     RowBox[{"input", ":", " ", 
      RowBox[{"Dir", " ", "putting", " ", "figures"}]}], ",", " ", 
     RowBox[{"DirType", "\[Equal]", "\"\<samept\>\""}], ",", " ", 
-    "\"\<grid\>\"", ",", " ", "\"\<sameptgrid\>\""}], "*)"}], "\n", 
-  RowBox[{
-   RowBox[{"implement", "[", 
-    RowBox[{"PlotDirin_", ",", "DirTypein_"}], "]"}], ":=", "\n", 
-   RowBox[{"Module", "[", 
-    RowBox[{
-     RowBox[{"{", 
-      RowBox[{
-       RowBox[{"PlotDir", "=", "PlotDirin"}], ",", 
-       RowBox[{"DirType", "=", "DirTypein"}], ",", "filelistold"}], "}"}], 
-     ",", "\n", "\n", 
-     RowBox[{"(*", 
-      RowBox[{
-       RowBox[{"original", " ", "file", " ", "extension"}], " ", "\[Equal]", 
-       " ", 
-       RowBox[{".", "png"}]}], "*)"}], "\n", 
+    "\"\<grid\>\"", ",", " ", "\"\<sameptgrid\>\""}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", "\n", 
+   RowBox[{
+    RowBox[{"implement", "[", 
+     RowBox[{"PlotDirin_", ",", "DirTypein_"}], "]"}], ":=", "\n", 
+    RowBox[{"Module", "[", 
      RowBox[{
-      RowBox[{"iext", "=", "2"}], ";", "\n", 
-      RowBox[{"(*", "run", "*)"}], "\n", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"PlotDir", "=", "PlotDirin"}], ",", 
+        RowBox[{"DirType", "=", "DirTypein"}], ",", "filelistold"}], "}"}], 
+      ",", "\n", "\n", 
       RowBox[{"(*", 
        RowBox[{
-       "make", " ", "the", " ", "file", " ", "list", " ", "of", " ", 
-        "original", " ", "file", " ", 
-        RowBox[{"(", "extension", ")"}]}], "*)"}], "\n", 
-      RowBox[{"filelistold", "=", "\n", 
-       RowBox[{"Which", "[", "\n", 
+        RowBox[{"original", " ", "file", " ", "extension"}], " ", "\[Equal]", 
+        " ", 
+        RowBox[{".", "png"}]}], "*)"}], "\n", 
+      RowBox[{
+       RowBox[{"iext", "=", "2"}], ";", "\n", 
+       RowBox[{"(*", "run", "*)"}], "\n", 
+       RowBox[{"(*", 
         RowBox[{
-         RowBox[{"DirType", "==", "\"\<samept\>\""}], ",", "\n", 
-         RowBox[{"GetxQplotListSamept", "[", 
-          RowBox[{"PlotDir", ",", "iext"}], "]"}], ",", "\n", 
-         RowBox[{"DirType", "==", "\"\<grid\>\""}], ",", "\n", 
-         RowBox[{"GetxQplotListGrid", "[", 
-          RowBox[{"PlotDir", ",", "iext"}], "]"}], ",", "\n", 
-         RowBox[{"DirType", "==", "\"\<sameptgrid\>\""}], ",", "\n", 
-         RowBox[{"GetxQplotListSameptGrid", "[", 
-          RowBox[{"PlotDir", ",", "iext"}], "]"}]}], "\n", "]"}]}], ";", "\n", 
-      RowBox[{"(*", 
-       RowBox[{
-        RowBox[{
-        "convert", " ", "to", " ", "the", " ", "new", " ", "extension"}], ",",
-         " ", 
-        RowBox[{"ex", ":", " ", "eps"}]}], "*)"}], "\n", 
-      RowBox[{"ConvertPlotExtension", "[", 
-       RowBox[{"filelistold", ",", "1"}], "]"}], ";", "\n", 
-      RowBox[{"(*", 
-       RowBox[{"set", " ", "new", " ", "file", " ", "list", " ", 
-        RowBox[{"(", 
-         RowBox[{".", "eps"}], ")"}]}], "*)"}], "\n", 
-      RowBox[{"filelistnew", "=", "\n", 
-       RowBox[{"Which", "[", "\n", 
-        RowBox[{
-         RowBox[{"DirType", "==", "\"\<samept\>\""}], ",", "\n", 
-         RowBox[{"GetxQplotListSamept", "[", 
-          RowBox[{"PlotDir", ",", "1"}], "]"}], ",", "\n", 
+        "make", " ", "the", " ", "file", " ", "list", " ", "of", " ", 
+         "original", " ", "file", " ", 
+         RowBox[{"(", "extension", ")"}]}], "*)"}], "\n", 
+       RowBox[{"filelistold", "=", "\n", 
+        RowBox[{"Which", "[", "\n", 
          RowBox[{
-          RowBox[{"DirType", "==", "\"\<grid\>\""}], " ", "||", " ", 
-          RowBox[{"DirType", "==", "\"\<xgrid\>\""}]}], ",", "\n", 
-         RowBox[{"GetxQplotListGrid", "[", 
-          RowBox[{"PlotDir", ",", "1"}], "]"}], ",", "\n", 
-         RowBox[{"DirType", "==", "\"\<sameptgrid\>\""}], ",", "\n", 
-         RowBox[{"GetxQplotListSameptGrid", "[", 
-          RowBox[{"PlotDir", ",", "1"}], "]"}]}], "\n", "]"}]}], ";", "\n", 
-      RowBox[{"(*", 
-       RowBox[{
-       "merge", " ", "eps", " ", "files", " ", "into", " ", "pdf", " ", 
-        "file"}], "*)"}], "\n", 
-      RowBox[{"MergePDFfiles", "[", "filelistnew", "]"}], ";", "\n", 
-      RowBox[{"(*", 
-       RowBox[{
-       "move", " ", "the", " ", "merged", " ", "pdf", " ", "file", " ", "to", 
-        " ", "the", " ", "directory"}], "*)"}], "\n", 
-      RowBox[{"Run", "[", 
-       RowBox[{"\"\<mv allfigs.pdf \>\"", "<>", "PlotDir"}], "]"}], ";", 
-      "\n", "\"\<dummy\>\""}]}], "\n", "]"}]}]}]], "Input",
- InitializationCell->True],
+          RowBox[{"DirType", "==", "\"\<samept\>\""}], ",", "\n", 
+          RowBox[{"GetxQplotListSamept", "[", 
+           RowBox[{"PlotDir", ",", "iext"}], "]"}], ",", "\n", 
+          RowBox[{"DirType", "==", "\"\<grid\>\""}], ",", "\n", 
+          RowBox[{"GetxQplotListGrid", "[", 
+           RowBox[{"PlotDir", ",", "iext"}], "]"}], ",", "\n", 
+          RowBox[{"DirType", "==", "\"\<sameptgrid\>\""}], ",", "\n", 
+          RowBox[{"GetxQplotListSameptGrid", "[", 
+           RowBox[{"PlotDir", ",", "iext"}], "]"}]}], "\n", "]"}]}], ";", 
+       "\n", 
+       RowBox[{"(*", 
+        RowBox[{
+         RowBox[{
+         "convert", " ", "to", " ", "the", " ", "new", " ", "extension"}], 
+         ",", " ", 
+         RowBox[{"ex", ":", " ", "eps"}]}], "*)"}], "\n", 
+       RowBox[{"ConvertPlotExtension", "[", 
+        RowBox[{"filelistold", ",", "1"}], "]"}], ";", "\n", 
+       RowBox[{"(*", 
+        RowBox[{"set", " ", "new", " ", "file", " ", "list", " ", 
+         RowBox[{"(", 
+          RowBox[{".", "eps"}], ")"}]}], "*)"}], "\n", 
+       RowBox[{"filelistnew", "=", "\n", 
+        RowBox[{"Which", "[", "\n", 
+         RowBox[{
+          RowBox[{"DirType", "==", "\"\<samept\>\""}], ",", "\n", 
+          RowBox[{"GetxQplotListSamept", "[", 
+           RowBox[{"PlotDir", ",", "1"}], "]"}], ",", "\n", 
+          RowBox[{
+           RowBox[{"DirType", "==", "\"\<grid\>\""}], " ", "||", " ", 
+           RowBox[{"DirType", "==", "\"\<xgrid\>\""}]}], ",", "\n", 
+          RowBox[{"GetxQplotListGrid", "[", 
+           RowBox[{"PlotDir", ",", "1"}], "]"}], ",", "\n", 
+          RowBox[{"DirType", "==", "\"\<sameptgrid\>\""}], ",", "\n", 
+          RowBox[{"GetxQplotListSameptGrid", "[", 
+           RowBox[{"PlotDir", ",", "1"}], "]"}]}], "\n", "]"}]}], ";", "\n", 
+       RowBox[{"(*", 
+        RowBox[{
+        "merge", " ", "eps", " ", "files", " ", "into", " ", "pdf", " ", 
+         "file"}], "*)"}], "\n", 
+       RowBox[{"MergePDFfiles", "[", "filelistnew", "]"}], ";", "\n", 
+       RowBox[{"(*", 
+        RowBox[{
+        "move", " ", "the", " ", "merged", " ", "pdf", " ", "file", " ", "to",
+          " ", "the", " ", "directory"}], "*)"}], "\n", 
+       RowBox[{"Run", "[", 
+        RowBox[{"\"\<mv allfigs.pdf \>\"", "<>", "PlotDir"}], "]"}], ";", 
+       "\n", "\"\<dummy\>\""}]}], "\n", "]"}]}], "\[IndentingNewLine]", 
+   "*)"}]}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.721865507074088*^9, 3.721865511329856*^9}}],
 
 Cell[BoxData[
  RowBox[{
@@ -36841,49 +37292,257 @@ Cell[BoxData[
       RowBox[{"ex", ":", " ", 
        RowBox[{
         RowBox[{"run", ".", "nb"}], " ", "is", " ", "samept", " ", "figure", 
-        " ", "maker"}]}], ")"}]}]}], "  ", "*)"}], "\n", 
+        " ", "maker"}]}], ")"}]}]}], "  ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", "\n", 
+   RowBox[{
+    RowBox[{"implementeps", "[", 
+     RowBox[{"PlotDirin_", ",", "DirTypein_"}], "]"}], ":=", "\n", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"PlotDir", "=", "PlotDirin"}], ",", 
+        RowBox[{"DirType", "=", "DirTypein"}]}], "}"}], ",", "\n", "\n", 
+      RowBox[{"(*", 
+       RowBox[{"set", " ", "new", " ", "file", " ", "list", " ", 
+        RowBox[{"(", 
+         RowBox[{".", "eps"}], ")"}]}], "*)"}], "\n", 
+      RowBox[{
+       RowBox[{"filelistnew", "=", "\n", 
+        RowBox[{"Which", "[", "\n", 
+         RowBox[{
+          RowBox[{"DirType", "==", "\"\<samept\>\""}], ",", "\n", 
+          RowBox[{"GetxQplotListSamept", "[", 
+           RowBox[{"PlotDir", ",", "1"}], "]"}], ",", "\n", 
+          RowBox[{
+           RowBox[{"DirType", "==", "\"\<grid\>\""}], " ", "||", " ", 
+           RowBox[{"DirType", "==", "\"\<xgrid\>\""}]}], ",", "\n", 
+          RowBox[{"GetxQplotListGrid", "[", 
+           RowBox[{"PlotDir", ",", "1"}], "]"}], ",", "\n", 
+          RowBox[{"DirType", "==", "\"\<sameptgrid\>\""}], ",", "\n", 
+          RowBox[{"GetxQplotListSameptGrid", "[", 
+           RowBox[{"PlotDir", ",", "1"}], "]"}]}], "\n", "]"}]}], ";", "\n", 
+       RowBox[{"(*", 
+        RowBox[{
+        "merge", " ", "eps", " ", "files", " ", "into", " ", "pdf", " ", 
+         "file"}], "*)"}], "\n", 
+       RowBox[{"MergePDFfiles", "[", "filelistnew", "]"}], ";", 
+       RowBox[{"Print", "[", "filelistnew", "]"}], ";", "\n", 
+       RowBox[{"(*", 
+        RowBox[{
+        "move", " ", "the", " ", "merged", " ", "pdf", " ", "file", " ", "to",
+          " ", "the", " ", "directory"}], "*)"}], "\n", 
+       RowBox[{"Run", "[", 
+        RowBox[{"\"\<mv allfigs.pdf \>\"", "<>", "PlotDir"}], "]"}], ";", 
+       "\n", "\"\<dummy\>\""}]}], "\n", "]"}]}], "\[IndentingNewLine]", 
+   "*)"}]}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.721865514684235*^9, 3.721865518919208*^9}}],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+    "this", " ", "function", " ", "input", " ", "the", " ", "Directory"}], 
+    ",", " ", "Dirtype", ",", " ", 
+    RowBox[{"input", " ", "figure", " ", "format"}], ",", " ", 
+    RowBox[{"and", " ", "output", " ", "figure", " ", "format"}]}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"Dir", " ", "type", " ", "includes", " ", "\"\<samept\>\""}], ",",
+     " ", "\"\<grid\>\"", ",", " ", "\"\<sameptgrid\>\""}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+   "the", " ", "function", " ", "convert", " ", "the", " ", "out", " ", 
+    "figures", " ", "of", " ", 
+    RowBox[{"run_v4", ".", "m"}], " ", "in", " ", "the", " ", "Directory", 
+    " ", "from", " ", "extin", " ", "to", " ", "extout"}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"for", " ", "example"}], ",", " ", 
+    RowBox[{"if", " ", "the", " ", 
+     RowBox[{"run_v4", ".", "m"}], " ", "output", " ", "the", " ", 
+     "Directory", " ", "with", " ", 
+     RowBox[{"(", 
+      RowBox[{"x", ",", "Q"}], ")"}], " ", "collected", " ", "by", " ", "the",
+      " ", "samept", " ", "method"}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{"extin", " ", "=", " ", "\"\<eps\>\""}], ",", " ", 
+    RowBox[{"extout", " ", "=", " ", "\"\<pdf\>\""}], ",", " ", 
+    RowBox[{"then", " ", "the", " ", "function", " ", "convert", " ", 
+     RowBox[{"all", " ", ".", "eps"}], " ", "files", " ", 
+     RowBox[{"to", " ", ".", "pdf"}], " ", "files"}]}], "*)"}], "\n", 
   RowBox[{
-   RowBox[{"implementeps", "[", 
-    RowBox[{"PlotDirin_", ",", "DirTypein_"}], "]"}], ":=", "\n", 
+   RowBox[{
+    RowBox[{"FigsExtConvert", "[", 
+     RowBox[{
+     "PlotDirin_", ",", "DirTypein_", ",", "extinin_", ",", "extoutin_"}], 
+     "]"}], ":=", "\n", 
+    RowBox[{"Module", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"PlotDir", "=", "PlotDirin"}], ",", 
+        RowBox[{"DirType", "=", "DirTypein"}], ",", 
+        RowBox[{"extin", "=", "extinin"}], ",", 
+        RowBox[{"extout", "=", "extoutin"}], ",", "extindex", ",", 
+        "filelistold", ",", "filelistnew"}], "}"}], ",", "\n", 
+      "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<.eps\>\"", ",", "\"\<.png\>\"", ",", "\"\<.pdf\>\"", ",", 
+         "\"\<.jpg\>\""}], "}"}], ";", "\[IndentingNewLine]", 
+       RowBox[{"extindex", "=", 
+        RowBox[{"Switch", "[", 
+         RowBox[{
+         "extin", ",", "\"\<.eps\>\"", ",", "1", ",", "\"\<.png\>\"", ",", 
+          "2", ",", "\"\<.pdf\>\"", ",", "3", ",", "\"\<.jpg\>\"", ",", "4", 
+          ",", "_", ",", 
+          RowBox[{
+           RowBox[{
+           "Print", "[", 
+            "\"\<the input extension is not supported, merge pdf end\>\"", 
+            "]"}], ";", 
+           RowBox[{"Return", "[", "\"\<dummy\>\"", "]"}]}]}], " ", "]"}]}], 
+       ";", "\[IndentingNewLine]", "\n", 
+       RowBox[{"(*", "run", "*)"}], "\n", 
+       RowBox[{"(*", 
+        RowBox[{
+        "make", " ", "the", " ", "file", " ", "list", " ", "of", " ", 
+         "original", " ", "file", " ", 
+         RowBox[{"(", "extension", ")"}]}], "*)"}], "\n", 
+       RowBox[{"filelistold", "=", "\n", 
+        RowBox[{"Which", "[", "\n", 
+         RowBox[{
+          RowBox[{"DirType", "==", "\"\<samept\>\""}], ",", "\n", 
+          RowBox[{"GetxQplotListSameptV2", "[", 
+           RowBox[{"PlotDir", ",", "extindex"}], "]"}], ",", "\n", 
+          RowBox[{"DirType", "==", "\"\<grid\>\""}], ",", "\n", 
+          RowBox[{"GetxQplotListGrid", "[", 
+           RowBox[{"PlotDir", ",", "extindex"}], "]"}], ",", "\n", 
+          RowBox[{"DirType", "==", "\"\<sameptgrid\>\""}], ",", "\n", 
+          RowBox[{"GetxQplotListSameptGrid", "[", 
+           RowBox[{"PlotDir", ",", "extindex"}], "]"}]}], "\n", "]"}]}], ";", 
+       "\n", 
+       RowBox[{"(*", 
+        RowBox[{
+         RowBox[{
+         "convert", " ", "to", " ", "the", " ", "new", " ", "extension"}], 
+         ",", " ", 
+         RowBox[{"ex", ":", " ", "eps"}]}], "*)"}], "\n", 
+       RowBox[{"ConvertPlotExtension", "[", 
+        RowBox[{"filelistold", ",", "extout"}], "]"}], ";", "\n", 
+       "\[IndentingNewLine]", "\"\<dummy\>\""}]}], "\n", "]"}]}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]"}]}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.7215731966974573`*^9, 3.721573225786275*^9}, 
+   3.72157329316186*^9, {3.7215733643183517`*^9, 3.721573364454092*^9}, {
+   3.721574362301311*^9, 3.7215743623880377`*^9}, {3.721576216633106*^9, 
+   3.7215762167874813`*^9}, {3.721578765978641*^9, 3.72157877800202*^9}, {
+   3.721578845311853*^9, 3.721578891701624*^9}, {3.721578930075018*^9, 
+   3.721578957228389*^9}, {3.72157899383923*^9, 3.721578994225052*^9}, {
+   3.721579109705997*^9, 3.7215791566676807`*^9}, {3.721579246528743*^9, 
+   3.7215792647622557`*^9}, {3.7215796555462923`*^9, 3.721579659986639*^9}, {
+   3.7215797547864428`*^9, 3.721579902026978*^9}, {3.721580000373281*^9, 
+   3.7215800223881693`*^9}, {3.721581066766029*^9, 3.721581118561507*^9}, {
+   3.721581491171835*^9, 3.721581515580298*^9}, {3.721865773187996*^9, 
+   3.721866021863182*^9}, 3.721866805882862*^9}],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+    "this", " ", "function", " ", "input", " ", "the", " ", "plot", " ", 
+     "dir"}], ",", " ", "dirtype", ",", " ", 
+    RowBox[{
+    "and", " ", "extension", " ", "of", " ", "output", " ", "figures", " ", 
+     "of", " ", 
+     RowBox[{"run_v4", ".", "m"}]}], ",", " ", 
+    RowBox[{"merge", " ", "figures", " ", "into", " ", "an", " ", 
+     RowBox[{"allfigs", ".", "pdf"}], " ", "in", " ", "the", " ", "same", " ",
+      "directory"}]}], "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"FigsMergeToPDF", "[", 
+    RowBox[{"PlotDirin_", ",", "DirTypein_", ",", "extin_"}], "]"}], ":=", 
+   "\n", 
    RowBox[{"Module", "[", 
     RowBox[{
      RowBox[{"{", 
       RowBox[{
        RowBox[{"PlotDir", "=", "PlotDirin"}], ",", 
-       RowBox[{"DirType", "=", "DirTypein"}]}], "}"}], ",", "\n", "\n", 
+       RowBox[{"DirType", "=", "DirTypein"}], ",", 
+       RowBox[{"ext", "=", "extin"}], ",", "filelistold", ",", "filelistnew", 
+       ",", "extindex"}], "}"}], ",", "\n", 
      RowBox[{"(*", 
       RowBox[{"set", " ", "new", " ", "file", " ", "list", " ", 
        RowBox[{"(", 
-        RowBox[{".", "eps"}], ")"}]}], "*)"}], "\n", 
+        RowBox[{".", "eps"}], ")"}]}], "*)"}], "\[IndentingNewLine]", 
      RowBox[{
+      RowBox[{"{", 
+       RowBox[{
+       "\"\<.eps\>\"", ",", "\"\<.png\>\"", ",", "\"\<.pdf\>\"", ",", 
+        "\"\<.jpg\>\""}], "}"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"extindex", "=", 
+       RowBox[{"Switch", "[", 
+        RowBox[{
+        "ext", ",", "\"\<.eps\>\"", ",", "1", ",", "\"\<.png\>\"", ",", "2", 
+         ",", "\"\<.pdf\>\"", ",", "3", ",", "\"\<.jpg\>\"", ",", "4", ",", 
+         "_", ",", 
+         RowBox[{
+          RowBox[{
+          "Print", "[", 
+           "\"\<the input extension is not supported, merge pdf end\>\"", 
+           "]"}], ";", 
+          RowBox[{"Return", "[", "\"\<dummy\>\"", "]"}]}]}], " ", "]"}]}], 
+      ";", "\[IndentingNewLine]", "\n", 
       RowBox[{"filelistnew", "=", "\n", 
        RowBox[{"Which", "[", "\n", 
         RowBox[{
          RowBox[{"DirType", "==", "\"\<samept\>\""}], ",", "\n", 
-         RowBox[{"GetxQplotListSamept", "[", 
-          RowBox[{"PlotDir", ",", "1"}], "]"}], ",", "\n", 
+         RowBox[{"GetxQplotListSameptV2", "[", 
+          RowBox[{"PlotDir", ",", "extindex"}], "]"}], ",", "\n", 
          RowBox[{
           RowBox[{"DirType", "==", "\"\<grid\>\""}], " ", "||", " ", 
           RowBox[{"DirType", "==", "\"\<xgrid\>\""}]}], ",", "\n", 
          RowBox[{"GetxQplotListGrid", "[", 
-          RowBox[{"PlotDir", ",", "1"}], "]"}], ",", "\n", 
+          RowBox[{"PlotDir", ",", "extindex"}], "]"}], ",", "\n", 
          RowBox[{"DirType", "==", "\"\<sameptgrid\>\""}], ",", "\n", 
          RowBox[{"GetxQplotListSameptGrid", "[", 
-          RowBox[{"PlotDir", ",", "1"}], "]"}]}], "\n", "]"}]}], ";", "\n", 
+          RowBox[{"PlotDir", ",", "extindex"}], "]"}]}], "\n", "]"}]}], ";", 
+      "\n", 
       RowBox[{"(*", 
        RowBox[{
        "merge", " ", "eps", " ", "files", " ", "into", " ", "pdf", " ", 
         "file"}], "*)"}], "\n", 
-      RowBox[{"MergePDFfiles", "[", "filelistnew", "]"}], ";", 
-      RowBox[{"Print", "[", "filelistnew", "]"}], ";", "\n", 
+      RowBox[{"MergePDFfiles", "[", 
+       RowBox[{"filelistnew", ",", "ext", ",", "PlotDir"}], "]"}], ";", "\n", 
+      
       RowBox[{"(*", 
        RowBox[{
        "move", " ", "the", " ", "merged", " ", "pdf", " ", "file", " ", "to", 
-        " ", "the", " ", "directory"}], "*)"}], "\n", 
-      RowBox[{"Run", "[", 
-       RowBox[{"\"\<mv allfigs.pdf \>\"", "<>", "PlotDir"}], "]"}], ";", 
-      "\n", "\"\<dummy\>\""}]}], "\n", "]"}]}]}]], "Input",
- InitializationCell->True]
+        " ", "the", " ", "directory"}], "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"(*", "\n", 
+       RowBox[{
+        RowBox[{"Run", "[", 
+         RowBox[{"\"\<mv allfigs.pdf \>\"", "<>", "PlotDir"}], "]"}], ";"}], 
+       "\[IndentingNewLine]", "*)"}], "\n", "filelistnew"}]}], 
+    "\[IndentingNewLine]", "]"}]}]}]], "Input",
+ InitializationCell->True,
+ CellChangeTimes->{{3.7215779003359823`*^9, 3.7215779005346212`*^9}, {
+   3.721578005112544*^9, 3.721578033544231*^9}, {3.721578090614337*^9, 
+   3.721578104333199*^9}, {3.7215781471759453`*^9, 3.7215782522192583`*^9}, {
+   3.721578287780683*^9, 3.7215785928032923`*^9}, {3.721578626583543*^9, 
+   3.721578665706975*^9}, {3.721866033131576*^9, 3.721866160834258*^9}, {
+   3.721866341772273*^9, 3.721866438553714*^9}, {3.72186681176156*^9, 
+   3.7218669025364323`*^9}, {3.721866982801943*^9, 3.721867001118301*^9}, 
+   3.7218671865536203`*^9}]
 }, Open  ]]
 }, Open  ]],
 
@@ -38142,404 +38801,412 @@ Notebook[{
 Cell[CellGroupData[{
 Cell[422, 15, 32, 0, 66, "Chapter"],
 Cell[CellGroupData[{
-Cell[479, 19, 4411, 107, 489, "Input",
+Cell[479, 19, 4444, 108, 489, "Input",
  InitializationCell->True],
 Cell[CellGroupData[{
-Cell[4915, 130, 367, 9, 24, "Print"],
-Cell[5285, 141, 254, 6, 24, "Print"],
-Cell[5542, 149, 260, 6, 24, "Print"]
+Cell[4948, 131, 367, 9, 24, "Print"],
+Cell[5318, 142, 254, 6, 24, "Print"],
+Cell[5575, 150, 260, 6, 24, "Print"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[5863, 162, 35, 0, 66, "Chapter"],
-Cell[5901, 164, 6153, 196, 978, "Input",
+Cell[5896, 163, 35, 0, 66, "Chapter"],
+Cell[5934, 165, 6153, 196, 978, "Input",
  InitializationCell->True],
-Cell[12057, 362, 444, 12, 89, "Code"]
+Cell[12090, 363, 444, 12, 89, "Code"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[12538, 379, 42, 0, 93, "Title"],
+Cell[12571, 380, 42, 0, 93, "Title"],
 Cell[CellGroupData[{
-Cell[12605, 383, 29, 0, 66, "Chapter"],
+Cell[12638, 384, 29, 0, 66, "Chapter"],
 Cell[CellGroupData[{
-Cell[12659, 387, 36, 0, 65, "Section"],
+Cell[12692, 388, 36, 0, 65, "Section"],
 Cell[CellGroupData[{
-Cell[12720, 391, 35, 0, 45, "Subsection"],
-Cell[12758, 393, 336, 8, 148, "Input",
+Cell[12753, 392, 35, 0, 45, "Subsection"],
+Cell[12791, 394, 336, 8, 148, "Input",
  InitializationCell->True]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[13131, 406, 35, 0, 44, "Subsection"],
-Cell[13169, 408, 466, 10, 182, "Input",
+Cell[13164, 407, 35, 0, 44, "Subsection"],
+Cell[13202, 409, 466, 10, 182, "Input",
  InitializationCell->True]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[13672, 423, 32, 0, 44, "Subsection"],
-Cell[13707, 425, 255, 7, 125, "Input",
+Cell[13705, 424, 32, 0, 44, "Subsection"],
+Cell[13740, 426, 255, 7, 125, "Input",
  InitializationCell->True]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[14011, 438, 103, 2, 65, "Section"],
+Cell[14044, 439, 103, 2, 65, "Section"],
 Cell[CellGroupData[{
-Cell[14139, 444, 35, 0, 44, "Subsection"],
-Cell[14177, 446, 542, 14, 234, "Input",
+Cell[14172, 445, 35, 0, 44, "Subsection"],
+Cell[14210, 447, 542, 14, 234, "Input",
  InitializationCell->True]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[14756, 465, 35, 0, 44, "Subsection"],
-Cell[14794, 467, 254, 7, 174, "Input",
+Cell[14789, 466, 35, 0, 44, "Subsection"],
+Cell[14827, 468, 254, 7, 174, "Input",
  InitializationCell->True]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[15085, 479, 41, 0, 45, "Subsection"],
-Cell[15129, 481, 343, 9, 195, "Input",
+Cell[15118, 480, 41, 0, 45, "Subsection"],
+Cell[15162, 482, 343, 9, 195, "Input",
  InitializationCell->True]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[15509, 495, 36, 0, 44, "Subsection"],
-Cell[15548, 497, 255, 7, 174, "Input",
+Cell[15542, 496, 36, 0, 44, "Subsection"],
+Cell[15581, 498, 255, 7, 174, "Input",
  InitializationCell->True]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[15840, 509, 42, 0, 45, "Subsection"],
-Cell[15885, 511, 344, 9, 195, "Input",
+Cell[15873, 510, 42, 0, 45, "Subsection"],
+Cell[15918, 512, 344, 9, 195, "Input",
  InitializationCell->True]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[16266, 525, 39, 0, 44, "Subsection"],
-Cell[16308, 527, 8294, 234, 1286, "Input",
+Cell[16299, 526, 39, 0, 44, "Subsection"],
+Cell[16341, 528, 8294, 234, 1286, "Input",
  InitializationCell->True],
-Cell[24605, 763, 53, 1, 46, "Input",
+Cell[24638, 764, 53, 1, 46, "Input",
  InitializationCell->True],
-Cell[24661, 766, 15646, 386, 1943, "Code"]
+Cell[24694, 767, 15646, 386, 1943, "Code"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[40368, 1159, 34, 0, 66, "Chapter"],
+Cell[40401, 1160, 34, 0, 66, "Chapter"],
 Cell[CellGroupData[{
-Cell[40427, 1163, 62, 0, 65, "Section"],
+Cell[40460, 1164, 62, 0, 65, "Section"],
 Cell[CellGroupData[{
-Cell[40514, 1167, 39, 0, 44, "Subsection"],
-Cell[40556, 1169, 10381, 258, 1590, "Input",
+Cell[40547, 1168, 39, 0, 44, "Subsection"],
+Cell[40589, 1170, 10381, 258, 1590, "Input",
  InitializationCell->True],
-Cell[50940, 1429, 269, 7, 126, "Input",
+Cell[50973, 1430, 269, 7, 126, "Input",
  InitializationCell->True]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[51258, 1442, 57, 0, 65, "Section"],
+Cell[51291, 1443, 57, 0, 65, "Section"],
 Cell[CellGroupData[{
-Cell[51340, 1446, 34, 0, 44, "Subsection"],
-Cell[51377, 1448, 5127, 134, 616, "Input",
- InitializationCell->True]
-}, Open  ]]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[56565, 1589, 34, 0, 66, "Chapter"],
-Cell[CellGroupData[{
-Cell[56624, 1593, 37, 0, 65, "Section"],
-Cell[CellGroupData[{
-Cell[56686, 1597, 46, 0, 45, "Subsection"],
-Cell[56735, 1599, 4736, 120, 736, "Input",
- InitializationCell->True],
-Cell[61474, 1721, 4741, 120, 785, "Input",
- InitializationCell->True]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[66252, 1846, 104, 2, 45, "Subsection"],
-Cell[66359, 1850, 2336, 57, 313, "Input",
- InitializationCell->True],
-Cell[68698, 1909, 1210, 33, 127, "Input",
- InitializationCell->True],
-Cell[69911, 1944, 12475, 316, 1628, "Code"]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[82435, 2266, 77, 0, 65, "Section"],
-Cell[CellGroupData[{
-Cell[82537, 2270, 35, 0, 45, "Subsection"],
-Cell[82575, 2272, 295, 8, 164, "Input",
+Cell[51373, 1447, 34, 0, 44, "Subsection"],
+Cell[51410, 1449, 5127, 134, 616, "Input",
  InitializationCell->True]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[82931, 2287, 41, 0, 66, "Chapter"],
+Cell[56598, 1590, 34, 0, 66, "Chapter"],
 Cell[CellGroupData[{
-Cell[82997, 2291, 118, 3, 101, "Section"],
+Cell[56657, 1594, 37, 0, 65, "Section"],
 Cell[CellGroupData[{
-Cell[83140, 2298, 41, 0, 44, "Subsection"],
-Cell[83184, 2300, 6832, 175, 626, "Input",
+Cell[56719, 1598, 46, 0, 45, "Subsection"],
+Cell[56768, 1600, 4736, 120, 736, "Input",
  InitializationCell->True],
-Cell[90019, 2477, 3553, 93, 502, "Input",
+Cell[61507, 1722, 4741, 120, 785, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[66285, 1847, 104, 2, 45, "Subsection"],
+Cell[66392, 1851, 2336, 57, 313, "Input",
+ InitializationCell->True],
+Cell[68731, 1910, 1210, 33, 127, "Input",
+ InitializationCell->True],
+Cell[69944, 1945, 12475, 316, 1628, "Code"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[82468, 2267, 77, 0, 65, "Section"],
+Cell[CellGroupData[{
+Cell[82570, 2271, 35, 0, 45, "Subsection"],
+Cell[82608, 2273, 295, 8, 164, "Input",
+ InitializationCell->True]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[82964, 2288, 41, 0, 66, "Chapter"],
+Cell[CellGroupData[{
+Cell[83030, 2292, 118, 3, 101, "Section"],
+Cell[CellGroupData[{
+Cell[83173, 2299, 41, 0, 44, "Subsection"],
+Cell[83217, 2301, 6832, 175, 626, "Input",
+ InitializationCell->True],
+Cell[90052, 2478, 3553, 93, 502, "Input",
  InitializationCell->True]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[93621, 2576, 260, 6, 137, "Section"],
+Cell[93654, 2577, 260, 6, 137, "Section"],
 Cell[CellGroupData[{
-Cell[93906, 2586, 48, 0, 45, "Subsection"],
-Cell[93957, 2588, 6301, 163, 819, "Input",
+Cell[93939, 2587, 48, 0, 45, "Subsection"],
+Cell[93990, 2589, 6301, 163, 819, "Input",
  InitializationCell->True],
-Cell[100261, 2753, 3596, 96, 460, "Input",
+Cell[100294, 2754, 3596, 96, 460, "Input",
  InitializationCell->True],
-Cell[103860, 2851, 328, 10, 150, "Input",
+Cell[103893, 2852, 328, 10, 150, "Input",
  InitializationCell->True],
-Cell[104191, 2863, 2466, 65, 404, "Input",
+Cell[104224, 2864, 2466, 65, 404, "Input",
  InitializationCell->True],
-Cell[106660, 2930, 2263, 61, 333, "Code"],
-Cell[108926, 2993, 421, 9, 167, "Input",
+Cell[106693, 2931, 2263, 61, 333, "Code"],
+Cell[108959, 2994, 421, 9, 167, "Input",
  InitializationCell->True]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[109408, 3009, 35, 0, 66, "Chapter"],
+Cell[109441, 3010, 35, 0, 66, "Chapter"],
 Cell[CellGroupData[{
-Cell[109468, 3013, 45, 0, 65, "Section"],
+Cell[109501, 3014, 45, 0, 65, "Section"],
 Cell[CellGroupData[{
-Cell[109538, 3017, 101, 2, 45, "Subsection"],
-Cell[109642, 3021, 4767, 125, 491, "Input",
+Cell[109571, 3018, 101, 2, 45, "Subsection"],
+Cell[109675, 3022, 4767, 125, 491, "Input",
  InitializationCell->True]
 }, Open  ]],
-Cell[114424, 3149, 38, 0, 44, "Subsection"],
-Cell[114465, 3151, 37, 0, 36, "Subsection"]
+Cell[114457, 3150, 38, 0, 44, "Subsection"],
+Cell[114498, 3152, 37, 0, 36, "Subsection"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[114539, 3156, 38, 0, 65, "Section"],
-Cell[114580, 3158, 528, 15, 77, "Input"],
+Cell[114572, 3157, 38, 0, 65, "Section"],
+Cell[114613, 3159, 528, 15, 77, "Input"],
 Cell[CellGroupData[{
-Cell[115133, 3177, 41, 0, 44, "Subsection"],
-Cell[115177, 3179, 8619, 225, 1277, "Input"],
-Cell[123799, 3406, 66, 1, 48, "Input",
+Cell[115166, 3178, 41, 0, 44, "Subsection"],
+Cell[115210, 3180, 8619, 225, 1277, "Input"],
+Cell[123832, 3407, 66, 1, 48, "Input",
  InitializationCell->True],
-Cell[123868, 3409, 29430, 704, 4570, "Input"]
+Cell[123901, 3410, 29430, 704, 4570, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[153335, 4118, 40, 0, 44, "Subsection"],
-Cell[153378, 4120, 17740, 441, 2377, "Input"]
+Cell[153368, 4119, 40, 0, 44, "Subsection"],
+Cell[153411, 4121, 17740, 441, 2377, "Input"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[171167, 4567, 39, 0, 65, "Section"],
-Cell[171209, 4569, 42, 0, 44, "Subsection"],
-Cell[171254, 4571, 41, 0, 36, "Subsection"]
+Cell[171200, 4568, 39, 0, 65, "Section"],
+Cell[171242, 4570, 42, 0, 44, "Subsection"],
+Cell[171287, 4572, 41, 0, 36, "Subsection"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[171332, 4576, 37, 0, 65, "Section"],
-Cell[171372, 4578, 11506, 271, 1941, "Input"],
-Cell[182881, 4851, 16078, 394, 2291, "Input",
+Cell[171365, 4577, 37, 0, 65, "Section"],
+Cell[171405, 4579, 11506, 271, 1941, "Input"],
+Cell[182914, 4852, 16078, 394, 2291, "Input",
  InitializationCell->True],
-Cell[198962, 5247, 13051, 321, 1954, "Input",
+Cell[198995, 5248, 13051, 321, 1954, "Input",
  InitializationCell->True],
-Cell[212016, 5570, 4103, 98, 744, "Code"],
-Cell[216122, 5670, 17932, 428, 3127, "Input"],
-Cell[234057, 6100, 30453, 753, 4725, "Input",
+Cell[212049, 5571, 4103, 98, 744, "Code"],
+Cell[216155, 5671, 17932, 428, 3127, "Input"],
+Cell[234090, 6101, 30453, 753, 4725, "Input",
  InitializationCell->True],
-Cell[264513, 6855, 36151, 897, 5041, "Input",
+Cell[264546, 6856, 36151, 897, 5041, "Input",
  InitializationCell->True],
-Cell[300667, 7754, 43975, 1062, 5873, "Input",
+Cell[300700, 7755, 43975, 1062, 5873, "Input",
  InitializationCell->True],
-Cell[344645, 8818, 26873, 645, 3857, "Input",
- InitializationCell->True]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[371567, 9469, 29, 0, 66, "Chapter"],
-Cell[CellGroupData[{
-Cell[371621, 9473, 71, 0, 65, "Section"],
-Cell[371695, 9475, 760, 20, 132, "Input",
- InitializationCell->True],
-Cell[372458, 9497, 26, 0, 30, "Input"],
-Cell[372487, 9499, 26, 0, 30, "Input"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[372550, 9504, 70, 0, 65, "Section"],
-Cell[CellGroupData[{
-Cell[372645, 9508, 109, 1, 45, "Subsection"],
-Cell[372757, 9511, 8339, 183, 723, "Input",
- InitializationCell->True],
-Cell[381099, 9696, 6636, 176, 521, "Code"],
-Cell[387738, 9874, 14500, 339, 2077, "Input",
- InitializationCell->True]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[402275, 10218, 39, 0, 45, "Subsection"],
-Cell[402317, 10220, 1669, 29, 498, "Input",
- InitializationCell->True],
-Cell[403989, 10251, 53, 1, 46, "Input",
- InitializationCell->True],
-Cell[404045, 10254, 22232, 529, 3517, "Input",
- InitializationCell->True]
-}, Open  ]],
-Cell[426292, 10786, 41, 0, 45, "Subsection"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[426370, 10791, 129, 5, 173, "Section"],
-Cell[CellGroupData[{
-Cell[426524, 10800, 64, 0, 45, "Subsection"],
-Cell[426591, 10802, 12392, 299, 1765, "Input",
- InitializationCell->True]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[439020, 11106, 77, 0, 45, "Subsection"],
-Cell[439100, 11108, 33266, 827, 3906, "Input",
- InitializationCell->True],
-Cell[472369, 11937, 6246, 151, 544, "Input",
- InitializationCell->True],
-Cell[478618, 12090, 21884, 527, 2207, "Input"],
-Cell[500505, 12619, 4102, 100, 370, "Code"],
-Cell[504610, 12721, 23474, 566, 1994, "Code"],
-Cell[528087, 13289, 86431, 1982, 6096, "Code"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[614555, 15276, 50, 0, 45, "Subsection"],
-Cell[614608, 15278, 3690, 97, 498, "Input",
- InitializationCell->True],
-Cell[618301, 15377, 3690, 96, 498, "Input",
- InitializationCell->True],
-Cell[621994, 15475, 15446, 378, 2007, "Input"],
-Cell[637443, 15855, 18257, 455, 1988, "Code"],
-Cell[655703, 16312, 13572, 307, 1741, "Input",
+Cell[344678, 8819, 26873, 645, 3857, "Input",
  InitializationCell->True]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[669324, 16625, 42, 0, 65, "Section"],
-Cell[669369, 16627, 37, 0, 45, "Subsection"],
-Cell[669409, 16629, 55, 0, 37, "Subsection"],
-Cell[669467, 16631, 36, 0, 37, "Subsection"],
-Cell[669506, 16633, 57, 0, 37, "Subsection"]
+Cell[371600, 9470, 29, 0, 66, "Chapter"],
+Cell[CellGroupData[{
+Cell[371654, 9474, 71, 0, 65, "Section"],
+Cell[371728, 9476, 760, 20, 132, "Input",
+ InitializationCell->True],
+Cell[372491, 9498, 26, 0, 30, "Input"],
+Cell[372520, 9500, 26, 0, 30, "Input"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[669600, 16638, 93, 2, 65, "Section"],
-Cell[669696, 16642, 38, 0, 45, "Subsection"],
-Cell[669737, 16644, 75, 0, 37, "Subsection"],
-Cell[669815, 16646, 56, 0, 37, "Subsection"]
+Cell[372583, 9505, 70, 0, 65, "Section"],
+Cell[CellGroupData[{
+Cell[372678, 9509, 109, 1, 45, "Subsection"],
+Cell[372790, 9512, 8339, 183, 723, "Input",
+ InitializationCell->True],
+Cell[381132, 9697, 6636, 176, 521, "Code"],
+Cell[387771, 9875, 14500, 339, 2077, "Input",
+ InitializationCell->True]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[669908, 16651, 40, 0, 65, "Section"],
-Cell[669951, 16653, 52, 0, 44, "Subsection"],
+Cell[402308, 10219, 39, 0, 45, "Subsection"],
+Cell[402350, 10221, 1669, 29, 498, "Input",
+ InitializationCell->True],
+Cell[404022, 10252, 53, 1, 46, "Input",
+ InitializationCell->True],
+Cell[404078, 10255, 22232, 529, 3517, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[426325, 10787, 41, 0, 45, "Subsection"]
+}, Open  ]],
 Cell[CellGroupData[{
-Cell[670028, 16657, 140, 4, 63, "Subsection"],
-Cell[670171, 16663, 8636, 235, 647, "Input"],
-Cell[678810, 16900, 26, 0, 30, "Input"],
-Cell[678839, 16902, 2956, 83, 336, "Code",
+Cell[426403, 10792, 129, 5, 173, "Section"],
+Cell[CellGroupData[{
+Cell[426557, 10801, 64, 0, 45, "Subsection"],
+Cell[426624, 10803, 12392, 299, 1765, "Input",
+ InitializationCell->True]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[439053, 11107, 77, 0, 45, "Subsection"],
+Cell[439133, 11109, 33266, 827, 3906, "Input",
+ InitializationCell->True],
+Cell[472402, 11938, 6246, 151, 544, "Input",
+ InitializationCell->True],
+Cell[478651, 12091, 21884, 527, 2207, "Input"],
+Cell[500538, 12620, 4102, 100, 370, "Code"],
+Cell[504643, 12722, 23474, 566, 1994, "Code"],
+Cell[528120, 13290, 86431, 1982, 6096, "Code"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[614588, 15277, 50, 0, 45, "Subsection"],
+Cell[614641, 15279, 3690, 97, 498, "Input",
+ InitializationCell->True],
+Cell[618334, 15378, 3690, 96, 498, "Input",
+ InitializationCell->True],
+Cell[622027, 15476, 15446, 378, 2007, "Input"],
+Cell[637476, 15856, 18257, 455, 1988, "Code"],
+Cell[655736, 16313, 13572, 307, 1741, "Input",
+ InitializationCell->True]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[669357, 16626, 42, 0, 65, "Section"],
+Cell[669402, 16628, 37, 0, 45, "Subsection"],
+Cell[669442, 16630, 55, 0, 37, "Subsection"],
+Cell[669500, 16632, 36, 0, 37, "Subsection"],
+Cell[669539, 16634, 57, 0, 37, "Subsection"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[669633, 16639, 93, 2, 65, "Section"],
+Cell[669729, 16643, 38, 0, 45, "Subsection"],
+Cell[669770, 16645, 75, 0, 37, "Subsection"],
+Cell[669848, 16647, 56, 0, 37, "Subsection"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[669941, 16652, 40, 0, 65, "Section"],
+Cell[669984, 16654, 52, 0, 44, "Subsection"],
+Cell[CellGroupData[{
+Cell[670061, 16658, 140, 4, 63, "Subsection"],
+Cell[670204, 16664, 8636, 235, 647, "Input"],
+Cell[678843, 16901, 26, 0, 30, "Input"],
+Cell[678872, 16903, 2956, 83, 336, "Code",
  InitializationCell->False]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[681832, 16990, 70, 0, 45, "Subsection"],
-Cell[681905, 16992, 4027, 109, 607, "Input"],
-Cell[685935, 17103, 371, 10, 68, "Input",
+Cell[681865, 16991, 70, 0, 45, "Subsection"],
+Cell[681938, 16993, 4027, 109, 607, "Input"],
+Cell[685968, 17104, 371, 10, 68, "Input",
  InitializationCell->True],
-Cell[686309, 17115, 382, 10, 68, "Input",
+Cell[686342, 17116, 382, 10, 68, "Input",
  InitializationCell->True],
-Cell[686694, 17127, 4984, 120, 728, "Input",
+Cell[686727, 17128, 4984, 120, 728, "Input",
  InitializationCell->True],
-Cell[691681, 17249, 55664, 1333, 6719, "Input"],
-Cell[747348, 18584, 67031, 1593, 6830, "Code",
+Cell[691714, 17250, 55664, 1333, 6719, "Input"],
+Cell[747381, 18585, 67031, 1593, 6830, "Code",
  InitializationCell->False],
-Cell[814382, 20179, 69845, 1640, 8504, "Input"],
-Cell[884230, 21821, 109110, 2591, 12256, "Input",
+Cell[814415, 20180, 69845, 1640, 8504, "Input"],
+Cell[884263, 21822, 109110, 2591, 12256, "Input",
  InitializationCell->True],
-Cell[993343, 24414, 21888, 473, 2275, "Input",
+Cell[993376, 24415, 21888, 473, 2275, "Input",
  InitializationCell->True],
-Cell[1015234, 24889, 248912, 5612, 24838, "Input",
+Cell[1015267, 24890, 248912, 5612, 24838, "Input",
  InitializationCell->True],
-Cell[1264149, 30503, 85884, 1956, 8603, "Input",
+Cell[1264182, 30504, 85884, 1956, 8603, "Input",
  InitializationCell->True],
-Cell[1350036, 32461, 67780, 1619, 8348, "Input",
+Cell[1350069, 32462, 67780, 1619, 8348, "Input",
  InitializationCell->True]
 }, Open  ]],
-Cell[1417831, 34083, 119, 3, 45, "Subsection"],
+Cell[1417864, 34084, 119, 3, 45, "Subsection"],
 Cell[CellGroupData[{
-Cell[1417975, 34090, 57, 0, 37, "Subsection"],
-Cell[1418035, 34092, 10251, 274, 962, "Input"],
-Cell[1428289, 34368, 11567, 297, 1091, "Input"]
+Cell[1418008, 34091, 57, 0, 37, "Subsection"],
+Cell[1418068, 34093, 10251, 274, 962, "Input"],
+Cell[1428322, 34369, 11567, 297, 1091, "Input"]
 }, Open  ]],
-Cell[1439871, 34668, 57, 0, 45, "Subsection"]
+Cell[1439904, 34669, 57, 0, 45, "Subsection"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1439977, 34674, 34, 0, 66, "Chapter"],
+Cell[1440010, 34675, 34, 0, 66, "Chapter"],
 Cell[CellGroupData[{
-Cell[1440036, 34678, 70, 0, 65, "Section"],
-Cell[1440109, 34680, 2573, 65, 397, "Input",
+Cell[1440069, 34679, 70, 0, 65, "Section"],
+Cell[1440142, 34681, 2778, 68, 439, "Input",
+ InitializationCell->True],
+Cell[1442923, 34751, 3861, 93, 509, "Input",
  InitializationCell->True]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1442719, 34750, 46, 0, 65, "Section"],
+Cell[1446821, 34849, 46, 0, 65, "Section"],
 Cell[CellGroupData[{
-Cell[1442790, 34754, 97, 2, 45, "Subsection"],
-Cell[1442890, 34758, 53, 1, 46, "Input",
+Cell[1446892, 34853, 97, 2, 45, "Subsection"],
+Cell[1446992, 34857, 53, 1, 46, "Input",
  InitializationCell->True],
-Cell[1442946, 34761, 22501, 550, 1670, "Code"],
-Cell[1465450, 35313, 9284, 224, 1066, "Code"],
-Cell[1474737, 35539, 22929, 538, 1930, "Input",
+Cell[1447048, 34860, 22501, 550, 1670, "Code"],
+Cell[1469552, 35412, 17937, 431, 2098, "Code"],
+Cell[1487492, 35845, 22929, 538, 1930, "Input",
  InitializationCell->True],
-Cell[1497669, 36079, 23296, 558, 1930, "Input",
+Cell[1510424, 36385, 23296, 558, 1930, "Input",
  InitializationCell->True]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1521002, 36642, 57, 0, 45, "Subsection"],
-Cell[1521062, 36644, 2855, 75, 666, "Input",
+Cell[1533757, 36948, 57, 0, 45, "Subsection"],
+Cell[1533817, 36950, 3075, 78, 708, "Input",
+ InitializationCell->True],
+Cell[1536895, 37030, 5675, 134, 1070, "Input",
  InitializationCell->True]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1523954, 36724, 166, 3, 45, "Subsection"],
-Cell[1524123, 36729, 3819, 89, 825, "Input",
+Cell[1542607, 37169, 236, 4, 45, "Subsection"],
+Cell[1542846, 37175, 4044, 94, 866, "Input",
  InitializationCell->True],
-Cell[1527945, 36820, 2852, 65, 517, "Input",
+Cell[1546893, 37271, 3034, 68, 559, "Input",
+ InitializationCell->True],
+Cell[1549930, 37341, 5169, 113, 688, "Input",
+ InitializationCell->True],
+Cell[1555102, 37456, 3953, 88, 624, "Input",
  InitializationCell->True]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1530846, 36891, 110, 1, 65, "Section"],
+Cell[1559104, 37550, 110, 1, 65, "Section"],
 Cell[CellGroupData[{
-Cell[1530981, 36896, 161, 3, 45, "Subsection"],
-Cell[1531145, 36901, 334, 9, 51, "Input",
+Cell[1559239, 37555, 161, 3, 45, "Subsection"],
+Cell[1559403, 37560, 334, 9, 51, "Input",
  InitializationCell->True],
-Cell[1531482, 36912, 20699, 490, 1707, "Input",
+Cell[1559740, 37571, 20699, 490, 1707, "Input",
  InitializationCell->True]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1552218, 37407, 170, 3, 45, "Subsection"],
-Cell[1552391, 37412, 17165, 388, 1840, "Input",
+Cell[1580476, 38066, 170, 3, 45, "Subsection"],
+Cell[1580649, 38071, 17165, 388, 1840, "Input",
  InitializationCell->True]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1569593, 37805, 144, 2, 45, "Subsection"],
+Cell[1597851, 38464, 144, 2, 45, "Subsection"],
 Cell[CellGroupData[{
-Cell[1569762, 37811, 940, 25, 81, "Input"],
-Cell[1570705, 37838, 183, 2, 32, "Output"]
+Cell[1598020, 38470, 940, 25, 81, "Input"],
+Cell[1598963, 38497, 183, 2, 32, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1570925, 37845, 344, 8, 51, "Input"],
-Cell[1571272, 37855, 142, 2, 30, "Output"]
+Cell[1599183, 38504, 344, 8, 51, "Input"],
+Cell[1599530, 38514, 142, 2, 30, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1571451, 37862, 505, 10, 59, "Input"],
-Cell[1571959, 37874, 2268, 34, 71, "Output"],
-Cell[1574230, 37910, 2306, 35, 90, "Output"]
+Cell[1599709, 38521, 505, 10, 59, "Input"],
+Cell[1600217, 38533, 2268, 34, 71, "Output"],
+Cell[1602488, 38569, 2306, 35, 90, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1576573, 37950, 781, 17, 59, "Input"],
-Cell[1577357, 37969, 380, 6, 32, "Output"],
-Cell[1577740, 37977, 358, 5, 30, "Output"]
+Cell[1604831, 38609, 781, 17, 59, "Input"],
+Cell[1605615, 38628, 380, 6, 32, "Output"],
+Cell[1605998, 38636, 358, 5, 30, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1578135, 37987, 1005, 25, 59, "Input"],
-Cell[1579143, 38014, 1835, 28, 71, "Output"],
-Cell[1580981, 38044, 1835, 28, 71, "Output"]
+Cell[1606393, 38646, 1005, 25, 59, "Input"],
+Cell[1607401, 38673, 1835, 28, 71, "Output"],
+Cell[1609239, 38703, 1835, 28, 71, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[1582853, 38077, 984, 23, 80, "Input"],
-Cell[1583840, 38102, 266, 4, 30, "Output"],
-Cell[1584109, 38108, 284, 4, 30, "Output"],
-Cell[1584396, 38114, 285, 4, 30, "Output"]
+Cell[1611111, 38736, 984, 23, 80, "Input"],
+Cell[1612098, 38761, 266, 4, 30, "Output"],
+Cell[1612367, 38767, 284, 4, 30, "Output"],
+Cell[1612654, 38773, 285, 4, 30, "Output"]
 }, Open  ]]
 }, Open  ]]
 }, Open  ]]

@@ -8230,6 +8230,7 @@ plottype==1,
 
 
 (* ::Input::Initialization:: *)
+(*
 ConvertPlotExtension[filenamelistin_,extIndexin_]:=
 Module[{filenamelist=filenamelistin,extIndex=extIndexin,
 convertstr,extensionname,iext,filenamelistnew},
@@ -8240,6 +8241,30 @@ iext=extIndex;
 
 (*cut extension part and add the new extension we want to convert*)
 filenamelistnew=Table[StringDrop[filenamelist[[ifile]],-1-(FileExtension[filenamelist[[ifile]] ]//StringLength) ]<>extensionname[[iext]],{ifile,1,Length[filenamelist]}];
+
+(*convert files to new extension*)
+Table[Run[convertstr<>filenamelist[[ifile]]<>" "<>filenamelistnew[[ifile]] ];"dummy",{ifile,1,Length[filenamelist]}];
+
+"dummy"
+]
+*)
+
+
+(* ::Input::Initialization:: *)
+(*input an image file list, convert their file format to new n  *)
+ConvertPlotExtension[filenamelistin_,extin_]:=
+Module[{filenamelist=filenamelistin,ext=extin,extIndex,
+convertstr,extensionname,iext,filenamelistnew},
+{".eps",".png",".pdf",".jpg"};
+extIndex=Switch[ext,".eps",1,".png",2,".pdf",3,".jpg",4,_,Print["the input extension is not supported, merge pdf end"];Return["dummy"] ];
+
+convertstr="convert ";
+extensionname={".eps",".png",".pdf",".jpg"};
+iext=extIndex;
+
+
+(*cut extension part and add the new extension we want to convert*)
+filenamelistnew=Table[StringDrop[filenamelist[[ifile]],-1-(FileExtension[filenamelist[[ifile]] ]//StringLength) ]<>extensionname[[extIndex]],{ifile,1,Length[filenamelist]}];
 
 (*convert files to new extension*)
 Table[Run[convertstr<>filenamelist[[ifile]]<>" "<>filenamelistnew[[ifile]] ];"dummy",{ifile,1,Length[filenamelist]}];
@@ -8350,6 +8375,61 @@ filenamelist
 
 (*20171206*)
 (*input the plot Directory (output of this package), then this function show the list of figures under this directory*)
+(*
+GetxQplotListSameptV2[PlotDirin_,extIndexin_]:=
+Module[{PlotDir=PlotDirin,extIndex=extIndexin,
+filenamelist,filename,iext,obsname,representationname,extensionname,fmax},
+
+(*set observables, different kinds of plot, available extension of output files *)
+obsname={"xQbyexpt","expt_error_ratio","residual","dr","corrdr","corr"};
+representationname={"xQ","legend","hist1","hist2"};
+extensionname={".eps",".png",".pdf",".jpg"};
+
+(*set observables, different kinds of plot, available extension of output files *)
+obsname={"xQbyexpt","expt_error_ratio","residual","dr","corrdr","corr"};
+representationname={"xQ-1","xQ+1","hist-1","hist+1","legend","xQ","info-1","info+1"};(*20171201 change filename format*)
+extensionname={".eps",".png",".pdf",".jpg"};
+
+(*make all figuretype plots *)
+filenamelist={};
+iext=extIndex;
+fmax=100;
+
+Print["search figures under",PlotDir,", extension = ",extensionname[[extIndex]],", total #flavour for check = ",fmax];
+Table[
+(*Print["now flavour = ",flavour];*)
+(*add exptname table into output figure*)
+
+(*p6=GraphicsGrid[p6,Spacings\[Rule]Scaled[0.15] ];*)
+
+filename=obsname[[iobs]]<>"_"<>representationname[[irep]]<>"_"<>"f"<>ToString[flavour]<>"_samept";
+If[FileExistsQ[PlotDir<>filename<>extensionname[[iext]]]==True,AppendTo[filenamelist,PlotDir<>filename<>extensionname[[iext]] ] ];
+
+"dummy"
+,{flavour,-5,-5+fmax-1},{iobs,{6,5}},{irep,representationname//Length}
+];
+
+Table[
+(*Print["now flavour = ",flavour];*)
+(*add exptname table into output figure*)
+
+(*p6=GraphicsGrid[p6,Spacings\[Rule]Scaled[0.15] ];*)
+
+filename=obsname[[iobs]]<>"_"<>representationname[[irep]]<>"_samept";
+If[FileExistsQ[PlotDir<>filename<>extensionname[[iext]]]==True,AppendTo[filenamelist,PlotDir<>filename<>extensionname[[iext]] ] ];
+
+"dummy"
+,{iobs,{2,3,4}},{irep,representationname//Length}
+];
+
+
+filename=obsname[[1]]<>"_"<>representationname[[1]];
+If[FileExistsQ[PlotDir<>filename<>extensionname[[iext]]]==True,AppendTo[filenamelist,PlotDir<>filename<>extensionname[[iext]] ] ];
+(*output*)
+filenamelist
+
+]
+*)
 GetxQplotListSameptV2[PlotDirin_,extIndexin_]:=
 Module[{PlotDir=PlotDirin,extIndex=extIndexin,
 filenamelist,filename,iext,obsname,representationname,extensionname,fmax},
@@ -8584,6 +8664,7 @@ filenamelist
 
 
 (* ::Input::Initialization:: *)
+(*
 MergePDFfiles[filenamelistin_]:=
 Module[{filenamelist=filenamelistin,
 pdfmergestr,pdfmergefiles,nofileflag},
@@ -8613,15 +8694,68 @@ Table[pdfmergefiles=pdfmergefiles<>filenamelist[[ifile]]<>" ";"dummy",{ifile,1,L
 Run[pdfmergestr<>pdfmergefiles];
 "dummy"
 ]
+*)
+
+
+(* ::Input::Initialization:: *)
+(*this function input a list of filenames and their extension (.eps, .png, .pdf, .jpg)*)
+(*the function collect them in a pdf file by script epspdfcat or nonepspdfcat*)
+(*the pdf file allfigs.pdf is put in MergePDFDir*)
+MergePDFfiles[filenamelistin_,FilesExtin_,MergePDFDirin_]:=
+Module[{filenamelist=filenamelistin,FilesExt=FilesExtin,MergePDFDir=MergePDFDirin,
+pdfmergestr,pdfmergefiles,nofileflag},
+(*pdfmergestr="convert -density 300 ";*)
+(*20171206 when merge eps and other extensions, we need to use different way to merge*)
+pdfmergestr=
+Switch[
+FilesExt,
+".eps",
+pdfmergestr="bash epspdfcat ",
+".png",
+pdfmergestr="bash nonepspdfcat ",
+".pdf",
+pdfmergestr="bash nonepspdfcat ",
+".jpg",
+pdfmergestr="bash nonepspdfcat ",
+_,
+Print["the extension you input is not supported, merge pdf files end"];Return["dummy"]
+];
+(*pdffinalfile="allfig.pdf";*)
+
+
+(*if any files are not exist, print it*)
+nofileflag=False;
+Table[
+If[
+FileExistsQ[filenamelist[[ifile]] ]==False,
+Print["the file doesn't exist: ",filenamelist[[ifile]] ];
+nofileflag=True;
+"dummy"
+];
+"dummy",
+{ifile,1,Length[filenamelist]}
+];
+(*if any files are not exist, stop the function*)
+If[nofileflag==True,Print["some files in the list do not exist, merge pdf files end"];Return["dummy"] ];
+
+pdfmergefiles="";
+Table[pdfmergefiles=pdfmergefiles<>filenamelist[[ifile]]<>" ";"dummy",{ifile,1,Length[filenamelist]}];
+
+Run[pdfmergestr<>pdfmergefiles];
+
+Run["mv allfigs.pdf "<>MergePDFDir];
+"dummy"
+]
 
 
 (* ::Subsection:: *)
-(*make a pdf file to merge filenames which are output of figure making executables (3 kinds of output figures: samept, grid, sameptgrid)*)
+(*make a pdf file that merge filenames which are output of figure making executables (3 kinds of output figures: samept, grid, sameptgrid)*)
 
 
 (* ::Input::Initialization:: *)
 (*this function transf png files into eps files, then convert eps files into one pdf file*)
 (*input: Dir putting figures, DirType\[Equal]"samept", "grid", "sameptgrid"*)
+(*
 implement[PlotDirin_,DirTypein_]:=
 Module[{PlotDir=PlotDirin,DirType=DirTypein,filelistold},
 
@@ -8656,12 +8790,14 @@ MergePDFfiles[filelistnew];
 Run["mv allfigs.pdf "<>PlotDir];
 "dummy"
 ]
+*)
 
 
 (* ::Input::Initialization:: *)
 (*this function convert eps files into one pdf file*)
 (*input: Dir putting figures, DirType\[Equal]"samept", "grid", "sameptgrid",
 output: a pdf file that merges all .eps files which are output of samept, grid, sameptgrid figure making executables (ex: run.nb is samept figure maker)  *)
+(*
 implementeps[PlotDirin_,DirTypein_]:=
 Module[{PlotDir=PlotDirin,DirType=DirTypein},
 
@@ -8680,6 +8816,68 @@ MergePDFfiles[filelistnew];Print[filelistnew];
 (*move the merged pdf file to the directory*)
 Run["mv allfigs.pdf "<>PlotDir];
 "dummy"
+]
+*)
+
+
+(* ::Input::Initialization:: *)
+(*this function input the Directory, Dirtype, input figure format, and output figure format*)
+(*Dir type includes "samept", "grid", "sameptgrid"*)
+(*the function convert the out figures of run_v4.m in the Directory from extin to extout*)
+(*for example, if the run_v4.m output the Directory with (x,Q) collected by the samept method*)
+(*extin = "eps", extout = "pdf", then the function convert all .eps files to .pdf files*)
+FigsExtConvert[PlotDirin_,DirTypein_,extinin_,extoutin_]:=
+Module[{PlotDir=PlotDirin,DirType=DirTypein,extin=extinin,extout=extoutin,extindex,filelistold,filelistnew},
+
+{".eps",".png",".pdf",".jpg"};
+extindex=Switch[extin,".eps",1,".png",2,".pdf",3,".jpg",4,_,Print["the input extension is not supported, merge pdf end"];Return["dummy"] ];
+
+(*run*)
+(*make the file list of original file (extension)*)
+filelistold=
+Which[
+DirType=="samept",
+GetxQplotListSameptV2[PlotDir,extindex],
+DirType=="grid",
+GetxQplotListGrid[PlotDir,extindex],
+DirType=="sameptgrid",
+GetxQplotListSameptGrid[PlotDir,extindex]
+];
+(*convert to the new extension, ex: eps*)
+ConvertPlotExtension[filelistold,extout];
+
+"dummy"
+]
+
+
+
+
+(* ::Input::Initialization:: *)
+
+
+(*this function input the plot dir, dirtype, and extension of output figures of run_v4.m, merge figures into an allfigs.pdf in the same directory*)
+FigsMergeToPDF[PlotDirin_,DirTypein_,extin_]:=
+Module[{PlotDir=PlotDirin,DirType=DirTypein,ext=extin,filelistold,filelistnew,extindex},
+(*set new file list (.eps)*)
+{".eps",".png",".pdf",".jpg"};
+extindex=Switch[ext,".eps",1,".png",2,".pdf",3,".jpg",4,_,Print["the input extension is not supported, merge pdf end"];Return["dummy"] ];
+
+filelistnew=
+Which[
+DirType=="samept",
+GetxQplotListSameptV2[PlotDir,extindex],
+DirType=="grid" || DirType=="xgrid",
+GetxQplotListGrid[PlotDir,extindex],
+DirType=="sameptgrid",
+GetxQplotListSameptGrid[PlotDir,extindex]
+];
+(*merge eps files into pdf file*)
+MergePDFfiles[filelistnew,ext,PlotDir];
+(*move the merged pdf file to the directory*)
+(*
+Run["mv allfigs.pdf "<>PlotDir];
+*)
+filelistnew
 ]
 
 
