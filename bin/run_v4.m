@@ -54,7 +54,7 @@
 (*this switch is for controling of .nb& .m versions, the option of the switch depends this file is saved as .nb/.m (package) extension  *)
 (*.m file could be implemented in the terminal*)
 (*option: "nb" or "m"*)
-ThisFileExtension="nb";
+ThisFileExtension="m";
 
 
 (* ::Input::Initialization:: *)
