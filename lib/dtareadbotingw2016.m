@@ -691,14 +691,36 @@ output =expItype
 (*2017.01.15, like selectExptxQ, but keep other data*)
 selectExptxQv2[ExptIDin_,datain_,Sin_]:=
 Module[{ExptID=ExptIDin,data=datain,S=Sin,sqrtS,expItype,datatmp,output,i,
-GetAveByBinUp,GetAveByBinLow,mllrange,yrange},
+GetAveByBinUp,GetAveByBinLow,mllrange,yrange,
+WeightBinAveBySpectrumPeak,peakposin,weightcloserin},
+
+(*20171210: use peak of the kinematical spectrum to estimate the dominate kinematical region in bins*)
+(*input the binlow, binup, and peak position of the spectrum described by bins, this function weight binup and binlow with different weight with the one who closer to the peak get the more weight*)
+(*define the standard weight be binlow, binup = 1, 1 (which will get bin average = (binup + binlow)/2)*)
+(*the weight in this function will be bin average = (weightcloser*bincloser + 1*binfar)/(weightcloser+1)*)
+(*
+e.g. rapidity peak is usually 0, binlow = 1.2, binup = 1.6
+so the binlow is closer to the peak, so the bin average = (weightcloser*binlow + 1*binup)/(weightcloser+1)
+*)
+WeightBinAveBySpectrumPeak[binlowin_,binupin_,peakposin_,weightcloserin_]:=
+Module[{binlow=binlowin,binup=binupin,peakpos=peakposin,weightcloser=weightcloserin,
+BinClose,BinFar,BinAve},
+(*if one side of bins is closer to the peak, define it as close bin*)
+If[Abs[peakpos-binup]>Abs[peakpos-binlow],BinClose=binlow;BinFar=binup,BinClose=binup;BinFar=binlow];
+BinAve=(weightcloser*BinClose+1.0*BinFar)/(weightcloser+1.0);
+(*if peak in between the range, the dominant value should be at the peak*)
+If[peakpos>=binlow && peakpos<=binup,BinAve=peakpos];
+(*return bin average*)
+BinAve
+];
 
 (*20171208: for some input values from .dta files are max, min rather than the average values, use following two functions to get the average values*)
 (*we need to know 1. the input value is binup or binlow, 2. we need to have values of each bin ticks*)
 (*we find the bin tick index for the input binup/binlow, then we output the bin center as the average value we need*)
-GetAveByBinUp[binupin_,binsin_]:=
+GetAveByBinUp[binupin_,binsin_,peakposin_,weightcloserin_]:=
 Module[{binup=binupin,bins=binsin,Posbinup,BoolYmaxExist,binave},
 BoolYmaxExist=False;
+(*check the input is the uplimit of one of the bin*)
 Table[If[binup==bins[[i]],Posbinup=i;BoolYmaxExist=True],{i,Length[bins]}]; 
 If[
 BoolYmaxExist==False,
@@ -707,6 +729,7 @@ Print["binup value: ",binup];
 Print["bin list: ",bins];
 Abort[] 
 ];
+(*input can not be the smallest bin edge*)
 If[
 Posbinup==1,
 Print["GetAveByBinUp: error, the input binup could not be the first element of the input bin list "];
@@ -714,11 +737,15 @@ Print["binup value: ",binup];
 Print["bin list: ",bins];
 Abort[] 
 ];
+(*average the bin center*)
 binave=(bins[[Posbinup]]+bins[[Posbinup-1]])/2.0;
+(*weight bin center by the peak of the kinematical spectrum*)
+WeightBinAveBySpectrumPeak[bins[[Posbinup-1]],bins[[Posbinup]],peakposin,weightcloserin];
 binave
 ];
-GetAveByBinLow[binlowin_,binsin_]:=
+GetAveByBinLow[binlowin_,binsin_,peakposin_,weightcloserin_]:=
 Module[{binlow=binlowin,bins=binsin,Posbinlow,BoolYmaxExist,binave},
+(*check the input is the uplimit of one of the bin*)
 BoolYmaxExist=False;
 Table[If[binlow==bins[[i]],Posbinlow=i;BoolYmaxExist=True],{i,Length[bins]}]; 
 If[
@@ -728,6 +755,7 @@ Print["binlow value: ",binlow];
 Print["bin list: ",bins];
 Abort[] 
 ];
+(*input can not be the largest bin edge*)
 If[
 Posbinlow==Length[bins],
 Print["GetAveByBinLow: error, the input binlow could not be the last element of the input bin list "];
@@ -735,7 +763,10 @@ Print["binlow value: ",binlow];
 Print["bin list: ",bins];
 Abort[] 
 ];
+(*average the bin center*)
 binave=(bins[[Posbinlow]]+bins[[Posbinlow+1]])/2.0;
+(*weight bin center by the peak of the kinematical spectrum*)
+WeightBinAveBySpectrumPeak[bins[[Posbinlow]],bins[[Posbinlow+1]],peakposin,weightcloserin];
 binave
 ];
 (*
@@ -789,6 +820,7 @@ Join[data/.LF[a__]:>LF@@{Sequence@@{a},(80.39/Sqrt[S])*
 
 \!\(\*SuperscriptBox[\(\[ExponentialE]\), \({a}[\([\)\(1\)\(]\)]\)]\),80.39},data/.LF[a__]:>LF@@{Sequence@@{a},(80.39/Sqrt[S])*E^-{a}[[1]],80.39}],(* formula not decided yet *)
 "ID247",
+peakposin=91.19;weightcloserin=2.0;
 data/.LF[a__]:>LF@@{Sequence@@{a},(Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S]),Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]},
 (*20171208 new data from TJ's HERA2 ev02 *)
 "ID252",
@@ -796,44 +828,49 @@ data/.LF[a__]:>LF@@{Sequence@@{a},(Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqr
 (*pT(l1)>40 GeV, pT(l2)>30 GeV, so mll > 70 GeV for the formula*)
 (*in .dta files: col1 \[Equal] <y>, col2 \[Equal] Subscript[mll, min], col3 \[Equal] unset*)
 mllrange={116.0,150.0,200.0,300.0,500.0,1500.0};
+peakposin=91.19;weightcloserin=2.0;
 Select[
-Join[data/.LF[a__]:>LF@@{Sequence@@{a},(GetAveByBinLow[{a}[[2]],mllrange]/Sqrt[S])*E^({a}[[1]]),GetAveByBinLow[{a}[[2]],mllrange]},
-data/.LF[a__]:>LF@@{Sequence@@{a},(GetAveByBinLow[{a}[[2]],mllrange]/Sqrt[S])*E^-({a}[[1]]),GetAveByBinLow[{a}[[2]],mllrange]}],
+Join[data/.LF[a__]:>LF@@{Sequence@@{a},(GetAveByBinLow[{a}[[2]],mllrange,peakposin,weightcloserin]/Sqrt[S])*E^({a}[[1]]),GetAveByBinLow[{a}[[2]],mllrange,peakposin,weightcloserin]},
+data/.LF[a__]:>LF@@{Sequence@@{a},(GetAveByBinLow[{a}[[2]],mllrange,peakposin,weightcloserin]/Sqrt[S])*E^-({a}[[1]]),GetAveByBinLow[{a}[[2]],mllrange,peakposin,weightcloserin]}],
 ( 
-(GetAveByBinLow[#[[2]],mllrange]>70.0) && 
-( (GetAveByBinLow[#[[2]],mllrange]/Sqrt[S])*E^(#[[1]])<1.0 && (GetAveByBinLow[#[[2]],mllrange]/Sqrt[S])*E^(#[[1]])> 10.0^-10 && (GetAveByBinLow[#[[2]],mllrange]/Sqrt[S])*E^-(#[[1]])<1.0 && (GetAveByBinLow[#[[2]],mllrange]/Sqrt[S])*E^-(#[[1]])>10.0^-10) 
+(GetAveByBinLow[#[[2]],mllrange,peakposin,weightcloserin]>70.0) && 
+( (GetAveByBinLow[#[[2]],mllrange,peakposin,weightcloserin]/Sqrt[S])*E^(#[[1]])<1.0 && (GetAveByBinLow[#[[2]],mllrange,peakposin,weightcloserin]/Sqrt[S])*E^(#[[1]])> 10.0^-10 && (GetAveByBinLow[#[[2]],mllrange,peakposin,weightcloserin]/Sqrt[S])*E^-(#[[1]])<1.0 && (GetAveByBinLow[#[[2]],mllrange,peakposin,weightcloserin]/Sqrt[S])*E^-(#[[1]])>10.0^-10) 
 )&
 ],
 "ID253",
 (*mll ZpT (d\[Sigma]/Subscript[dp, T] in ranges of Subscript[m, ll])*)
 (*in .dta files: column 1 \[Equal] Subscript[mll, max], col2 \[Equal] ptmin, col3 \[Equal] ptmax*)
 mllrange={12.0,20.0,30.0,46.0,66.0,116.0,150.0};
-data/.LF[a__]:>LF@@{Sequence@@{a},(Sqrt[GetAveByBinUp[{a}[[1]],mllrange]^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S]),Sqrt[GetAveByBinUp[{a}[[1]],mllrange]^2+(({a}[[2]]+{a}[[3]])/2.0)^2]},
+peakposin=91.19;weightcloserin=2.0;
+data/.LF[a__]:>LF@@{Sequence@@{a},(Sqrt[GetAveByBinUp[{a}[[1]],mllrange,peakposin,weightcloserin]^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S]),Sqrt[GetAveByBinUp[{a}[[1]],mllrange,peakposin,weightcloserin]^2+(({a}[[2]]+{a}[[3]])/2.0)^2]},
 "ID254",
 (*d\[Sigma]/Subscript[dp, T]dy*)
 (*in .dta files: col1 \[Equal] Subscript[y, max], col2 \[Equal] Subscript[pT, min], col3 \[Equal] Subscript[pT, max]*)
 yrange={0.0,0.4,0.8,1.2,1.6,2.0};
+peakposin=0.0;weightcloserin=2.0;
 Join[
-data/.LF[a__]:>LF@@{Sequence@@{a},(Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S])*E^(GetAveByBinUp[{a}[[1]],yrange]),Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]},
-data/.LF[a__]:>LF@@{Sequence@@{a},(Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S])*E^-(GetAveByBinUp[{a}[[1]],yrange]),Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]}
+data/.LF[a__]:>LF@@{Sequence@@{a},(Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S])*E^(GetAveByBinUp[{a}[[1]],yrange,peakposin,weightcloserin]),Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]},
+data/.LF[a__]:>LF@@{Sequence@@{a},(Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S])*E^-(GetAveByBinUp[{a}[[1]],yrange,peakposin,weightcloserin]),Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]}
 ],
 "ID255",
 (*d\[Sigma]/pT(W/Z)*)
 (*in .dta files: column 1 \[Equal] ycut < 2.5, col2 \[Equal] ptmin, col3 \[Equal] ptmax*)
 (*in HERA2 ev02, the first 4 points are W process events, the last 5 points are Z process events*)
+peakposin=30.0;(*ptmu > 15 GeV*)weightcloserin=2.0;
 Join[
 (*W*)
-Take[data,4]/.LF[a__]:>LF@@{Sequence@@{a},(Sqrt[80.39^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S]),Sqrt[80.39^2+(({a}[[2]]+{a}[[3]])/2.0)^2]},
+Take[data,4]/.LF[a__]:>LF@@{Sequence@@{a},(Sqrt[80.39^2+(WeightBinAveBySpectrumPeak[{a}[[2]],{a}[[3]],peakposin,weightcloserin])^2]/Sqrt[S]),Sqrt[80.39^2+(WeightBinAveBySpectrumPeak[{a}[[2]],{a}[[3]],peakposin,weightcloserin])^2]},
 (*Z*)
-Take[data,-5]/.LF[a__]:>LF@@{Sequence@@{a},(Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S]),Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]}
+Take[data,-5]/.LF[a__]:>LF@@{Sequence@@{a},(Sqrt[91.19^2+(WeightBinAveBySpectrumPeak[{a}[[2]],{a}[[3]],peakposin,weightcloserin])^2]/Sqrt[S]),Sqrt[91.19^2+(WeightBinAveBySpectrumPeak[{a}[[2]],{a}[[3]],peakposin,weightcloserin])^2]}
 ],
 (* formula not decided yet *)
 "JP",
 (* this form is for q1q2 \[Rule] j1j2, estimate x1, x2 of jet as peak of y(j1), y(j2)*)
+peakposin=0.0;weightcloserin=2.0;
 Select[
-Join[data/.LF[a__]:>LF@@{Sequence@@{a},((2*{a}[[1]])/Sqrt[S])*E^(({a}[[2]]+{a}[[3]])/2.0),2*{a}[[1]]},data/.LF[a__]:>LF@@{Sequence@@{a},((2*{a}[[1]])/Sqrt[S])*E^-(({a}[[2]]+{a}[[3]])/2.0),2*{a}[[1]]}],
-( ((2*#[[1]])/Sqrt[S])*E^((#[[2]]+#[[3]])/2.0)<1.0 && ((2*#[[1]])/Sqrt[S])*E^((#[[2]]+#[[3]])/2.0)>10.0^-10 &&
-((2*#[[1]])/Sqrt[S])*E^-((#[[2]]+#[[3]])/2.0)<1.0 && ((2*#[[1]])/Sqrt[S])*E^-((#[[2]]+#[[3]])/2.0)>10.0^-10 )&
+Join[data/.LF[a__]:>LF@@{Sequence@@{a},((2*{a}[[1]])/Sqrt[S])*E^(WeightBinAveBySpectrumPeak[{a}[[2]],{a}[[3]],peakposin,weightcloserin]),2*{a}[[1]]},data/.LF[a__]:>LF@@{Sequence@@{a},((2*{a}[[1]])/Sqrt[S])*E^-(WeightBinAveBySpectrumPeak[{a}[[2]],{a}[[3]],peakposin,weightcloserin]),2*{a}[[1]]}],
+( ((2*#[[1]])/Sqrt[S])*E^(WeightBinAveBySpectrumPeak[#[[2]],#[[3]],peakposin,weightcloserin])<1.0 && ((2*#[[1]])/Sqrt[S])*E^(WeightBinAveBySpectrumPeak[#[[2]],#[[3]],peakposin,weightcloserin])>10.0^-10 &&
+((2*#[[1]])/Sqrt[S])*E^-(WeightBinAveBySpectrumPeak[#[[2]],#[[3]],peakposin,weightcloserin])<1.0 && ((2*#[[1]])/Sqrt[S])*E^-(WeightBinAveBySpectrumPeak[#[[2]],#[[3]],peakposin,weightcloserin])>10.0^-10 )&
 ],(*x1=(Subscript[p, Tj]/(2Sqrt[S]))*e^Subscript[y, j]*)
 
 (*this form is for q1q2 \[Rule] W, Z or something, so rapidity is yjj, estimating x as peak of yjj*)
@@ -856,10 +893,11 @@ data/.LF[a__]:>LF@@{Sequence@@{a},({a}[[1]]/Sqrt[S]),{a}[[1]]},
 ],
 (*ytt, ya==(yt+ytbar)/2: mu~ 2mt+100GeV = 450 GeV, x = (Q/\[Sqrt]S)*e^+-y*)
 "ttbary",
+peakposin=0.0;weightcloserin=2.0;
 Select[
-Join[data/.LF[a__]:>LF@@{Sequence@@{a},(400.0/Sqrt[S])*E^(({a}[[2]]+{a}[[3]])/2.0),400.0},data/.LF[a__]:>LF@@{Sequence@@{a},(400.0/Sqrt[S])*E^-(({a}[[2]]+{a}[[3]])/2.0),400.0}],
-( (400.0/Sqrt[S])*E^((#[[2]]+#[[3]])/2.0)<1.0 && (400.0/Sqrt[S])*E^((#[[2]]+#[[3]])/2.0)>10.0^-10
-(400.0/Sqrt[S])*E^-((#[[2]]+#[[3]])/2.0)<1.0 && (400.0/Sqrt[S])*E^-((#[[2]]+#[[3]])/2.0)>10.0^-10 )&
+Join[data/.LF[a__]:>LF@@{Sequence@@{a},(400.0/Sqrt[S])*E^(WeightBinAveBySpectrumPeak[{a}[[2]],{a}[[3]],peakposin,weightcloserin]),400.0},data/.LF[a__]:>LF@@{Sequence@@{a},(400.0/Sqrt[S])*E^-(WeightBinAveBySpectrumPeak[{a}[[2]],{a}[[3]],peakposin,weightcloserin]),400.0}],
+( (400.0/Sqrt[S])*E^(WeightBinAveBySpectrumPeak[#[[2]],#[[3]],peakposin,weightcloserin])<1.0 && (400.0/Sqrt[S])*E^(WeightBinAveBySpectrumPeak[#[[2]],#[[3]],peakposin,weightcloserin])>10.0^-10
+(400.0/Sqrt[S])*E^-(WeightBinAveBySpectrumPeak[#[[2]],#[[3]],peakposin,weightcloserin])<1.0 && (400.0/Sqrt[S])*E^-(WeightBinAveBySpectrumPeak[#[[2]],#[[3]],peakposin,weightcloserin])>10.0^-10 )&
 ],
 _,
 Print["Wrong expItype value, ",expItype,", ",ExptID] (*data/.LF[a__]\[RuleDelayed]{{a}[[1]],{a}[[2]]}*)
