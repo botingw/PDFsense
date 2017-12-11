@@ -740,7 +740,7 @@ Abort[]
 (*average the bin center*)
 binave=(bins[[Posbinup]]+bins[[Posbinup-1]])/2.0;
 (*weight bin center by the peak of the kinematical spectrum*)
-WeightBinAveBySpectrumPeak[bins[[Posbinup-1]],bins[[Posbinup]],peakposin,weightcloserin];
+binave=WeightBinAveBySpectrumPeak[bins[[Posbinup-1]],bins[[Posbinup]],peakposin,weightcloserin];
 binave
 ];
 GetAveByBinLow[binlowin_,binsin_,peakposin_,weightcloserin_]:=
@@ -766,7 +766,7 @@ Abort[]
 (*average the bin center*)
 binave=(bins[[Posbinlow]]+bins[[Posbinlow+1]])/2.0;
 (*weight bin center by the peak of the kinematical spectrum*)
-WeightBinAveBySpectrumPeak[bins[[Posbinlow]],bins[[Posbinlow+1]],peakposin,weightcloserin];
+binave=WeightBinAveBySpectrumPeak[bins[[Posbinlow]],bins[[Posbinlow+1]],peakposin,weightcloserin];
 binave
 ];
 (*
@@ -821,7 +821,8 @@ Join[data/.LF[a__]:>LF@@{Sequence@@{a},(80.39/Sqrt[S])*
 \!\(\*SuperscriptBox[\(\[ExponentialE]\), \({a}[\([\)\(1\)\(]\)]\)]\),80.39},data/.LF[a__]:>LF@@{Sequence@@{a},(80.39/Sqrt[S])*E^-{a}[[1]],80.39}],(* formula not decided yet *)
 "ID247",
 peakposin=91.19;weightcloserin=2.0;
-data/.LF[a__]:>LF@@{Sequence@@{a},(Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]/Sqrt[S]),Sqrt[91.19^2+(({a}[[2]]+{a}[[3]])/2.0)^2]},
+WeightBinAveBySpectrumPeak[{a}[[2]],{a}[[3]],peakposin,weightcloserin];
+data/.LF[a__]:>LF@@{Sequence@@{a},(Sqrt[91.19^2+(WeightBinAveBySpectrumPeak[{a}[[2]],{a}[[3]],peakposin,weightcloserin])^2]/Sqrt[S]),Sqrt[91.19^2+(WeightBinAveBySpectrumPeak[{a}[[2]],{a}[[3]],peakposin,weightcloserin])^2]},
 (*20171208 new data from TJ's HERA2 ev02 *)
 "ID252",
 (*d\[Sigma]/Subscript[dm, ll]dy*)
