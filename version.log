@@ -387,3 +387,10 @@ update the quick_data
 this script is used for input files are not .eps files 
 when using .eps files, users need to use epspdfcat
 3. show fail message for unsuccessful generating the merged pdf file
+
+20171210
+weight the average of the bin to be closer to the peak of the spectrum represented by bins
+
+20171213
+change the definition of sensitivity by (dr*corr(r,f(x,Q)) )/(chi2(ID)/Npt(ID)),
+which means normalize the sensitivity by the r(r.m.s.) of the respective ID
