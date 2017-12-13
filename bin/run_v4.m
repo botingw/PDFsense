@@ -594,6 +594,29 @@ getdeltaRclass[residualNsetclassfinal[[iexpt]] ],
 {iexpt,1,Length[residualNsetclassfinal]}
 ];
 
+(*20171213 redefine sensitivity as (\[Delta]r/r)*Corr(Subscript[r, i],fSubscript[(x,Q), i])*)
+Table[
+Npt=dRcorrdataclassfinal[[iexpt,flavour+6]][["data"]]//Length;
+(*calculate the (Subscript[(\[Chi]^2), ID]/Subscript[Npt, ID])^0.5*)
+iRawdataResidual=Position[dtacentralclassfinal[[iexpt]][["label"]],"ReducedChi2"][[1,1]];
+RawNpt=dtacentralclassfinal[[iexpt]][["data"]]//Length;
+TotalRawChi2=Sum[Abs[dtacentralclassfinal[[iexpt]][["data"]][[irawpt,iRawdataResidual]] ],{irawpt,RawNpt}];
+SensNormalize=(TotalRawChi2/RawNpt)^0.5;
+
+Table[
+dRcorrdataclassfinal[[iexpt,flavour+6]][["data"]][[ipt,3]]=(dRcorrdataclassfinal[[iexpt,flavour+6]][["data"]][[ipt,3]]/
+(*prevent the dr/r blow up when r = 0*)
+(*If[residualdataclassfinal[[iexpt]][["data"]][[ipt,3]]\[NotEqual]0.0,residualdataclassfinal[[iexpt]][["data"]][[ipt,3]],10.0^-8])*)
+(*total chi^2 for the experiment*)
+(SensNormalize)
+);
+"dummy",
+{ipt,Npt}
+] ;
+"dummy",
+{iexpt,1,Length[residualNsetclassfinal]},{flavour,-5,-5+fmax-1}
+];
+
 (*calculate central value of residual*)
 (*select x, Q, central value of residual (iset==1)*)
 residualdataclassfinal=
@@ -601,6 +624,27 @@ Table[
 Datamethods[["take"]][residualNsetclassfinal[[iexpt]],{1,3}],
 {iexpt,1,Length[residualNsetclassfinal]}
 ];
+
+(*test print normalization for residuals*)
+(*
+NormalizeIDs=
+Table[
+(*calculate the (Subscript[(\[Chi]^2), ID]/Subscript[Npt, ID])^0.5*)
+iRawdataResidual=Position[dtacentralclassfinal[[iexpt]][["label"]],"ReducedChi2"][[1,1]];
+RawNpt=dtacentralclassfinal[[iexpt]][["data"]]//Length;
+TotalRawChi2=Sum[Abs[dtacentralclassfinal[[iexpt]][["data"]][[irawpt,iRawdataResidual]] ],{irawpt,RawNpt}];
+SensNormalize=(TotalRawChi2/RawNpt)^0.5;
+SensNormalize,
+{iexpt,1,Length[residualNsetclassfinal]}
+];
+Print[
+Table[
+{residualNsetclassfinal[[iexpt]][["exptinfo","exptid"]],NormalizeIDs[[iexpt]]},
+{iexpt,1,Length[residualNsetclassfinal]}
+]
+];
+*)
+
 
 (*test the time of the correlation value calculation*)
 tf=AbsoluteTime[];
@@ -1220,6 +1264,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p1[[1]
 
 filename=obsname[[1]]<>"_"<>representationname[[1]]<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p1[[1]] ];
+"dummy"
 ];
 
 
@@ -2338,3 +2383,87 @@ If[irun==Length[Lexpt],Print["all processes are done"];Abort[]];
 
 (* ::Input:: *)
 (*BranchMode*)
+
+
+(* ::Input:: *)
+(*dRcorrdataclassfinal[[1,-2+6]][["data"]]*)
+
+
+(* ::Input:: *)
+(*(*20171213 redefine sensitivity as (\[Delta]r/r)*Corr(Subscript[r, i],fSubscript[(x,Q), i])*)*)
+(*testupdatesens=*)
+(*Table[*)
+(*Npt=dRcorrdataclassfinal[[iexpt,flavour+6]][["data"]]//Length;*)
+(*tmpdata=dRcorrdataclassfinal[[iexpt,flavour+6]];*)
+(*Table[*)
+(**)
+(*tmpdata[["data"]][[ipt,3]]=(dRcorrdataclassfinal[[iexpt,flavour+6]][["data"]][[ipt,3]]/*)
+(*(*prevent the dr/r blow up when r = 0*)*)
+(*If[residualdataclassfinal[[iexpt]][["data"]][[ipt,3]]!=0.0,residualdataclassfinal[[iexpt]][["data"]][[ipt,3]],10.0^-8]);*)
+(*"dummy",*)
+(*{ipt,Npt}*)
+(*];*)
+(*tmpdata ,*)
+(*{iexpt,1,Length[residualNsetclassfinal]},{flavour,-5,-5+fmax-1}*)
+(*]*)
+
+
+(* ::Input:: *)
+(*dRcorrdataclassfinal[[1,0+6]][["data"]][[5,3]]*)
+
+
+(* ::Input:: *)
+(*Table[*)
+(*testupdatesens[[iexpt,6]],*)
+(*{iexpt,1,(*Length[residualNsetclassfinal]*)1}*)
+(*]*)
+(*dRcorrdataclassfinal[[1,6]][["data"]]/.LF[a__]:>{a}[[3]]*)
+
+
+(* ::Input:: *)
+(*testupdatesens[[10,5]]*)
+
+
+(* ::Input:: *)
+(*dRcorrdataclassfinal[[2,1+6]]*)
+
+
+(* ::Input:: *)
+(*dtacentralclassfinal[[3]][[1]]*)
+(*dtacentralclassfinal[[3]][[2]];*)
+(*dtacentralclassfinal[[3]][[3]]*)
+(*dtacentralclassfinal[[3]][[4]]*)
+(*dtacentralclassfinal[[3]][[5]]*)
+(*dtacentralclassfinal[[#]][[5,5]]&/@Range[1,49]*)
+
+
+(* ::Input:: *)
+(*dtacentralclassfinal[[3]][[2]]//Length*)
+
+
+(* ::Input:: *)
+(*Position[dtacentralclassfinal[[5]],"ReducedChi2"][[]]*)
+
+
+(* ::Input:: *)
+(*dtacentralclassfinal[[1]][["label"]]*)
+
+
+(* ::Input:: *)
+(*Position[dtacentralclassfinal[[1]][["label"]],"ReducedChi2"][[1,1]]//Head*)
+
+
+(* ::Input:: *)
+(*dtacentralclassfinal[[1]][["data"]]*)
+
+
+(* ::Input:: *)
+(*NormalizeIDs*)
+
+
+(* ::Input:: *)
+(**)
+(*Table[*)
+(*{residualNsetclassfinal[[iexpt]][["exptinfo","exptid"]],NormalizeIDs[[iexpt]]},*)
+(*{iexpt,1,Length[residualNsetclassfinal]}*)
+(*]*)
