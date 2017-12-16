@@ -6826,6 +6826,9 @@ legendlabel="";
 (*20171125: use log scale to seperate the colors min, min/3, min/9, min/27, max/27,max/9,max/3,max*)
 barseperator=Table[(PaletteMin+0.5*(PaletteMax-PaletteMin) )+If[isep>0,1.0,-1.0]*(1/3)^(Abs[isep]-1)*(0.5*(PaletteMax-PaletteMin) ),{isep,{-1,-2,-3,-4,4,3,2,1}}];
 absbarseperator={0}~Join~Table[(1/3)^(Abs[isep]-1)*(absPaletteMax ),{isep,{4,3,2,1}}];  (*20171201*)
+(*20171215: change back to divid colors by the same size*)
+barseperator=Table[PaletteMin+isep*(PaletteMax-PaletteMin)/7.0,{isep,0,7}];
+absbarseperator=Table[isep*(absPaletteMax)/4.0,{isep,0,4}];
 (*
 barseperator=Table[DataMin+isep*(DataMax-DataMin)/7.0,{isep,0,7}];
 *)
