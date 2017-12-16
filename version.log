@@ -394,3 +394,14 @@ weight the average of the bin to be closer to the peak of the spectrum represent
 20171213
 change the definition of sensitivity by (dr*corr(r,f(x,Q)) )/(chi2(ID)/Npt(ID)),
 which means normalize the sensitivity by the r(r.m.s.) of the respective ID
+
+note: theoretical uncertainties or deltaR perhaps depend on the tolerent range,
+From CT14HERA2NNLO, deltaR is about 0.5,
+if we assume theoretical uncertainties for data points follow gaussian distribution,
+the gaussian function should not be too broad because the maximum chi^2 is chi^2(min) + torrelant range
+Since chi^2 = Sum(r^2), r^2 distribution is an gaussian distribution with the center at 0,
+deltaR is like give each point in the gaussian distribution another gaussian flutuation.
+The new gaussian distribution still need to satisfy chi^2(min) + T = Sum(r^2)
+
+20171215
+update the color palette for sens figs: cut the colors with the same interval
