@@ -405,3 +405,7 @@ The new gaussian distribution still need to satisfy chi^2(min) + T = Sum(r^2)
 
 20171215
 update the color palette for sens figs: cut the colors with the same interval
+
+20171217
+if any values of points for each flavour are 0, Indeterminate, or \
+ComplexInfinity, give values in all replicas of that point 0
