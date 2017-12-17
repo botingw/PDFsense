@@ -495,6 +495,8 @@ fxQDatabaseExptlist=Table[fxQsamept2class[[iexpt,1]][["exptinfo","exptid"]],{iex
 (*clear residualNsetclass, fxQsamept2class, dtacentralclass*)
 Clear[residualNsetclass];Clear[fxQsamept2class];Clear[dtacentralclass];
 
+(*20171217 define global variable for username*)
+UserNameGlobal={};
 (*append user defined values into f(x,Q) as new flavour index*)
 If[
 CorrelationArgFlag[[-1]]==1,
@@ -520,6 +522,8 @@ Print["reading user functions from ",userfuncfilename];
 UserArgFunction=(*ReadUserFunctionV2*)ReadUserFunctionV3[configDir,userfuncfilename];
 UserArgName=(#[[1]]&/@UserArgFunction);
 UserArgFunction=(#[[2]]&/@UserArgFunction);
+(*20171217 define global variable for username*)
+UserNameGlobal=UserArgName;
 
 Print["function names: ",UserArgName];
 (*20171116: new convention of user define function and new way to add it as new flavour*)
@@ -565,6 +569,25 @@ tmpclass,
 fmax=Length[fxQsamept2classfinal[[1]] ];
 Print["total #flavours: ",fmax];
 Print[""];(*space*)
+
+(*20171217*)
+(*if any values of points for each flavour are 0, Indeterminate, or ComplexInfinity, give values in all replicas of that point 0*)
+(*this step should be prior to the calculation of observables*)
+Print["search broken points (0, ComplexInfinity, Indeterminate in any replica) for all points of f(x,Q), then set the values of broken points as 0"];
+Print[""];
+Table[
+fxQsamept2classfinal[[iexpt,flavour+6]][["data"]]=
+fxQsamept2classfinal[[iexpt,flavour+6]][["data"]]/.LF[a__]:>
+If[
+IntersectingQ[{a},{0,0.0,ComplexInfinity,Indeterminate}],
+LF[{a}[[1]],{a}[[2]],Sequence@@Table[0.0,{iset,Length[{a}]-2}] ],
+LF[a] 
+];
+"dummy"
+,{iexpt,Length[fxQsamept2classfinal]},{flavour,-5,-5+fmax-1}
+];
+
+
 (*test *)(*Print["flavours switch: ",CorrelationArgFlag];Abort[];*)
 
 (*calculate observables for plots from PDF data and residual data of all replicas*)
@@ -2467,3 +2490,25 @@ If[irun==Length[Lexpt],Print["all processes are done"];Abort[]];
 (*{residualNsetclassfinal[[iexpt]][["exptinfo","exptid"]],NormalizeIDs[[iexpt]]},*)
 (*{iexpt,1,Length[residualNsetclassfinal]}*)
 (*]*)
+
+
+(* ::Input:: *)
+(*fxQsamept2classfinal[[#,1]][["exptinfo","exptid"]]&/@Range[49]*)
+
+
+(* ::Input:: *)
+(*fxQsamept2classfinal[[21,5]][["data"]]*)
+
+
+(* ::Input:: *)
+(*corrdataclassfinal;*)
+(*dRcorrdataclassfinal;*)
+(*{expterrordataclassfinal,residualdataclassfinal,dRdataclassfinal};*)
+
+
+(* ::Input:: *)
+(*Table[corrdataclassfinal[[iexpt,flavour]][["data"]]//Length,{iexpt,49},{flavour,17}]*)
+
+
+(* ::Input:: *)
+(*corrdataclassfinal[[-14,14]][["data"]]*)

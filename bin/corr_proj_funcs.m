@@ -6302,8 +6302,12 @@ userdifinefuncfilename="user_func.txt";
 (*20171127*)
 If[
 CorrelationArgFlag[[-1]]==1,
+(*
 UserArgName=ReadUserFunctionV3["./",userdifinefuncfilename];
 UserArgName=#[[1]]&/@UserArgName;
+*)
+(*20171217 define global variable for username*)
+UserArgName=UserNameGlobal;
 "dummy"
 ];
 
@@ -7428,8 +7432,12 @@ userdifinefuncfilename="user_func.txt";
 (*20171127*)
 If[
 CorrelationArgFlag[[-1]]==1,
+(*
 UserArgName=ReadUserFunctionV3["./",userdifinefuncfilename];
 UserArgName=#[[1]]&/@UserArgName;
+*)
+(*20171217 define global variable for username*)
+UserArgName=UserNameGlobal;
 "dummy"
 ];
 
@@ -7667,6 +7675,7 @@ groupExptIDs
 the input is similar to getcorrinfo,
 this function read the output of getcorrinfo and write it as the string with a human-readable format
 *)
+(*
 getdatainfotext[corrfxQdtaobsclassin_,configargumentsin_,plottypein_]:=
 Module[{configarguments=configargumentsin,
 plottype=plottypein,
@@ -7686,9 +7695,13 @@ Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}=configarguments;
 userdifinefuncfilename="user_func.txt";
 (*20171127*)
 If[
-CorrelationArgFlag[[-1]]==1,
+CorrelationArgFlag[[-1]]\[Equal]1,
+(*
 UserArgName=ReadUserFunctionV3["./",userdifinefuncfilename];
 UserArgName=#[[1]]&/@UserArgName;
+*)
+(*20171217 define global variable for username*)
+UserArgName=UserNameGlobal;
 "dummy"
 ];
 
@@ -7698,7 +7711,7 @@ alldatainfo={};
 
 Table[
 If[
-CorrelationArgFlag[[iflavour+6]]==1,
+CorrelationArgFlag[[iflavour+6]]\[Equal]1,
 alldatainfo=Append[alldatainfo,getcorrinfo[corrfxQdtaobsclassin,configarguments,plottype,iflavour] ]
 ];
 "dummy"
@@ -7707,6 +7720,7 @@ alldatainfo=Append[alldatainfo,getcorrinfo[corrfxQdtaobsclassin,configarguments,
 
 alldatainfo
 ]
+*)
 
 datainfototext[corrfxQdtaobsclassin_,configargumentsin_,plottypein_,flavourin_]:=
 Module[{(*corrfxQdtaobsclass=corrfxQdtaobsclassin,*)configarguments=configargumentsin,
