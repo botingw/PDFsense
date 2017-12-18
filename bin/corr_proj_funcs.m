@@ -3816,6 +3816,30 @@ mybarlegend=BarLegend[{barcolor,{barmin,barmax}},barseperator,LegendLabel->legen
 mybarlegend
 ]
 
+
+(*20171217*)
+(*shift input {LF[x,Q,...],LF[x,Q,...],...} by dx,dQ so that they will not overlap*)
+(*assume input x& Q are at the same position for each LF[...]*)
+(*support 8 directional shift*)
+ShiftxQ[LF1listin_,dxin_,dQin_]:=
+Module[{LF1list=LF1listin,dx=dxin,dQ=dQin,dxlist,dQlist,arrowx,arrowQ},
+(*if the element of LFlist =1 or 0, skip the function*)
+If[Length[LF1list]<=1,Return["dummy"] ];
+(*define shifted directions at x, Q axis*)
+arrowx={-dx,0.,dx};(*because Mod[...]+1, dx is begin at dx[[2]] *)
+arrowQ={0.,dQ,-dQ};
+(*shift for each point*)
+Table[
+
+LF1list[[ipt]][[1]]=LF1list[[ipt]][[1]]+arrowx[[Mod[ipt,3]+1 ]];
+LF1list[[ipt]][[2]]=LF1list[[ipt]][[2]]+arrowQ[[Mod[Quotient[ipt,3],3]+1 ]],
+{ipt,1,Length[LF1list]}
+];
+
+LF1list
+]
+
+
 (*20170514: test new version with shape of point could be choosed*)
 (*20171105: add barcolor*)
  PDFCorrelationplot8[datain_,titlein_,xtitlein_,ytitlein_,plotrangein_,stretchxin_,stretchyin_,barlegendin_,(*barseperatorin_,barcolorin_,legendlabelin_,*)epilogtextin_,highlightrangein_,unhighlightsizein_]:=
@@ -3824,7 +3848,7 @@ plotxQout,minx,maxx,miny,maxy,imgsize,titlesize,xtitlesize,ytitlesize,lgdlabelsi
 tickslist,tickslog,nolable,Loglable,xTicks,yTicks,p2,AllPlots,
 ptshape,ptshaperescale,
 barseperatordefault,barcolordefault,barseperator,
-dataordering},
+dataordering,dataforplot,dx,dQ},
 
 (*default*)
 minx=0.00001;
@@ -3975,11 +3999,61 @@ ptshape=(ptshape&/@Range[10])//Flatten;ptshaperescale=(ptshaperescale&/@Range[10
 
 (*20171126: for multi shape plotting, we need to sort data in all groups togather, otherwise the last group members with small values still cover the large values*)
 dataordering=Ordering[Flatten[datain]/.LF1[a__]:>Abs[{a}[[3]] ] ];
+(*20171218 ordering values by Abs values, shift overlapping points, setup colors, sizes *)
+dataforplot=
+Table[
+(*20171109: use Setpointsize4 to satisfy the format of new highlight range*)
+datain[[igroup]]/.LF1[a__]:>
+LF1[
+(*x, Q, value*)
+a,
+(*shape*)
+ptshape[[igroup]],
+(*size*)
+(*20171108: if highlighted, medium, unhighlighted, small
+(*PointSize[*)(*psizebase+psizenorm*(Abs[{a}[[3]] ]/drange)*)ptshaperescale[[igroup]]*Setpointsize2[{a}[[3]],highlightrange,unhighlightsize] (*]*),(*ColorData[{mycolorscheme,{-drange,drange} }][{a}[[3]]]*)
+*)
+(*20171109: use Setpointsize4 to satisfy the format of new highlight range*)
+ptshaperescale[[igroup]]*(*Setpointsize3*)Setpointsize4[{a}[[3]],highlightrange,unhighlightsize],
+(*color*)
+(*20171108 if highllighted, grey out, otherwise use colors in the palette*)
+If
+[
+(*
+({a}[[3]]>=highlightrange[[1]] && {a}[[3]]<highlightrange[[2]]) || ({a}[[3]]\[GreaterEqual](-highlightrange[[2]]) && {a}[[3]]<(-highlightrange[[1]]) )
+*)
+(*20171109: for new convention of highlight range: if a point is in any highlight range, give color on the palette to it, otherwise give gray color*) 
+(*20171114: fix the bug: when highlight mode = 0 (no highlight), also give points color by their color palette*)         
+Intersection[({a}[[3]]>=#[[1]] && {a}[[3]]<#[[2]])&/@highlightrange,{True}]=={True} || highlightrange=={{0.0,0.0}},
+(*If[ {a}[[3]]<Max[barseperator]&&{a}[[3]]>Min[barseperator],Red,Black]*)
+If[{a}[[3]]<barmax&&{a}[[3]]>barmin,Setbarcolorfunc2[barcolor,barseperator,{a}[[3]] ],If[{a}[[3]]>=barmax,Red,Blue](*outlayer*) ],
+(*Gray*)RGBColor[0.6,0.6,0.6]
+]
+],
+{igroup,1,Length[datain]}
+];
+(*20171218 gather the overlapping points and shift*)
+dataforplot=GatherBy[dataforplot//Flatten,{#[[1]],#[[2]]}&];
+dataforplot=
+Table[
+If[
+(*if they are overlaping points, shift*)
+Length[dataforplot[[igath]] ]>1,
+(*assign dx, dQ by log scale of the original point (10%)*)
+dx=dataforplot[[igath]][[1,1]]*0.1;dQ=dataforplot[[igath]][[1,2]]*0.1;
+ShiftxQ[dataforplot[[igath]],dx,dQ],
+dataforplot[[igath]]
+],
+{igath,Length[dataforplot]}
+];
+(*order by the abs values of data*)
+dataforplot=Sort[dataforplot//Flatten,(Abs[#1[[3]] ] <Abs[#2[[3]] ])&];
 
 AllPlots=Show[
 {
 p2,
 Graphics[
+(*
 (*20171126: sort all group members by ordering of Abs[values] (using dataordering)*)
 (
 Table[
@@ -4007,6 +4081,15 @@ If[{a}[[3]]<barmax&&{a}[[3]]>barmin,Setbarcolorfunc2[barcolor,barseperator,{a}[[
 ],
 {igroup,1,Length[datain]}]//Flatten
 )[[dataordering]]
+*)
+(*20171218 reorganize the input data to add the function of shifting overlapping points*)
+(*data: LF1[x,Q,value,shape,size,color]*)
+dataforplot/.LF1[a__]:>
+Style[
+Text[{a}[[4]],{Log[{a}[[1]] ],Log[{a}[[2]] ]}],
+{a}[[5]],
+{a}[[6]]
+]
 ]
 },
 Frame->True,
