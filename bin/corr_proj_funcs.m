@@ -2961,7 +2961,7 @@ output=
 Switch[
 ClassifyMode,
 "single",
-groupnames=ToString[#]&/@dataExptIDin;
+groupnames=(*ToString[#]*)ExptIDtoName[#]&/@dataExptIDin;
 grouplists={#}&/@dataExptIDin;
  ClassifyByGroups[datain,dataExptIDin,groupnames,grouplists],
 "all",
@@ -3848,7 +3848,7 @@ plotxQout,minx,maxx,miny,maxy,imgsize,titlesize,xtitlesize,ytitlesize,lgdlabelsi
 tickslist,tickslog,nolable,Loglable,xTicks,yTicks,p2,AllPlots,
 ptshape,ptshaperescale,
 barseperatordefault,barcolordefault,barseperator,
-dataordering,dataforplot,dx,dQ},
+dataordering,dataforplot,dx,dQ,x0,Q0},
 
 (*default*)
 minx=0.00001;
@@ -4039,8 +4039,16 @@ Table[
 If[
 (*if they are overlaping points, shift*)
 Length[dataforplot[[igath]] ]>1,
-(*assign dx, dQ by log scale of the original point (10%)*)
-dx=dataforplot[[igath]][[1,1]]*0.1;dQ=dataforplot[[igath]][[1,2]]*0.1;
+(*assign dx, dQ by log scale of the original point*)(*require dx= the solution of NSolve[(Log[x+dxtmp]-Log[x])\[Equal](Log[xmax]-Log[xmin])/100.0,dxtmp]*)
+(*solve the dx, dQ by dividing the length of x direction and y direction of the figure by 100*)
+x0=dataforplot[[igath]][[1,1]];
+Q0=dataforplot[[igath]][[1,2]];
+dx=NSolve[(Log[x0+dxtmp]-Log[x0])==(Log[maxx]-Log[minx])/100.0,dxtmp][[1,1,2]];
+dQ=NSolve[(Log[Q0+dQtmp]-Log[Q0])==(Log[maxy]-Log[miny])/100.0,dQtmp][[1,1,2]];
+(*
+dx=dataforplot[[igath]][[1,1]]*0.1;
+dQ=dataforplot[[igath]][[1,2]]*0.1;
+*)
 ShiftxQ[dataforplot[[igath]],dx,dQ],
 dataforplot[[igath]]
 ],
@@ -6309,9 +6317,18 @@ Print["exptlist ",exptlist];
 (*always don't show only one shape for all expt ID points*)
 If[classifymode=="all",classifymode="single"];
 {groupnames,groupExptIDs,(*groupdata*)pdfcorr}=ClassifyPlottedData[pdfcorr,exptlist,classifymode];
+(*20171218 if the last one group (others) has no element, delete it*)
+If[Length[pdfcorr[[-1]] ]==0,{groupnames,groupExptIDs,(*groupdata*)pdfcorr}=Drop[#,-1]&/@{groupnames,groupExptIDs,(*groupdata*)pdfcorr}];
+
 pdfcorr=Table[Flatten[pdfcorr[[igroup]],1],{igroup,Length[pdfcorr]}];
 lgdlabel=
-Switch[classifymode,"single",lgdlabel,"all",groupnames];
+Switch[
+classifymode,
+"single",
+(*lgdlabel*)(*20171218 1: lgd shows ID, -1: lgd shows ID name*)Switch[FigureFlag[[1]],1,groupExptIDs//Flatten,-1,groupnames//Flatten] ,
+"all",
+groupnames
+];
 
 Print["dim of data: ",Dimensions[pdfcorr] ];
 
