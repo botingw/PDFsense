@@ -409,3 +409,8 @@ update the color palette for sens figs: cut the colors with the same interval
 20171217
 if any values of points for each flavour are 0, Indeterminate, or \
 ComplexInfinity, give values in all replicas of that point 0
+
+20171218:
+shift overlapping points in PDFCorrelationplot8
+
+set up the plot type 1 as -1, 0, 1, when -1, legend shows the expt names in the figure, when +1, legend shows the IDs in the figure
