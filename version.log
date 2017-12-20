@@ -414,3 +414,8 @@ ComplexInfinity, give values in all replicas of that point 0
 shift overlapping points in PDFCorrelationplot8
 
 set up the plot type 1 as -1, 0, 1, when -1, legend shows the expt names in the figure, when +1, legend shows the IDs in the figure
+
+20171220
+update the color palette setting
+users can select 7, 9, 13 colors in palette/4, 5, 6 colors in absolute value palette (Set2DxqBarLegend, Set2DxqRedBarLegend)
+sensitivity color become 13
