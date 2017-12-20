@@ -3718,7 +3718,9 @@ mycolorscheme,barmin,barmax,barcolor,mybarlegend,greycolor,
 edgeWidth},
 
 (*20171108: check #seperator elements is correct*)
-If[Length[barseperator]!=8,Print["error, the input color discrete list should include 8 elements, yours: ",barseperator] ];
+(*
+If[Length[barseperator]\[NotEqual]8,Print["error, the input color discrete list should include 8 elements, yours: ",barseperator] ];
+*)
 
 mycolorscheme="TemperatureMap";
 greycolor=Lighter[ColorData[30,"ColorList"][[5]],0.5];
@@ -3737,6 +3739,18 @@ barcolor=Darker[barcolor,0.3];
 *)
 (*20170606: brighter ogrange and yellow*)(*20171108 in the middle = Green*)
 barcolor={RGBColor[0.,0.,0.7],RGBColor[0.,0.5,0.75],RGBColor[0.0,0.75,0.75],RGBColor[0,0.7,0],RGBColor[0.75,0.75,0.],RGBColor[0.75,0.55,0.],RGBColor[0.7,0.,0.]};
+(*20171219 for diff # of seperator, use different color palette, for 7 colors, 9 colors, 11 colors*)
+barcolor=Switch[
+Length[barseperator],
+8,
+{RGBColor[0.5,0.,0.7],RGBColor[0.,0.5,0.75],RGBColor[0.0,0.75,0.75],RGBColor[0,0.7,0],RGBColor[0.75,0.75,0.],RGBColor[0.85,0.35,0.],RGBColor[0.75,0.,0.]},
+10,
+{RGBColor[0.5,0.,0.7],RGBColor[0.,0.,0.7],RGBColor[0.,0.5,0.75],RGBColor[0.0,0.75,0.75],RGBColor[0,0.7,0],RGBColor[0.75,0.75,0.],RGBColor[0.75,0.55,0.],RGBColor[0.85,0.35,0.],RGBColor[0.75,0.,0.]},
+12,
+{RGBColor[0.5,0.,0.7],RGBColor[0.,0.,0.7],RGBColor[0.,0.35,0.75],RGBColor[0.,0.5,0.75],RGBColor[0.0,0.75,0.75],RGBColor[0,0.7,0],RGBColor[0.55,0.75,0],RGBColor[0.75,0.75,0.],RGBColor[0.75,0.55,0.],RGBColor[0.85,0.35,0.],RGBColor[0.75,0.,0.]},
+_,
+Print["error, input color seperator should be a List with 8, 10, or 12 element of number"];Abort[]
+];
 (*
 barcolor[[(Length[barcolor]+1)/2 ]]=greycolor;
 *)
@@ -3759,7 +3773,9 @@ mycolorscheme,barmin,barmax,barcolor,mybarlegend,greycolor,
 edgeWidth},
 
 (*20171108: check #seperator elements is correct*)
-If[Length[barseperator]!=5,Print["error, the input color discrete list should include 5 elements, yours: ",barseperator] ];
+(*
+If[Length[barseperator]\[NotEqual]5,Print["error, the input color discrete list should include 5 elements, yours: ",barseperator] ];
+*)
 
 mycolorscheme="TemperatureMap";
 greycolor=Lighter[ColorData[30,"ColorList"][[5]],0.5];
@@ -3778,6 +3794,18 @@ barcolor=Darker[barcolor,0.3];
 *)
 (*20170606: brighter ogrange and yellow*)(*20171108 in the middle = Green*)
 barcolor={RGBColor[0,0.7,0],RGBColor[0.75,0.75,0.],RGBColor[0.75,0.55,0.],RGBColor[0.7,0.,0.]};
+(*20171219 for diff # of seperator, use different color palette, for 7 colors, 9 colors, 11 colors*)
+barcolor=Switch[
+Length[barseperator],
+5,
+{(*RGBColor[0.5,0.,0.7],RGBColor[0.,0.5,0.75],RGBColor[0.0,0.75,0.75],*)RGBColor[0,0.7,0],RGBColor[0.75,0.75,0.],RGBColor[0.85,0.35,0.],RGBColor[0.75,0.,0.]},
+6,
+{(*RGBColor[0.5,0.,0.7],RGBColor[0.,0.,0.7],RGBColor[0.,0.5,0.75],RGBColor[0.0,0.75,0.75],*)RGBColor[0,0.7,0],RGBColor[0.75,0.75,0.],RGBColor[0.75,0.55,0.],RGBColor[0.85,0.35,0.],RGBColor[0.75,0.,0.]},
+7,
+{(*RGBColor[0.5,0.,0.7],RGBColor[0.,0.,0.7],RGBColor[0.,0.35,0.75],RGBColor[0.,0.5,0.75],RGBColor[0.0,0.75,0.75],*)RGBColor[0,0.7,0],RGBColor[0.55,0.75,0],RGBColor[0.75,0.75,0.],RGBColor[0.75,0.55,0.],RGBColor[0.85,0.35,0.],RGBColor[0.75,0.,0.]},
+_,
+Print["error, input color seperator should be a List with 5, 6, or 7 element of number"];Abort[]
+];
 (*
 barcolor[[(Length[barcolor]+1)/2 ]]=greycolor;
 *)
@@ -6930,9 +6958,9 @@ legendlabel="";
 (*20171125: use log scale to seperate the colors min, min/3, min/9, min/27, max/27,max/9,max/3,max*)
 barseperator=Table[(PaletteMin+0.5*(PaletteMax-PaletteMin) )+If[isep>0,1.0,-1.0]*(1/3)^(Abs[isep]-1)*(0.5*(PaletteMax-PaletteMin) ),{isep,{-1,-2,-3,-4,4,3,2,1}}];
 absbarseperator={0}~Join~Table[(1/3)^(Abs[isep]-1)*(absPaletteMax ),{isep,{4,3,2,1}}];  (*20171201*)
-(*20171215: change back to divid colors by the same size*)
-barseperator=Table[PaletteMin+isep*(PaletteMax-PaletteMin)/7.0,{isep,0,7}];
-absbarseperator=Table[isep*(absPaletteMax)/4.0,{isep,0,4}];
+(*20171215: change back to divid colors by the same size*)(*20171219 add color palette to 11 colors*)
+barseperator=Table[PaletteMin+isep*(PaletteMax-PaletteMin)/(*7.0*)11.0,{isep,0,(*7*)11}];
+absbarseperator=Table[isep*(absPaletteMax)/(*4.0*)6.0,{isep,0,(*4*)6}];
 (*
 barseperator=Table[DataMin+isep*(DataMax-DataMin)/7.0,{isep,0,7}];
 *)
