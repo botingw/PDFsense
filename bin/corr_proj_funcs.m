@@ -6584,8 +6584,8 @@ highlightrange[[iHL,2]]=highlightrange[[iHL,2]]+safewidth,
 (*decide title by PDFname, FigureFlag, CorrelationArgFlag, ex: Corr(f_j(x,Q),r_i(x,Q)).
 if user of CorrelationArgFlag is on, Corr( user_input,r_i(x,Q))*)
 (*==============================*)
-corrtitle1="Corr( ";
-corrdrtitle1=(*"\[Delta]r*Corr( ";*)"Sensitivity to ";
+corrtitle1="\!\(\*SubscriptBox[\(C\), \(f\)]\)( ";
+corrdrtitle1=(*"\[Delta]r*Corr( ";*)"\!\(\*SubscriptBox[\(S\), \(f\)]\)( ";
 (*deltaRtitle1=(*"\[Delta]r ";*)(*"PDF error \[Delta]r for residuals, ";*)"\[Delta]r";*)
 title2=(*", r(x,\[Mu]))";*)", \!\(\*SubscriptBox[\(r\), \(i\)]\))";
 title3=(*" for dataset of "*)", "<>PDFname;
@@ -6635,7 +6635,9 @@ histabstitle=(*"| "<>*)obsname(*<>" |"*)<>title3
 ];
 If[
 plottype==5 ,
-obsname=corrdrtitle1<>pdfnamelable[[flavourin+6]](*<>title2*);
+obsname=corrdrtitle1<>pdfnamelable[[flavourin+6]]<>title2;
+(*20171220 change the symbol of the correlation and sensitivity*)
+(*obsname=StringReplace["\!\(\*SubscriptBox[\(S\), \(FlavourStr\)]\)","FlavourStr"->pdfnamelable[[flavourin+6]] ];*)
 title=obsname<>title3;
 abstitle="| "<>obsname<>" |"<>title3;
 histabstitle="| "<>obsname<>" |"<>title3
@@ -6643,6 +6645,8 @@ histabstitle="| "<>obsname<>" |"<>title3
 If[
 plottype==6 ,
 obsname=corrtitle1<>pdfnamelable[[flavourin+6]]<>title2;
+(*20171220 change the symbol of the correlation and sensitivity*)
+(*obsname=StringReplace["\!\(\*SubscriptBox[\(C\), \(FlavourStr\)]\)","FlavourStr"->pdfnamelable[[flavourin+6]] ];*)
 title=obsname<>title3;
 abstitle="| "<>obsname<>" |"<>title3;
 histabstitle="| "<>obsname<>" |"<>title3
@@ -7676,9 +7680,9 @@ Npt=Length[HistDataList];
 DataStatsByIDLabel={"ID","Npt","SumVals","Max","Min","Mean","Median","StandardDeviation"};
 DataStatsByID={Length[#],Length[#]*Mean[#],Max[#],Min[#],Mean[#],Median[#],StandardDeviation[#]}&/@(pdfcorr/.LF1[a__]:>{a}[[3]]);
 AbsDataStatsByID={Length[#],Length[#]*Mean[#],Max[#],Min[#],Mean[#],Median[#],StandardDeviation[#]}&/@(pdfcorr/.LF1[a__]:>Abs[{a}[[3]] ]);
-(*add row label (expt names)*)
-Table[DataStatsByID[[iexpt]]=Prepend[DataStatsByID[[iexpt]],groupnames[[iexpt]] ],{iexpt,Length[groupnames]}];
-Table[AbsDataStatsByID[[iexpt]]=Prepend[AbsDataStatsByID[[iexpt]],groupnames[[iexpt]] ],{iexpt,Length[groupnames]}];
+(*add row label (expt ID)*)(*assume ClassifyMode = single mode*)
+Table[DataStatsByID[[iexpt]]=Prepend[DataStatsByID[[iexpt]],groupExptIDs[[iexpt,1]] ],{iexpt,Length[groupExptIDs]}];
+Table[AbsDataStatsByID[[iexpt]]=Prepend[AbsDataStatsByID[[iexpt]],groupExptIDs[[iexpt,1]] ],{iexpt,Length[groupExptIDs]}];
 DataStatsByID=Prepend[DataStatsByID,DataStatsByIDLabel];
 AbsDataStatsByID=Prepend[AbsDataStatsByID,DataStatsByIDLabel];
 (*=============================================================================================================================*)
