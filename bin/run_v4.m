@@ -952,8 +952,10 @@ p6=processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile6[
 
 (*p6=GraphicsGrid[p6,Spacings\[Rule]Scaled[0.15] ];*)
 Table[
+(*
 filename=obsname[[6]]<>"_"<>representationname[[5]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,2]],ImageResolution->imgresol ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,2]],ImageResolution\[Rule]imgresol ];
+*)
 (*20171201 for +1: absolute values of data, for -1: sign data*)
 If[
 FigureFlag[[6]]==-1,
@@ -1023,9 +1025,10 @@ p5=processdataplotsmultiexp7percentage[{dRcorrdataclassfinal},readcorrconfigfile
 
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
 Table[
-
+(*
 filename=obsname[[5]]<>"_"<>representationname[[5]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,2]],ImageResolution->imgresol  ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,2]],ImageResolution\[Rule]imgresol  ];
+*)
 (*20171201 for +1: absolute values of data, for -1: sign data*)
 If[
 FigureFlag[[5]]==-1,
@@ -1113,8 +1116,10 @@ datainfostr=datainfototext[{expterrordataclassfinal},readcorrconfigfile6[configD
 Table[
 filename=obsname[[2]]<>"_"<>representationname[[2]]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]],ImageResolution->imgresol  ];
+(*
 filename=obsname[[2]]<>"_"<>representationname[[5]]<>"_samept"<>extensionname[[iext[[i]] ]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]],ImageResolution->imgresol  ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]],ImageResolution\[Rule]imgresol  ];
+*)
 (*20171108: \[Sigma]/D has no negative data, so delete histogram of range = (-x, x)*)
 (*
 filename=obsname[[2]]<>"_"<>representationname[[3]]<>"_samept"<>extensionname[[iext]];
@@ -1159,9 +1164,10 @@ p234=processdataplotsmultiexp7percentage[{residualdataclassfinal},readcorrconfig
 datainfostr=datainfototext[{residualdataclassfinal},readcorrconfigfile6[configDir,configfilename],3,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
 Table[
-
+(*
 filename=obsname[[3]]<>"_"<>representationname[[5]]<>"_samept"<>extensionname[[iext[[i]] ]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]],ImageResolution->imgresol  ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]],ImageResolution\[Rule]imgresol  ];
+*)
 (*20171201 for +1: absolute values of data, for -1: sign data*)
 If[
 FigureFlag[[3]]==-1,
@@ -1236,8 +1242,10 @@ datainfostr=datainfototext[{dRdataclassfinal},readcorrconfigfile6[configDir,conf
 Table[
 filename=obsname[[4]]<>"_"<>representationname[[2]]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]],ImageResolution->imgresol  ];
+(*
 filename=obsname[[4]]<>"_"<>representationname[[5]]<>"_samept"<>extensionname[[iext[[i]] ]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]],ImageResolution->imgresol  ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]],ImageResolution\[Rule]imgresol  ];
+*)
 (*20171108: \[Delta]r has no negative data, so delete histogram of range = (-x, x)*)
 (*
 filename=obsname[[4]]<>"_"<>representationname[[3]]<>"_samept"<>extensionname[[iext]];
@@ -1371,6 +1379,31 @@ Print["making table of experiments included in plots"];
 (*20171128: add job description in exptname_table file*)
 JobDescription="Job description: "<>JobDescription;
 exptnamestable=makeGrid2[exptnames,rows,title,JobDescription,datemode];(*20171114: add date mode to write date*)
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,exptnamestable];
+
+(*20171220: add the legend for all figures*)
+filename="exptname_legend"<>extensionname[[iext[[i]] ]];
+title="";
+(*20171126: set labels depend on different classifymode*)
+If[
+ClassifyMode=="single",
+(*20171130: if shapes are used out, repeat the shapes*)
+shapeslist=(PlotMarkerList[][[1]]&/@Range[10])//Flatten;
+exptnames=Table[ToString[shapeslist[[iexpt]] ]<>ExptIDtoName[exptlistfinal[[iexpt]] ]<>"("<>ToString[exptlistfinal[[iexpt]] ]<>")",{iexpt,1,Length[exptlistfinal]}];
+"dummy"
+];
+If[
+ClassifyMode=="all",
+exptnames=Table[ExptIDtoName[exptlistfinal[[iexpt]] ]<>"("<>ToString[exptlistfinal[[iexpt]] ]<>")",{iexpt,1,Length[exptlistfinal]}];
+"dummy"
+];
+(*Print["making table of experiments included in plots"];*)
+datemode=False;
+(*20171128: for legend, don't show job description*)
+NoJobDescription="";
+
+(*exptnamestitle=Switch[FigureFlag[[plottype]],-1,title,1,abstitle,_,Print["error, plot type flag should be 1 or -1"];Abort[] ];*)
+exptnamestable=makeGrid2[exptnames,rows,(*exptnamestitle<>"\n\n"*)title,NoJobDescription,datemode];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,exptnamestable];
 "dummy",
 {i,Length[iext]}
@@ -2512,3 +2545,7 @@ If[irun==Length[Lexpt],Print["all processes are done"];Abort[]];
 
 (* ::Input:: *)
 (*corrdataclassfinal[[-14,14]][["data"]]*)
+
+
+(* ::Input:: *)
+(*(PlotMarkerList[][[1]]&/@Range[10])//Flatten*)
