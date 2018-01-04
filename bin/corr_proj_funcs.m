@@ -6584,10 +6584,16 @@ highlightrange[[iHL,2]]=highlightrange[[iHL,2]]+safewidth,
 (*decide title by PDFname, FigureFlag, CorrelationArgFlag, ex: Corr(f_j(x,Q),r_i(x,Q)).
 if user of CorrelationArgFlag is on, Corr( user_input,r_i(x,Q))*)
 (*==============================*)
-corrtitle1="\!\(\*SubscriptBox[\(C\), \(f\)]\)( ";
-corrdrtitle1=(*"\[Delta]r*Corr( ";*)"\!\(\*SubscriptBox[\(S\), \(f\)]\)( ";
+(*20180102 change the title again*)
+(*
+corrtitle1="Subscript[C, f]( ";
+corrdrtitle1=(*"\[Delta]r*Corr( ";*)"Subscript[S, f]( ";
 (*deltaRtitle1=(*"\[Delta]r ";*)(*"PDF error \[Delta]r for residuals, ";*)"\[Delta]r";*)
-title2=(*", r(x,\[Mu]))";*)", \!\(\*SubscriptBox[\(r\), \(i\)]\))";
+title2=(*", r(x,\[Mu]))";*)", Subscript[r, i])";
+*)
+corrtitle1="\!\(\*SubscriptBox[\(C\), \(f\)]\)";
+corrdrtitle1=(*"\[Delta]r*Corr( ";*)"\!\(\*SubscriptBox[\(S\), \(f\)]\)";
+title2=(*", r(x,\[Mu]))";*)" for ";
 title3=(*" for dataset of "*)", "<>PDFname;
 obsname="";(*initialize*)
 pdfnamelable={"\!\(\*OverscriptBox[\(b\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(c\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(s\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(d\), \(_\)]\)(x,\[Mu])","\!\(\*OverscriptBox[\(u\), \(_\)]\)(x,\[Mu])","g(x,\[Mu])","u(x,\[Mu])","d(x,\[Mu])","s(x,\[Mu])","c(x,\[Mu])","b(x,\[Mu])"
@@ -6635,21 +6641,35 @@ histabstitle=(*"| "<>*)obsname(*<>" |"*)<>title3
 ];
 If[
 plottype==5 ,
+(*20180102 change the title again*)
+(*
 obsname=corrdrtitle1<>pdfnamelable[[flavourin+6]]<>title2;
 (*20171220 change the symbol of the correlation and sensitivity*)
 (*obsname=StringReplace["\!\(\*SubscriptBox[\(S\), \(FlavourStr\)]\)","FlavourStr"->pdfnamelable[[flavourin+6]] ];*)
 title=obsname<>title3;
 abstitle="| "<>obsname<>" |"<>title3;
 histabstitle="| "<>obsname<>" |"<>title3
+*)
+obsname=corrdrtitle1;
+title=obsname<>title2<>pdfnamelable[[flavourin+6]]<>title3;
+abstitle="| "<>obsname<>" |"<>title2<>pdfnamelable[[flavourin+6]]<>title3;
+histabstitle="| "<>obsname<>" |"<>title2<>pdfnamelable[[flavourin+6]]<>title3
 ];
 If[
 plottype==6 ,
+(*20180102 change the title again*)
+(*
 obsname=corrtitle1<>pdfnamelable[[flavourin+6]]<>title2;
 (*20171220 change the symbol of the correlation and sensitivity*)
 (*obsname=StringReplace["\!\(\*SubscriptBox[\(C\), \(FlavourStr\)]\)","FlavourStr"->pdfnamelable[[flavourin+6]] ];*)
 title=obsname<>title3;
 abstitle="| "<>obsname<>" |"<>title3;
 histabstitle="| "<>obsname<>" |"<>title3
+*)
+obsname=corrtitle1;
+title=obsname<>title2<>pdfnamelable[[flavourin+6]]<>title3;
+abstitle="| "<>obsname<>" |"<>title2<>pdfnamelable[[flavourin+6]]<>title3;
+histabstitle="| "<>obsname<>" |"<>title2<>pdfnamelable[[flavourin+6]]<>title3
 ];
 
 ];
