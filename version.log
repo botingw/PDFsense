@@ -423,3 +423,11 @@ sensitivity color become 13
 20171220
 only output one legend
 change the corr/sens symbols to C_f and S_f
+
+20180103:
+1. change the title labels in figures to |C_f| for flv(x,Q), etc
+2. change the bin center formula in the formula specifying the (x,Q) of data
+3. update the quick_data.zip with the CT14HERA2_no_jet, this update does not include 
+a. 254, 255 for HERA2_no_jet
+b. y > 1.0 for ID = 542, 544 of HERA2
+this update use bin center = (binup + binlow)/2
