@@ -250,12 +250,6 @@ so users can input multi-line command
 3. add more descriptions about how to write functions in the user_func.txt
 4. for .png in python script version, also generate .pdf files
 
-20171120
-1. change main.py so that the input for highlight mode become {{h1min,h1max},{h2min,h2max},...} 
-2. speed up by avoiding calculations of correlations/sensitivities for flavours not being selected in the config1.txt
-3. fix the bug that when setting "unset" for not being selected data, some commands will get the "unset" rather than useful info
-
-
 20171124
 1. organize printout messages
 2. .dat Plot files -> .m
@@ -337,5 +331,103 @@ update quick_data.zip with both positive and negative valuesxx
 
 20171129
 update the default configure files
- 
 
+20171130
+fix the bug for ID = 5xx, y = (ymin+ymax)/2, -y = -(ymin+ymax)/2
+rewrite the formulas of (x,Q) transform in more readable mathematica symbols
+
+20171201
+point shapes simplify
+show max and min values of the color palettes
+For plot type Flag, mode 1 -> mode 1 or -1, 1: absolute values of data, -1: sign data
+
+20171201
+fix bug: when plot type = 1, xQ plot is not the figure of |data|
+
+20171201
+1. fix the upbound = max value * 1.001, 
+because we add the same color interval after the max color interval for showing max and min values of the color palettes
+we don't need max value * 1.001 to get the safe range anymore
+2. fix bug: when drawing |data|, percentage highlight should choose the percentage of |data| rather than the percentage of data
+3. enlarge star symbol
+4. for plot type 1, color change for every new Expt ID
+5. modify colors of shapes in plot type 1, delete grey 
+ 
+20171201
+for |data| plots (flag = +1), add +1 in their filenames (xQ+1, hist+1)
+the same for data plots (flag = -1)
+
+20171202
+save files with info of data for each plot type
+all .m figure files with the same plot type are saved in one file
+
+20171202
+fix the bug that each flavour index of correlation/sensitivity has a .m file
+
+20171203
+modify the number format in data info .txt files: for too large or small numbers, use the format like 2.33E6 
+
+20171206
+update the pdf combine function to fit the new output filenames (GetxQplotListSameptV2) 
+rewrite merge pdf function
+
+20171208
+for jet events, select only 10-8 < x1, x2 < 1 points (in selectExptxQv2)
+fix the y values in jet processes, y = (ymax - ymin)/2 -> y = (ymax + ymin)/2
+add energy of 252~255 (in ExptIDEcm)
+update the formulas for 252~255 (in selectExptxQv2)
+
+20171209
+for the info file, add Npt and total values info (Sum of values in all points)
+update the quick_data
+
+20171209
+1. renew the convert figure format function and merge figures function
+2. add nonepspdfcat, which merge files by latex code and pdflatex command.
+this script is used for input files are not .eps files 
+when using .eps files, users need to use epspdfcat
+3. show fail message for unsuccessful generating the merged pdf file
+
+20171210
+weight the average of the bin to be closer to the peak of the spectrum represented by bins
+
+20171213
+change the definition of sensitivity by (dr*corr(r,f(x,Q)) )/(chi2(ID)/Npt(ID)),
+which means normalize the sensitivity by the r(r.m.s.) of the respective ID
+
+note: theoretical uncertainties or deltaR perhaps depend on the tolerent range,
+From CT14HERA2NNLO, deltaR is about 0.5,
+if we assume theoretical uncertainties for data points follow gaussian distribution,
+the gaussian function should not be too broad because the maximum chi^2 is chi^2(min) + torrelant range
+Since chi^2 = Sum(r^2), r^2 distribution is an gaussian distribution with the center at 0,
+deltaR is like give each point in the gaussian distribution another gaussian flutuation.
+The new gaussian distribution still need to satisfy chi^2(min) + T = Sum(r^2)
+
+20171215
+update the color palette for sens figs: cut the colors with the same interval
+
+20171217
+if any values of points for each flavour are 0, Indeterminate, or \
+ComplexInfinity, give values in all replicas of that point 0
+
+20171218:
+shift overlapping points in PDFCorrelationplot8
+
+set up the plot type 1 as -1, 0, 1, when -1, legend shows the expt names in the figure, when +1, legend shows the IDs in the figure
+
+20171220
+update the color palette setting
+users can select 7, 9, 13 colors in palette/4, 5, 6 colors in absolute value palette (Set2DxqBarLegend, Set2DxqRedBarLegend)
+sensitivity color become 13
+
+20171220
+only output one legend
+change the corr/sens symbols to C_f and S_f
+
+20180103:
+1. change the title labels in figures to |C_f| for flv(x,Q), etc
+2. change the bin center formula in the formula specifying the (x,Q) of data
+3. update the quick_data.zip with the CT14HERA2_no_jet, this update does not include 
+a. 254, 255 for HERA2_no_jet
+b. y > 1.0 for ID = 542, 544 of HERA2
+this update use bin center = (binup + binlow)/2
