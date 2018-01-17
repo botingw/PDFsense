@@ -2787,6 +2787,33 @@ output3
 ]
 
 
+(* ::Section:: *)
+(*IO of  other files*)
+
+
+(* ::Subsection:: *)
+(*write meta data file*)
+
+
+(* ::Input:: *)
+(*(*20180117*)*)
+(*(*this function use fxQ data in the quick_data*)*)
+(*MakeMetaDataFile[fxQdataclassin_,metafileoutin_]:=*)
+(*Module[{fxQdataclass=fxQdataclassin,metafileout=metafileoutin,*)
+(*metalabel,Nexpt,metastr},*)
+(*metalabel={"ID","Name","dta_source","Nset"};*)
+(*Nexpt=Length[fxQdataclass];*)
+(*metastr=Prepend[({fxQdataclass[[#,1]][["exptinfo","exptid"]],fxQdataclass[[#,1]][["exptinfo","exptname"]],fxQdataclass[[#,1]][["PDFinfo","PDFname"]],fxQdataclass[[#,1]][["PDFinfo","Nset"]]}&/@Range[Nexpt]),*)
+(*metalabel*)
+(*];*)
+(**)
+(*Print["write meta data into file ",metafileout];*)
+(*Export[metafileout,metastr//TableForm];*)
+(**)
+(*Print["complete"]*)
+(*]*)
+
+
 (* ::Chapter:: *)
 (*plot class*)
 
