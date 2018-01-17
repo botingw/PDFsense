@@ -7,8 +7,6 @@ except:
     sys.exit()
 
 def submit():
-    print(texts[0])
-    print(texts[2])
     allradios = [i.get() for i in radios]
     allchecks = [[i.get() for i in j] for j in checks]
     alltexts = [i.get() for i in texts]
@@ -117,11 +115,11 @@ def changeHL(one,two,three):
         tk.Label(third,text="Input range of values:").grid(row=0,column=0,columnspan=2)
 
 ##20171120 botingw: input convention of highlight mode = {{h1min,h1max},{h2min,h2max},...}
+        tk.Label(third,text="Range:").grid(row=1,column=0)
         HLrange1 = tk.Entry(third)
         texts[0] = HLrange1
         HLrange1.insert(10,"{{-100,-1},{1,100}}")
         HLrange1.grid(row=1,column=1)
-        tk.Label(third,text="Range:").grid(row=2,column=0)
 ##to keep the length of text array, add a dummy variable
         texts[1]=dummy1
         '''
@@ -142,12 +140,12 @@ def changeHL(one,two,three):
 
     elif hlmode.get() == 2:
         tk.Label(third,text="Input range of percentages:").grid(row=0,column=0,columnspan=2)
-##20171120 botingw: input convention of highlight mode = {{h1min,h1max},{h2min,h2max},...}
+        ##20171120 botingw: input convention of highlight mode = {{h1min,h1max},{h2min,h2max},...}
+        tk.Label(third,text="Range:").grid(row=1,column=0)
         HLrange2 = tk.Entry(third)
         texts[2] = HLrange2
         HLrange2.insert(10,"{{0,15},{85,100}}")
         HLrange2.grid(row=1,column=1)
-        tk.Label(third,text="Range:").grid(row=2,column=0)
 ##to keep the length of text array, add a dummy variable
         texts[3]=dummy2
         '''
