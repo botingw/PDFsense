@@ -1,6 +1,7 @@
 701  fkH0a7
 702  fkH0a8
 703  fkH0a14
+160  HERAIpII
 101  BcdF2pCor
 102  BcdF2dCor
 103  NmcF2pCor   ***(not in CT14NNLO)
@@ -37,11 +38,10 @@
 265  CMS7Masy1   ***(not in CT14NNLO)
 266  CMS7Masy2
 538  CMS7jtR7
-545  CMS8jtR7v5
-160  HERAIpII
 542  CMS7jtR7y6
 544  ATL7jtR6u
 565  ATL8ttpt
 566  ATL8ttya
 567  ATL8ttmtt
 568  ATL8ttytt
+545  CMS8jtR7v5

@@ -1,4 +1,3 @@
-
 Job ID (copy from the counter file): CT14NNLOallIDs
 Job description: CT14NNLO all Expts to Higgs fake data
 PDF set: CT14NNLO
@@ -14,22 +13,20 @@ Type:  bb  cb  sb  db  ub  g  u  d  s  c  b  user
 #Flag:  0   0   0   1   1   1  1  1  1  1  1   1
 Flag:  0   0   0   0   0   1  0  0  0  0  0   1
 
-Type:  bb  cb  sb  db  ub  g  u  d  s  c  b  q6  q7  q8  user
-Flag:  1   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+Type:  bb  cb  sb  db  ub  g  u  d  s  c  b  user
+Flag:  0   0   0   0   0   0   1   0   0   0   0   0
 
 xmin,   xmax:  auto  auto
 mumin, mumax:      auto  auto
-Number of bins: auto
-xmin, xmax: auto  auto
-ymin, ymax:  0 auto
+zmin, zmax: auto  auto
 
-Color by data percentage: 50 70 85
+Number of bins: auto
 
 Type:  1     2     3     4     5     6     7
+
 Mode:  0     0     1     1     1     1     0
 Mode 1 range: {{ 0.0, 0.0}};  {{ 0.0, 0.0}};  {{ -100, -1},{ 1, 100}};  {{ 1, 100}};  {{ -5.0, -0.25},{ 0.25, 5.0}};  {{ -1., -0.7},{ 0.7, 1.}};  {{ 0.0, 0.0}} 
 Mode 2 range: {{ 0.0, 0.0}};  {{ 0.0, 0.0}};  {{ 0.0, 0.0}};  {{ 0.0, 0.0}};  {{ 95.0, 100.0}};  {{ 0.0, 0.0}};  {{ 0.0, 0.0}} 
-
 
 Size: tiny
 

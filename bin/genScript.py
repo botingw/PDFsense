@@ -9,7 +9,7 @@ except:
 
 from PIL import Image, ImageTk
 
-os.system("/usr/local/bin/math -script ./run_v4.m")
+#os.system("/usr/local/bin/math -script ./run_v4.m")
 
 def data():
     image = Image.open("../plots/Jobs/"+sys.argv[1]+"/exptname_table.png")
@@ -18,6 +18,9 @@ def data():
     l = tk.Label(frame,compound=tk.CENTER,image=tmp)
     l.image = tmp
     l.grid(row=0,column=1,columnspan=2)
+
+    l2 = tk.Label(frame,compound=tk.CENTER,text="All figures can be found at %s"%(os.getcwd().replace("bin","plots/Jobs/"+sys.argv[1])))
+    l2.grid(row=3,column=0,columnspan=3)
 
     ExptxQfig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/xQbyexpt_xQ.png"))
     xQfig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_xQ_*.png"))
