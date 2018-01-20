@@ -146,7 +146,7 @@ ReadLisFile[datalistFile]
 
 exptlist=ExptIDList;
 Print["read data expt id: ",exptlist];
-
+Print[""];
 
 
 (* ::Input:: *)
@@ -160,6 +160,9 @@ Print["read data expt id: ",exptlist];
 
 (* ::Input::Initialization:: *)
 (*read expt data from .dta files*)
+Print["read .dta files to extract analyzed data"];
+Print[""];
+
 exptdata=Readdtafile[["readdta"]][DtaDir,exptlist]
 
 
@@ -186,8 +189,19 @@ Readdtafile[["toclass"]][exptdata[[iexpt,iset]],PDFname,PDFsetmethod],
 (*mydtadata[[3,1]];*)
 
 
+(* ::Input:: *)
+(*(#[[57]][["data"]]//Length)&/@mydtadata*)
+
+
 (* ::Subsection:: *)
 (*add {x,Q} to data label*)
+
+
+(* ::Input::Initialization:: *)
+(*print Npt before calculate the (x,Q) by formulas*)
+Print["Npt of each expt in .dta files (by {exptid, Npt})"];
+Print[({#[[1]][["exptinfo","exptid"]],#[[1]][["data"]]//Length})&/@mydtadata];
+Print[""];
 
 
 (* ::Input::Initialization:: *)
@@ -219,6 +233,13 @@ mydtadata[[iexpt,iset]]=Datamethods[["LFglobal"]][mydtadata[[iexpt,iset]] ],
 ]
 ];
 
+
+
+(* ::Input::Initialization:: *)
+(*print Npt after calculate the (x,Q) by formulas*)
+Print["Npt of each expt after using formulas to get (x,Q) specifying the kinematical quantities of data points (by {exptid, Npt})"];
+Print[({#[[1]][["exptinfo","exptid"]],#[[1]][["data"]]//Length})&/@mydtadata];
+Print[""];
 
 
 (* ::Input:: *)
@@ -254,6 +275,9 @@ ti=AbsoluteTime[];
 
 (* ::Input::Initialization:: *)
 (*inteprate f(x,Q) by {x,Q} of exptdata*)
+Print["read .dta files to intepolate PDF values corresponding to data points"];
+Print[""];
+
 fxQsamept2class=
 Table[
 (*since every iset of expt data has the same {x,Q}, we only take iset=1*)
@@ -404,6 +428,7 @@ dataNset
 
 
 (* ::Input::Initialization:: *)
+
 residualNsetclass=
 Table[
 (*make a class of {LF[x,Q],LF[x,Q],...}, extract (x, Q) *)
@@ -536,6 +561,8 @@ tmpdataclass,
 
 
 (* ::Input::Initialization:: *)
+Print[""];
+
 (*copy residual class to a variable, for keeping code simple*)
 xQresidualclass=residualNsetclass;
 (*
@@ -579,7 +606,7 @@ Datamethods[["getNpt"]][corrfxQdtaobsclass[[iexpt,flavour+6]] ],
 Print["total number of Corr value calculations is ",NCorrval];
 Print["average time of one Corr value calculations is ",GetCorrvalueTime/NCorrval];
 Print["time of calculating Corr values is ",GetCorrvalueTime];
-
+Print[];
 
 (*calculate dr*correlation*)
 dRcorrfxQdtaobsclass=
@@ -620,6 +647,9 @@ getdeltaRclass[xQresidualclass[[i]] ],
 
 
 (* ::Input::Initialization:: *)
+Print["check the (x,\[Mu]) value are not abnormal (too large or too small)"];
+Print[""];
+
 Table[
 tmpxQ=fxQsamept2class[[iexpt,flavour+6]][["data"]]/.LF[a__]:>{{a}[[1]],{a}[[2]]};
 tmpxQerror=Select[tmpxQ,(#[[1]]<10^-10 || #[[1]]>1 || #[[2]]<1 || #[[2]]>10^6)&  ];
@@ -632,6 +662,15 @@ Print[tmpxQerror]
 "dummy",
 {iexpt,1,Length[fxQsamept2class]},{flavour,-5,-5+Length[fxQsamept2class[[1]] ]-1}
 ];
+
+
+(* ::Input:: *)
+(*fxQsamept2class[[3,0+6]][["exptinfo","exptid"]]*)
+(*fxQsamept2class[[3,0+6]][["data"]]//Length*)
+(*fxQsamept2class[[1,0+6]][["exptinfo","exptid"]]*)
+(*fxQsamept2class[[1,0+6]][["data"]]//Length*)
+(*fxQsamept2class[[2,0+6]][["exptinfo","exptid"]]*)
+(*fxQsamept2class[[2,0+6]][["data"]]//Length*)
 
 
 (* ::Subsection:: *)
@@ -697,7 +736,8 @@ Ndigits=4;
 
 cpfxQ=fxQsamept2class;
 cpresidual=residualNsetclass;
-Print["begin to transform numbers to only ",Ndigits," digits"];
+Print["begin to transform numbers of f(x,Q) and residuals to only ",Ndigits," digits"];
+Print[""];
 
 Table[
 residualNsetclass[[iexpt]][["data"]]=residualNsetclass[[iexpt]][["data"]]/.LF[a__]:>LF@@(SetNumberDigit[#,Ndigits]&/@{a}),
@@ -724,25 +764,50 @@ fxQsamept2class[[iexpt,flavour+6]][["data"]]=SetPrecision[fxQsamept2class[[iexpt
 
 (* ::Input::Initialization:: *)
 (*check the transformed numbers/untransformed numbers close to 1*)
+(*give ratio a/b, when b = 0, deal with it independently*)
+(*20171130: deal with a/b for b = 0 in ratio calculation*)
+Ratio[a_,b_]:=If[b!=0.0 && NumberQ[b]==True,a/b,If[a!=0.0,Infinity,1.0] ];(*20171201: if 0/0, define ratio = 1*)
+
+Print["error ratio of numbers after/before the transform: only shows values with Absolute ratio >0.001"];
+Print[""];
 
 cpRratio=
 Table[
-Select[(((residualNsetclass[[iexpt]][["data"]]/.LF->List)/(cpresidual[[iexpt]][["data"]]/.LF->List))-1)//Flatten,(#>0.001 || #<-0.001)&],
+{residualNsetclass[[iexpt]][["exptinfo","exptid"]],Select[(Ratio[( (residualNsetclass[[iexpt]][["data"]]/.LF->List)//Flatten)[[#]],( (cpresidual[[iexpt]][["data"]]/.LF->List)//Flatten)[[#]]]-1.0)&/@Range[(residualNsetclass[[iexpt]][["data"]]/.LF->List)//Flatten//Length],(#>0.001 || #<-0.001)&]},
 {iexpt,Length[residualNsetclass]}
 ];
-Print["ratio of numbers after/before the transform: only shows Absolute ratio >0.001"];
 
-Print[cpRratio[[1]] ];
+
+Print[cpRratio];
 
 
 
 
 (* ::Input:: *)
-(*SetPrecision[fxQsamept2class[[1,1]],5]//OutputForm*)
+(*Ratio[0.0,1.0]*)
+
+
+(* ::Input:: *)
+(*(**)
+(*( ( (residualNsetclass[[-2]][["data"]]/.LF\[Rule]List)//Flatten)/( (cpresidual[[-2]][["data"]]/.LF\[Rule]List)//Flatten) )*)
+(**)*)
+(*Select[(residualNsetclass[[1]][["data"]]/.LF->List)//Flatten,#==0&]*)
+(*Select[(cpresidual[[1]][["data"]]/.LF->List)//Flatten,#==0&]*)
+(*residualNsetclass[[1]][["data"]]/.LF->List*)
+(*cpresidual[[1]][["data"]]/.LF->List*)
+
+
+(* ::Input:: *)
+(*Ratio[( (residualNsetclass[[-2]][["data"]]/.LF->List)[[1]]),( (cpresidual[[-2]][["data"]]/.LF->List)[[1]]) ]*)
+
+
+(* ::Input:: *)
+(*(*SetPrecision[fxQsamept2class[[1,1]],5]//OutputForm*)*)
 
 
 (* ::Input::Initialization:: *)
-
+Print["begin to save data..."];
+Print[""];
 (*save Nset of residual*)(*>> doesn't work in script version, use Put[expression, filename]*)
 (*
 Export[CorrDataDir<>"residualNset_"<>CorrDataFile,residualNsetclass,"ExpressionML"];
@@ -755,6 +820,11 @@ Put[fxQsamept2class,(CorrDataDir<>"fxQNset_"<>CorrDataFile)];
 (*here only extract the central set for each Expt ID*)
 dtacentralclass=mydtadata[[#,1]]&/@Range[Length[mydtadata] ];
 Put[dtacentralclass,(CorrDataDir<>"dtacentral_"<>CorrDataFile)];
+
+
+(* ::Input::Initialization:: *)
+(*save meta data file for the quick_data*)
+MakeMetaDataFile[fxQsamept2class,(CorrDataDir<>"metadata_"<>CorrDataFile)];
 
 
 (* ::Input::Initialization:: *)
@@ -787,6 +857,7 @@ Print["data dimension {Nexpt,Nflavour} = ",Dimensions[fxQsamept2class] ];
 Print["data filename = ",CorrDataDir<>"residualNset_"<>CorrDataFile];
 Print["data filename = ",CorrDataDir<>"fxQNset_"<>CorrDataFile];
 Print["data filename = ",CorrDataDir<>"dtacentral_"<>CorrDataFile];
+Print["data filename = ",CorrDataDir<>"metadata_"<>CorrDataFile];
 
 
 (* ::Input:: *)

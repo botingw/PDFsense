@@ -495,6 +495,8 @@ fxQDatabaseExptlist=Table[fxQsamept2class[[iexpt,1]][["exptinfo","exptid"]],{iex
 (*clear residualNsetclass, fxQsamept2class, dtacentralclass*)
 Clear[residualNsetclass];Clear[fxQsamept2class];Clear[dtacentralclass];
 
+(*20171217 define global variable for username*)
+UserNameGlobal={};
 (*append user defined values into f(x,Q) as new flavour index*)
 If[
 CorrelationArgFlag[[-1]]==1,
@@ -520,6 +522,8 @@ Print["reading user functions from ",userfuncfilename];
 UserArgFunction=(*ReadUserFunctionV2*)ReadUserFunctionV3[configDir,userfuncfilename];
 UserArgName=(#[[1]]&/@UserArgFunction);
 UserArgFunction=(#[[2]]&/@UserArgFunction);
+(*20171217 define global variable for username*)
+UserNameGlobal=UserArgName;
 
 Print["function names: ",UserArgName];
 (*20171116: new convention of user define function and new way to add it as new flavour*)
@@ -565,6 +569,25 @@ tmpclass,
 fmax=Length[fxQsamept2classfinal[[1]] ];
 Print["total #flavours: ",fmax];
 Print[""];(*space*)
+
+(*20171217*)
+(*if any values of points for each flavour are 0, Indeterminate, or ComplexInfinity, give values in all replicas of that point 0*)
+(*this step should be prior to the calculation of observables*)
+Print["search broken points (0, ComplexInfinity, Indeterminate in any replica) for all points of f(x,Q), then set the values of broken points as 0"];
+Print[""];
+Table[
+fxQsamept2classfinal[[iexpt,flavour+6]][["data"]]=
+fxQsamept2classfinal[[iexpt,flavour+6]][["data"]]/.LF[a__]:>
+If[
+IntersectingQ[{a},{0,0.0,ComplexInfinity,Indeterminate}],
+LF[{a}[[1]],{a}[[2]],Sequence@@Table[0.0,{iset,Length[{a}]-2}] ],
+LF[a] 
+];
+"dummy"
+,{iexpt,Length[fxQsamept2classfinal]},{flavour,-5,-5+fmax-1}
+];
+
+
 (*test *)(*Print["flavours switch: ",CorrelationArgFlag];Abort[];*)
 
 (*calculate observables for plots from PDF data and residual data of all replicas*)
@@ -594,6 +617,29 @@ getdeltaRclass[residualNsetclassfinal[[iexpt]] ],
 {iexpt,1,Length[residualNsetclassfinal]}
 ];
 
+(*20171213 redefine sensitivity as (\[Delta]r/r)*Corr(Subscript[r, i],fSubscript[(x,Q), i])*)
+Table[
+Npt=dRcorrdataclassfinal[[iexpt,flavour+6]][["data"]]//Length;
+(*calculate the (Subscript[(\[Chi]^2), ID]/Subscript[Npt, ID])^0.5*)
+iRawdataResidual=Position[dtacentralclassfinal[[iexpt]][["label"]],"ReducedChi2"][[1,1]];
+RawNpt=dtacentralclassfinal[[iexpt]][["data"]]//Length;
+TotalRawChi2=Sum[Abs[dtacentralclassfinal[[iexpt]][["data"]][[irawpt,iRawdataResidual]] ],{irawpt,RawNpt}];
+SensNormalize=(TotalRawChi2/RawNpt)^0.5;
+
+Table[
+dRcorrdataclassfinal[[iexpt,flavour+6]][["data"]][[ipt,3]]=(dRcorrdataclassfinal[[iexpt,flavour+6]][["data"]][[ipt,3]]/
+(*prevent the dr/r blow up when r = 0*)
+(*If[residualdataclassfinal[[iexpt]][["data"]][[ipt,3]]\[NotEqual]0.0,residualdataclassfinal[[iexpt]][["data"]][[ipt,3]],10.0^-8])*)
+(*total chi^2 for the experiment*)
+(SensNormalize)
+);
+"dummy",
+{ipt,Npt}
+] ;
+"dummy",
+{iexpt,1,Length[residualNsetclassfinal]},{flavour,-5,-5+fmax-1}
+];
+
 (*calculate central value of residual*)
 (*select x, Q, central value of residual (iset==1)*)
 residualdataclassfinal=
@@ -601,6 +647,27 @@ Table[
 Datamethods[["take"]][residualNsetclassfinal[[iexpt]],{1,3}],
 {iexpt,1,Length[residualNsetclassfinal]}
 ];
+
+(*test print normalization for residuals*)
+(*
+NormalizeIDs=
+Table[
+(*calculate the (Subscript[(\[Chi]^2), ID]/Subscript[Npt, ID])^0.5*)
+iRawdataResidual=Position[dtacentralclassfinal[[iexpt]][["label"]],"ReducedChi2"][[1,1]];
+RawNpt=dtacentralclassfinal[[iexpt]][["data"]]//Length;
+TotalRawChi2=Sum[Abs[dtacentralclassfinal[[iexpt]][["data"]][[irawpt,iRawdataResidual]] ],{irawpt,RawNpt}];
+SensNormalize=(TotalRawChi2/RawNpt)^0.5;
+SensNormalize,
+{iexpt,1,Length[residualNsetclassfinal]}
+];
+Print[
+Table[
+{residualNsetclassfinal[[iexpt]][["exptinfo","exptid"]],NormalizeIDs[[iexpt]]},
+{iexpt,1,Length[residualNsetclassfinal]}
+]
+];
+*)
+
 
 (*test the time of the correlation value calculation*)
 tf=AbsoluteTime[];
@@ -689,7 +756,7 @@ exptidDir=StringDrop[exptidDir,-1]<>"/";
 
 (*set observables, different kinds of plot, available extension of output files *)
 obsname={"xQbyexpt","expt_error_ratio","residual","dr","corrdr","corr"};
-representationname={"xQ","legend","hist1","hist2"};
+representationname={"xQ-1","xQ+1","hist-1","hist+1","legend","xQ","info-1","info+1"};(*20171201 change filename format*)
 extensionname={".eps",".png",".pdf",".jpg"};
 
 (*if directory does not exist, create it*)
@@ -794,6 +861,64 @@ dRcorrdataclassfinal;
 {expterrordataclassfinal,residualdataclassfinal,dRdataclassfinal};
 residualNsetdataclassfinal;
 
+
+(*20171202 for plot type = 5 or 6, write data info into files, if flavour flag = 1, record the info*)
+If[
+FigureFlag[[6]]==1 || FigureFlag[[6]]==-1,
+(*filename*)
+filename=
+Switch[
+FigureFlag[[6]],
+-1,
+obsname[[6]]<>"_"<>representationname[[7]]<>"_"<>"_samept_info"<>".txt",
+1,
+obsname[[6]]<>"_"<>representationname[[8]]<>"_"<>"_samept_info"<>".txt"
+];
+(*info string*)
+datainfostr=
+Table[
+If[
+CorrelationArgFlag[[flavour+6]]==1,
+datainfototext[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],6,flavour],
+""
+],
+{flavour,-5,-5+fmax-1}
+];
+(*export the info file*)
+(*20171202 add important data info*)
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,datainfostr//StringJoin  ];
+
+"dummy"
+];
+
+If[
+FigureFlag[[5]]==1 || FigureFlag[[5]]==-1,
+(*filename*)
+filename=
+Switch[
+FigureFlag[[5]],
+-1,
+obsname[[5]]<>"_"<>representationname[[7]]<>"_"<>"_samept_info"<>".txt",
+1,
+obsname[[5]]<>"_"<>representationname[[8]]<>"_"<>"_samept_info"<>".txt"
+];
+(*info string*)
+datainfostr=
+Table[
+If[
+CorrelationArgFlag[[flavour+6]]==1,
+datainfototext[{dRcorrdataclassfinal},readcorrconfigfile6[configDir,configfilename],5,flavour],
+""
+],
+{flavour,-5,-5+fmax-1}
+];
+(*export the info file*)
+(*20171202 add important data info*)
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,datainfostr//StringJoin  ];
+
+"dummy"
+];
+
 (*make all figuretype plots 
 input {dataclass}, figuretype(in config.txt) of that data, config file arguments, flavour into processdataplotsmultiexp6percentage
 output plots (histogram, data on(x,mu) plane, data info )
@@ -806,76 +931,162 @@ the input format of dataclasses are the same format of the dataclasses in data f
 "residualNset":[[iflavour]]
 "expterror":[[iflavour]]
 *)
+(*20171202 save all figures with the same plot type into one .m file*)
+p5expression={};p6expression={};
+
 Print["generating figures..."];
 jpgtime=
 AbsoluteTiming[
 (*20171109 use processdataplotsmultiexp7percentage to replace version 6 and readcorrconfigfile5 to replace version4: for new highlight range convention*)
+(*20171201: CorrelationArgFlag[[iplottype]]\[Equal]1, draw |data| (absolute value), CorrelationArgFlag[[iplottype]]\[Equal]-1, draw data (sign data)*)
 Table[
 Print["now flavour = ",flavour];
 If[
 CorrelationArgFlag[[flavour+6]]==1,
 If[
 (*correlation plots*)
-FigureFlag[[6]]==1,
+FigureFlag[[6]]==1 || FigureFlag[[6]]==-1,
 Print["making plot of figure type ",FigureType[[6]],", flavour = ",flavour];
 p6=processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],6,flavour ];
 (*add exptname table into output figure*)
 
 (*p6=GraphicsGrid[p6,Spacings\[Rule]Scaled[0.15] ];*)
 Table[
+(*
+filename=obsname[[6]]<>"_"<>representationname[[5]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,2]],ImageResolution\[Rule]imgresol ];
+*)
+(*20171201 for +1: absolute values of data, for -1: sign data*)
+If[
+FigureFlag[[6]]==-1,
 filename=obsname[[6]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,1]],ImageResolution->imgresol ];
-filename=obsname[[6]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,2]],ImageResolution->imgresol ];
 filename=obsname[[6]]<>"_"<>representationname[[3]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,1]],ImageResolution->imgresol ];
+"dummy"
+];
+If[
+FigureFlag[[6]]==1,
+filename=obsname[[6]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,1]],ImageResolution->imgresol ];
 filename=obsname[[6]]<>"_"<>representationname[[4]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,2]],ImageResolution->imgresol ];
+"dummy"
+];
+
 "dummy",
 {i,Length[iext]}
 ];
 
 (*20171103: add files storing mathematica expressions so that users can change details of every figure*)
+(*
+filename=obsname[[6]]<>"_"<>representationname[[5]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,2]]];
+*)
+(*20171201 for +1: absolute values of data, for -1: sign data*)
+If[
+FigureFlag[[6]]==-1,
+p6expression=Append[p6expression,{p6[[1,1]],p6[[1,2]],p6[[2,1]]}];
+(*
+filename=obsname[[6]]<>"_"<>"plotlist"<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,{p6[[1,1]],p6[[1,2]],p6[[2,1]]}  ];
+*)
+(*
 filename=obsname[[6]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,1]] ];
-filename=obsname[[6]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,2]]];
 filename=obsname[[6]]<>"_"<>representationname[[3]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,1]] ];
+*)
+"dummy"
+];
+If[
+FigureFlag[[6]]==1,
+p6expression=Append[p6expression,{p6[[1,1]],p6[[1,2]],p6[[2,1]]}];
+(*
+filename=obsname[[6]]<>"_"<>"plotlist"<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,{p6[[1,1]],p6[[1,2]],p6[[2,1]]}  ];
+*)
+(*
+filename=obsname[[6]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[1,1]] ];
 filename=obsname[[6]]<>"_"<>representationname[[4]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,2]] ];
+*)
+"dummy"
+];
 
 ];
 
 (*dr*corr plots*)
 If[
-FigureFlag[[5]]==1,
+FigureFlag[[5]]==1 || FigureFlag[[5]]==-1,
 Print["making plot of figure type ",FigureType[[5]],", flavour = ",flavour];
 p5=processdataplotsmultiexp7percentage[{dRcorrdataclassfinal},readcorrconfigfile6[configDir,configfilename],5,flavour];
 
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
 Table[
+(*
+filename=obsname[[5]]<>"_"<>representationname[[5]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,2]],ImageResolution\[Rule]imgresol  ];
+*)
+(*20171201 for +1: absolute values of data, for -1: sign data*)
+If[
+FigureFlag[[5]]==-1,
 filename=obsname[[5]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,1]],ImageResolution->imgresol  ];
-filename=obsname[[5]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,2]],ImageResolution->imgresol  ];
 filename=obsname[[5]]<>"_"<>representationname[[3]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,1]],ImageResolution->imgresol  ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,1]],ImageResolution->imgresol ];
+"dummy"
+];
+If[
+FigureFlag[[5]]==1,
+filename=obsname[[5]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,1]],ImageResolution->imgresol  ];
 filename=obsname[[5]]<>"_"<>representationname[[4]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>extensionname[[iext[[i]] ]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,2]],ImageResolution->imgresol  ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,2]],ImageResolution->imgresol ];
+"dummy"
+];
+
 "dummy",
 {i,Length[iext]}
 ];
 
 (*20171103: add files storing mathematica expressions so that users can change details of every figure*)
+(*
+filename=obsname[[5]]<>"_"<>representationname[[5]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,2]] ];
+*)
+(*20171201 for +1: absolute values of data, for -1: sign data*)
+If[
+FigureFlag[[5]]==-1,
+p5expression=Append[p5expression,{p5[[1,1]],p5[[1,2]],p5[[2,1]]}];
+(*
+filename=obsname[[5]]<>"_"<>"plotlist"<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,{p5[[1,1]],p5[[1,2]],p5[[2,1]]}  ];
+*)
+(*
 filename=obsname[[5]]<>"_"<>representationname[[1]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,1]]  ];
-filename=obsname[[5]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,2]] ];
 filename=obsname[[5]]<>"_"<>representationname[[3]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,1]]  ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,1]] ];
+*)
+"dummy"
+];
+If[
+FigureFlag[[5]]==1,
+p5expression=Append[p5expression,{p5[[1,1]],p5[[1,2]],p5[[2,2]]}];
+(*
+filename=obsname[[5]]<>"_"<>"plotlist"<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,{p5[[1,1]],p5[[1,2]],p5[[2,2]]}  ];
+*)
+(*
+filename=obsname[[5]]<>"_"<>representationname[[2]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[1,1]]  ];
 filename=obsname[[5]]<>"_"<>representationname[[4]]<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,2]]  ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,2]] ];
+*)
+"dummy"
+];
 
 ];
 
@@ -886,19 +1097,29 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5[[2,
 ,{flavour,-5,-5+fmax-1}
 ];
 
+(*20171202 save .m file containing all figures of flavours *)
+filename=obsname[[5]]<>"_"<>"plotlist"<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p5expression  ];
+filename=obsname[[6]]<>"_"<>"plotlist"<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6expression  ];
+
 (*2, 3, 4*)
 (*dr*corr plots*)
 If[
-FigureFlag[[2]]==1,
+FigureFlag[[2]]==1 || FigureFlag[[2]]==-1,
 Print["making plot of figure type ",FigureType[[2]],", flavour = ",flavour];
 p234=processdataplotsmultiexp7percentage[{expterrordataclassfinal},readcorrconfigfile6[configDir,configfilename],2,flavour];
+(*20171202 add important data info*)
+datainfostr=datainfototext[{expterrordataclassfinal},readcorrconfigfile6[configDir,configfilename],2,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
 
 Table[
-filename=obsname[[2]]<>"_"<>representationname[[1]]<>"_samept"<>extensionname[[iext[[i]] ]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]],ImageResolution->imgresol  ];
 filename=obsname[[2]]<>"_"<>representationname[[2]]<>"_samept"<>extensionname[[iext[[i]] ]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]],ImageResolution->imgresol  ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]],ImageResolution->imgresol  ];
+(*
+filename=obsname[[2]]<>"_"<>representationname[[5]]<>"_samept"<>extensionname[[iext[[i]] ]];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]],ImageResolution\[Rule]imgresol  ];
+*)
 (*20171108: \[Sigma]/D has no negative data, so delete histogram of range = (-x, x)*)
 (*
 filename=obsname[[2]]<>"_"<>representationname[[3]]<>"_samept"<>extensionname[[iext]];
@@ -911,9 +1132,13 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 ];
 
 (*20171103: add files storing mathematica expressions so that users can change details of every figure*)
-filename=obsname[[2]]<>"_"<>representationname[[1]]<>"_samept"<>".m";
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]]  ];
+(*20171202 only save in one file*)
+filename=obsname[[2]]<>"_"<>"plotlist"<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,{p234[[1,1]],p234[[1,2]],p234[[2,2]]}  ];
+(*
 filename=obsname[[2]]<>"_"<>representationname[[2]]<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]]  ];
+filename=obsname[[2]]<>"_"<>representationname[[5]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]]  ];
 (*20171108: \[Sigma]/D has no negative data, so delete histogram of range = (-x, x)*)
 (*
@@ -922,50 +1147,105 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 *)
 filename=obsname[[2]]<>"_"<>representationname[[4]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]]  ];
+*)
+
+(*20171202 add important data info*)
+filename=obsname[[2]]<>"_"<>representationname[[8]]<>"_samept"<>".txt";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,datainfostr  ];
+
 
 ];
 
 If[
-FigureFlag[[3]]==1,
+FigureFlag[[3]]==1 || FigureFlag[[3]]==-1,
 Print["making plot of figure type ",FigureType[[3]],", flavour = ",flavour];
 p234=processdataplotsmultiexp7percentage[{residualdataclassfinal},readcorrconfigfile6[configDir,configfilename],3,flavour];
+(*20171202 add important data info*)
+datainfostr=datainfototext[{residualdataclassfinal},readcorrconfigfile6[configDir,configfilename],3,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
 Table[
+(*
+filename=obsname[[3]]<>"_"<>representationname[[5]]<>"_samept"<>extensionname[[iext[[i]] ]];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]],ImageResolution\[Rule]imgresol  ];
+*)
+(*20171201 for +1: absolute values of data, for -1: sign data*)
+If[
+FigureFlag[[3]]==-1,
 filename=obsname[[3]]<>"_"<>representationname[[1]]<>"_samept"<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]],ImageResolution->imgresol  ];
-filename=obsname[[3]]<>"_"<>representationname[[2]]<>"_samept"<>extensionname[[iext[[i]] ]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]],ImageResolution->imgresol  ];
 filename=obsname[[3]]<>"_"<>representationname[[3]]<>"_samept"<>extensionname[[iext[[i]] ]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]],ImageResolution->imgresol  ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]],ImageResolution->imgresol ];
+"dummy"
+];
+If[
+FigureFlag[[3]]==1,
+filename=obsname[[3]]<>"_"<>representationname[[2]]<>"_samept"<>extensionname[[iext[[i]] ]];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]],ImageResolution->imgresol  ];
 filename=obsname[[3]]<>"_"<>representationname[[4]]<>"_samept"<>extensionname[[iext[[i]] ]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]],ImageResolution->imgresol  ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]],ImageResolution->imgresol ];
+"dummy"
+];
+
 "dummy",
 {i,Length[iext]}
 ];
 
 (*20171103: add files storing mathematica expressions so that users can change details of every figure*)
+(*
+filename=obsname[[3]]<>"_"<>representationname[[5]]<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]]  ];
+*)
+(*20171201 for +1: absolute values of data, for -1: sign data*)
+If[
+FigureFlag[[3]]==-1,
+(*20171202 only save in one file*)
+filename=obsname[[3]]<>"_"<>"plotlist"<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,{p234[[1,1]],p234[[1,2]],p234[[2,1]]}  ];
+(*
 filename=obsname[[3]]<>"_"<>representationname[[1]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]]  ];
-filename=obsname[[3]]<>"_"<>representationname[[2]]<>"_samept"<>".m";
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]]  ];
 filename=obsname[[3]]<>"_"<>representationname[[3]]<>"_samept"<>".m";
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]]  ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]] ];
+*)
+(*20171202 add important data info*)
+filename=obsname[[3]]<>"_"<>representationname[[7]]<>"_samept"<>".txt";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,datainfostr  ];
+"dummy"
+];
+If[
+FigureFlag[[3]]==1,
+(*20171202 only save in one file*)
+filename=obsname[[3]]<>"_"<>"plotlist"<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,{p234[[1,1]],p234[[1,2]],p234[[2,2]]}  ];
+(*
+filename=obsname[[3]]<>"_"<>representationname[[2]]<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]]  ];
 filename=obsname[[3]]<>"_"<>representationname[[4]]<>"_samept"<>".m";
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]]  ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]] ];
+*)
+(*20171202 add important data info*)
+filename=obsname[[3]]<>"_"<>representationname[[8]]<>"_samept"<>".txt";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,datainfostr  ];
+"dummy"
+];
 
 
 ];
 
 If[
-FigureFlag[[4]]==1,
+FigureFlag[[4]]==1 || FigureFlag[[4]]==-1,
 Print["making plot of figure type ",FigureType[[4]],", flavour = ",flavour];
 p234=processdataplotsmultiexp7percentage[{dRdataclassfinal},readcorrconfigfile6[configDir,configfilename],4,flavour];
+(*20171202 add important data info*)
+datainfostr=datainfototext[{dRdataclassfinal},readcorrconfigfile6[configDir,configfilename],4,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
 Table[
-filename=obsname[[4]]<>"_"<>representationname[[1]]<>"_samept"<>extensionname[[iext[[i]] ]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]],ImageResolution->imgresol  ];
 filename=obsname[[4]]<>"_"<>representationname[[2]]<>"_samept"<>extensionname[[iext[[i]] ]];
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]],ImageResolution->imgresol  ];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]],ImageResolution->imgresol  ];
+(*
+filename=obsname[[4]]<>"_"<>representationname[[5]]<>"_samept"<>extensionname[[iext[[i]] ]];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]],ImageResolution\[Rule]imgresol  ];
+*)
 (*20171108: \[Delta]r has no negative data, so delete histogram of range = (-x, x)*)
 (*
 filename=obsname[[4]]<>"_"<>representationname[[3]]<>"_samept"<>extensionname[[iext]];
@@ -977,10 +1257,14 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 {i,Length[iext]}
 ];
 
+(*20171202 only save in one file*)
+filename=obsname[[4]]<>"_"<>"plotlist"<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,{p234[[1,1]],p234[[1,2]],p234[[2,2]]}  ];
+(*
 (*20171103: add files storing mathematica expressions so that users can change details of every figure*)
-filename=obsname[[4]]<>"_"<>representationname[[1]]<>"_samept"<>".m";
-Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]]  ];
 filename=obsname[[4]]<>"_"<>representationname[[2]]<>"_samept"<>".m";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]]  ];
+filename=obsname[[4]]<>"_"<>representationname[[5]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]]  ];
 (*20171108: \[Delta]r has no negative data, so delete histogram of range = (-x, x)*)
 (*
@@ -989,17 +1273,21 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[
 *)
 filename=obsname[[4]]<>"_"<>representationname[[4]]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]]  ];
+*)
+(*20171202 add important data info*)
+filename=obsname[[4]]<>"_"<>representationname[[8]]<>"_samept"<>".txt";
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,datainfostr  ];
 
 
 ];
 
 If[
-FigureFlag[[1]]==1,
+FigureFlag[[1]]==1 || FigureFlag[[1]]==-1,
 Print["making plot of figure type ",FigureType[[1]] ];
 p1=processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],1,0 ];
 
 Table[
-filename=obsname[[1]]<>"_"<>representationname[[1]]<>extensionname[[iext[[i]] ]];
+filename=obsname[[1]]<>"_"<>representationname[[6]]<>extensionname[[iext[[i]] ]];
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p1[[1]],ImageResolution->imgresol ];
 "dummy",
 {i,Length[iext]}
@@ -1007,6 +1295,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p1[[1]
 
 filename=obsname[[1]]<>"_"<>representationname[[1]]<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p1[[1]] ];
+"dummy"
 ];
 
 
@@ -1065,6 +1354,7 @@ Print[""];(*space*)
 Print["time to make plots is ",jpgtime," seconds"];
 Print[""];(*space*)
 
+
 (*copy configure file to job dir*)
 (*20170508 if config file in plot path exist, remove it*)
 If[FileExistsQ[saveparentpath<>jobpath<>configfilename]==True,DeleteFile[saveparentpath<>jobpath<>configfilename] ];
@@ -1090,15 +1380,60 @@ Print["making table of experiments included in plots"];
 JobDescription="Job description: "<>JobDescription;
 exptnamestable=makeGrid2[exptnames,rows,title,JobDescription,datemode];(*20171114: add date mode to write date*)
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,exptnamestable];
+
+(*20171220: add the legend for all figures*)
+filename="exptname_legend"<>extensionname[[iext[[i]] ]];
+title="";
+(*20171126: set labels depend on different classifymode*)
+If[
+ClassifyMode=="single",
+(*20171130: if shapes are used out, repeat the shapes*)
+shapeslist=(PlotMarkerList[][[1]]&/@Range[10])//Flatten;
+exptnames=Table[ToString[shapeslist[[iexpt]] ]<>ExptIDtoName[exptlistfinal[[iexpt]] ]<>"("<>ToString[exptlistfinal[[iexpt]] ]<>")",{iexpt,1,Length[exptlistfinal]}];
+"dummy"
+];
+If[
+ClassifyMode=="all",
+exptnames=Table[ExptIDtoName[exptlistfinal[[iexpt]] ]<>"("<>ToString[exptlistfinal[[iexpt]] ]<>")",{iexpt,1,Length[exptlistfinal]}];
+"dummy"
+];
+(*Print["making table of experiments included in plots"];*)
+datemode=False;
+(*20171128: for legend, don't show job description*)
+NoJobDescription="";
+
+(*exptnamestitle=Switch[FigureFlag[[plottype]],-1,title,1,abstitle,_,Print["error, plot type flag should be 1 or -1"];Abort[] ];*)
+exptnamestable=makeGrid2[exptnames,rows,(*exptnamestitle<>"\n\n"*)title,NoJobDescription,datemode];
+Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,exptnamestable];
 "dummy",
 {i,Length[iext]}
 ];
 
 (*merge .eps files into a pdf file*)
 (*20171124*)
+(*20171209 add error message when fail to generating merge file, and input the extension depend on the BranchMode *)
+Print["merge files to allfigs.pdf..."];
 If[
 BranchMode==1,
+(*
 implementeps[saveparentpath<>jobpath,PDFxQSelectMethod]
+*)
+FigsMergeToPDF[saveparentpath<>jobpath,PDFxQSelectMethod,".eps"];
+If[
+FileExistsQ[saveparentpath<>jobpath<>"allfigs.pdf"]==True,
+Print["generate merge file: ",saveparentpath<>jobpath<>"allfigs.pdf"],
+Print["fail to generate merge file ",saveparentpath<>jobpath<>"allfigs.pdf"]
+]
+];
+
+If[
+BranchMode==2,
+FigsMergeToPDF[saveparentpath<>jobpath,PDFxQSelectMethod,".pdf"];
+If[
+FileExistsQ[saveparentpath<>jobpath<>"allfigs.pdf"]==True,
+Print["generate merge file: ",saveparentpath<>jobpath<>"allfigs.pdf"],
+Print["fail to generate merge file ",saveparentpath<>jobpath<>"allfigs.pdf"]
+]
 ];
 
 (*copy directory to job directory*)
@@ -1351,27 +1686,28 @@ If[irun==Length[Lexpt],Print["all processes are done"];Abort[]];
 
 
 (* ::Input:: *)
-(*processdataplotsmultiexp7percentage[{expterrordataclassfinal},readcorrconfigfile5[configDir,configfilename],2,flavour]*)
+(*processdataplotsmultiexp7percentage[{expterrordataclassfinal},readcorrconfigfile6[configDir,configfilename],2,flavour]*)
 
 
 (* ::Input:: *)
-(*processdataplotsmultiexp7percentage[{residualdataclassfinal},readcorrconfigfile5[configDir,configfilename],3,flavour]*)
+(*processdataplotsmultiexp7percentage[{residualdataclassfinal},readcorrconfigfile6[configDir,configfilename],3,flavour]*)
 
 
 (* ::Input:: *)
-(*processdataplotsmultiexp7percentage[{dRdataclassfinal},readcorrconfigfile5[configDir,configfilename],4,flavour]*)
+(*processdataplotsmultiexp7percentage[{dRdataclassfinal},readcorrconfigfile6[configDir,configfilename],4,flavour]*)
 
 
 (* ::Input:: *)
-(*processdataplotsmultiexp7percentage[{dRcorrdataclassfinal},readcorrconfigfile5[configDir,configfilename],5,0]*)
+(*processdataplotsmultiexp7percentage[{dRcorrdataclassfinal},readcorrconfigfile6[configDir,configfilename],5,0]*)
 
 
 (* ::Input:: *)
-(*processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile5[configDir,configfilename],6,0 ]*)
+(*processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],6,0 ]*)
 
 
 (* ::Input:: *)
 (*Get["corr_proj_funcs.m"]*)
+(*ReadLisFile[datalistFile];*)
 
 
 (* ::Input:: *)
@@ -1425,7 +1761,7 @@ If[irun==Length[Lexpt],Print["all processes are done"];Abort[]];
 
 
 (* ::Input:: *)
-(*processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile5[configDir,configfilename],1,0 ]*)
+(*processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],1,0 ]*)
 
 
 (* ::Input:: *)
@@ -1450,3 +1786,766 @@ If[irun==Length[Lexpt],Print["all processes are done"];Abort[]];
 
 (* ::Input:: *)
 (*readcorrconfigfile6[configDir,configfilename]//TableForm*)
+
+
+(* ::Subsection:: *)
+(*test run the info of data*)
+
+
+(* ::Input:: *)
+(*(*20171126*)*)
+(*(**)
+(*when call processdataplotsmultiexp7percentage,*)
+(*if plot type = 1, call this function to draw data sets on (x,Q) plane*)
+(**)*)
+(*PlotDataTypeOneTest[corrfxQdtaobsclassin_,pdfcorrin_,exptlistin_,xyrangein_,classifymodein_,configargumentsin_]:=*)
+(*Module[{corrfxQdtaobsclass=corrfxQdtaobsclassin,pdfcorr=pdfcorrin,exptlist=exptlistin,classifymode=classifymodein,configarguments=configargumentsin,*)
+(*plottype,expttype,*)
+(*Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)*)
+(*XQfigureXrange,XQfigureYrange,Hist1figureNbin,Hist1figureXrange,Hist1figureYrange,*)
+(*ColorSeperator,*)
+(*Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2,*)
+(*lgdpos,xyrangeplot1,plotrange,*)
+(*myplotsetting,imgsize,title,xtitle,ytitle,lgdlabel,xrange,yrange,epilog,titlesize,xtitlesize,ytitlesize,lgdlabelsize,ticklablesize,myplotstyle,myMarker,*)
+(*plot1,*)
+(*xyrange=xyrangein,*)
+(*groupnames,groupExptIDs,*)
+(*ColorPaletterange,JobDescription,*)
+(*Ncolor},*)
+(**)
+(*(*read arguments in config file*)*)
+(*(*==============================*)*)
+(*{Jobid,JobDescription(*20171128*),PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)*)
+(*XQfigureXrange,XQfigureYrange,ColorPaletterange(*20171128*),Hist1figureNbin,(*Hist1figureXrange,Hist1figureYrange,*)*)
+(*(*ColorSeperator,*)*)
+(*Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}=configarguments;*)
+(*(*20171128: set hist xrange determined by the range of color palette, yrange alway auto*)*)
+(*Hist1figureXrange=ColorPaletterange;*)
+(*Hist1figureYrange={"auto","auto"};*)
+(*(*=============================================================================================================================*)*)
+(*(*plot type 1: generate plots============================================================================================================*)*)
+(*(*=============================================================================================================================*)*)
+(*{myplotsetting,imgsize,title,xtitle,ytitle,lgdlabel,xrange,yrange,epilog,titlesize,xtitlesize,ytitlesize,lgdlabelsize,ticklablesize,myplotstyle,myMarker};*)
+(**)
+(*(*plot1*)*)
+(**)
+(*expttype="multi";*)
+(*(*20170515 groups of data, legend is exptids in all groups, using Flatten, PDFname should be took cared*)*)
+(*myplotsetting=setplotsetting[Flatten[corrfxQdtaobsclassin,1],exptlist//Flatten,expttype,1,"test","test"];*)
+(*imgsize=myplotsetting[["imgsize"]];*)
+(*title=myplotsetting[["title"]];*)
+(*xtitle=myplotsetting[["xtitle"]];*)
+(*ytitle=myplotsetting[["ytitle"]];*)
+(*lgdlabel=myplotsetting[["lgdlabel"]];*)
+(*xrange=myplotsetting[["xrange"]];*)
+(*yrange=myplotsetting[["yrange"]];*)
+(*epilog=myplotsetting[["epilog"]];*)
+(*titlesize=myplotsetting[["titlesize"]];*)
+(*xtitlesize=myplotsetting[["xtitlesize"]];*)
+(*ytitlesize=myplotsetting[["ytitlesize"]];*)
+(*lgdlabelsize=myplotsetting[["lgdlabelsize"]];*)
+(*ticklablesize=myplotsetting[["ticklablesize"]];*)
+(**)
+(*myplotstyle=myplotsetting[["plotstyle"]];*)
+(*myMarker=myplotsetting[["marker"]];*)
+(**)
+(*title="Experimental data in "<>PDFname<>" analysis";*)
+(*lgdpos={0.25,0.725};*)
+(*(*xyrangeplot1=plotrange;*)(*20170307 change it's name, avoid duplicate*)*)
+(*(*20170515: consider expts in all groups*)*)
+(*(*20170515: consider expts of all groups, so use Flatten[data,1] *)*)
+(**)
+(*(**)
+(*Print["dim of p1: ",Dimensions[pdfcorr] ];*)
+(*Print["dim of p1: ",Dimensions[Flatten[pdfcorr,1] ]];*)
+(*Print["data of p1: ",Flatten[pdfcorr,1][[1]] ];*)
+(*Print["data of p1: ",Flatten[pdfcorr,1][[2]] ];*)
+(*Print["data of p1: ",Flatten[pdfcorr,1][[3]] ];*)
+(*Print["data of p1: ",Flatten[pdfcorr,1][[4]] ];*)
+(*PDFloglogplot[Flatten[pdfcorr,1]/.LF1\[Rule]List,myMarker,myplotstyle,title,xtitle,ytitle,xyrangeplot1,lgdlabel,lgdpos,imgsize];*)
+(*Abort[];*)
+(**)*)
+(*(*20171126: use marker list*)*)
+(*myMarker=PlotMarkerList[];*)
+(*myMarker[[2]]=0.0075*myMarker[[2]];*)
+(*myMarker=Transpose[myMarker,{2,1}];*)
+(*(*20171130 set color for points, everytime the shape return to the first shape, change to another color*)*)
+(*Ncolor={RGBColor[0.7, 0.2, 0.2], RGBColor[0.2, 0.2, 0.7], RGBColor[0.2, 0.7, 0.2], RGBColor[0.6, 0.4, 0.2], RGBColor[0.8, 0.4, 0.], *)
+(* RGBColor[0.7, 0., 0.7], (*RGBColor[0.6, 0.6, 0.6],*) RGBColor[0.7, 0.7, 0.]};*)
+(**)
+(*(*myplotstyle=Table[Table[Ncolor[[icolor]],{imarker,Length[myMarker]}],{icolor,Length[Ncolor]}]//Flatten;*)*)
+(*myplotstyle=Flatten[(Ncolor&/@Range[Length[myMarker] ])];(*20171201: color also rotation for every Expt ID*)*)
+(*(*when all shapes are used out, return to the first one*)*)
+(*myMarker=Flatten[(myMarker&/@Range[Length[Ncolor] ]),1];*)
+(**)
+(*Print["dim of data: ",Dimensions[pdfcorr] ];*)
+(*Print["exptlist ",exptlist];*)
+(*(*always don't show only one shape for all expt ID points*)*)
+(*If[classifymode=="all",classifymode="single"];*)
+(*{groupnames,groupExptIDs,(*groupdata*)pdfcorr}=ClassifyPlottedData[pdfcorr,exptlist,classifymode];*)
+(*pdfcorr=Table[Flatten[pdfcorr[[igroup]],1],{igroup,Length[pdfcorr]}];*)
+(*lgdlabel=*)
+(*Switch[classifymode,"single",lgdlabel,"all",groupnames];*)
+(**)
+(*Print["dim of data: ",Dimensions[pdfcorr] ];*)
+(**)
+(*plot1=PDFloglogplot[(*Flatten[pdfcorr,1]*)pdfcorr,myMarker,myplotstyle,title,xtitle,ytitle,xyrange(*plot1*),lgdlabel,lgdpos,imgsize];*)
+(**)
+(*(*return*)*)
+(**)
+(*{plot1}*)
+(**)
+(*(**)
+(*{myMarker,myplotstyle,title,xtitle,ytitle,xyrange,lgdlabel,lgdpos,imgsize}*)
+(**)*)
+(*]*)
+
+
+(* ::Input:: *)
+(*(*modify of 3: when plottype = 5, 6, extract data of that flavour*)*)
+(*(*modify of 4: don't set local variable of corrfxQdtaobsclassin, avoiding time to copy large data to local variable, for mode 5,6 only deal with *)
+(*corresponding flavour data (by flavourin)*)*)
+(**)
+(*(*20170515 this version corrfxQdtaobsclassin structure is {class1, class2,...}*)
+(*it is for plotting different group of data in different point shapes*)
+(**)*)
+(**)
+(*(*20171108: reorganize the function*)*)
+(*(*use the new highlight range convention*)*)
+(*getcorrinfo[corrfxQdtaobsclassin_,configargumentsin_,plottypein_,flavourin_]:=*)
+(*Module[{(*corrfxQdtaobsclass=corrfxQdtaobsclassin,*)configarguments=configargumentsin,*)
+(*plottype=plottypein,(*flavour=flavourin,*)flavour,*)
+(*Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,UserArgName,UserArgValue,*)
+(*XQfigureXrange,XQfigureYrange,Hist1figureNbin,Hist1figureXrange,Hist1figureYrange,*)
+(*ColorSeperator,*)
+(*Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2,*)
+(*processes,ExptList1,pdfsetexps,processestitle,PDISNCtitle,NDISCCtitle,PDISNCCCtitle,PVBPZtitle,PVBPWtitle,PJPtitle,hDISNCtitle,hDISCCtitle,hVBPZtitle,pdfnamelable,PDFsetlabel,pdffile,corrfile,pdfcorr,pdfcorrdr,deltaR,textsize,Npttext,maxtext,maxmarker,mintext,minmarker,cuttext,epilogxQ,epilogxQcorr,corrtitle1,corrdrtitle1,deltaRtitle1,title2,obsname,title3,title4,title,xtitle,ytitle,xhisttitle,xhistabstitle,yhisttitle,plotrange,stretchx,stretchy,legendlabel,barseperator,binset,lineelement,plotrangex,SM,SM1,SM2,SM3,xQplotcorr ,histplotcorr1,histplotcorr2,xQplotcorrdr,histplotcorrdr1,histplotcorrdr2,xQplotdr,histplotdr2,myexpids,fmax,fmax2,*)
+(*imgsize,(*title,xtitle,ytitle,*)lgdlabel,xrange,yrange,epilog,titlesize,xtitlesize,ytitlesize,lgdlabelsize,ticklablesize,*)
+(*myplotstyle,myMarker,*)
+(*lgdpos,xyrangeplot1,*)
+(*myplotsetting,plot1data,plot1,processesplot1order,*)
+(*dummy1,dummy2,percentagetext,hist1plotrangex,histautoxrange,hist2autoxrange,hist2plotrangex,xQautorange,unhighlightsize,highlightrange,highlighttext,*)
+(*exptlist,expttype,*)
+(*rows,exptnames,exptnamestable,*)
+(*lineelement2,maxdata,*)
+(*barlegend,*)
+(*histtitle,histabstitle,yhistabstitle,HistAutoMode,userdifinefuncfilename,*)
+(*hist1plotrangey,hist2plotrangey,BinWidth,hist1plotrange,hist2plotrange,highlightlines,*)
+(*xmintmp,xmaxtmp,ymintmp,hist1epilogtext,hist2epilogtext,hist1standardlines,hist2standardlines,LineWidth,HistAutoFixXrangeBool,*)
+(*datemode,HistDataList,HistAbsDataList,DataMax,DataMin,AbsDataMax,AbsDataMin,DataMean,AbsDataMean,DataMedian,AbsDataMedian,DataSD,AbsDataSD,*)
+(*ColorPaletteMode,PaletteMax,PaletteMin,*)
+(*groupnames,groupExptIDs,classifymode,*)
+(*ColorPaletterange,JobDescription,*)
+(*shapeslist,abstitle,absPaletteMax,absbarseperator,absbarlegend,xQplotcorr2,exptnamestitle,*)
+(*safewidth,datatype,output},*)
+(**)
+(*(*read arguments in config file*)*)
+(*(*==============================*)*)
+(*{Jobid,JobDescription(*20171128*),PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)*)
+(*XQfigureXrange,XQfigureYrange,ColorPaletterange(*20171128*),Hist1figureNbin,(*Hist1figureXrange,Hist1figureYrange,*)*)
+(*(*ColorSeperator,*)*)
+(*Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}=configarguments;*)
+(*(*20171128: set hist xrange determined by the range of color palette, yrange alway auto*)*)
+(*Hist1figureXrange=ColorPaletterange;*)
+(*Hist1figureYrange={"auto","auto"};*)
+(*(*should be three numbers, representing percentage, and from small to large, ex: 30, 50, 70*)*)
+(*ColorSeperator={50,70,85};*)
+(**)
+(*(*20171109: seperate user difine function/data IO and configure file*)(*20171116: ->ReadUserFunctionV2, which read Expression from the file*)*)
+(*(*20171119 new user function format: {{user name 1, user function 1}, {user name 2, user function 2}...}*)*)
+(*userdifinefuncfilename="user_func.txt";*)
+(*(**)
+(*{UserArgName,UserArgValue}=ReadUserFunctionV2["./",userdifinefuncfilename];*)
+(**)*)
+(*(*20171127*)*)
+(*If[*)
+(*CorrelationArgFlag[[-1]]==1,*)
+(*UserArgName=ReadUserFunctionV3["./",userdifinefuncfilename];*)
+(*UserArgName=#[[1]]&/@UserArgName;*)
+(*"dummy"*)
+(*];*)
+(**)
+(*(*20171109: shorten the tiles of figures*)*)
+(*If[PDFname=="2017.1008.0954.-0500_CT14HERA2-jet.ev",PDFname="CT14HERA2-jet.ev"];*)
+(*(*=============================================================================================================================*)*)
+(*(*Data organization============================================================================================================*)*)
+(*(*=============================================================================================================================*)*)
+(*(*read exptlist*)*)
+(*exptlist={};*)
+(*If[plottype==1  || plottype==5  || plottype==6,exptlist=Table[#[[iexpt,6]][["exptinfo","exptid"]],{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin ];*)
+(*If[plottype==2  || plottype==3  || plottype==4,*)
+(*exptlist=Table[#[[iexpt]][["exptinfo","exptid"]],{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin ];*)
+(*(*test*)(*Print["expts: ",exptlist];*)*)
+(**)
+(*(*20171126 classify mode for data \[Rule] different shape for each group*)*)
+(*classifymode=ClassifyMode;*)
+(**)
+(*(*********************************)*)
+(*(*prepare for data input to processdataplotsmultiexp*)*)
+(*(*********************************)*)
+(*(*transf format from LF to LF1, since plot functions use LF1*)*)
+(**)
+(*(*if dr*corr or corr, data is [[iexpt,flavour]]*)*)
+(*(*20170515: pdfcorr = {group1data, group2data, ...}, groupNdata = {LF1[x,Q,obs],...}*)*)
+(*If[*)
+(*plottype==5  || plottype==6,*)
+(*fmax=Length[corrfxQdtaobsclassin[[1,1]] ];*)
+(**)
+(*(*data format \[Equal] {LF[x,Q,obs],...,...}, to LF1*)*)
+(*pdfcorr=Table[#[[iexpt,flavourin+6]][["data"]]/.LF->LF1,{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin;*)
+(*Print[Length[exptlist[[1]] ],"  ",Length[pdfcorr[[1]] ] ];(*test length data*)*)
+(**)
+(*(*20171126: classify exptid by defined groups with classifymode*)*)
+(*{groupnames,groupExptIDs,(*groupdata*)pdfcorr}=ClassifyPlottedData[pdfcorr[[1]],exptlist[[1]],classifymode];*)
+(*Print[Length[exptlist[[1]] ],"  ",Length[pdfcorr] ];(*test length data*)*)
+(*(*pdfcorr=Table[Flatten[pdfcorr[[igroup]],1],{igroup,Length[pdfcorr]}];*)*)
+(**)
+(*(*merge all experimental data into one, for all flavours*)*)
+(*(*ex: corrdataforplot[[iexpt,flavour,Npt]] \[Rule] orrdataforplot[[flavour,Npt]]*)*)
+(*(*{pdfcorr ,dummy1,dummy2}=mergeplotdata[{pdfcorr ,pdfcorr,pdfcorr}];*)*)
+(*pdfcorr=Flatten[#,1]&/@pdfcorr;*)
+(*Print[Length[exptlist[[1]] ],"  ",Length[pdfcorr]," ",Length[groupnames]," ",Length[groupExptIDs] ];(*test length data*)*)
+(**)
+(*(* deletezerovalue: delete data with 0 value (0 value usually from mb, mc cut)*)*)
+(*(*{pdfcorr ,dummy1,dummy2}=deletezerovalue[{pdfcorr ,pdfcorr,pdfcorr}];*)*)
+(*pdfcorr=Table[Select[pdfcorr[[igroup]],#[[3]]!=0&],{igroup,1,Length[pdfcorr]}];*)
+(*"dummy"*)
+(*];*)
+(**)
+(*(*data of [[iexpt]]*)*)
+(*If[*)
+(*plottype==2 || plottype==3 || plottype==4,*)
+(*(*take data, and format from LF to LF1 (LF1 is format to input to plot functions)*)*)
+(*pdfcorr=Table[#[[iexpt]][["data"]]/.LF->LF1,{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin;*)
+(*(*20171108 expt error ratio values should be absolute value*)*)
+(*If[plottype==2,pdfcorr=pdfcorr/.LF1[a__]:>LF1[{a}[[1]],{a}[[2]],Abs[{a}[[3]] ] ] ];*)
+(**)
+(*(*20171126: classify exptid by defined groups with classifymode*)*)
+(*{groupnames,groupExptIDs,(*groupdata*)pdfcorr}=ClassifyPlottedData[pdfcorr[[1]],exptlist[[1]],classifymode];*)
+(**)
+(*(*merge all data into one*)*)
+(*pdfcorr=Flatten[#,1]&/@pdfcorr;*)
+(*"dummy"*)
+(*];*)
+(*(*test print*)(*Print[pdfcorr ];Print[pdfcorr/.LF1->LF2 ];Print[pdfcorr/.LF1[a__]:>{a}[[2]] ];*)*)
+(**)
+(*If[*)
+(*plottype==1,*)
+(*fmax=Length[corrfxQdtaobsclassin[[1,1]] ];*)
+(**)
+(*(*set {corr[[flavour]],drcorr[[flavour]],dr[[flavour]]}*)*)
+(*(*they are used to  input into processdataplotsmultiexp*)*)
+(*(*data format \[Equal] {LF[x,Q,obs],...,...}*)*)
+(*pdfcorr=Table[Datamethods[["take"]][#[[iexpt,flavourin+6]],2][["data"]]/.LF->LF1,{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin;*)
+(*];*)
+(**)
+(*(*20171202: if the "other" type has no expt ID, delete it*)*)
+(*If[Length[groupExptIDs[[-1]] ]==0,{groupnames,groupExptIDs,(*groupdata*)pdfcorr}=Drop[#,-1]&/@{groupnames,groupExptIDs,(*groupdata*)pdfcorr}];*)
+(**)
+(*Print[Length[exptlist[[1]] ],"  ",Length[pdfcorr] ];(*test length data*)*)
+(*(*=============================================================================================================================*)*)
+(*(*Statistical quantities of data============================================================================================================*)*)
+(*(*=============================================================================================================================*)*)
+(*(*20171115*)*)
+(*{HistDataList,HistAbsDataList,DataMax,DataMin,AbsDataMax,AbsDataMin,DataMean,AbsDataMean,DataMedian,AbsDataMedian,DataSD,AbsDataSD};*)
+(*If[*)
+(*plottype==2 || plottype==3 || plottype==4 || plottype==5 || plottype==6,*)
+(*HistDataList=Flatten[pdfcorr]/.LF1[a__]:>{a}[[3]];*)
+(*HistAbsDataList=Flatten[pdfcorr]/.LF1[a__]:>Abs[{a}[[3]] ];*)
+(*DataMax=Max[HistDataList];*)
+(*DataMin=Min[HistDataList];*)
+(*AbsDataMax=Max[HistAbsDataList];*)
+(*AbsDataMin=Min[HistAbsDataList];*)
+(*DataMean=Mean[HistDataList];*)
+(*AbsDataMean=Mean[HistAbsDataList];*)
+(*DataMedian=Median[HistDataList];*)
+(*AbsDataMedian=Median[HistAbsDataList];*)
+(*DataSD=StandardDeviation[HistDataList];*)
+(*AbsDataSD=StandardDeviation[HistAbsDataList];*)
+(*"dummy"*)
+(*];*)
+(*(*=============================================================================================================================*)*)
+(*(*Highlight range setting============================================================================================================*)*)
+(*(*=============================================================================================================================*)*)
+(**)
+(*(*for no highlight mode, choose size of data point in plot by Size*)
+(*for highlight mode, set size of unhighlighted data as Size, size of highlighted data is larger than Size*)*)
+(*(*==============================*)*)
+(**)
+(*highlightrange=*)
+(*Switch[*)
+(*HighlightMode[[plottype]],*)
+(*0,{{0.0,0.0}},*)
+(*(*20171109: use new highlight range convention*)*)
+(*1,(*{HighlightMode1[[2*plottype-1]],HighlightMode1[[2*plottype]]}*)HighlightMode1[[plottype]],*)
+(*(*20171111: percentage highlight: don't take absolute values for data*)*)
+(*(*20171201: percentage highlight depends on drawing data, if draw |data|, use percentage of |data|*)*)
+(*2,Switch[*)
+(*FigureFlag[[plottype]],*)
+(*-1,*)
+(*GetDataPercentage[(*Flatten[pdfcorr]/.LF1[a__]\[RuleDelayed]{a}[[3]]*)HistDataList,(*{HighlightMode2[[2*plottype-1]],HighlightMode2[[2*plottype]]}*)#]&/@HighlightMode2[[plottype]],*)
+(*1,*)
+(*GetDataPercentage[(*Flatten[pdfcorr]/.LF1[a__]\[RuleDelayed]{a}[[3]]*)HistAbsDataList,(*{HighlightMode2[[2*plottype-1]],HighlightMode2[[2*plottype]]}*)#]&/@HighlightMode2[[plottype]],*)
+(*_,*)
+(*Print["error, figure flag should be 1 or -1"];Abort[]*)
+(*]*)
+(*(**)
+(*Which[*)
+(*plottype\[Equal]5  || plottype\[Equal]6,*)
+(*GetDataPercentage[pdfcorr[[flavourin+6]]/.LF1[a__]\[RuleDelayed]Abs[{a}[[3]] ] ,{HighlightMode2[[2*plottype-1]],HighlightMode2[[2*plottype]]}],*)
+(* plottype\[Equal]2 || plottype\[Equal]3 || plottype\[Equal]4,*)
+(*GetDataPercentage[pdfcorr/.LF1[a__]\[RuleDelayed]Abs[{a}[[3]] ] ,{HighlightMode2[[2*plottype-1]],HighlightMode2[[2*plottype]]}],*)
+(*True,Print["presently plottype is only 2~6 "];Abort[]*)
+(*]*),*)
+(*_,Print["error, highlight mode should be 0, 1, 2"];Abort[]*)
+(*];*)
+(*(*20171201 for percentage highlight the largest one should have a range of width to include the highest percentage point*)*)
+(*If[*)
+(*HighlightMode[[plottype]]==2,*)
+(*Table[*)
+(*safewidth=0.000001*(highlightrange[[iHL,2]]-highlightrange[[iHL,1]]);*)
+(*highlightrange[[iHL,1]]=highlightrange[[iHL,1]]-safewidth;*)
+(*highlightrange[[iHL,2]]=highlightrange[[iHL,2]]+safewidth,*)
+(*{iHL,Length[highlightrange]}*)
+(*];*)
+(*"dummy" *)
+(*];*)
+(*(*******************************************************************************)*)
+(*pdfnamelable={"bbar(x,Q)","cbar(x,Q)","sbar(x,Q)","dbar(x,Q)","ubar(x,Q)","g(x,\[Mu])","u(x,\[Mu])","d(x,\[Mu])","s(x,\[Mu])","c(x,\[Mu])","b(x,\[Mu])"};*)
+(*(*20171127: only add new string when user function is mode on*)*)
+(*If[*)
+(*CorrelationArgFlag[[-1]]==1,*)
+(*pdfnamelable=pdfnamelable~Join~{Sequence@@UserArgName(*20171119 change to multi-user functions*)};*)
+(*"dummy"*)
+(*];*)
+(*(*20171202 select highlighted points*)*)
+(*(*20171202 if plot type flag = -1, show statistics of |data|*)*)
+(*datatype={"xQ plot","|sigma/D|","r (residuals)","deltaR (uncertainties of residuals)","Sens(r, f(x,Q))","Corr(r, f(x,Q))"};*)
+(*datatype=datatype[[plottype]];*)
+(**)
+(*If[*)
+(*FigureFlag[[plottype]]==1,*)
+(*pdfcorr=pdfcorr/.LF1[a__]:>LF1[{a}[[1]],{a}[[2]],Abs[{a}[[3]] ] ];*)
+(*If[plottype==3 || plottype==5 || plottype==6,datatype="|"<>datatype<>"|"];*)
+(*"dummy"*)
+(*];*)
+(**)
+(*Table[*)
+(*pdfcorr[[iexpt]]=*)
+(*Select[*)
+(*pdfcorr[[iexpt]],*)
+(*Length[Intersection[Table[If[(#[[3]]>=highlightrange[[i,1]] && #[[3]]<highlightrange[[i,2]]),True,False],{i,Length[highlightrange]}],{True}] ]>0&*)
+(*],*)
+(*{iexpt,Length[pdfcorr]}*)
+(*];*)
+(**)
+(*Print[Length[exptlist[[1]] ]," ",Length[pdfcorr] ];*)
+(*(*output*)*)
+(**)
+(*(*if |data|, define get statistical quantities of |data|*)*)
+(*If[FigureFlag[[plottype]]==1,DataMax=AbsDataMax;DataMin=AbsDataMin;DataMean=AbsDataMean;DataMedian=AbsDataMedian;DataSD=AbsDataSD];*)
+(*(*output {{labels},{values or descriptions}}*)*)
+(**)
+(*If[*)
+(*(plottype==5 || plottype==6),*)
+(*output=*)
+(*{*)
+(*{"datatype","flavour","Expts","DataMax","DataMin","DataMean","DataMedian","DataSD","highlightrange","highlighted data"},*)
+(*{datatype,pdfnamelable[[flavourin+6]],{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,DataMax,DataMin,DataMean,DataMedian,DataSD,highlightrange,Transpose[{{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,pdfcorr},{2,1}]}*)
+(*}*)
+(*];*)
+(*If[*)
+(*(plottype==2 || plottype==3 || plottype==4),*)
+(*output=*)
+(*{*)
+(*{"datatype",(*"flavour",*)"Expts","DataMax","DataMin","DataMean","DataMedian","DataSD","highlightrange","highlighted data"},*)
+(*{datatype,(*pdfnamelable[[flavourin+6]],*){#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,DataMax,DataMin,DataMean,DataMedian,DataSD,highlightrange,Transpose[{{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,pdfcorr},{2,1}]}*)
+(*}*)
+(**)
+(*];*)
+(**)
+(*output*)
+(*(**)
+(*groupExptIDs*)
+(**)*)
+(*(**)
+(*{exptlist,highlightrange,pdfcorr}*)
+(**)*)
+(*]*)
+
+
+(* ::Input:: *)
+(*getcorrinfo[{dRdataclassfinal},readcorrconfigfile6[configDir,configfilename],4,flavour];*)
+(*getcorrinfo[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],6,0 ];*)
+
+
+(* ::Input:: *)
+(*Select[getcorrinfo[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],6,0 ][[3,25]],(#[[3]]>0.7 || #[[3]]<-0.7)&] *)
+
+
+(* ::Input:: *)
+(*Export["../plots/"<>jobpath<>"test_data_info.txt",(getcorrinfo[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],6,0 ]//TableForm)//OutputForm]*)
+
+
+(* ::Input:: *)
+(*DirectoryQ["../plots/"<>jobpath]*)
+
+
+(* ::Input:: *)
+(*jobpath*)
+
+
+(* ::Input:: *)
+(*Directory[]*)
+
+
+(* ::Input:: *)
+(*getdatainfotext[corrfxQdtaobsclassin_,configargumentsin_,plottypein_]:=*)
+(*Module[{configarguments=configargumentsin,*)
+(*plottype=plottypein,*)
+(*Jobid,JobDescription(*20171128*),PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)*)
+(*XQfigureXrange,XQfigureYrange,ColorPaletterange(*20171128*),Hist1figureNbin,(*Hist1figureXrange,Hist1figureYrange,*)*)
+(*(*ColorSeperator,*)*)
+(*Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2,*)
+(*alldatainfo,fmax,userdifinefuncfilename,UserArgName},*)
+(**)
+(*(*read arguments in config file*)*)
+(*(*==============================*)*)
+(*{Jobid,JobDescription(*20171128*),PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)*)
+(*XQfigureXrange,XQfigureYrange,ColorPaletterange(*20171128*),Hist1figureNbin,(*Hist1figureXrange,Hist1figureYrange,*)*)
+(*(*ColorSeperator,*)*)
+(*Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}=configarguments;*)
+(*(*==============================*)*)
+(*userdifinefuncfilename="user_func.txt";*)
+(*(*20171127*)*)
+(*If[*)
+(*CorrelationArgFlag[[-1]]==1,*)
+(*UserArgName=ReadUserFunctionV3["./",userdifinefuncfilename];*)
+(*UserArgName=#[[1]]&/@UserArgName;*)
+(*"dummy"*)
+(*];*)
+(**)
+(*fmax=Length[corrfxQdtaobsclassin[[1,1]] ];*)
+(**)
+(*alldatainfo={};*)
+(**)
+(*Table[*)
+(*If[*)
+(*CorrelationArgFlag[[iflavour+6]]==1,*)
+(*alldatainfo=Append[alldatainfo,getcorrinfo[corrfxQdtaobsclassin,configarguments,plottype,iflavour] ]*)
+(*];*)
+(*"dummy"*)
+(*,{iflavour,-5,-5+fmax-1}*)
+(*];*)
+(**)
+(*alldatainfo*)
+(*]*)
+(**)
+(*datainfototext[corrfxQdtaobsclassin_,configargumentsin_,plottypein_,flavourin_]:=*)
+(*Module[{(*corrfxQdtaobsclass=corrfxQdtaobsclassin,*)configarguments=configargumentsin,*)
+(*plottype=plottypein,(*flavour=flavourin,*)flavour,*)
+(*input,Nlabel,infostring,Nexpt,exptID,exptdata,xqvaluestr*)
+(*},*)
+(**)
+(*input=getcorrinfo[corrfxQdtaobsclassin,configarguments,plottype,flavourin];*)
+(*Nlabel=Length[input[[1]] ];*)
+(**)
+(*infostring="";*)
+(*(*only show the meta data part*)*)
+(*Table[*)
+(*infostring=infostring<>ToString[input[[1,ilabel]] ]<>": "<>ToString[input[[2,ilabel]] ]<>"\n",*)
+(*{ilabel,Nlabel-1}*)
+(*];*)
+(*(*show the data part, format: {{exptname, data with in the highlight range},...}*)*)
+(*infostring=infostring<>ToString[input[[1,-1]] ]<>"\n";*)
+(**)
+(*Nexpt=Length[input[[2,-1]] ];*)
+(*Table[*)
+(*exptID=input[[2,-1,iexpt,1]]//ToString;*)
+(*xqvaluestr="{x, Q, value}";*)
+(*exptdata=(ToString[#]<>"\n")&/@(input[[2,-1,iexpt,2]]/.LF1->List);*)
+(*infostring=infostring<>exptID<>"\n"<>xqvaluestr<>"\n"<>exptdata<>"\n";*)
+(*"dummy",*)
+(*{iexpt,Nexpt}*)
+(*];*)
+(**)
+(*infostring*)
+(*]*)
+
+
+(* ::Input:: *)
+(*getcorrinfo[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],6,0 ][[2,-1,1,1]]*)
+
+
+(* ::Input:: *)
+(*ReadLisFile[datalistFile];*)
+
+
+(* ::Input:: *)
+(*ExptIDtoName[101]*)
+
+
+(* ::Input:: *)
+(*getcorrinfo[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],6,-5][[2,2,1]]*)
+
+
+(* ::Input:: *)
+(*Export[*)
+(*"../plots/"<>jobpath<>"test_data_info.txt",*)
+(*datainfototext[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],6,-5]*)
+(*]*)
+
+
+(* ::Input:: *)
+(*Export[*)
+(*"../plots/"<>jobpath<>"test_data_info.txt",*)
+(*Table[datainfototext[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],6,iflavour],{iflavour,-5,5}]//StringJoin*)
+(*]*)
+
+
+(* ::Input:: *)
+(*getdatainfotext[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],6]//Length*)
+
+
+(* ::Input:: *)
+(*corrdataclassfinal//Dimensions*)
+
+
+(* ::Input:: *)
+(*corrdataclassfinal[[2,8]]*)
+
+
+(* ::Input:: *)
+(**)
+(*{Jobid,JobDescription(*20171128*),PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)*)
+(*XQfigureXrange,XQfigureYrange,ColorPaletterange(*20171128*),Hist1figureNbin,(*Hist1figureXrange,(*Hist1figureYrange*)dummy12,*)*)
+(*(*ColorSeperator,*)*)
+(*Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}=*)
+(*(*readcorrconfigfile4*)readcorrconfigfile6[configDir,configfilename];*)
+(*If[*)
+(*FigureFlag[[3]]==1 || FigureFlag[[3]]==-1,*)
+(*Print["making plot of figure type ",FigureType[[3]],", flavour = ",flavour];*)
+(*p234=processdataplotsmultiexp7percentage[{residualdataclassfinal},readcorrconfigfile6[configDir,configfilename],3,flavour];*)
+(*(*20171202 add important data info*)*)
+(*datainfostr=datainfototext[{residualdataclassfinal},readcorrconfigfile6[configDir,configfilename],3,flavour];*)
+(*(*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)*)
+(*Table[*)
+(**)
+(*filename=obsname[[3]]<>"_"<>representationname[[5]]<>"_samept"<>extensionname[[iext[[i]] ]];*)
+(*Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]],ImageResolution->imgresol  ];*)
+(*(*20171201 for +1: absolute values of data, for -1: sign data*)*)
+(*If[*)
+(*FigureFlag[[3]]==-1,*)
+(*filename=obsname[[3]]<>"_"<>representationname[[1]]<>"_samept"<>extensionname[[iext[[i]] ]];*)
+(*Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]],ImageResolution->imgresol  ];*)
+(*filename=obsname[[3]]<>"_"<>representationname[[3]]<>"_samept"<>extensionname[[iext[[i]] ]];*)
+(*Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]],ImageResolution->imgresol ];*)
+(*"dummy"*)
+(*];*)
+(*If[*)
+(*FigureFlag[[3]]==1,*)
+(*filename=obsname[[3]]<>"_"<>representationname[[2]]<>"_samept"<>extensionname[[iext[[i]] ]];*)
+(*Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]],ImageResolution->imgresol  ];*)
+(*filename=obsname[[3]]<>"_"<>representationname[[4]]<>"_samept"<>extensionname[[iext[[i]] ]];*)
+(*Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]],ImageResolution->imgresol ];*)
+(*"dummy"*)
+(*];*)
+(**)
+(*"dummy",*)
+(*{i,Length[iext]}*)
+(*];*)
+(**)
+(*(*20171103: add files storing mathematica expressions so that users can change details of every figure*)*)
+(**)
+(*filename=obsname[[3]]<>"_"<>representationname[[5]]<>"_samept"<>".m";*)
+(*Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,2]]  ];*)
+(*(*20171201 for +1: absolute values of data, for -1: sign data*)*)
+(*If[*)
+(*FigureFlag[[3]]==-1,*)
+(*filename=obsname[[3]]<>"_"<>representationname[[1]]<>"_samept"<>".m";*)
+(*Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]]  ];*)
+(*filename=obsname[[3]]<>"_"<>representationname[[3]]<>"_samept"<>".m";*)
+(*Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,1]] ];*)
+(*(*20171202 add important data info*)*)
+(*filename=obsname[[3]]<>"_"<>representationname[[7]]<>"_samept"<>".txt";*)
+(*Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,datainfostr  ];*)
+(*"dummy"*)
+(*];*)
+(*If[*)
+(*FigureFlag[[3]]==1,*)
+(*filename=obsname[[3]]<>"_"<>representationname[[2]]<>"_samept"<>".m";*)
+(*Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[1,1]]  ];*)
+(*filename=obsname[[3]]<>"_"<>representationname[[4]]<>"_samept"<>".m";*)
+(*Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p234[[2,2]] ];*)
+(*(*20171202 add important data info*)*)
+(*filename=obsname[[3]]<>"_"<>representationname[[8]]<>"_samept"<>".txt";*)
+(*Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,datainfostr  ];*)
+(*"dummy"*)
+(*];*)
+(**)
+(**)
+(*];*)
+
+
+(* ::Input:: *)
+(*representationname*)
+
+
+(* ::Input:: *)
+(*representationname={"xQ-1","xQ+1","hist-1","hist+1","legend","xQ","info-1","info+1"};*)
+
+
+(* ::Input:: *)
+(*(*20171202 for plot type = 5 or 6, write data info into files, if flavour flag = 1, record the info*)*)
+(*If[*)
+(*FigureFlag[[6]]==1 || FigureFlag[[6]]==-1,*)
+(*(*filename*)*)
+(*filename=*)
+(*Switch[*)
+(*FigureFlag[[6]],*)
+(*-1,*)
+(*obsname[[6]]<>"_"<>representationname[[7]]<>"_"<>"_samept_info"<>".txt",*)
+(*1,*)
+(*obsname[[6]]<>"_"<>representationname[[8]]<>"_"<>"_samept_info"<>".txt"*)
+(*];*)
+(*(*info string*)*)
+(*datainfostr=*)
+(*Table[*)
+(*If[*)
+(*CorrelationArgFlag[[flavour+6]]==1,*)
+(*datainfototext[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],6,flavour],*)
+(*""*)
+(*],*)
+(*{flavour,-5,-5+fmax-1}*)
+(*];*)
+(*(*export the info file*)*)
+(*(*20171202 add important data info*)*)
+(*Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,datainfostr//StringJoin  ];*)
+(**)
+(*"dummy"*)
+(*];*)
+(**)
+
+
+(* ::Input:: *)
+(*saveparentpath<>jobpath*)
+(*PDFxQSelectMethod*)
+(*".pdf"*)
+
+
+(* ::Input:: *)
+(**)
+
+
+(* ::Input:: *)
+(*BranchMode*)
+
+
+(* ::Input:: *)
+(*dRcorrdataclassfinal[[1,-2+6]][["data"]]*)
+
+
+(* ::Input:: *)
+(*(*20171213 redefine sensitivity as (\[Delta]r/r)*Corr(Subscript[r, i],fSubscript[(x,Q), i])*)*)
+(*testupdatesens=*)
+(*Table[*)
+(*Npt=dRcorrdataclassfinal[[iexpt,flavour+6]][["data"]]//Length;*)
+(*tmpdata=dRcorrdataclassfinal[[iexpt,flavour+6]];*)
+(*Table[*)
+(**)
+(*tmpdata[["data"]][[ipt,3]]=(dRcorrdataclassfinal[[iexpt,flavour+6]][["data"]][[ipt,3]]/*)
+(*(*prevent the dr/r blow up when r = 0*)*)
+(*If[residualdataclassfinal[[iexpt]][["data"]][[ipt,3]]!=0.0,residualdataclassfinal[[iexpt]][["data"]][[ipt,3]],10.0^-8]);*)
+(*"dummy",*)
+(*{ipt,Npt}*)
+(*];*)
+(*tmpdata ,*)
+(*{iexpt,1,Length[residualNsetclassfinal]},{flavour,-5,-5+fmax-1}*)
+(*]*)
+
+
+(* ::Input:: *)
+(*dRcorrdataclassfinal[[1,0+6]][["data"]][[5,3]]*)
+
+
+(* ::Input:: *)
+(*Table[*)
+(*testupdatesens[[iexpt,6]],*)
+(*{iexpt,1,(*Length[residualNsetclassfinal]*)1}*)
+(*]*)
+(*dRcorrdataclassfinal[[1,6]][["data"]]/.LF[a__]:>{a}[[3]]*)
+
+
+(* ::Input:: *)
+(*testupdatesens[[10,5]]*)
+
+
+(* ::Input:: *)
+(*dRcorrdataclassfinal[[2,1+6]]*)
+
+
+(* ::Input:: *)
+(*dtacentralclassfinal[[3]][[1]]*)
+(*dtacentralclassfinal[[3]][[2]];*)
+(*dtacentralclassfinal[[3]][[3]]*)
+(*dtacentralclassfinal[[3]][[4]]*)
+(*dtacentralclassfinal[[3]][[5]]*)
+(*dtacentralclassfinal[[#]][[5,5]]&/@Range[1,49]*)
+
+
+(* ::Input:: *)
+(*dtacentralclassfinal[[3]][[2]]//Length*)
+
+
+(* ::Input:: *)
+(*Position[dtacentralclassfinal[[5]],"ReducedChi2"][[]]*)
+
+
+(* ::Input:: *)
+(*dtacentralclassfinal[[1]][["label"]]*)
+
+
+(* ::Input:: *)
+(*Position[dtacentralclassfinal[[1]][["label"]],"ReducedChi2"][[1,1]]//Head*)
+
+
+(* ::Input:: *)
+(*dtacentralclassfinal[[1]][["data"]]*)
+
+
+(* ::Input:: *)
+(*NormalizeIDs*)
+
+
+(* ::Input:: *)
+(**)
+(*Table[*)
+(*{residualNsetclassfinal[[iexpt]][["exptinfo","exptid"]],NormalizeIDs[[iexpt]]},*)
+(*{iexpt,1,Length[residualNsetclassfinal]}*)
+(*]*)
+
+
+(* ::Input:: *)
+(*fxQsamept2classfinal[[#,1]][["exptinfo","exptid"]]&/@Range[49]*)
+
+
+(* ::Input:: *)
+(*fxQsamept2classfinal[[21,5]][["data"]]*)
+
+
+(* ::Input:: *)
+(*corrdataclassfinal;*)
+(*dRcorrdataclassfinal;*)
+(*{expterrordataclassfinal,residualdataclassfinal,dRdataclassfinal};*)
+
+
+(* ::Input:: *)
+(*Table[corrdataclassfinal[[iexpt,flavour]][["data"]]//Length,{iexpt,49},{flavour,17}]*)
+
+
+(* ::Input:: *)
+(*corrdataclassfinal[[-14,14]][["data"]]*)
+
+
+(* ::Input:: *)
+(*(PlotMarkerList[][[1]]&/@Range[10])//Flatten*)
