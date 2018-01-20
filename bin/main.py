@@ -26,6 +26,7 @@ def submit():
         jobStr = ''.join([str(t) for t in all_elements])
         jobID = str(int(sum([(ord(jobStr[i]))*i for i in range(len(jobStr))])))
         configFile.write("Job ID (copy from the counter file): "+jobID+"\n")
+        configFile.write("Job description: "+pdfsets[allradios[0]]+"\n\n")
 
         configFile.write("PDF set: "+pdfsets[allradios[0]]+"\n\n")
 
@@ -49,17 +50,14 @@ def submit():
         if allchecks[4][0] != 1:
             murangestr = alltexts[8]+" "+alltexts[9]
         configFile.write("mumin, mumax:      "+murangestr+"\n")
+        hzrangestr = "auto  auto"
+        if allchecks[6][0] != 1:
+            hzrangestr = alltexts[12]+" "+alltexts[13]
+        configFile.write("zmin, zmax: "+hzrangestr+"\n\n")
         nstr = "auto"
         if allchecks[5][0] != 1:
             nstr = alltexts[10]
-        configFile.write("Number of bins: "+nstr+"\n")
-        hxrangestr = "auto  auto"
-        if allchecks[6][0] != 1:
-            hxrangestr = alltexts[12]+" "+alltexts[13]
-        configFile.write("xmin, xmax: "+hxrangestr+"\n")
-        configFile.write("ymin, ymax:  0 auto\n\n")
-
-        configFile.write("Color by data percentage: 50 70 85\n\n")
+        configFile.write("Number of bins: "+nstr+"\n\n")
 
 ##20171120 botingw: highlight input convention change, highlight mode = {{h1min,h1max},{h2min,h2max},...}
         if len(alltexts[0]) == 0:
@@ -69,15 +67,15 @@ def submit():
             alltexts[2] = str("{{0,0}}")
             alltexts[3] = 0
         configFile.write("Type:  1     2     3     4     5     6     7\n")
-        configFile.write("Mode:  "+str([allradios[2] for i in range(7)])[1:-1].replace(',','    ')+"\n")
+        configFile.write("Mode:  "+str([allradios[2] for i in range(7)])[1:-1].replace(',','    ')+"\n\n")
 
 ##20171120 botingw: highlight input convention change, highlight mode = {{h1min,h1max},{h2min,h2max},...}
 #        configFile.write("Mode 1 range: "+str([(float(alltexts[0]),float(alltexts[1])) for i in range(7)])[1:-1].replace('(','{{ ').replace('),','}}; ').replace(')','}} ')+"\n")
 #        configFile.write("Mode 2 range: "+str([(float(alltexts[2]),float(alltexts[3])) for i in range(7)])[1:-1].replace('(','{{ ').replace('),','}}; ').replace(')','}} ')+"\n\n")
-        configFile.write("Mode 1 range: "+str([alltexts[0] for i in range(7)])[1:-1].replace('\',',';').replace('\'',' ')+"\n")
+        configFile.write("Mode 1 range: "+str([alltexts[0] for i in range(7)])[1:-1].replace('\',',';').replace('\'',' ')+"\n\n")
         configFile.write("Mode 2 range: "+str([alltexts[2] for i in range(7)])[1:-1].replace('\',',';').replace('\'',' ')+"\n\n")
-        print(alltexts[0])
-        print(alltexts[2])
+        #print(alltexts[0])
+        #print(alltexts[2])
 
 
         configFile.write("Size: "+pointsizes[allradios[3]].lower()+"\n\n")
@@ -239,23 +237,23 @@ def changeR3(one,two,three):
 
 def changeR4(one,two,three):
     global range4
-    histxmindefault = "-3"
-    histxmaxdefault = "3"
+    histzmindefault = "-3"
+    histzmaxdefault = "3"
     range4.grid_forget()
     range4 = tk.Frame(rangesCell,relief=tk.GROOVE,bd=2)
     range4.grid(row=1,column=3,padx="5",pady="5")
-    tk.Label(range4,text="Histogram X:").grid(row=0,columnspan=3)
+    tk.Label(range4,text="Histogram Z:").grid(row=0,columnspan=3)
     tk.Checkbutton(range4,text="Auto",variable=hxRange[0]).grid(row=1,sticky='w')
     if hxRange[0].get() == 0:
-        tk.Label(range4,text="X-min:").grid(row=2,column=0,sticky='w')
+        tk.Label(range4,text="Z-min:").grid(row=2,column=0,sticky='w')
         rmin4 = tk.Entry(range4,width=7)
         texts[12] = rmin4
-        rmin4.insert(10,histxmindefault)
+        rmin4.insert(10,histzmindefault)
         rmin4.grid(row=2,column=1)
-        tk.Label(range4,text="X-max:").grid(row=3,column=0,sticky='w')
+        tk.Label(range4,text="Z-max:").grid(row=3,column=0,sticky='w')
         rmax4 = tk.Entry(range4,width=7)
         texts[13] = rmax4
-        rmax4.insert(10,histxmaxdefault)
+        rmax4.insert(10,histzmaxdefault)
         rmax4.grid(row=3,column=1)
 
 def changeExp(one,two,three):
@@ -306,7 +304,7 @@ experiments = [i[1] for i in experiments if len(i) != 0]
 figtypes = ["Experimental errors","Residuals","PDF errors on residuals","Sensitivity factor","Correlation"]
 hlmodes = ["No highlighting","Value range","Percentage range"]
 pointsizes = ["Tiny","Small","Medium","Large"]
-functions = [u"b\u203e",u"c\u203e",u"s\u203e",u"d\u203e",u"u\u203e","g","u","d","s","c","b","q6","q7","q8"]
+functions = [u"b\u203e",u"c\u203e",u"s\u203e",u"d\u203e",u"u\u203e","g","u","d","s","c","b"]
 
 expidFile.close()
 
@@ -485,7 +483,7 @@ tk.Checkbutton(range3,text="Auto",variable=hdRange[0]).grid(row=1,sticky='w')
 
 range4 = tk.Frame(rangesCell,relief=tk.GROOVE,bd=2)
 range4.grid(row=1,column=3,padx="5",pady="5")
-tk.Label(range4,text="Histogram X:").grid(row=0,sticky='w')
+tk.Label(range4,text="Histogram Z:").grid(row=0,sticky='w')
 hxRange = [tk.IntVar(value=1)]
 hxRange[0].trace('w',changeR4)
 checks.append(hxRange)
