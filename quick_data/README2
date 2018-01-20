@@ -1,0 +1,9 @@
+for jet/ttbar processes, only select (x,Q) with 10^-10< x1, x2 < 1
+
+248 break down by large rapidity
+no ID = 252~255 
+
+20171209 renew: add 252~255 for CT14HERA2NNLO
+
+20180101: add CT14HERA2_no_jet, no 247, 254, 255, 191~194
+20180103: update 247 to CT14HERA2_no_jet

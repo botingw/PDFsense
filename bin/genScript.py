@@ -9,7 +9,8 @@ except:
 
 from PIL import Image, ImageTk
 
-#os.system("/usr/local/bin/math -script ./run_v4.m")
+if not os.path.exists("../plots/Jobs/"+sys.argv[1]):
+    os.system("/usr/local/bin/math -script ./run_v4.m")
 
 def data():
     image = Image.open("../plots/Jobs/"+sys.argv[1]+"/exptname_table.png")
@@ -23,10 +24,10 @@ def data():
     l2.grid(row=3,column=0,columnspan=3)
 
     ExptxQfig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/xQbyexpt_xQ.png"))
-    xQfig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_xQ_*.png"))
-    hist1fig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_hist1_*.png"))
-    hist2fig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_hist2_*.png"))
-    legendfig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_legend_*.png"))
+    xQfig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_xQ+1_*.png"))
+    hist1fig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_hist+1_*.png"))
+    hist2fig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_hist+2_*.png"))
+    legendfig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_legend.png"))
     orderfigs=ExptxQfig+hist1fig+hist2fig#+legendfig
 
     if len(xQfig) > 0:

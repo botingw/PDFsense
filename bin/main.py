@@ -1,4 +1,4 @@
-import os,sys
+import os,sys,glob
 
 try:
     import Tkinter as tk
@@ -260,16 +260,13 @@ def changeExp(one,two,three):
     global experiments
     global expids
     global selectall
-    if pdfset.get() == 0:
-        expidFile = open("./exptidname_inconfig.txt","r")
-        experiments = [i.split() for i in expidFile.readlines()]
-        expids = [int(i[0]) for i in experiments if len(i) != 0]
-        experiments = [i[1] for i in experiments if len(i) != 0]
-    elif pdfset.get() == 1:
-        expidFile = open("./exptidname_inconfig2.txt","r")
-        experiments = [i.split() for i in expidFile.readlines()]
-        expids = [int(i[0]) for i in experiments if len(i) != 0]
-        experiments = [i[1] for i in experiments if len(i) != 0]
+    global sets
+
+    expidFile = open(sets[pdfset.get()],"r")
+    experiments = [i.split() for i in expidFile.readlines()[1:]]
+    expids = [int(i[0]) for i in experiments if len(i) != 0]
+    experiments = [i[1] for i in experiments if len(i) != 0]
+
     expidFile.close()
     global experimentsCell
     experimentsCell.grid_forget()
@@ -293,12 +290,14 @@ def selectAll(one,two,three):
         [i.set(1) for i in checks[0]]
 
 
-#List labels and such
-expidFile = open("./exptidname_inconfig.txt","r")
+#Search quick_data directory for pdf set metadata
+global sets
+sets = glob.glob("../quick_data/metadata_*.dat")
+pdfsets = [i.replace("../quick_data/metadata_samept_data_","").replace(".dat","") for i in sets]
 
-pdfsets = ["CT14NNLO","CT14HERA2-jet.ev"]
+expidFile = open(sets[0],"r")
 global experiments
-experiments = [i.split() for i in expidFile.readlines()]
+experiments = [i.split() for i in expidFile.readlines()[1:]]
 expids = [int(i[0]) for i in experiments if len(i) != 0]
 experiments = [i[1] for i in experiments if len(i) != 0]
 figtypes = ["Experimental errors","Residuals","PDF errors on residuals","Sensitivity factor","Correlation"]
