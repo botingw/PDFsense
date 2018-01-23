@@ -263,7 +263,7 @@ def changeExp(one,two,three):
     global sets
 
     expidFile = open(sets[pdfset.get()],"r")
-    experiments = [i.split() for i in expidFile.readlines()[1:]]
+    experiments = [i.split() for i in expidFile.readlines()[1:] if i.split()[1] != "None"]
     expids = [int(i[0]) for i in experiments if len(i) != 0]
     experiments = [i[1] for i in experiments if len(i) != 0]
 
@@ -297,7 +297,7 @@ pdfsets = [i.replace("../quick_data/metadata_samept_data_","").replace(".dat",""
 
 expidFile = open(sets[0],"r")
 global experiments
-experiments = [i.split() for i in expidFile.readlines()[1:]]
+experiments = [i.split() for i in expidFile.readlines()[1:] if i.split()[1] != "None"]
 expids = [int(i[0]) for i in experiments if len(i) != 0]
 experiments = [i[1] for i in experiments if len(i) != 0]
 figtypes = ["Experimental errors","Residuals","PDF errors on residuals","Sensitivity factor","Correlation"]
