@@ -11,6 +11,7 @@ from PIL import Image, ImageTk
 
 if not os.path.exists("../plots/Jobs/"+sys.argv[1]):
     os.system("/usr/local/bin/math -script ./run_v4.m")
+    #os.system("cat config1.txt")
 
 def data():
     image = Image.open("../plots/Jobs/"+sys.argv[1]+"/exptname_table.png")
@@ -28,7 +29,7 @@ def data():
     hist1fig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_hist+1_*.png"))
     hist2fig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_hist+2_*.png"))
     legendfig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_legend.png"))
-    orderfigs=ExptxQfig+hist1fig+hist2fig#+legendfig
+    orderfigs=ExptxQfig+xQfig+hist1fig+hist2fig#+legendfig
 
     if len(xQfig) > 0:
         image = Image.open(xQfig[0])

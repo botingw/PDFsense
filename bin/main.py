@@ -31,31 +31,31 @@ def submit():
         configFile.write("PDF set: "+pdfsets[allradios[0]]+"\n\n")
 
         configFile.write("Type:  1     2     3     4     5     6     7\n")
-        configFile.write("Flag:  "+str(allchecks[1][0])+'    '+str([1 if (i+1) == allradios[1] else 0 for i in range(6)])[1:-1].replace(',','    ')+"\n\n")
+        configFile.write("Flag:  "+str(allchecks[1][0])+'    '+str([(2*allchecks[2][0])-1 if (i+1) == allradios[1] else 0 for i in range(6)])[1:-1].replace(',','    ')+"\n\n")
 
         configFile.write("Expt. ID:   "+str(expids)[1:-1].replace(',','  ')+"\n")
         configFile.write("Expt. Flag:  "+str(allchecks[0])[1:-1].replace(',','    ')+"\n\n")
 
         configFile.write("Type:  "+'  '.join([i.replace(u'\u203e','b') for i in functions]).replace(',','  ')+"  user\n")
-        configFile.write("Flag:  "+str([1 if i == allradios[4] else 0 for i in range(len(functions))])[1:-1].replace(',','  ')+"   "+str(allchecks[2][0])+"\n\n")
+        configFile.write("Flag:  "+str([1 if i == allradios[4] else 0 for i in range(len(functions))])[1:-1].replace(',','  ')+"   "+str(allchecks[3][0])+"\n\n")
 
         #configFile.write("Name: "+alltexts[4]+"\n")
         #configFile.write("Values: "+alltexts[5]+"\n\n")
 
         xrangestr = "auto  auto"
-        if allchecks[3][0] != 1:
+        if allchecks[4][0] != 1:
             xrangestr = alltexts[6]+" "+alltexts[7]
         configFile.write("xmin,   xmax:  "+xrangestr+"\n")
         murangestr = "auto  auto"
-        if allchecks[4][0] != 1:
+        if allchecks[5][0] != 1:
             murangestr = alltexts[8]+" "+alltexts[9]
         configFile.write("mumin, mumax:      "+murangestr+"\n")
         hzrangestr = "auto  auto"
-        if allchecks[6][0] != 1:
+        if allchecks[7][0] != 1:
             hzrangestr = alltexts[12]+" "+alltexts[13]
         configFile.write("zmin, zmax: "+hzrangestr+"\n\n")
         nstr = "auto"
-        if allchecks[5][0] != 1:
+        if allchecks[6][0] != 1:
             nstr = alltexts[10]
         configFile.write("Number of bins: "+nstr+"\n\n")
 
@@ -242,7 +242,7 @@ def changeR4(one,two,three):
     range4.grid_forget()
     range4 = tk.Frame(rangesCell,relief=tk.GROOVE,bd=2)
     range4.grid(row=1,column=3,padx="5",pady="5")
-    tk.Label(range4,text="Histogram Z:").grid(row=0,columnspan=3)
+    tk.Label(range4,text="Data color palette:").grid(row=0,columnspan=3)
     tk.Checkbutton(range4,text="Auto",variable=hxRange[0]).grid(row=1,sticky='w')
     if hxRange[0].get() == 0:
         tk.Label(range4,text="Z-min:").grid(row=2,column=0,sticky='w')
@@ -356,11 +356,16 @@ for e in range(len(experiments)):
 #Second row
 #Figures to plot
 figuresCell = tk.Frame(table,padx="8",pady="8")
-figuresCell.grid(row=1,columnspan=4)
+figuresCell.grid(row=1,column=0,columnspan=4)
+randomCell = tk.Frame(figuresCell,padx="8",pady="8")
+randomCell.grid(row=1,column=0)
 tk.Label(figuresCell,text="Figures to plot:").grid(row=0,column=0)
 pointsOrNot = [tk.IntVar()]
 checks.append(pointsOrNot)
-tk.Checkbutton(figuresCell,text="Experimental\ndata points",variable=pointsOrNot[0]).grid(row=1,column=0)
+tk.Checkbutton(randomCell,text="Experimental data points",variable=pointsOrNot[0]).grid(row=0,column=0)
+absval = [tk.IntVar()]
+checks.append(absval)
+tk.Checkbutton(randomCell,text="Apply absolute value",variable=absval[0]).grid(row=1,column=0)
 
 first = tk.Frame(figuresCell)
 first.grid(row=1,column=1)
@@ -482,7 +487,7 @@ tk.Checkbutton(range3,text="Auto",variable=hdRange[0]).grid(row=1,sticky='w')
 
 range4 = tk.Frame(rangesCell,relief=tk.GROOVE,bd=2)
 range4.grid(row=1,column=3,padx="5",pady="5")
-tk.Label(range4,text="Histogram Z:").grid(row=0,sticky='w')
+tk.Label(range4,text="Data color palette:").grid(row=0,sticky='w')
 hxRange = [tk.IntVar(value=1)]
 hxRange[0].trace('w',changeR4)
 checks.append(hxRange)
