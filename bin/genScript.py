@@ -21,15 +21,12 @@ def data():
     l.image = tmp
     l.grid(row=0,column=1,columnspan=2)
 
-    l2 = tk.Label(frame,compound=tk.CENTER,text="All figures can be found at %s"%(os.getcwd().replace("bin","plots/Jobs/"+sys.argv[1])))
-    l2.grid(row=3,column=0,columnspan=3)
-
     ExptxQfig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/xQbyexpt_xQ.png"))
-    xQfig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_xQ+1_*.png"))
-    hist1fig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_hist+1_*.png"))
-    hist2fig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_hist+2_*.png"))
+    xQfig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_xQ[+|-]1_*.png"))
+    hist1fig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_hist[+|-]1_*.png"))
+    hist2fig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_hist[+|-]2_*.png"))
     legendfig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_legend.png"))
-    orderfigs=ExptxQfig+xQfig+hist1fig+hist2fig#+legendfig
+    orderfigs=ExptxQfig+xQfig[1:]+hist1fig+hist2fig#+legendfig
 
     if len(xQfig) > 0:
         image = Image.open(xQfig[0])
@@ -47,6 +44,9 @@ def data():
             l = tk.Label(frame,compound=tk.CENTER,image=tmp)
             l.image = tmp
             l.grid(row=(f/3)+1,column=f%3)
+
+    l2 = tk.Label(frame,compound=tk.CENTER,text="All figures can be found at %s"%(os.getcwd().replace("bin","plots/Jobs/"+sys.argv[1])))
+    l2.grid(row=(f/3)+2,column=0,columnspan=3)
 
 def myfunction(event):
     canvas.configure(scrollregion=canvas.bbox("all"))
