@@ -13,9 +13,12 @@ if not os.path.exists("../plots/Jobs/"+sys.argv[1]):
     os.system("/usr/local/bin/math -script ./run_v4.m")
     #os.system("cat config1.txt")
 
+s1 = 450
+s2 = 400
+
 def data():
     image = Image.open("../plots/Jobs/"+sys.argv[1]+"/exptname_table.png")
-    image = image.resize((500,500*image.size[1]/image.size[0]),Image.ANTIALIAS)
+    image = image.resize((s1,s1*image.size[1]/image.size[0]),Image.ANTIALIAS)
     tmp = ImageTk.PhotoImage(image)
     l = tk.Label(frame,compound=tk.CENTER,image=tmp)
     l.image = tmp
@@ -26,24 +29,50 @@ def data():
     hist1fig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_hist[+|-]1_*.png"))
     hist2fig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_hist[+|-]2_*.png"))
     legendfig=sorted(glob.glob("../plots/Jobs/"+sys.argv[1]+"/*_legend.png"))
-    orderfigs=ExptxQfig+xQfig[1:]+hist1fig+hist2fig#+legendfig
+    orderfigs=hist1fig+hist2fig#+legendfig
 
     if len(xQfig) > 0:
         image = Image.open(xQfig[0])
-        image = image.resize((500,500),Image.ANTIALIAS)
+        image = image.resize((s1,s1),Image.ANTIALIAS)
         tmp = ImageTk.PhotoImage(image)
         l = tk.Label(frame,compound=tk.CENTER,image=tmp)
         l.image = tmp
         l.grid(row=0,column=0)
 
-    for f in range(len(orderfigs)):
-        if "exptname_table" not in orderfigs[f]:
-            image = Image.open(orderfigs[f])
-            image = image.resize((300,300),Image.ANTIALIAS)
+    g = 0
+    f = 0
+    for ff in range(len(ExptxQfig)):
+        f = g+ff
+        if "exptname_table" not in ExptxQfig[ff]:
+            image = Image.open(ExptxQfig[ff])
+            image = image.resize((s2,s2),Image.ANTIALIAS)
             tmp = ImageTk.PhotoImage(image)
             l = tk.Label(frame,compound=tk.CENTER,image=tmp)
             l.image = tmp
             l.grid(row=(f/3)+1,column=f%3)
+    g = f
+
+    for ff in range(1,len(xQfig)):
+        f = g+ff
+        if "exptname_table" not in xQfig[ff]:
+            image = Image.open(xQfig[ff])
+            image = image.resize((s2,s2),Image.ANTIALIAS)
+            tmp = ImageTk.PhotoImage(image)
+            l = tk.Label(frame,compound=tk.CENTER,image=tmp)
+            l.image = tmp
+            l.grid(row=(f/3)+1,column=f%3)
+    g = f+1
+
+    for ff in range(len(orderfigs)):
+        f = g+ff
+        if "exptname_table" not in orderfigs[ff]:
+            image = Image.open(orderfigs[ff])
+            image = image.resize((s2,s2),Image.ANTIALIAS)
+            tmp = ImageTk.PhotoImage(image)
+            l = tk.Label(frame,compound=tk.CENTER,image=tmp)
+            l.image = tmp
+            l.grid(row=(f/3)+1,column=f%3)
+    g = f
 
     l2 = tk.Label(frame,compound=tk.CENTER,text="All figures can be found at %s"%(os.getcwd().replace("bin","plots/Jobs/"+sys.argv[1])))
     l2.grid(row=(f/3)+2,column=0,columnspan=3)
@@ -51,7 +80,7 @@ def data():
 def myfunction(event):
     canvas.configure(scrollregion=canvas.bbox("all"))
 
-w = 1100
+w = 1250
 h = 600
 
 root = tk.Tk()
