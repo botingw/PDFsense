@@ -8377,6 +8377,15 @@ Processes Of Executables
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+(*v16: new edition merge the making PDF data and making observable data
+ executables*)
+\end_layout
+
+\begin_layout Plain Layout
 There are three kinds of executables: making PDF data, making observable
  data, and making some figures of data which are produced by the program.
  The first and the second kinds of executables read arguments from 
@@ -8398,7 +8407,7 @@ config1.txt
 .
 \end_layout
 
-\begin_layout Standard
+\begin_layout Plain Layout
 To conveniently explain processes of these executables, using flowcharts
  to visualize processes is a simple way.
  Fig.
@@ -8423,6 +8432,71 @@ reference "fig:flowchart-figure"
 \end_inset
 
  are flowcharts of three kinds of executables: 
+\end_layout
+
+\end_inset
+
+There are two kinds of executables: making observable data and making some
+ figures of data which are produced by the program.
+ The first kind of executables read arguments from 
+\begin_inset Quotes eld
+\end_inset
+
+savedata_config.txt
+\begin_inset Quotes erd
+\end_inset
+
+; The second kind of executables read arguments from 
+\begin_inset Quotes eld
+\end_inset
+
+config1.txt
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+To conveniently explain processes of these executables, using flowcharts
+ to visualize processes is a simple way.
+ Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:flowchart-PDFdata"
+
+\end_inset
+
+ and Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:flowchart-obsdata"
+
+\end_inset
+
+ are the flowchart of the first kind excutables (the executables do Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:flowchart-PDFdata"
+
+\end_inset
+
+ first and then do Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:flowchart-figure"
+
+\end_inset
+
+).
+ Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:flowchart-figure"
+
+\end_inset
+
+ is the flowchart of the second kind of executables: 
 \end_layout
 
 \begin_layout Standard
@@ -8565,6 +8639,15 @@ config1.txt: the configure file that excutables of making figures read
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+(*v16: new edition merge the making PDF data and making observable data
+ executables*)
+\end_layout
+
+\begin_layout Plain Layout
 There are three kinds of executables: making PDF data, making observable
  data, and making some figures of data which are produced by the program.
  The first and the second kinds of executables read arguments from 
@@ -8603,8 +8686,61 @@ reference "tab:executables-table-2"
  shows) 
 \end_layout
 
+\begin_layout Plain Layout
+To make data, users need to set up arguments in savedata_config.txt:
+\end_layout
+
+\end_inset
+
+There are two kinds of executables: making observable data and making some
+ figures of data which are produced by the program.
+ The first kind of executables read arguments from 
+\begin_inset Quotes eld
+\end_inset
+
+savedata_config.txt
+\begin_inset Quotes erd
+\end_inset
+
+; The second kind of executables read arguments from 
+\begin_inset Quotes eld
+\end_inset
+
+config1.txt
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+plotdata_config.txt
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Following are descriptions of their executables, input, and output (as
+ Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:executables-table-2"
+
+\end_inset
+
+ shows) 
+\end_layout
+
 \begin_layout Standard
 To make data, users need to set up arguments in savedata_config.txt:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+(*v16: new edition merge the making PDF data and making observable data
+ executables*)
 \end_layout
 
 \begin_layout Itemize
@@ -8806,6 +8942,11 @@ xgrid
 \end_layout
 
 \end_deeper
+\end_inset
+
+
+\end_layout
+
 \begin_layout Itemize
 Making observable data
 \begin_inset Separator latexpar
@@ -8816,7 +8957,7 @@ Making observable data
 
 \begin_deeper
 \begin_layout Itemize
-executables: fxQsamept_corr.nb
+executables: fxQsamept_corr_v2.nb
 \begin_inset Note Note
 status open
 
@@ -9503,7 +9644,7 @@ status open
 \end_layout
 
 \begin_layout Enumerate
-edit configure files and run fxQsamept_corr.nb to get data of observables
+edit configure files and run fxQsamept_corr_v2.nb to get data of observables
  for 
 \family roman
 \series medium
@@ -9536,7 +9677,7 @@ edit configure files and run fxQsamept_corr.nb to get data of observables
 \end_layout
 
 \begin_layout Enumerate
-edit configure files and run run_v3.nb to get figures of observables of these
+edit configure files and run run_v4.nb to get figures of observables of these
  experiments
 \end_layout
 
@@ -9881,7 +10022,8 @@ fff
 \end_layout
 
 \begin_layout Standard
-version23_v16: update the step by step running part for the new version
+version23_v16 (PDFSENSE_tutorial_1.16): update the step by step running part
+ for the new version, run_v3->run_v4, fxQsamept_corr->fxQsamept_corr_v2
 \end_layout
 
 \begin_layout Section*
