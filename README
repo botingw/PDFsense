@@ -11,3 +11,60 @@ To know what's difference among executable files, read tutorial 4.3. Input And O
 For this eg version, read tutorial Appendix B
 run_loopexpts_v3.nb could generate figures of Expt IDs in "config1.txt" seperately in subdirectories with folder name == their own Expt ID
 expts_info_v4.nb and code_tutorial.nb are used to see information of observable data and tutorial of functions in the program
+
+#################################
+# How to run the code           #
+#################################
+
+One could run the GUI interface, the Mathematica scripts (.m executables), or Mathematica notebooks (.nb executables)  
+to implement the PDFsense. the GUI interface provides a user-friendly way to run the package. The script and notebook
+files enable users to run the package more flexible and to run more result in a run.
+
+Running the GUI interface:
+a. ./XQPLOTTER 
+b. select PDF set, experiments, variable to be presented, and the demonstration of plots 
+(x, mu range, the color palette of the value range, etc)
+c. click submit and output plots will pop out
+
+Running the script and notebook:
+
+a. setting config1.txt file under ./bin:
+One could set up the input data, variables presented in plots, and the demonstration of plots in config1.txt.
+
+In the config1.txt, #PDF set, # Figures to plot, # Experiments to include, #Functions to use in correlations, 
+#User function parameters are for setup of the input data.
+#x-Q figure parameters, #Histogram figure parameters, #in plots, #highlight mode, #data point size are for 
+setup of how figures look like 
+
+input data are in ./quick_data, output plots will be in ./plots/Jobs,
+In the config1.txt, "#PDF set..." set the input data (output of fxQsamept_corr_v2.nb or .m)
+"# Experiments..." select the experiments (represented by ID numbers) to be plotted,
+if a selected experiment is not in the input data, the plots would not contain it's information. 
+
+The user option in "#Functions (F)..." enables users (when it's Flag = 1) to create the customized function Func in 
+correlations Corr(ri, Func) and sensitivity Sens(ri, Func). 
+
+"#Axes ranges..." and the settings below it are for the demonstration of plots 
+
+b. run the Mathematica script/notebook:
+first, go to ./bin directory, then 
+for the script: go to ./bin directory, then commandline math -script run_v4.m 
+for the notebook: open run_v4.nb and implement the code
+
+c. output
+The output is in ./plots/Jobs,
+The folder name is controled by "#Job ID..." in config1.txt  
+
+
+#################################
+# generating the data for plots #
+#################################
+If one don't want to only use the the data in our database (data default in ./quick_data), one could also generate the
+data by the Mathematica scripts (.m executables), or Mathematica notebooks.
+The input data he need is the analyzed data from CTEQ code: .pds file and .dta file 
+.pds contains the PDF info and .dta contains analyzed data of experiments and the selected PDF set
+
+a. edit the savedata_config.txt
+PDF set Dir, PDF method, Expt ID List, datalis file for input setting
+Correlation Path & Correlation File for output setting
+If output setting is default, the data would be saved in ./quick_data
