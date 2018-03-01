@@ -17,14 +17,15 @@ PDF set: CT14HERA2NNLO
 
 
 note:
-To know how to run, read tutorial 4.1 (mathematicav23_eg_program_note_v8.pdf) Run Step By Step
-To know what's difference among executable files, read tutorial 4.3. Input And Output Of Executables
-code_tutorial.nb is used to run tutorial of functions in the program so that users can know how to functions in the package work
-under ./bin/tools are some tools for advanced analysis,
+1. To know how to run, read tutorial 4.1 (mathematicav23_eg_program_note_v8.pdf) Run Step By Step
+2. To know what's difference among executable files, read tutorial 4.3. Input And Output Of Executables
+3. code_tutorial.nb is used to run tutorial of functions in the program so that users can know how to functions in the package work
+4. under ./bin/tools are some tools for advanced analysis,
 a. make_info_table_v2.nb and read_info_table_v2_TH_BT_v2.nb could analyze the info files of the outputs of run_v4.nb(.m) (e.g. corr_info-1__samept_info.txt),
 the output are tables of statistical quantities for the data corresponding to output plots with the .tex format
 b. plotted_data_combine_test.nb could merge data in the database (./quick_data)
-
+5. if the configure files are broken, fix them by copying the default configure files from ./bin/default_config_files to ./bin and change the copied filenames 
+in ./bin to config1.txt and savedata_config.txt 
 #################################
 # How to run the code           #
 #################################
