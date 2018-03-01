@@ -1,16 +1,29 @@
+#################################
+# quick beginning               #
+#################################
+
 files under ./example folder are example configure files, a test observable data file (quick_data_example), and a test PDF set (CT14HERA2NNLO).
 to run example files, just copy configure files under ./example to the ./bin directory and run scripts (read tutorial 4.4. SOP of Plotting Figures of New Experiments):
 
-1. run fxQsamept_corr.nb (or .m by math -script fxQsamept_corr.m)
-2. run run_v3.nb (or .m by math -script run_v3.m)
-3. go to ./quick_data/ and ./plots/Jobs/457/ to see output data files and figure files 
+1. run fxQsamept_corr_v2.nb (or .m by math -script fxQsamept_corr_v2.m)
+2. run run_v4.nb (or .m by math -script run_v4.m)
+3. go to ./quick_data/ and ./plots/Jobs/ to see output data files and figure files 
+
+Under ./quick, there are default 3 plotted data: CT14NNLO, CH14HERA2NNLO, and CT14HERA2_no_jet,
+To use them to plot, just set in the config1.txt as their names, e.g.
+......
+PDF set: CT14HERA2NNLO
+......
+
 
 note:
 To know how to run, read tutorial 4.1 (mathematicav23_eg_program_note_v8.pdf) Run Step By Step
 To know what's difference among executable files, read tutorial 4.3. Input And Output Of Executables
-For this eg version, read tutorial Appendix B
-run_loopexpts_v3.nb could generate figures of Expt IDs in "config1.txt" seperately in subdirectories with folder name == their own Expt ID
-expts_info_v4.nb and code_tutorial.nb are used to see information of observable data and tutorial of functions in the program
+code_tutorial.nb is used to run tutorial of functions in the program so that users can know how to functions in the package work
+under ./bin/tools are some tools for advanced analysis,
+a. make_info_table_v2.nb and read_info_table_v2_TH_BT_v2.nb could analyze the info files of the outputs of run_v4.nb(.m) (e.g. corr_info-1__samept_info.txt),
+the output are tables of statistical quantities for the data corresponding to output plots with the .tex format
+b. plotted_data_combine_test.nb could merge data in the database (./quick_data)
 
 #################################
 # How to run the code           #
