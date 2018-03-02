@@ -13,7 +13,7 @@ PDF set: CT14NNLO_example
 # Type =1: all data points; 2: (expt errors)/(central data values); 
 # 3: residuals; 4: "residual PDF errors" delta R_i; 
 #5: "sensitivities" deltaR_i*Corr( r_i, F); 6: "correlations" Corr( r_i, F)
-# Flag = 1: plot; = 0, skip
+# Flag = -1: plot; = 1: plot with absolute values; = 0, skip
 Type:  1     2     3     4     5     6     7
 Flag:  1     1     1     1     1     1     0
 
