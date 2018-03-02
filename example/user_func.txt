@@ -1,0 +1,45 @@
+##A user-defined function called in correlations Corr(ri, Func) and sensitivity Sens(ri, Func)
+##A user can provide multiple customized functions as follows:
+##format:
+##Name: name 1  -- the function name to be shown in the plot label
+##!Function Begin: 
+##func1 command... (in Mathematica notations)
+##!Function End
+
+##Name: name 2  -- the function name to be shown in the plot label
+##!Function Begin: 
+##func2 command... (in Mathematica notations)
+##!Function End
+##......
+##......
+##......
+
+## Examples of the allowed formats. Comment out any unneeded formats using "#", otherwise the figures will be produced for all of them
+
+## Total Higgs cross section, LHC 7 TeV, CT14HERA2NNLO, a list of values
+# for 57 error PDF sets
+Name: sig(H0), 7 TeV
+!Function Begin:  
+{12.6394, 12.6321, 12.6453, 12.6067, 12.6451, 12.4978, 12.6364, 12.6266, 12.6115}  
+!Function End
+
+## Total strangeness, point-by-point
+Name: s+(x,mu)
+!Function Begin: 
+FxQ[is]+FxQ[isbar]
+!Function End
+
+## Valence u, point-by-point
+Name: u_val(x,mu)
+!Function Begin: 
+FxQ[iu]-FxQ[iubar]
+!Function End
+
+## Valence d, point-by-point
+
+Name: d_val(x,mu)
+!Function Begin: 
+FxQ[id]-FxQ[idbar]
+!Function End
+
+

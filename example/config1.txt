@@ -3,11 +3,11 @@
 
 #Job ID and job description will identify the output directory in ../plots/Jobs/
 # and include a brief description in the summary headers
-Job ID (copy from the counter file): ct14hera2
-Job description: CT14HERA2NNLO
+Job ID (copy from the counter file): CT14NNLO_example_ExptInCT14Fit
+Job description: CT14NNLO_example for showing how to set up configure files 
 
 #PDF set used for making correlation plots
-PDF set: CT14HERA2NNLO
+PDF set: CT14NNLO_example
 
 # Figures to plot
 # Type =1: all data points; 2: (expt errors)/(central data values); 
@@ -15,17 +15,16 @@ PDF set: CT14HERA2NNLO
 #5: "sensitivities" deltaR_i*Corr( r_i, F); 6: "correlations" Corr( r_i, F)
 # Flag = 1: plot; = 0, skip
 Type:  1     2     3     4     5     6     7
-Flag:  0     0     0     0     1     0     0
+Flag:  1     1     1     1     1     1     0
 
 # Experiments to inlcude (1:include, 0: skip)
-#For CT14HERA2NNLO
-Expt. ID:   701   702   703   160   101   102   103   104   106   108   109   110   111   124   125   126   127   147   201   203   204   225   227   231   234   260   261   504   514   145   169   267   268   535   240   241   281   265   266   538   245   246   247   248   542   544   249   250   565   566   567   568   545   	
-Expt. Flag:  0     0     0     1     1     1     0     1     0     1     1     1     1     1     1     1     1     1     1     1     1     1     1     0     1     1     0     1     1     1     1     0     1     1     1     1     1     0     1     1     1     1     0     1     1     1     1     1     1     1     1     1     0      
+Expt. ID:   701   702   703   159   160   101   102   103   104   106   108   109   110   111   124   125   126   127   147   201   203   204   225   227   231   234   260   261   504   514   145   169   267   268   535   240   241   281   265   266   538   245   246   247   248   542   544   249   250   565   566   567   568   545   	
+Expt. Flag:  0     0     0     1     0     1     1     0     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1     1     0     1     1     0     1     1     1     1     0     1     1     1     1     1     0     1     1     0     0     0     0     0     0     0     0     0     0     0     0     0      
 
 #Functions (F) to use to compute correlations & sensitivities 
 # Parton density function of shown flavor or a 'user' function
 Type:  bb  cb  sb  db  ub  g  u  d  s  c  b  user
-Flag:  0   0   0   1   1   1  1  1  1  1  1   1
+Flag:  0   0   0   1   0   1  0  0  0  0  1   1
 
 #Axes ranges (x, mu) and color palette range (z) in the x-mu figure  
 #Choose 'auto' or enter numerical values 
@@ -41,7 +40,7 @@ Number of bins: 100
 #1: only points in the specified value ranges are shown in color (mode 1):
 #2: only points in the specified percentage ranges are shown in color (mode 2)
 Type:  1     2     3     4     5     6     7
-Mode:  0     0     0     0     0     0     0
+Mode:  0     0     0     0     1     1     0
 
 # Highlighting ranges. Mode 1: by the value on the z-axis in the x-mu figures
 # Example, selecting "{{ -1., -0.7},{ 0.7, 1.}}" for figure type 6, mode 1 
