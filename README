@@ -8,35 +8,36 @@ This README introduces the knowledge for running this code, including some intro
 # How to run the code           #
 #################################
 
-One could run the GUI interface, the Mathematica scripts (.m executables), or Mathematica notebooks (.nb executables)  
-to implement the PDFsense. the GUI interface provides a user-friendly way to run the package. The script and notebook
-files enable users to run the package more flexible and to run more result in a run.
+One may choose to run the GUI interface, the Mathematica scripts (.m executables), or Mathematica notebooks (.nb executables)  
+to implement PDFsense. the GUI interface provides a user-friendly way to run the package. The script and notebook
+files enable users to run the package more flexibly and to generate more results in a given run.
 
 Running the GUI interface:
 a. ./XQPLOTTER 
-b. select PDF set, experiments, variable to be presented, and the demonstration of plots 
+b. select the PDF set, experiments, variables to be presented, and the presentation of plots 
 (x, mu range, the color palette of the value range, etc)
-c. click submit and output plots will pop out
+c. click submit and output plots will be displayed.
 
 Running the script and notebook:
 
 a. setting config1.txt file under ./bin:
-One could set up the input data, variables presented in plots, and the demonstration of plots in config1.txt.
+The settings for the experimental datasets to input, variables presented in plots, and the presentation of the plots are controlled by config1.txt. Options are turned on (off) by setting their corresponding "Flag" to 1 (0).
 
-In the config1.txt, #PDF set, # Figures to plot, # Experiments to include, #Functions to use in correlations, 
-#User function parameters are for setup of the input data.
-#x-Q figure parameters, #Histogram figure parameters, #in plots, #highlight mode, #data point size are for 
-setup of how figures look like 
+In config1.txt, lines start with a "#" symbol are comments and lines with xxx ":" xxx are input variables and their values for the code.
+"Job ID (copy from the counter file):", "Job description:", "PDF set:", "Type:", "Flag:", "Expt. ID:", "Expt. Flag:", "Type:", "Flag:" 
+are for the setup of the input data.
+"xmin,   xmax:", "mumin, mumax:", "zmin, zmax:", "Number of bins:", "Type:", "Mode:", "Mode 1 range:", "Mode 2 range:", "Size:"
+are for the setup of how figures look like.
 
 input data are in ./quick_data, output plots will be in ./plots/Jobs,
-In the config1.txt, "#PDF set..." set the input data (output of fxQsamept_corr_v2.nb or .m)
-"# Experiments..." select the experiments (represented by ID numbers) to be plotted,
+In the config1.txt, "PDF set:" set the input data (output of fxQsamept_corr_v2.nb or .m)
+"Expt. ID:" and "Expt. Flag:" select the experiments (represented by ID numbers) to be plotted,
 if a selected experiment is not in the input data, the plots would not contain it's information. 
 
-The user option in "#Functions (F)..." enables users (when it's Flag = 1) to create the customized function Func in 
+The "user" option to "Type:" in "#Functions (F)..." paragraph enables users (when it's Flag = 1) to create the customized function Func in 
 correlations Corr(ri, Func) and sensitivity Sens(ri, Func). 
 
-"#Axes ranges..." and the settings below it are for the demonstration of plots 
+"#Axes ranges..." paragraph and the settings below it are for the demonstration of plots 
 
 b. run the Mathematica script/notebook:
 first, go to ./bin directory, then 
@@ -45,7 +46,7 @@ for the notebook: open run_v4.nb and implement the code
 
 c. output
 The output is in ./plots/Jobs,
-The folder name is controlled by "#Job ID..." in config1.txt  
+The folder name is controlled by "Job ID (copy from the counter file):" in config1.txt  
 
 
 #################################
@@ -92,34 +93,37 @@ to run example files, just copy configure files under ./example to the ./bin dir
   a. open config1.txt and user_func.txt in ./plots/Jobs/CT14NNLO_example_ExptInCT14Fit. They record the arguments of this run.
   Now let's first read the config1.txt
 
-  b. Job ID (copy from the counter file): ...... set up the name of the output folder and PDF set: ...... set up the input data.
+  b. "Job ID (copy from the counter file):" set up the name of the output folder and "PDF set:" set up the input data.
   The input data is CT14NNLO_example so that the output data listed in 3.a will be the input data. 
 
-  c. in the # Figures to plot...... paragraph, Flag: ...... determine the observables in the output figures.
+  c. in the # Figures to plot...... paragraph, "Flag:" determine the observables in the output figures.
   Here for Type 1~6, Flags are 1, so the 6 kinds of observable will be in the output folder. 
   Let's check it:
   xQbyexpt_xQ.png, expt_error_ratio_xQ+1_samept.png, residual_xQ+1_samept.png, dr_xQ+1_samept.png are corresponding figures of 
   Type 1~4.  
   corrdr_xQ+1_f0_samept.png and corr_xQ+1_f0_samept.png are the Type 5, 6.
 
-  d. #Functions (F)...... indicates that the Flag of anti-d, gluon, and b quark = 1, so they will be in the output.
+  d. in "# Experiments to inlcude......" paragraph, "Expt. Flag:" determin whether the input data contains the corresponding "Expt. ID:"
+  open exptname_table.png see whether the IDs with Flag = 1 are contained in the output data list 
+ 
+  e. in the #Functions (F)...... paragraph, "Flag:" indicates that the Flag of anti-d, gluon, and b quark = 1, so they will be in the output.
   The convention of anti-b quark to b quark are from -5 to +5, so corrdr_xQ+1_f0_samept.png is the plot of gluon.
   You will also find corrdr_xQ+1_f-2_samept.png and corrdr_xQ+1_f5_samept.png, which are plots of anti-d and b quarks.
   
-  e. You also see the Flag of "user" is 1, so the script will run the user-customized functions. They are defined in user_func.txt.
+  f. You also see the Flag of "user" Type is 1, so the script will run the user-customized functions. They are defined in user_func.txt.
   In user_func.txt, you see there are four functions, so you will see there are four more output correlation/sensitivity plots with
   filename = corrdr_xQ+1_f6_samept.png, ......, corrdr_xQ+1_f9_samept.png
 
-  f. open corrdr_xQ+1_f0_samept.png and compare with #Highlighting...... part of config1.txt. The highlight mode of Type 5 is 1,
+  g. open corrdr_xQ+1_f0_samept.png and compare with #Highlighting...... paragraph of config1.txt. The highlight mode "Mode:" of Type 5 is 1,
   so the highlight range of Type 5 is {{ -5.0, -0.25},{ 0.25, 5.0}}, which is at the up-right side of corrdr_xQ+1_f0_samept.png.
   Also the points with values in the range of -0.25~0.25 are grayed out for they are not highlighted.
-  Then open expt_error_ratio_xQ+1_samept.png and compare with #Highlighting...... part of config1.txt. The highlight mode of 
+  Then open expt_error_ratio_xQ+1_samept.png and compare with #Highlighting...... paragraph of config1.txt. The highlight mode of 
   Type 5 is 0, so the plot does not highlight part of points. In expt_error_ratio_xQ+1_samept.png, all points are colored accordding
   to their values.
 
-  g. See #Axes ranges...... part and expt_error_ratio_xQ+1_samept.png. The scale range in the plot is auto at the x-axis and 1~6000 
-  at the y-axis, check whether the range of the y-axis is from 1~6000.
-  Also, the color palette range is auto, so the color palette at the right-side of the plot is from 0~the maximum value in points.
+  h. See #Axes ranges...... paragraph and expt_error_ratio_xQ+1_samept.png. The scale range "xmin,   xmax:" is auto and "mumin, mumax:" 
+  is 1~6000 , check whether the range of the y-axis is from 1~6000.
+  Also, the color palette range "zmin, zmax:" is auto, so the color palette at the right-side of the plot is from 0~the maximum value in points.
   The histogram corresponding to the plot (expt_error_ratio_hist+1_samept.png) also set the x-axis range to be the same as the 
   color palette range.  
     
