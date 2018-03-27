@@ -1,0 +1,53 @@
+#Comment Sample configuration file for the online plotter of CT14 data
+#Comment 2
+#Comment 3
+#Comment 4
+
+#read PDFset directory for use 
+PDF set Dir: ../example/CT14NNLO_example/
+
+
+#PDF method of the used PDFset, options: Hessian or MC
+#the program will deal with the PDFset by this method, 
+#ex: the uncertainty formula would be different depends on the method
+PDF method: Hessian
+
+#Expt ID of experiments used in the calculation, ex: 101 201 504
+#expt id in CT14NNLO
+Expt ID List: 101 102 104 106 108 109 110 111 124 125 126 127 145 147 159 169 201 203 204 225 227 234 240 241 260 261 266 267 268 281 504 514 535 538
+
+#datalis used in the program, it provides the expt information such as exptname
+#if set as default, then the default file path and name will be used
+datalis file: dat170928lisformathematica
+
+#the path of used or intepreted f(x, Q) data which is by points grid on (x, Q) plane,
+#Nx, NQ control the # of grids in x axis and Q axis
+#if set as default, then the default file path and name will be used
+F(x,Q) Grid Path: default
+F(x,Q) Grid File: default
+
+#the path of used or intepreted f(x, Q) data which is by same point of data set of experiments
+#the (x, Q) of f(x, Q) is by the specific formula, transforming from the data set (read from .dta file)  
+#if set as default, then the default file path and name will be used
+F(x,Q) Samept Path: default
+F(x,Q) Samept File: default
+
+
+#the path of correlation data
+#if set as default, then the default file path and name will be used
+Correlation Path: default
+Correlation File: default
+
+# x-axis points of the grid 
+Nx: 10
+
+# y-axis points of the grid
+NQ: 5
+
+
+#
+
+
+#
+
+
