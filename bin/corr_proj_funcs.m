@@ -7846,8 +7846,21 @@ AbsDataStatsByID={Length[#],Length[#]*Mean[#],Max[#],Min[#],Mean[#],Median[#],St
 (*add row label (expt ID)*)(*assume ClassifyMode = single mode*)
 Table[DataStatsByID[[iexpt]]=Prepend[DataStatsByID[[iexpt]],groupExptIDs[[iexpt,1]] ],{iexpt,Length[groupExptIDs]}];
 Table[AbsDataStatsByID[[iexpt]]=Prepend[AbsDataStatsByID[[iexpt]],groupExptIDs[[iexpt,1]] ],{iexpt,Length[groupExptIDs]}];
-DataStatsByID=Prepend[DataStatsByID,DataStatsByIDLabel];
-AbsDataStatsByID=Prepend[AbsDataStatsByID,DataStatsByIDLabel];
+
+(*20180328 add the Npt info after specifying (x,Q)*)
+Table[DataStatsByID[[iexpt]]=Append[DataStatsByID[[iexpt]],Nptplotlist[[iexpt]] ],{iexpt,Length[groupExptIDs]}];
+Table[AbsDataStatsByID[[iexpt]]=Append[AbsDataStatsByID[[iexpt]],Nptplotlist[[iexpt]] ],{iexpt,Length[groupExptIDs]}];
+Table[DataStatsByID[[iexpt]]=Append[DataStatsByID[[iexpt]],NptRawinplotlist[[iexpt]] ],{iexpt,Length[groupExptIDs]}];
+Table[AbsDataStatsByID[[iexpt]]=Append[AbsDataStatsByID[[iexpt]],NptRawinplotlist[[iexpt]] ],{iexpt,Length[groupExptIDs]}];
+
+
+DataStatsByID=Prepend[DataStatsByID,DataStatsByIDLabel~Join~{"NptPlot","NptRawPlot"}];
+AbsDataStatsByID=Prepend[AbsDataStatsByID,DataStatsByIDLabel~Join~{"NptPlot","NptRawPlot"}];
+(*
+Print["abs data stats:"];
+Print[AbsDataStatsByID//TableForm];
+Abort[];
+*)
 (*=============================================================================================================================*)
 (*Highlight range setting============================================================================================================*)
 (*=============================================================================================================================*)
@@ -7942,16 +7955,16 @@ If[
 (plottype==5 || plottype==6),
 output=
 {
-{"datatype","flavour","Expts","Npt","SumVals","DataMax","DataMin","DataMean","DataMedian","DataSD","data stats by ID","highlightrange","highlighted data"},
-{datatype,pdfnamelable[[flavourin+6]],{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,Npt,Npt*DataMean,DataMax,DataMin,DataMean,DataMedian,DataSD,DataStatsByID,highlightrange,Transpose[{{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,pdfcorr},{2,1}]}
+{"datatype","flavour","Expts","Npt","SumVals","DataMax","DataMin","DataMean","DataMedian","DataSD","NptPlot","NptRawPlot","data stats by ID","highlightrange","highlighted data"},
+{datatype,pdfnamelable[[flavourin+6]],{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,Npt,Npt*DataMean,DataMax,DataMin,DataMean,DataMedian,DataSD,Nptplot,NptRawinplot,DataStatsByID,highlightrange,Transpose[{{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,pdfcorr},{2,1}]}
 }
 ];
 If[
 (plottype==2 || plottype==3 || plottype==4),
 output=
 {
-{"datatype",(*"flavour",*)"Expts","Npt","SumVals","DataMax","DataMin","DataMean","DataMedian","DataSD","data stats by ID","highlightrange","highlighted data"},
-{datatype,(*pdfnamelable[[flavourin+6]],*){#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,Npt,Npt*DataMean,DataMax,DataMin,DataMean,DataMedian,DataSD,DataStatsByID,highlightrange,Transpose[{{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,pdfcorr},{2,1}]}
+{"datatype",(*"flavour",*)"Expts","Npt","SumVals","DataMax","DataMin","DataMean","DataMedian","DataSD","NptPlot","NptRawPlot","data stats by ID","highlightrange","highlighted data"},
+{datatype,(*pdfnamelable[[flavourin+6]],*){#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,Npt,Npt*DataMean,DataMax,DataMin,DataMean,DataMedian,DataSD,Nptplot,NptRawinplot,DataStatsByID,highlightrange,Transpose[{{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,pdfcorr},{2,1}]}
 }
 
 ];
