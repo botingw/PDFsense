@@ -456,3 +456,7 @@ continue from 0324:
 20180328
 update the .tsv file codes, which are used to generate PCA, t-SNE figures in paper 1803.02777
 
+20180328
+also include the Npt in plots and Npt of .dta points that have at least one point specified and drawed in plots,
+these points may depend on various flavours because each plots of flavours would also discard points that PDF values can not be resolved.
+
