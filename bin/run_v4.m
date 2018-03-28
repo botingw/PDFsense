@@ -879,7 +879,7 @@ datainfostr=
 Table[
 If[
 CorrelationArgFlag[[flavour+6]]==1,
-datainfototext[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],6,flavour],
+datainfototext[{corrdataclassfinal},{dtacentralclassfinal},readcorrconfigfile6[configDir,configfilename],6,flavour],
 ""
 ],
 {flavour,-5,-5+fmax-1}
@@ -907,7 +907,7 @@ datainfostr=
 Table[
 If[
 CorrelationArgFlag[[flavour+6]]==1,
-datainfototext[{dRcorrdataclassfinal},readcorrconfigfile6[configDir,configfilename],5,flavour],
+datainfototext[{dRcorrdataclassfinal},{dtacentralclassfinal},readcorrconfigfile6[configDir,configfilename],5,flavour],
 ""
 ],
 {flavour,-5,-5+fmax-1}
@@ -1110,7 +1110,7 @@ FigureFlag[[2]]==1 || FigureFlag[[2]]==-1,
 Print["making plot of figure type ",FigureType[[2]],", flavour = ",flavour];
 p234=processdataplotsmultiexp7percentage[{expterrordataclassfinal},readcorrconfigfile6[configDir,configfilename],2,flavour];
 (*20171202 add important data info*)
-datainfostr=datainfototext[{expterrordataclassfinal},readcorrconfigfile6[configDir,configfilename],2,flavour];
+datainfostr=datainfototext[{expterrordataclassfinal},{dtacentralclassfinal},readcorrconfigfile6[configDir,configfilename],2,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
 
 Table[
@@ -1161,7 +1161,7 @@ FigureFlag[[3]]==1 || FigureFlag[[3]]==-1,
 Print["making plot of figure type ",FigureType[[3]],", flavour = ",flavour];
 p234=processdataplotsmultiexp7percentage[{residualdataclassfinal},readcorrconfigfile6[configDir,configfilename],3,flavour];
 (*20171202 add important data info*)
-datainfostr=datainfototext[{residualdataclassfinal},readcorrconfigfile6[configDir,configfilename],3,flavour];
+datainfostr=datainfototext[{residualdataclassfinal},{dtacentralclassfinal},readcorrconfigfile6[configDir,configfilename],3,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
 Table[
 (*
@@ -1237,7 +1237,7 @@ FigureFlag[[4]]==1 || FigureFlag[[4]]==-1,
 Print["making plot of figure type ",FigureType[[4]],", flavour = ",flavour];
 p234=processdataplotsmultiexp7percentage[{dRdataclassfinal},readcorrconfigfile6[configDir,configfilename],4,flavour];
 (*20171202 add important data info*)
-datainfostr=datainfototext[{dRdataclassfinal},readcorrconfigfile6[configDir,configfilename],4,flavour];
+datainfostr=datainfototext[{dRdataclassfinal},{dtacentralclassfinal},readcorrconfigfile6[configDir,configfilename],4,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
 Table[
 filename=obsname[[4]]<>"_"<>representationname[[2]]<>"_samept"<>extensionname[[iext[[i]] ]];
@@ -2549,3 +2549,61 @@ If[irun==Length[Lexpt],Print["all processes are done"];Abort[]];
 
 (* ::Input:: *)
 (*(PlotMarkerList[][[1]]&/@Range[10])//Flatten*)
+
+
+(* ::Input:: *)
+(*Table[dRcorrdataclassfinal[[iexpt,iflavour]][["data"]]//Length,{iexpt,8},{iflavour,Length[dRcorrdataclassfinal[[1]] ]}]*)
+
+
+(* ::Input:: *)
+(*Table[Count[( ( (dRcorrdataclassfinal[[iexpt,iflavour]][["data"]])/.LF->List)//Flatten),0.0],{iexpt,8},{iflavour,Length[dRcorrdataclassfinal[[1]] ]}]*)
+
+
+(* ::Input:: *)
+(*dRcorrdataclassfinal[[4,3]][["data"]][[43]]*)
+
+
+(* ::Input:: *)
+(*residualNsetclassfinal[[4]][["data"]][[43]]*)
+(*fxQsamept2classfinal[[4,3]][["data"]][[43]]*)
+(*fxQsamept2classfinal[[4,13]][["data"]][[43]]*)
+(*fxQsamept2classfinal[[4,13]][["data"]][[43]]*)
+
+
+(* ::Input:: *)
+(*N[((dtacentralclassfinal[[#]][["rawdata"]][[5]])/(residualNsetclassfinal[[#]][["data"]]//Length))]&/@Range[8]*)
+
+
+(* ::Input:: *)
+(*Position[dtacentralclassfinal[[1]][["label"]],"ipt"][[1,1]]*)
+
+
+(* ::Input:: *)
+(*corrdataclassfinal[[1,6]]*)
+
+
+(* ::Input:: *)
+(*datainfototext[{corrdataclassfinal},{dtacentralclassfinal},readcorrconfigfile6[configDir,configfilename],6,0]*)
+
+
+(* ::Input:: *)
+(*datainfototext[{corrdataclassfinal},{dtacentralclassfinal},readcorrconfigfile6[configDir,configfilename],6,0]*)
+
+
+(* ::Input:: *)
+(*datainfototext[{expterrordataclassfinal},{dtacentralclassfinal},readcorrconfigfile6[configDir,configfilename],2,flavour]*)
+
+
+(* ::Input:: *)
+(*datainfostr=datainfototext[{dRdataclassfinal},{dtacentralclassfinal},readcorrconfigfile6[configDir,configfilename],2,flavour]*)
+
+
+(* ::Input:: *)
+(*dRdataclassfinal//Dimensions*)
+(*expterrordataclassfinal//Dimensions*)
+(*dRdataclassfinal[[1]]*)
+(*expterrordataclassfinal[[1]]*)
+
+
+(* ::Input:: *)
+(*datainfototext[{residualdataclassfinal},{dtacentralclassfinal},readcorrconfigfile6[configDir,configfilename],3,flavour]*)

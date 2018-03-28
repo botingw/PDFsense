@@ -7561,9 +7561,9 @@ output
 {{labels},{descriptions}} of the data
 e.g. {{"dataMin",0.01},{"dataMax",0.88},...,{"highlighted data",data}}
 *)
-
-getcorrinfo[corrfxQdtaobsclassin_,configargumentsin_,plottypein_,flavourin_]:=
-Module[{(*corrfxQdtaobsclass=corrfxQdtaobsclassin,*)configarguments=configargumentsin,
+(*20180322 to get the ipt index for plotted data, input dtacentralclass*)
+getcorrinfo[corrfxQdtaobsclassin_,dtacentralclassin_,configargumentsin_,plottypein_,flavourin_]:=
+Module[{corrfxQdtaobsclass=corrfxQdtaobsclassin,configarguments=configargumentsin,
 plottype=plottypein,(*flavour=flavourin,*)flavour,
 Jobid,PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,UserArgName,UserArgValue,
 XQfigureXrange,XQfigureYrange,Hist1figureNbin,Hist1figureXrange,Hist1figureYrange,
@@ -7588,7 +7588,61 @@ groupnames,groupExptIDs,classifymode,
 ColorPaletterange,JobDescription,
 shapeslist,abstitle,absPaletteMax,absbarseperator,absbarlegend,xQplotcorr2,exptnamestitle,
 safewidth,datatype,output,
-DataStatsByIDLabel,DataStatsByID,AbsDataStatsByID,Npt},
+DataStatsByIDLabel,DataStatsByID,AbsDataStatsByID,Npt,
+NptRawlist,NptRaw,Nptplotlist,Nptplot,NptRawinplotlist,NptRawinplot,iptpos,ptindexlistin,Npttmp,HistDataListByID,HistAbsDataListByID},
+(*20180322 to calculate the sensitivity statistics, need to know if one experimental data point specify multiple (x,Q) points, the physical quantities of specified points should be the average of all specified points from the same point*)
+(*so we need to get the info of the original point index for the corresponding specified points, then average the values of the specified points*)
+
+(*for the specified (x,Q) points, gather them by the same raw data point, then for the data from the same raw data point, evenly distribute the weight as 1/(Npt raw)*)
+(*specifieddata: specified data list, ptindexlist: the list with the raw data index for each specified data*)
+(*e.g. for specified data {case1, case2,...}, the list is {pt1, pt2,...} representing the pt index of the raw data point specifying the specified data*)
+GatherByNptSpecified[specifieddatain_,ptindexlistin_]:=
+Module[{specifieddata=specifieddatain,ptindexlist=ptindexlistin,outputin},
+
+(*gather the specified data by the pt index *)
+outputin=GatherBy[{ptindexlist,specifieddata}//Transpose,#[[1]]&];
+(*the dimension of the output is {groups,data in the same group, {pt index, data}}*)
+(*we only take the data part*)
+outputin[[All,All,2]]
+];
+(*Npt of raw data for each expt id*)
+If[
+plottype==1  || plottype==5  || plottype==6,
+NptRawlist=Table[#[[iexpt]][["rawdata"]][[5]],{iexpt,1,Length[#]}]&/@dtacentralclassin
+];
+If[
+plottype==2  || plottype==3  || plottype==4,
+NptRawlist=Table[#[[iexpt]][["rawdata"]][[5]],{iexpt,1,Length[#]}]&/@dtacentralclassin
+];
+NptRawlist=Flatten[NptRawlist,1];
+(* give data it's own {iexpt, ipt index of raw data}*)
+Table[
+Table[
+Npttmp=dtacentralclassin[[igroup,iexpt]][["data"]]//Length;
+iptpos=Position[dtacentralclassin[[igroup,iexpt]][["label"]],"ipt"][[1,1]];
+ptindexlistin=dtacentralclassin[[igroup,iexpt]][["data"]][[All,iptpos]];
+
+Table[
+
+If[plottype==1  || plottype==5  || plottype==6,
+corrfxQdtaobsclass[[igroup,iexpt,flavourin+6]][["data"]][[ipt]]=Append[corrfxQdtaobsclass[[igroup,iexpt,flavourin+6]][["data"]][[ipt]],{iexpt,ptindexlistin[[ipt]]} ]
+];
+If[plottype==2  || plottype==3  || plottype==4,
+corrfxQdtaobsclass[[igroup,iexpt]][["data"]][[ipt]]=Append[corrfxQdtaobsclass[[igroup,iexpt]][["data"]][[ipt]],{iexpt,ptindexlistin[[ipt]]} ]
+];
+(*
+Print[Append[corrfxQdtaobsclass[[igroup,iexpt,flavourin+6]][["data"]][[ipt]],{iexpt,ptindexlist[[ipt]]} ] ];
+*)
+"dummy",
+{ipt,Npttmp}],
+{iexpt,1,dtacentralclassin[[igroup]]//Length}
+];
+"dummy",
+{igroup,dtacentralclassin//Length}
+];
+
+(*20180322 end*)
+
 
 (*read arguments in config file*)
 (*==============================*)
@@ -7627,9 +7681,9 @@ If[PDFname=="2017.1008.0954.-0500_CT14HERA2-jet.ev",PDFname="CT14HERA2-jet.ev"];
 (*=============================================================================================================================*)
 (*read exptlist*)
 exptlist={};
-If[plottype==1  || plottype==5  || plottype==6,exptlist=Table[#[[iexpt,6]][["exptinfo","exptid"]],{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin ];
+If[plottype==1  || plottype==5  || plottype==6,exptlist=Table[#[[iexpt,6]][["exptinfo","exptid"]],{iexpt,1,Length[#]}]&/@corrfxQdtaobsclass ];
 If[plottype==2  || plottype==3  || plottype==4,
-exptlist=Table[#[[iexpt]][["exptinfo","exptid"]],{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin ];
+exptlist=Table[#[[iexpt]][["exptinfo","exptid"]],{iexpt,1,Length[#]}]&/@corrfxQdtaobsclass ];
 (*test*)(*Print["expts: ",exptlist];*)
 
 (*20171126 classify mode for data \[Rule] different shape for each group*)
@@ -7644,10 +7698,10 @@ classifymode=ClassifyMode;
 (*20170515: pdfcorr = {group1data, group2data, ...}, groupNdata = {LF1[x,Q,obs],...}*)
 If[
 plottype==5  || plottype==6,
-fmax=Length[corrfxQdtaobsclassin[[1,1]] ];
+fmax=Length[corrfxQdtaobsclass[[1,1]] ];
 
 (*data format \[Equal] {LF[x,Q,obs],...,...}, to LF1*)
-pdfcorr=Table[#[[iexpt,flavourin+6]][["data"]]/.LF->LF1,{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin;
+pdfcorr=Table[#[[iexpt,flavourin+6]][["data"]]/.LF->LF1,{iexpt,1,Length[#]}]&/@corrfxQdtaobsclass;
 (*Print[Length[exptlist[[1]] ],"  ",Length[pdfcorr[[1]] ] ];*)(*test length data*)
 
 (*20171126: classify exptid by defined groups with classifymode*)
@@ -7671,9 +7725,9 @@ pdfcorr=Table[Select[pdfcorr[[igroup]],#[[3]]!=0&],{igroup,1,Length[pdfcorr]}];
 If[
 plottype==2 || plottype==3 || plottype==4,
 (*take data, and format from LF to LF1 (LF1 is format to input to plot functions)*)
-pdfcorr=Table[#[[iexpt]][["data"]]/.LF->LF1,{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin;
+pdfcorr=Table[#[[iexpt]][["data"]]/.LF->LF1,{iexpt,1,Length[#]}]&/@corrfxQdtaobsclass;
 (*20171108 expt error ratio values should be absolute value*)
-If[plottype==2,pdfcorr=pdfcorr/.LF1[a__]:>LF1[{a}[[1]],{a}[[2]],Abs[{a}[[3]] ] ] ];
+If[plottype==2,pdfcorr=pdfcorr/.LF1[a__]:>LF1[{a}[[1]],{a}[[2]],Abs[{a}[[3]] ],{a}[[4]] ] ];
 
 (*20171126: classify exptid by defined groups with classifymode*)
 {groupnames,groupExptIDs,(*groupdata*)pdfcorr}=ClassifyPlottedData[pdfcorr[[1]],exptlist[[1]],classifymode];
@@ -7686,12 +7740,12 @@ pdfcorr=Flatten[#,1]&/@pdfcorr;
 
 If[
 plottype==1,
-fmax=Length[corrfxQdtaobsclassin[[1,1]] ];
+fmax=Length[corrfxQdtaobsclass[[1,1]] ];
 
 (*set {corr[[flavour]],drcorr[[flavour]],dr[[flavour]]}*)
 (*they are used to  input into processdataplotsmultiexp*)
 (*data format \[Equal] {LF[x,Q,obs],...,...}*)
-pdfcorr=Table[Datamethods[["take"]][#[[iexpt,flavourin+6]],2][["data"]]/.LF->LF1,{iexpt,1,Length[#]}]&/@corrfxQdtaobsclassin;
+pdfcorr=Table[Datamethods[["take"]][#[[iexpt,flavourin+6]],2][["data"]]/.LF->LF1,{iexpt,1,Length[#]}]&/@corrfxQdtaobsclass;
 ];
 
 (*20171202: if the "other" type has no expt ID, delete it*)
@@ -7705,8 +7759,65 @@ If[Length[groupExptIDs[[-1]] ]==0,{groupnames,groupExptIDs,(*groupdata*)pdfcorr}
 {HistDataList,HistAbsDataList,DataMax,DataMin,AbsDataMax,AbsDataMin,DataMean,AbsDataMean,DataMedian,AbsDataMedian,DataSD,AbsDataSD};
 If[
 plottype==2 || plottype==3 || plottype==4 || plottype==5 || plottype==6,
-HistDataList=Flatten[pdfcorr]/.LF1[a__]:>{a}[[3]];
-HistAbsDataList=Flatten[pdfcorr]/.LF1[a__]:>Abs[{a}[[3]] ];
+(*20180322 classify points by their raw point ipt index, {a}[[3]]: quantities, {a}[[4]]: {iexpt, raw ipt index}*)
+(*
+Print["dim of data: ",pdfcorr//Dimensions];
+Print["dim of data: ",pdfcorr//Flatten//Dimensions];
+Print["dim of data: ",(pdfcorr//Flatten)[[1;;3]] ];
+*)
+(*
+HistDataList=Flatten[pdfcorr]/.LF1[a__]\[RuleDelayed]{a}[[3]];
+HistAbsDataList=Flatten[pdfcorr]/.LF1[a__]\[RuleDelayed]Abs[{a}[[3]] ];
+*)
+(*20180322 for the data with the same raw point, average the quantities of all data*)
+
+HistDataList=Flatten[pdfcorr]/.LF1[a__]:>{{a}[[3]],{a}[[4]] };
+HistAbsDataList=Flatten[pdfcorr]/.LF1[a__]:>{Abs[{a}[[3]] ],{a}[[4]] };
+(*20180323 add data list for {{ID1list},{ID2list},...}*)
+HistDataListByID=pdfcorr/.LF1[a__]:>{{a}[[3]],{a}[[4]] };
+HistAbsDataListByID=pdfcorr/.LF1[a__]:>{Abs[{a}[[3]] ],{a}[[4]] };
+
+Nptplotlist=(*(#//Length)&/@pdfcorr;*)Table[HistDataListByID[[igroup]]//Length,{igroup,HistDataListByID//Length}];
+NptRaw=NptRawlist//Flatten//Total;
+Nptplot=Nptplotlist//Total;
+
+HistDataList=Mean[#]&/@GatherByNptSpecified[HistDataList[[All,1]],HistDataList[[All,2]] ];
+HistAbsDataList=Mean[#]&/@GatherByNptSpecified[HistAbsDataList[[All,1]],HistAbsDataList[[All,2]] ];
+(*20180323 add data list for {{ID1list},{ID2list},...}*)
+(*
+HistDataListByID=Map[GatherByNptSpecified[,HistDataListByID[[All,All,1]],HistDataListByID[[All,All,2]] ],2];
+HistAbsDataListByID=Map[Mean[#]&/@GatherByNptSpecified[,HistAbsDataListByID[[All,All,1]],HistAbsDataListByID[[All,All,2]] ],2];
+*)
+HistDataListByID=Table[Mean[#]&/@GatherByNptSpecified[HistDataListByID[[igroup,All,1]],HistDataListByID[[igroup,All,2]] ],{igroup,HistDataListByID//Length}];
+HistAbsDataListByID=Table[Mean[#]&/@GatherByNptSpecified[HistAbsDataListByID[[igroup,All,1]],HistAbsDataListByID[[igroup,All,2]] ],{igroup,HistAbsDataListByID//Length}];
+
+NptRawinplotlist=Table[HistDataListByID[[igroup]]//Length,{igroup,HistDataListByID//Length}];
+NptRawinplot=NptRawinplotlist//Total;
+(*
+Print["Npt raw: ",NptRawlist];
+Print["Npt plot: ",Nptplotlist];
+Print["Npt raw in plot: ",NptRawinplotlist];
+Print["Npt raw: ",NptRaw];
+Print["Npt plot: ",Nptplot];
+Print["Npt raw in plot: ",NptRawinplot];
+*)
+
+(*20180322 if Npt raw in plot < Npt raw, add the 0.0 values for the raw points not in the plot*)
+If[NptRawinplot>NptRaw,Print["error, NptRaw in plot should smaller than NptRaw, {NptRaw,NptRawinplot} = ",{NptRaw,NptRawinplot}];Abort[] ];
+If[
+NptRawinplot<NptRaw,
+Print["begin to assign 0.0 to the quantities in raw data that are not in the plot "];
+HistDataList=HistDataList~Join~Table[0.0,{ipt,NptRaw-NptRawinplot}];
+HistAbsDataList=HistAbsDataList~Join~Table[0.0,{ipt,NptRaw-NptRawinplot}];
+Table[
+HistDataListByID[[igroup]]=HistDataListByID[[igroup]]~Join~Table[0.0,{ipt,NptRawlist[[igroup]]-NptRawinplotlist[[igroup]]}];
+HistAbsDataListByID[[igroup]]=HistAbsDataListByID[[igroup]]~Join~Table[0.0,{ipt,NptRawlist[[igroup]]-NptRawinplotlist[[igroup]]}];
+"dummy",
+{igroup,HistDataListByID//Length}
+];
+];
+
+
 DataMax=Max[HistDataList];
 DataMin=Min[HistDataList];
 AbsDataMax=Max[HistAbsDataList];
@@ -7725,8 +7836,13 @@ Npt=Length[HistDataList];
 (*20171204 we need info for each expt ID*)(*20171208 add Npt for each expt ID*)
 {DataStatsByIDLabel,DataStatsByID,AbsDataStatsByID};
 DataStatsByIDLabel={"ID","Npt","SumVals","Max","Min","Mean","Median","StandardDeviation"};
-DataStatsByID={Length[#],Length[#]*Mean[#],Max[#],Min[#],Mean[#],Median[#],StandardDeviation[#]}&/@(pdfcorr/.LF1[a__]:>{a}[[3]]);
-AbsDataStatsByID={Length[#],Length[#]*Mean[#],Max[#],Min[#],Mean[#],Median[#],StandardDeviation[#]}&/@(pdfcorr/.LF1[a__]:>Abs[{a}[[3]] ]);
+(*20180223*)
+DataStatsByID={Length[#],Length[#]*Mean[#],Max[#],Min[#],Mean[#],Median[#],StandardDeviation[#]}&/@HistDataListByID;
+AbsDataStatsByID={Length[#],Length[#]*Mean[#],Max[#],Min[#],Mean[#],Median[#],StandardDeviation[#]}&/@HistAbsDataListByID;
+(*
+DataStatsByID={Length[#],Length[#]*Mean[#],Max[#],Min[#],Mean[#],Median[#],StandardDeviation[#]}&/@(pdfcorr/.LF1[a__]\[RuleDelayed]{a}[[3]]);
+AbsDataStatsByID={Length[#],Length[#]*Mean[#],Max[#],Min[#],Mean[#],Median[#],StandardDeviation[#]}&/@(pdfcorr/.LF1[a__]\[RuleDelayed]Abs[{a}[[3]] ]);
+*)
 (*add row label (expt ID)*)(*assume ClassifyMode = single mode*)
 Table[DataStatsByID[[iexpt]]=Prepend[DataStatsByID[[iexpt]],groupExptIDs[[iexpt,1]] ],{iexpt,Length[groupExptIDs]}];
 Table[AbsDataStatsByID[[iexpt]]=Prepend[AbsDataStatsByID[[iexpt]],groupExptIDs[[iexpt,1]] ],{iexpt,Length[groupExptIDs]}];
@@ -7900,14 +8016,14 @@ alldatainfo=Append[alldatainfo,getcorrinfo[corrfxQdtaobsclassin,configarguments,
 alldatainfo
 ]
 *)
-
-datainfototext[corrfxQdtaobsclassin_,configargumentsin_,plottypein_,flavourin_]:=
+(*20180322 need expt ipt index info from the dtacentralclass*)
+datainfototext[corrfxQdtaobsclassin_,dtacentralclassin_,configargumentsin_,plottypein_,flavourin_]:=
 Module[{(*corrfxQdtaobsclass=corrfxQdtaobsclassin,*)configarguments=configargumentsin,
 plottype=plottypein,(*flavour=flavourin,*)flavour,
 input,Nlabel,infostring,Nexpt,exptID,exptdata,xqvaluestr
 },
-
-input=getcorrinfo[corrfxQdtaobsclassin,configarguments,plottype,flavourin];
+(*20180322*)
+input=getcorrinfo[corrfxQdtaobsclassin,dtacentralclassin,configarguments,plottype,flavourin];
 Nlabel=Length[input[[1]] ];
 
 infostring="";

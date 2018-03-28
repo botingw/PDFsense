@@ -194,6 +194,43 @@ Readdtafile[["toclass"]][exptdata[[iexpt,iset]],PDFname,PDFsetmethod],
 
 
 (* ::Subsection:: *)
+(*add point index for each data*)
+
+
+(* ::Input:: *)
+(*(*20180322*)*)
+(*(*after adding (x,Q) values for each data point, some data will specify multiple (x,Q) values and some failed (x,Q) points will be deleted, to track the sources of specified points, we give ipt index by the ordering of the raw data in .dta files*)*)
+
+
+(* ::Input:: *)
+(*mydtadata//Dimensions*)
+
+
+(* ::Input:: *)
+(*mydtadata[[8,1]][["label"]]*)
+
+
+(* ::Input:: *)
+(*Append[LF[1,2,3],2 ]*)
+
+
+(* ::Input::Initialization:: *)
+Table[
+Npt=mydtadata[[iexpt,iset]][["data"]]//Length;
+mydtadata[[iexpt,iset]][["label"]]=mydtadata[[iexpt,iset]][["label"]]~Join~{"ipt"};
+Table[mydtadata[[iexpt,iset]][["data"]][[ipt]]=Append[mydtadata[[iexpt,iset]][["data"]][[ipt]],ipt];"dummy",{ipt,Npt}],
+{iexpt,1,Dimensions[mydtadata][[1]]},{iset,1,Dimensions[mydtadata][[2]]}
+];
+
+
+(* ::Input:: *)
+(*mydtadata[[1,1]][["label"]]*)
+(*mydtadata[[2,5]][["label"]]*)
+(*mydtadata[[1,1]][["data"]][[1;;3]]*)
+(*mydtadata[[2,5]][["data"]][[1;;3]]*)
+
+
+(* ::Subsection:: *)
 (*add {x,Q} to data label*)
 
 
@@ -1061,3 +1098,65 @@ Print["The time used is ",SessionTime[]];
 
 (* ::Input:: *)
 (*mydtadata[[1,1]];*)
+
+
+(* ::Input:: *)
+(*dtacentralclass//Dimensions*)
+(*residualNsetclass//Dimensions*)
+(*fxQsamept2class//Dimensions*)
+
+
+(* ::Input:: *)
+(*{72,110,90,133}/(Length[dtacentralclass[[#]][["data"]] ]&/@Range[5,8])//N*)
+(*{72,110,90,133}/(Length[residualNsetclass[[#]][["data"]] ]&/@Range[5,8])//N*)
+(*Table[Length[fxQsamept2class[[#,iflavour+6]][["data"]] ],{iflavour,-5,5}]&/@Range[5,8]*)
+
+
+(* ::Input:: *)
+(*dtacentralclass[[1]][["label"]]*)
+(*dtacentralclass[[5]][["data"]]/.LF[a__]:>{a}[[14]]*)
+
+
+(* ::Input:: *)
+(*dtacentralclass[[5]][["rawdata"]][[5]]*)
+
+
+(* ::Input:: *)
+(*Table[GatherBy[dtacentralclass[[iexpt]][["data"]],#[[14]]&]//Length,{iexpt,8}]*)
+
+
+(* ::Input:: *)
+(*(*for the specified (x,Q) points, gather them by the same raw data point, then for the data from the same raw data point, evenly distribute the weight as 1/(Npt raw)*)*)
+(*(*specifieddata: specified data list, ptindexlist: the list with the raw data index for each specified data*)*)
+(*(*e.g. for specified data {case1, case2,...}, the list is {pt1, pt2,...} representing the pt index of the raw data point specifying the specified data*)*)
+(*WeightByNptSpecified[specifieddatain_,ptindexlistin_]:=*)
+(*Module[{specifieddata=specifieddatain,ptindexlist=ptindexlistin,Npt,output},*)
+(**)
+(*(*gather the specified data by the pt index *)*)
+(*output=GatherBy[{ptindexlist,specifieddata}//Transpose,#[[1]]&];*)
+(*(*the dimension of the output is {groups,data in the same group, {pt index, data}}*)*)
+(*(*we only take the data part*)*)
+(*output[[All,All,2]]*)
+(*]*)
+
+
+(* ::Input:: *)
+(*WeightByNptSpecified[dtacentralclass[[5]][["data"]],dtacentralclass[[5]][["data"]][[All,14]] ][[All,All,5]]*)
+
+
+(* ::Input:: *)
+(*{{1,2},{3,7}}//Mean*)
+
+
+(* ::Input:: *)
+(*(*get the |S| for each raw data point as the average of |S| of all point specified by this point *)*)
+(*(Mean[#]&/@(WeightByNptSpecified[dRcorrfxQdtaobsclass[[8,7]][["data"]],dtacentralclass[[8]][["data"]][[All,14]] ]/.LF[a__]:>Abs[{a}[[3]] ]) )//Length*)
+(*(Mean[#]&/@(WeightByNptSpecified[dRcorrfxQdtaobsclass[[8,7]][["data"]],dtacentralclass[[8]][["data"]][[All,14]] ]/.LF[a__]:>Abs[{a}[[3]] ]) )*)
+
+
+(* ::Input:: *)
+(*Table[dRcorrfxQdtaobsclass[[iexpt,iflavour]][["data"]]//Length,{iexpt,8},{iflavour,Length[dRcorrfxQdtaobsclass[[1]] ]}]*)
+
+
+(* ::Input:: *)
+(*Table[Count[( ( (dRcorrfxQdtaobsclass[[iexpt,iflavour]][["data"]])/.LF->List)//Flatten),0.0],{iexpt,8},{iflavour,11}]*)
