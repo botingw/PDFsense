@@ -7,7 +7,7 @@
 (* ::Input::Initialization:: *)
  (*SetDirectory["/home/botingw/Downloads"];*)(*other files are under the same directory*)
 (*20170620: for script version, executables could not run pdfparse correctly, so modify the path setting*)
-SetDirectory[(*NotebookDirectory[]*)DirectoryName[$InputFileName] ];(*Print[Directory[] ];SetDirectory[NotebookDirectory[] ];Print[Directory[] ];*)
+SetDirectory[NotebookDirectory[](*DirectoryName[$InputFileName]*) ];(*Print[Directory[] ];SetDirectory[NotebookDirectory[] ];Print[Directory[] ];*)
 Print["present directory: ",Directory[]];
 libdir="../lib/";
 lib1=libdir<>"pdfParsePDS2013.m";
@@ -6282,6 +6282,77 @@ plottype==1,
 
 
 (* ::Input::Initialization:: *)
+(*this function remove the comments with '#' symbol at the head, and output lines in the file by List*)
+RemoveFileComments[filein_]:=
+Module[{file=filein,str,arglist,commentpos},
+str=OpenRead[file];
+(*read file by line to a String List*)
+arglist=ReadList[str,Record,RecordSeparators->{"\n"}];
+Close[str];
+(*for each line, deal with comments by deleting text after '#'*)
+arglist=Table[
+commentpos=StringPosition[arglist[[iarg]],"#"];
+
+If[
+Length[commentpos]==0,
+(*if no '#', keep this line*)
+arglist[[iarg]],
+(*if '#' is not the first character, remove the text after '#' of this line*)
+StringTake[arglist[[iarg]],commentpos[[1,1]]-1]
+],
+{iarg,arglist//Length}
+];
+(*if '#' is the first character, remove this line*)
+arglist=Select[arglist,StringLength[#]>0&];
+(*output*)
+arglist
+]
+
+(*for input lines of arguments (arguments are represented by texts after ':' symbol)
+output the argument labels and arguments by mathematica expression form
+arglist is a list of string represent lines of input *)
+(*output {label,expression}, in label, expression, there are N arguments, ex: {{label1, label2, ...},{expression1, expression2, ...}}*)
+ReadArgsByLine[arglistin_]:=
+Module[{arglist=arglistin,ErrorBool,labels,expressions},
+(*for each line, separate the line by only one ':'*)
+arglist=
+Table[
+StringSplit[arglist[[iarg]],":",2],
+{iarg,arglist//Length}
+];
+
+(*check for each line the format is label: expression*)
+ErrorBool=False;
+Table[
+(*if no ':' return error*)
+If[Length[arglist[[iarg]] ]!=2,Print["error, line ",iarg,"'s element is not 2 "];ErrorBool=True ];
+(*if before ':', there is no label, return error*)
+If[StringLength[arglist[[iarg,1]] ]==0,Print["error, line ",iarg," has no argument label (text before ':')"];ErrorBool=True ];
+"dummy",
+{iarg,arglist//Length}
+];
+If[ErrorBool==True,Print["there are some format error in argument input List of String "];Abort[] ];
+
+(*separate each line by {label,expression}*)
+{labels,expressions}=arglist//Transpose;
+(*transfer expressions from string to Mathematica expression forms*)
+expressions=ToExpression[#]&/@expressions;
+(*output*)
+{labels,expressions}
+
+]
+
+
+(* ::Input::Initialization:: *)
+ReadFileArg[filein_]:=
+Module[{file=filein,arglist,labels,expressions},
+arglist=RemoveFileComments[file];
+{labels,expressions}=ReadArgsByLine[arglist];
+{labels,expressions}
+]
+
+
+(* ::Input::Initialization:: *)
 (*20171126*)
 (*
 when call processdataplotsmultiexp7percentage,
@@ -6723,7 +6794,8 @@ yhistabstitle=yhisttitle;
 (*mode = 2, fix ranges depend on their figure type (observables of data)*)
 (*mode = 3, zoom in the highlighted ranges*)
 (*mode = 4, use the max, min of data as the range*)
-HistAutoMode=4;
+(*mode = 5, use the max, min in a configure file as the range*)(*20180331*)
+HistAutoMode=4;(*20180331*)
 (*20171111: if the xrange of the histogram is fixed by static values, set true, ex: HistAutoMode=2*)
 (*
 HistAutoFixXrangeBool=False;
@@ -6814,6 +6886,31 @@ hist2autoxrange={Min[Flatten[pdfcorr]/.LF1[a__]\[RuleDelayed]Abs[{a}[[3]] ] ],Ma
 "dummy"
 ];
 
+"dummy"
+];
+
+(*20180331 histrange from a configure file*)
+If[
+HistAutoMode==5,
+If[
+plottype==2 || plottype==3 || plottype==4 || plottype==5 ,
+(*read argument for the corresponding type #*)
+(*argument is {label,argument} with N labels and arguments depend on the configure file, here we only want to read arguments*)
+histautoxrange=ReadFileArg["histx_auto_config.txt"][[2,plottype]];
+(*check the input arguments are correct*)
+If[Length[histautoxrange]!=2,Print["error in ReadFileArg, input argument should be {hxmin,hxmax}, but it is ",histautoxrange];Abort[] ];
+If[NumberQ[histautoxrange[[1]] ]==False || NumberQ[histautoxrange[[2]] ]==False, Print["error in ReadFileArg, input argument {hxmin,hxmax} should be numbers, but it's variable type is ",Head[#]&/@{histautoxrange}];Abort[] ];
+If[histautoxrange[[1]]>=histautoxrange[[2]],Print["error in ReadFileArg, input argument {hxmin,hxmax} should be hxmin<hxmax, but it is ",histautoxrange];Abort[] ];
+(*for absolute value setting, if hist xmax in file < 0, set it as 3.0 *)
+hist2autoxrange={0.0,histautoxrange[[2]]};
+If[
+hist2autoxrange[[2]]>0.0,hist2autoxrange[[2]],
+Switch[
+plottype,2,0.3,3,3.0,4,3.0,5,3.0,__,Print["error, plottype should be 1~6, but it is ",plottype];Abort[] 
+] 
+];
+"dummy"
+];
 "dummy"
 ];
 
@@ -7846,21 +7943,8 @@ AbsDataStatsByID={Length[#],Length[#]*Mean[#],Max[#],Min[#],Mean[#],Median[#],St
 (*add row label (expt ID)*)(*assume ClassifyMode = single mode*)
 Table[DataStatsByID[[iexpt]]=Prepend[DataStatsByID[[iexpt]],groupExptIDs[[iexpt,1]] ],{iexpt,Length[groupExptIDs]}];
 Table[AbsDataStatsByID[[iexpt]]=Prepend[AbsDataStatsByID[[iexpt]],groupExptIDs[[iexpt,1]] ],{iexpt,Length[groupExptIDs]}];
-
-(*20180328 add the Npt info after specifying (x,Q)*)
-Table[DataStatsByID[[iexpt]]=Append[DataStatsByID[[iexpt]],Nptplotlist[[iexpt]] ],{iexpt,Length[groupExptIDs]}];
-Table[AbsDataStatsByID[[iexpt]]=Append[AbsDataStatsByID[[iexpt]],Nptplotlist[[iexpt]] ],{iexpt,Length[groupExptIDs]}];
-Table[DataStatsByID[[iexpt]]=Append[DataStatsByID[[iexpt]],NptRawinplotlist[[iexpt]] ],{iexpt,Length[groupExptIDs]}];
-Table[AbsDataStatsByID[[iexpt]]=Append[AbsDataStatsByID[[iexpt]],NptRawinplotlist[[iexpt]] ],{iexpt,Length[groupExptIDs]}];
-
-
-DataStatsByID=Prepend[DataStatsByID,DataStatsByIDLabel~Join~{"NptPlot","NptRawPlot"}];
-AbsDataStatsByID=Prepend[AbsDataStatsByID,DataStatsByIDLabel~Join~{"NptPlot","NptRawPlot"}];
-(*
-Print["abs data stats:"];
-Print[AbsDataStatsByID//TableForm];
-Abort[];
-*)
+DataStatsByID=Prepend[DataStatsByID,DataStatsByIDLabel];
+AbsDataStatsByID=Prepend[AbsDataStatsByID,DataStatsByIDLabel];
 (*=============================================================================================================================*)
 (*Highlight range setting============================================================================================================*)
 (*=============================================================================================================================*)
@@ -7955,16 +8039,16 @@ If[
 (plottype==5 || plottype==6),
 output=
 {
-{"datatype","flavour","Expts","Npt","SumVals","DataMax","DataMin","DataMean","DataMedian","DataSD","NptPlot","NptRawPlot","data stats by ID","highlightrange","highlighted data"},
-{datatype,pdfnamelable[[flavourin+6]],{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,Npt,Npt*DataMean,DataMax,DataMin,DataMean,DataMedian,DataSD,Nptplot,NptRawinplot,DataStatsByID,highlightrange,Transpose[{{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,pdfcorr},{2,1}]}
+{"datatype","flavour","Expts","Npt","SumVals","DataMax","DataMin","DataMean","DataMedian","DataSD","data stats by ID","highlightrange","highlighted data"},
+{datatype,pdfnamelable[[flavourin+6]],{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,Npt,Npt*DataMean,DataMax,DataMin,DataMean,DataMedian,DataSD,DataStatsByID,highlightrange,Transpose[{{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,pdfcorr},{2,1}]}
 }
 ];
 If[
 (plottype==2 || plottype==3 || plottype==4),
 output=
 {
-{"datatype",(*"flavour",*)"Expts","Npt","SumVals","DataMax","DataMin","DataMean","DataMedian","DataSD","NptPlot","NptRawPlot","data stats by ID","highlightrange","highlighted data"},
-{datatype,(*pdfnamelable[[flavourin+6]],*){#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,Npt,Npt*DataMean,DataMax,DataMin,DataMean,DataMedian,DataSD,Nptplot,NptRawinplot,DataStatsByID,highlightrange,Transpose[{{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,pdfcorr},{2,1}]}
+{"datatype",(*"flavour",*)"Expts","Npt","SumVals","DataMax","DataMin","DataMean","DataMedian","DataSD","data stats by ID","highlightrange","highlighted data"},
+{datatype,(*pdfnamelable[[flavourin+6]],*){#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,Npt,Npt*DataMean,DataMax,DataMin,DataMean,DataMedian,DataSD,DataStatsByID,highlightrange,Transpose[{{#[[1]],ExptIDtoName[#[[1]] ]}&/@groupExptIDs,pdfcorr},{2,1}]}
 }
 
 ];
