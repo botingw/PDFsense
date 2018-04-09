@@ -431,3 +431,36 @@ change the corr/sens symbols to C_f and S_f
 a. 254, 255 for HERA2_no_jet
 b. y > 1.0 for ID = 542, 544 of HERA2
 this update use bin center = (binup + binlow)/2
+
+20180106
+change the 542, 544 in CT14HERA2NNLO to the version including y > 1.0 data
+
+20180117
+add the function (MakeMetaDataFile) for making meta data of quick_data 
+add tools under ./bin/tool: merge quick_data, make/read info table from data info files (corresponding to figures of data)
+
+20180324
+change the way to extract the (x,Q) from experimental data,
+for x ~ Q*exp(+-y), some x would larger than 1, the way before was deleting the pair (+-y) with anyone > 1,
+the new way is to keep the point smaller than 1 and remove another > 1 point.
+When doing statistics of correlation/sensitivity value, one experimental data only contribute the weight = 1 value.
+if one experimental point specify two points, each point get 1/2 weight so that the total weight = 1
+
+20180328
+continue from 0324:
+1. for the record of (x,Q) points, record their ipt index in .dta files by ordering
+2. change the way to discard specified (x,Q) points: if points are from the same point in .dta files, only discard the point with x>1 (the previous way is discarding all points if anyone satisfies x > 1) 
+3. when counting total sensitivity and average sensitivity, give points in .dta file weight = 1 and evenly divide into N parts for N points specified by these points. e.g. one point specifies (x1,Q), (x2, Q), then each one get 0.5 weight. if x2>1, then only (x1, Q) left and get 1 weight
+4. functions changed: datainfototext, getcorrinfo in corr_proj_funcs.m, selectExptxQv2 in dtareadbotingw2016.m 
+
+20180328
+update the .tsv file codes, which are used to generate PCA, t-SNE figures in paper 1803.02777
+
+20180328
+also include the Npt in plots and Npt of .dta points that have at least one point specified and drawed in plots,
+these points may depend on various flavours because each plots of flavours would also discard points that PDF values can not be resolved.
+
+20180409
+setup the new mode for the histogram xrange setting for verious plot types in ./bin/histx_auto_config.txt
+the code will read xrange from ./bin/histx_auto_config.txt when a. the zmax, zmin are "auto", b. HistAutoMode == 5 in processdataplotsmultiexp7percentage
+

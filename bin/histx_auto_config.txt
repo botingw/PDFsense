@@ -1,0 +1,11 @@
+#this file record arguments in N plot types described in the config1.txt, N = 1, 2, 3, ... 
+#for any number of N, we can read the {min, max} to set up the histogram xrange for respective plot type.
+#the code will read xrange from this file only when a. the zmax, zmin are "auto", b. HistAutoMode == 5 in processdataplotsmultiexp7percentage
+# the default setting of histogram xrange when zmin, zmax = "auto" is {DataMin,DataMax}
+
+1:False  ##the first type is useless
+2:{0,0.1}
+3:{-2.4,2.4}
+4:{0.0,4.8}
+5:{-2.4,2.4}
+6:{-1.0,1.0}

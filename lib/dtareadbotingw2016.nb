@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    303043,       7293]
-NotebookOptionsPosition[    300671,       7218]
-NotebookOutlinePosition[    301004,       7233]
-CellTagsIndexPosition[    300961,       7230]
+NotebookDataLength[    310074,       7447]
+NotebookOptionsPosition[    307702,       7372]
+NotebookOutlinePosition[    308035,       7387]
+CellTagsIndexPosition[    307992,       7384]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -4987,6 +4987,98 @@ last element of the input bin list \>\"", "]"}], ";", "\[IndentingNewLine]",
                     RowBox[{"[", "2", "]"}], "]"}], ",", "mllrange", ",", 
                     "peakposin", ",", "weightcloserin"}], "]"}]}], 
                    "}"}]}]}]}]}], "]"}], ",", "\[IndentingNewLine]", 
+             RowBox[{"(*", 
+              RowBox[{
+              "delete", " ", "the", " ", "point", " ", "who", " ", "or", " ", 
+               "whose", " ", "pair", " ", "has", " ", "too", " ", 
+               RowBox[{"large", "/", "small"}], " ", "x"}], "*)"}], 
+             "\[IndentingNewLine]", 
+             RowBox[{"(*", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"(", " ", "\[IndentingNewLine]", 
+                RowBox[{
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"GetAveByBinLow", "[", 
+                    RowBox[{
+                    RowBox[{"#", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], ",", "mllrange", ",", 
+                    "peakposin", ",", "weightcloserin"}], "]"}], ">", 
+                   "70.0"}], ")"}], " ", "&&", " ", "\[IndentingNewLine]", 
+                 RowBox[{"(", " ", 
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"GetAveByBinLow", "[", 
+                    RowBox[{
+                    RowBox[{"#", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], ",", "mllrange", ",", 
+                    "peakposin", ",", "weightcloserin"}], "]"}], "/", 
+                    RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], "*", 
+                    RowBox[{"E", "^", 
+                    RowBox[{"(", 
+                    RowBox[{"#", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], ")"}]}]}], "<", "1.0"}], 
+                   " ", "&&", " ", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"GetAveByBinLow", "[", 
+                    RowBox[{
+                    RowBox[{"#", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], ",", "mllrange", ",", 
+                    "peakposin", ",", "weightcloserin"}], "]"}], "/", 
+                    RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], "*", 
+                    RowBox[{"E", "^", 
+                    RowBox[{"(", 
+                    RowBox[{"#", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], ")"}]}]}], ">", " ", 
+                    SuperscriptBox["10.0", 
+                    RowBox[{"-", "10"}]]}], " ", "&&", " ", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"GetAveByBinLow", "[", 
+                    RowBox[{
+                    RowBox[{"#", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], ",", "mllrange", ",", 
+                    "peakposin", ",", "weightcloserin"}], "]"}], "/", 
+                    RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], "*", 
+                    RowBox[{"E", "^", 
+                    RowBox[{"-", 
+                    RowBox[{"(", 
+                    RowBox[{"#", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], ")"}]}]}]}], "<", "1.0"}],
+                    " ", "&&", " ", 
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{"(", 
+                    RowBox[{
+                    RowBox[{"GetAveByBinLow", "[", 
+                    RowBox[{
+                    RowBox[{"#", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], ",", "mllrange", ",", 
+                    "peakposin", ",", "weightcloserin"}], "]"}], "/", 
+                    RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], "*", 
+                    RowBox[{"E", "^", 
+                    RowBox[{"-", 
+                    RowBox[{"(", 
+                    RowBox[{"#", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], ")"}]}]}]}], ">", 
+                    SuperscriptBox["10.0", 
+                    RowBox[{"-", "10"}]]}]}], ")"}]}], " ", 
+                "\[IndentingNewLine]", ")"}], "&"}], "\[IndentingNewLine]", 
+              "*)"}], "\[IndentingNewLine]", 
+             RowBox[{"(*", 
+              RowBox[{
+              "20180322", " ", "only", " ", "delete", " ", "the", " ", 
+               "point", " ", "with", " ", "too", " ", 
+               RowBox[{"large", "/", "small"}], " ", "x"}], "*)"}], 
+             "\[IndentingNewLine]", 
              RowBox[{
               RowBox[{"(", " ", "\[IndentingNewLine]", 
                RowBox[{
@@ -5001,69 +5093,16 @@ last element of the input bin list \>\"", "]"}], ";", "\[IndentingNewLine]",
                 RowBox[{"(", " ", 
                  RowBox[{
                   RowBox[{
-                   RowBox[{
-                    RowBox[{"(", 
-                    RowBox[{
-                    RowBox[{"GetAveByBinLow", "[", 
-                    RowBox[{
-                    RowBox[{"#", "[", 
-                    RowBox[{"[", "2", "]"}], "]"}], ",", "mllrange", ",", 
-                    "peakposin", ",", "weightcloserin"}], "]"}], "/", 
-                    RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], "*", 
-                    RowBox[{"E", "^", 
-                    RowBox[{"(", 
-                    RowBox[{"#", "[", 
-                    RowBox[{"[", "1", "]"}], "]"}], ")"}]}]}], "<", "1.0"}], 
-                  " ", "&&", " ", 
+                   RowBox[{"#", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"-", "2"}], "]"}], "]"}], "<", "1.0"}], " ", "&&",
+                   " ", 
                   RowBox[{
-                   RowBox[{
-                    RowBox[{"(", 
-                    RowBox[{
-                    RowBox[{"GetAveByBinLow", "[", 
-                    RowBox[{
-                    RowBox[{"#", "[", 
-                    RowBox[{"[", "2", "]"}], "]"}], ",", "mllrange", ",", 
-                    "peakposin", ",", "weightcloserin"}], "]"}], "/", 
-                    RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], "*", 
-                    RowBox[{"E", "^", 
-                    RowBox[{"(", 
-                    RowBox[{"#", "[", 
-                    RowBox[{"[", "1", "]"}], "]"}], ")"}]}]}], ">", " ", 
+                   RowBox[{"#", "[", 
+                    RowBox[{"[", 
+                    RowBox[{"-", "2"}], "]"}], "]"}], ">", " ", 
                    SuperscriptBox["10.0", 
-                    RowBox[{"-", "10"}]]}], " ", "&&", " ", 
-                  RowBox[{
-                   RowBox[{
-                    RowBox[{"(", 
-                    RowBox[{
-                    RowBox[{"GetAveByBinLow", "[", 
-                    RowBox[{
-                    RowBox[{"#", "[", 
-                    RowBox[{"[", "2", "]"}], "]"}], ",", "mllrange", ",", 
-                    "peakposin", ",", "weightcloserin"}], "]"}], "/", 
-                    RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], "*", 
-                    RowBox[{"E", "^", 
-                    RowBox[{"-", 
-                    RowBox[{"(", 
-                    RowBox[{"#", "[", 
-                    RowBox[{"[", "1", "]"}], "]"}], ")"}]}]}]}], "<", "1.0"}],
-                   " ", "&&", " ", 
-                  RowBox[{
-                   RowBox[{
-                    RowBox[{"(", 
-                    RowBox[{
-                    RowBox[{"GetAveByBinLow", "[", 
-                    RowBox[{
-                    RowBox[{"#", "[", 
-                    RowBox[{"[", "2", "]"}], "]"}], ",", "mllrange", ",", 
-                    "peakposin", ",", "weightcloserin"}], "]"}], "/", 
-                    RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], "*", 
-                    RowBox[{"E", "^", 
-                    RowBox[{"-", 
-                    RowBox[{"(", 
-                    RowBox[{"#", "[", 
-                    RowBox[{"[", "1", "]"}], "]"}], ")"}]}]}]}], ">", 
-                   SuperscriptBox["10.0", 
-                    RowBox[{"-", "10"}]]}]}], ")"}]}], " ", 
+                    RowBox[{"-", "10"}]]}]}], " ", ")"}]}], " ", 
                "\[IndentingNewLine]", ")"}], "&"}]}], "\[IndentingNewLine]", 
             "]"}]}], ",", "\[IndentingNewLine]", "\"\<ID253\>\"", ",", 
           "\[IndentingNewLine]", 
@@ -5503,20 +5542,27 @@ last element of the input bin list \>\"", "]"}], ";", "\[IndentingNewLine]",
                     RowBox[{"{", "a", "}"}], "[", 
                     RowBox[{"[", "1", "]"}], "]"}]}]}], "}"}]}]}]}]}], "]"}], 
              ",", "\[IndentingNewLine]", 
-             RowBox[{
-              RowBox[{"(", " ", 
-               RowBox[{
+             RowBox[{"(*", 
+              RowBox[{
+              "delete", " ", "the", " ", "point", " ", "who", " ", "or", " ", 
+               "whose", " ", "pair", " ", "has", " ", "too", " ", 
+               RowBox[{"large", "/", "small"}], " ", "x"}], "*)"}], 
+             "\[IndentingNewLine]", 
+             RowBox[{"(*", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"(", " ", 
                 RowBox[{
                  RowBox[{
-                  RowBox[{"(", 
-                   RowBox[{
+                  RowBox[{
+                   RowBox[{"(", 
+                    RowBox[{
                     RowBox[{"(", 
                     RowBox[{"2", "*", 
                     RowBox[{"#", "[", 
                     RowBox[{"[", "1", "]"}], "]"}]}], ")"}], "/", 
                     RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], "*", 
-                  RowBox[{"E", "^", 
-                   RowBox[{"(", 
+                   RowBox[{"E", "^", 
+                    RowBox[{"(", 
                     RowBox[{"WeightBinAveBySpectrumPeak", "[", 
                     RowBox[{
                     RowBox[{"#", "[", 
@@ -5524,18 +5570,18 @@ last element of the input bin list \>\"", "]"}], ";", "\[IndentingNewLine]",
                     RowBox[{"#", "[", 
                     RowBox[{"[", "3", "]"}], "]"}], ",", "peakposin", ",", 
                     "weightcloserin"}], "]"}], ")"}]}]}], "<", "1.0"}], " ", "&&",
-                 " ", 
-                RowBox[{
+                  " ", 
                  RowBox[{
-                  RowBox[{"(", 
-                   RowBox[{
+                  RowBox[{
+                   RowBox[{"(", 
+                    RowBox[{
                     RowBox[{"(", 
                     RowBox[{"2", "*", 
                     RowBox[{"#", "[", 
                     RowBox[{"[", "1", "]"}], "]"}]}], ")"}], "/", 
                     RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], "*", 
-                  RowBox[{"E", "^", 
-                   RowBox[{"(", 
+                   RowBox[{"E", "^", 
+                    RowBox[{"(", 
                     RowBox[{"WeightBinAveBySpectrumPeak", "[", 
                     RowBox[{
                     RowBox[{"#", "[", 
@@ -5543,19 +5589,19 @@ last element of the input bin list \>\"", "]"}], ";", "\[IndentingNewLine]",
                     RowBox[{"#", "[", 
                     RowBox[{"[", "3", "]"}], "]"}], ",", "peakposin", ",", 
                     "weightcloserin"}], "]"}], ")"}]}]}], ">", 
-                 SuperscriptBox["10.0", 
-                  RowBox[{"-", "10"}]]}], " ", "&&", "\[IndentingNewLine]", 
-                RowBox[{
+                  SuperscriptBox["10.0", 
+                   RowBox[{"-", "10"}]]}], " ", "&&", "\[IndentingNewLine]", 
                  RowBox[{
-                  RowBox[{"(", 
-                   RowBox[{
+                  RowBox[{
+                   RowBox[{"(", 
+                    RowBox[{
                     RowBox[{"(", 
                     RowBox[{"2", "*", 
                     RowBox[{"#", "[", 
                     RowBox[{"[", "1", "]"}], "]"}]}], ")"}], "/", 
                     RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], "*", 
-                  RowBox[{"E", "^", 
-                   RowBox[{"-", 
+                   RowBox[{"E", "^", 
+                    RowBox[{"-", 
                     RowBox[{"(", 
                     RowBox[{"WeightBinAveBySpectrumPeak", "[", 
                     RowBox[{
@@ -5564,18 +5610,18 @@ last element of the input bin list \>\"", "]"}], ";", "\[IndentingNewLine]",
                     RowBox[{"#", "[", 
                     RowBox[{"[", "3", "]"}], "]"}], ",", "peakposin", ",", 
                     "weightcloserin"}], "]"}], ")"}]}]}]}], "<", "1.0"}], " ",
-                 "&&", " ", 
-                RowBox[{
+                  "&&", " ", 
                  RowBox[{
-                  RowBox[{"(", 
-                   RowBox[{
+                  RowBox[{
+                   RowBox[{"(", 
+                    RowBox[{
                     RowBox[{"(", 
                     RowBox[{"2", "*", 
                     RowBox[{"#", "[", 
                     RowBox[{"[", "1", "]"}], "]"}]}], ")"}], "/", 
                     RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], "*", 
-                  RowBox[{"E", "^", 
-                   RowBox[{"-", 
+                   RowBox[{"E", "^", 
+                    RowBox[{"-", 
                     RowBox[{"(", 
                     RowBox[{"WeightBinAveBySpectrumPeak", "[", 
                     RowBox[{
@@ -5584,6 +5630,27 @@ last element of the input bin list \>\"", "]"}], ";", "\[IndentingNewLine]",
                     RowBox[{"#", "[", 
                     RowBox[{"[", "3", "]"}], "]"}], ",", "peakposin", ",", 
                     "weightcloserin"}], "]"}], ")"}]}]}]}], ">", 
+                  SuperscriptBox["10.0", 
+                   RowBox[{"-", "10"}]]}]}], " ", ")"}], "&"}], 
+              "\[IndentingNewLine]", "*)"}], "\[IndentingNewLine]", 
+             RowBox[{"(*", 
+              RowBox[{
+              "20180322", " ", "only", " ", "delete", " ", "the", " ", 
+               "point", " ", "with", " ", "too", " ", 
+               RowBox[{"large", "/", "small"}], " ", "x"}], "*)"}], 
+             "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"(", " ", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"#", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"-", "2"}], "]"}], "]"}], "<", "1.0"}], " ", "&&", 
+                " ", 
+                RowBox[{
+                 RowBox[{"#", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"-", "2"}], "]"}], "]"}], ">", " ", 
                  SuperscriptBox["10.0", 
                   RowBox[{"-", "10"}]]}]}], " ", ")"}], "&"}]}], 
             "\[IndentingNewLine]", "]"}]}], ",", 
@@ -5676,26 +5743,54 @@ last element of the input bin list \>\"", "]"}], ";", "\[IndentingNewLine]",
                    RowBox[{"{", "a", "}"}], "[", 
                    RowBox[{"[", "1", "]"}], "]"}]}]}], "}"}]}]}]}], ",", 
             "\[IndentingNewLine]", 
+            RowBox[{"(*", 
+             RowBox[{
+             "delete", " ", "the", " ", "point", " ", "who", " ", "or", " ", 
+              "whose", " ", "pair", " ", "has", " ", "too", " ", 
+              RowBox[{"large", "/", "small"}], " ", "x"}], "*)"}], 
+            "\[IndentingNewLine]", 
+            RowBox[{"(*", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"(", " ", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"(", 
+                    RowBox[{"2", "*", 
+                    RowBox[{"#", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}]}], ")"}], "/", 
+                   RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], "<", "1.0"}], 
+                " ", "&&", " ", 
+                RowBox[{
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"(", 
+                    RowBox[{"2", "*", 
+                    RowBox[{"#", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}]}], ")"}], "/", 
+                   RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], ">", 
+                 SuperscriptBox["10.0", 
+                  RowBox[{"-", "10"}]]}]}], " ", ")"}], "&"}], 
+             "\[IndentingNewLine]", "*)"}], "\[IndentingNewLine]", 
+            RowBox[{"(*", 
+             RowBox[{
+             "20180322", " ", "only", " ", "delete", " ", "the", " ", "point",
+               " ", "with", " ", "too", " ", 
+              RowBox[{"large", "/", "small"}], " ", "x"}], "*)"}], 
+            "\[IndentingNewLine]", 
             RowBox[{
              RowBox[{"(", " ", 
               RowBox[{
                RowBox[{
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{"(", 
-                   RowBox[{"2", "*", 
-                    RowBox[{"#", "[", 
-                    RowBox[{"[", "1", "]"}], "]"}]}], ")"}], "/", 
-                  RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], "<", "1.0"}], " ",
-                "&&", " ", 
+                RowBox[{"#", "[", 
+                 RowBox[{"[", 
+                  RowBox[{"-", "2"}], "]"}], "]"}], "<", "1.0"}], " ", "&&", 
+               " ", 
                RowBox[{
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{"(", 
-                   RowBox[{"2", "*", 
-                    RowBox[{"#", "[", 
-                    RowBox[{"[", "1", "]"}], "]"}]}], ")"}], "/", 
-                  RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], ">", 
+                RowBox[{"#", "[", 
+                 RowBox[{"[", 
+                  RowBox[{"-", "2"}], "]"}], "]"}], ">", " ", 
                 SuperscriptBox["10.0", 
                  RowBox[{"-", "10"}]]}]}], " ", ")"}], "&"}]}], 
            "\[IndentingNewLine]", "]"}], ",", "\n", 
@@ -5730,22 +5825,50 @@ last element of the input bin list \>\"", "]"}], ";", "\[IndentingNewLine]",
                   RowBox[{"{", "a", "}"}], "[", 
                   RowBox[{"[", "1", "]"}], "]"}]}], "}"}]}]}]}], ",", 
             "\[IndentingNewLine]", 
+            RowBox[{"(*", 
+             RowBox[{
+             "delete", " ", "the", " ", "point", " ", "who", " ", "or", " ", 
+              "whose", " ", "pair", " ", "has", " ", "too", " ", 
+              RowBox[{"large", "/", "small"}], " ", "x"}], "*)"}], 
+            "\[IndentingNewLine]", 
+            RowBox[{"(*", "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"(", " ", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"#", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], "/", 
+                   RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], "<", "1.0"}], 
+                " ", "&&", " ", 
+                RowBox[{
+                 RowBox[{"(", 
+                  RowBox[{
+                   RowBox[{"#", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], "/", 
+                   RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], ">", 
+                 SuperscriptBox["10.0", 
+                  RowBox[{"-", "10"}]]}]}], " ", ")"}], "&"}], 
+             "\[IndentingNewLine]", "*)"}], "\[IndentingNewLine]", 
+            RowBox[{"(*", 
+             RowBox[{
+             "20180322", " ", "only", " ", "delete", " ", "the", " ", "point",
+               " ", "with", " ", "too", " ", 
+              RowBox[{"large", "/", "small"}], " ", "x"}], "*)"}], 
+            "\[IndentingNewLine]", 
             RowBox[{
              RowBox[{"(", " ", 
               RowBox[{
                RowBox[{
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{"#", "[", 
-                   RowBox[{"[", "1", "]"}], "]"}], "/", 
-                  RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], "<", "1.0"}], " ",
-                "&&", " ", 
+                RowBox[{"#", "[", 
+                 RowBox[{"[", 
+                  RowBox[{"-", "2"}], "]"}], "]"}], "<", "1.0"}], " ", "&&", 
+               " ", 
                RowBox[{
-                RowBox[{"(", 
-                 RowBox[{
-                  RowBox[{"#", "[", 
-                   RowBox[{"[", "1", "]"}], "]"}], "/", 
-                  RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], ">", 
+                RowBox[{"#", "[", 
+                 RowBox[{"[", 
+                  RowBox[{"-", "2"}], "]"}], "]"}], ">", " ", 
                 SuperscriptBox["10.0", 
                  RowBox[{"-", "10"}]]}]}], " ", ")"}], "&"}]}], 
            "\[IndentingNewLine]", "]"}], ",", "\n", 
@@ -5829,16 +5952,23 @@ last element of the input bin list \>\"", "]"}], ";", "\[IndentingNewLine]",
                     RowBox[{"[", "3", "]"}], "]"}], ",", "peakposin", ",", 
                     "weightcloserin"}], "]"}], ")"}]}]}]}], ",", "400.0"}], 
                    "}"}]}]}]}]}], "]"}], ",", "\[IndentingNewLine]", 
-             RowBox[{
-              RowBox[{"(", " ", 
-               RowBox[{
+             RowBox[{"(*", 
+              RowBox[{
+              "delete", " ", "the", " ", "point", " ", "who", " ", "or", " ", 
+               "whose", " ", "pair", " ", "has", " ", "too", " ", 
+               RowBox[{"large", "/", "small"}], " ", "x"}], "*)"}], 
+             "\[IndentingNewLine]", 
+             RowBox[{"(*", "\[IndentingNewLine]", 
+              RowBox[{
+               RowBox[{"(", " ", 
                 RowBox[{
                  RowBox[{
-                  RowBox[{"(", 
-                   RowBox[{"400.0", "/", 
-                    RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], "*", 
-                  RowBox[{"E", "^", 
+                  RowBox[{
                    RowBox[{"(", 
+                    RowBox[{"400.0", "/", 
+                    RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], "*", 
+                   RowBox[{"E", "^", 
+                    RowBox[{"(", 
                     RowBox[{"WeightBinAveBySpectrumPeak", "[", 
                     RowBox[{
                     RowBox[{"#", "[", 
@@ -5846,14 +5976,14 @@ last element of the input bin list \>\"", "]"}], ";", "\[IndentingNewLine]",
                     RowBox[{"#", "[", 
                     RowBox[{"[", "3", "]"}], "]"}], ",", "peakposin", ",", 
                     "weightcloserin"}], "]"}], ")"}]}]}], "<", "1.0"}], " ", "&&",
-                 " ", 
-                RowBox[{
+                  " ", 
                  RowBox[{
-                  RowBox[{"(", 
-                   RowBox[{"400.0", "/", 
-                    RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], "*", 
-                  RowBox[{"E", "^", 
+                  RowBox[{
                    RowBox[{"(", 
+                    RowBox[{"400.0", "/", 
+                    RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], "*", 
+                   RowBox[{"E", "^", 
+                    RowBox[{"(", 
                     RowBox[{"WeightBinAveBySpectrumPeak", "[", 
                     RowBox[{
                     RowBox[{"#", "[", 
@@ -5861,14 +5991,14 @@ last element of the input bin list \>\"", "]"}], ";", "\[IndentingNewLine]",
                     RowBox[{"#", "[", 
                     RowBox[{"[", "3", "]"}], "]"}], ",", "peakposin", ",", 
                     "weightcloserin"}], "]"}], ")"}]}]}], ">", 
-                 RowBox[{
-                  SuperscriptBox["10.0", 
-                   RowBox[{"-", "10"}]], "\[IndentingNewLine]", 
-                  RowBox[{"(", 
-                   RowBox[{"400.0", "/", 
+                  RowBox[{
+                   SuperscriptBox["10.0", 
+                    RowBox[{"-", "10"}]], "\[IndentingNewLine]", 
+                   RowBox[{"(", 
+                    RowBox[{"400.0", "/", 
                     RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], "*", 
-                  RowBox[{"E", "^", 
-                   RowBox[{"-", 
+                   RowBox[{"E", "^", 
+                    RowBox[{"-", 
                     RowBox[{"(", 
                     RowBox[{"WeightBinAveBySpectrumPeak", "[", 
                     RowBox[{
@@ -5877,14 +6007,14 @@ last element of the input bin list \>\"", "]"}], ";", "\[IndentingNewLine]",
                     RowBox[{"#", "[", 
                     RowBox[{"[", "3", "]"}], "]"}], ",", "peakposin", ",", 
                     "weightcloserin"}], "]"}], ")"}]}]}]}], "<", "1.0"}], " ",
-                 "&&", " ", 
-                RowBox[{
+                  "&&", " ", 
                  RowBox[{
-                  RowBox[{"(", 
-                   RowBox[{"400.0", "/", 
+                  RowBox[{
+                   RowBox[{"(", 
+                    RowBox[{"400.0", "/", 
                     RowBox[{"Sqrt", "[", "S", "]"}]}], ")"}], "*", 
-                  RowBox[{"E", "^", 
-                   RowBox[{"-", 
+                   RowBox[{"E", "^", 
+                    RowBox[{"-", 
                     RowBox[{"(", 
                     RowBox[{"WeightBinAveBySpectrumPeak", "[", 
                     RowBox[{
@@ -5893,6 +6023,27 @@ last element of the input bin list \>\"", "]"}], ";", "\[IndentingNewLine]",
                     RowBox[{"#", "[", 
                     RowBox[{"[", "3", "]"}], "]"}], ",", "peakposin", ",", 
                     "weightcloserin"}], "]"}], ")"}]}]}]}], ">", 
+                  SuperscriptBox["10.0", 
+                   RowBox[{"-", "10"}]]}]}], " ", ")"}], "&"}], 
+              "\[IndentingNewLine]", "*)"}], "\[IndentingNewLine]", 
+             RowBox[{"(*", 
+              RowBox[{
+              "20180322", " ", "only", " ", "delete", " ", "the", " ", 
+               "point", " ", "with", " ", "too", " ", 
+               RowBox[{"large", "/", "small"}], " ", "x"}], "*)"}], 
+             "\[IndentingNewLine]", 
+             RowBox[{
+              RowBox[{"(", " ", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"#", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"-", "2"}], "]"}], "]"}], "<", "1.0"}], " ", "&&", 
+                " ", 
+                RowBox[{
+                 RowBox[{"#", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"-", "2"}], "]"}], "]"}], ">", " ", 
                  SuperscriptBox["10.0", 
                   RowBox[{"-", "10"}]]}]}], " ", ")"}], "&"}]}], 
             "\[IndentingNewLine]", "]"}]}], ",", "\n", "_", ",", "\n", 
@@ -5990,7 +6141,10 @@ last element of the input bin list \>\"", "]"}], ";", "\[IndentingNewLine]",
    3.721959336451902*^9}, {3.72381681221717*^9, 3.723816863020546*^9}, {
    3.723816915542287*^9, 3.7238169483538094`*^9}, {3.7238169884120493`*^9, 
    3.723817085740057*^9}, {3.723817138832765*^9, 3.723817190597393*^9}, {
-   3.723973750874295*^9, 3.7239737537216997`*^9}}],
+   3.723973750874295*^9, 3.7239737537216997`*^9}, {3.7307624432143183`*^9, 
+   3.7307625402685623`*^9}, {3.7307628213117847`*^9, 3.730762971592671*^9}, {
+   3.730763004014716*^9, 3.730763097045967*^9}, {3.730763134176324*^9, 
+   3.730763159433503*^9}}],
 
 Cell[BoxData[{
  RowBox[{
@@ -7279,20 +7433,20 @@ Cell[61365, 1548, 2802, 76, 468, "Code",
 Cell[64170, 1626, 18202, 447, 2514, "Code"],
 Cell[82375, 2075, 13691, 345, 1583, "Code",
  InitializationCell->False],
-Cell[96069, 2422, 156723, 3570, 11195, "Input",
+Cell[96069, 2422, 163754, 3724, 11828, "Input",
  InitializationCell->True],
-Cell[252795, 5994, 8608, 224, 1148, "Code",
+Cell[259826, 6148, 8608, 224, 1148, "Code",
  InitializationCell->False],
-Cell[261406, 6220, 2665, 71, 411, "Code",
+Cell[268437, 6374, 2665, 71, 411, "Code",
  InitializationCell->False],
-Cell[264074, 6293, 8712, 217, 1407, "Code",
+Cell[271105, 6447, 8712, 217, 1407, "Code",
  InitializationCell->False],
-Cell[272789, 6512, 5450, 142, 356, "Code",
+Cell[279820, 6666, 5450, 142, 356, "Code",
  InitializationCell->False],
-Cell[278242, 6656, 15226, 368, 1738, "Code",
+Cell[285273, 6810, 15226, 368, 1738, "Code",
  InitializationCell->False],
-Cell[293471, 7026, 6860, 179, 647, "Code"],
-Cell[300334, 7207, 309, 7, 89, "Code"]
+Cell[300502, 7180, 6860, 179, 647, "Code"],
+Cell[307365, 7361, 309, 7, 89, "Code"]
 }, Open  ]]
 }, Open  ]]
 }

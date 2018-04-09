@@ -1058,9 +1058,17 @@ peakposin=-10000.0;weightcloserin=1.0;
 Select[
 Join[data/.LF[a__]:>LF@@{Sequence@@{a},(GetAveByBinLow[{a}[[2]],mllrange,peakposin,weightcloserin]/Sqrt[S])*E^({a}[[1]]),GetAveByBinLow[{a}[[2]],mllrange,peakposin,weightcloserin]},
 data/.LF[a__]:>LF@@{Sequence@@{a},(GetAveByBinLow[{a}[[2]],mllrange,peakposin,weightcloserin]/Sqrt[S])*E^-({a}[[1]]),GetAveByBinLow[{a}[[2]],mllrange,peakposin,weightcloserin]}],
+(*delete the point who or whose pair has too large/small x*)
+(*
 ( 
 (GetAveByBinLow[#[[2]],mllrange,peakposin,weightcloserin]>70.0) && 
 ( (GetAveByBinLow[#[[2]],mllrange,peakposin,weightcloserin]/Sqrt[S])*E^(#[[1]])<1.0 && (GetAveByBinLow[#[[2]],mllrange,peakposin,weightcloserin]/Sqrt[S])*E^(#[[1]])> 10.0^-10 && (GetAveByBinLow[#[[2]],mllrange,peakposin,weightcloserin]/Sqrt[S])*E^-(#[[1]])<1.0 && (GetAveByBinLow[#[[2]],mllrange,peakposin,weightcloserin]/Sqrt[S])*E^-(#[[1]])>10.0^-10) 
+)&
+*)
+(*20180322 only delete the point with too large/small x*)
+( 
+(GetAveByBinLow[#[[2]],mllrange,peakposin,weightcloserin]>70.0) && 
+( #[[-2]]<1.0 && #[[-2]]> 10.0^-10 ) 
 )&
 ],
 "ID253",
@@ -1095,8 +1103,13 @@ Take[data,-5]/.LF[a__]:>LF@@{Sequence@@{a},(Sqrt[91.19^2+(WeightBinAveBySpectrum
 peakposin=-10000.0;weightcloserin=1.0;(*test strong weight*)
 Select[
 Join[data/.LF[a__]:>LF@@{Sequence@@{a},((2*{a}[[1]])/Sqrt[S])*E^(WeightBinAveBySpectrumPeak[{a}[[2]],{a}[[3]],peakposin,weightcloserin]),2*{a}[[1]]},data/.LF[a__]:>LF@@{Sequence@@{a},((2*{a}[[1]])/Sqrt[S])*E^-(WeightBinAveBySpectrumPeak[{a}[[2]],{a}[[3]],peakposin,weightcloserin]),2*{a}[[1]]}],
+(*delete the point who or whose pair has too large/small x*)
+(*
 ( ((2*#[[1]])/Sqrt[S])*E^(WeightBinAveBySpectrumPeak[#[[2]],#[[3]],peakposin,weightcloserin])<1.0 && ((2*#[[1]])/Sqrt[S])*E^(WeightBinAveBySpectrumPeak[#[[2]],#[[3]],peakposin,weightcloserin])>10.0^-10 &&
 ((2*#[[1]])/Sqrt[S])*E^-(WeightBinAveBySpectrumPeak[#[[2]],#[[3]],peakposin,weightcloserin])<1.0 && ((2*#[[1]])/Sqrt[S])*E^-(WeightBinAveBySpectrumPeak[#[[2]],#[[3]],peakposin,weightcloserin])>10.0^-10 )&
+*)
+(*20180322 only delete the point with too large/small x*)
+( #[[-2]]<1.0 && #[[-2]]> 10.0^-10 )&
 ],(*x1=(Subscript[p, Tj]/(2Sqrt[S]))*e^Subscript[y, j]*)
 
 (*this form is for q1q2 \[Rule] W, Z or something, so rapidity is yjj, estimating x as peak of yjj*)
@@ -1109,21 +1122,36 @@ data/.LF[a__]\[RuleDelayed]{((2\[Times]{a}[[1]])/(Sqrt[S])),2\[Times]{a}[[1]]},
 "ttbarpT",
 Select[
 data/.LF[a__]:>LF@@{Sequence@@{a},((2*{a}[[1]])/Sqrt[S]),2*{a}[[1]]},
+(*delete the point who or whose pair has too large/small x*)
+(*
 ( ((2*#[[1]])/Sqrt[S])<1.0 && ((2*#[[1]])/Sqrt[S])>10.0^-10 )&
+*)
+(*20180322 only delete the point with too large/small x*)
+( #[[-2]]<1.0 && #[[-2]]> 10.0^-10 )&
 ],
 (*mu = mtt, x = mtt (since y = 0 for this case)*)
 "ttbarmtt",
 Select[
 data/.LF[a__]:>LF@@{Sequence@@{a},({a}[[1]]/Sqrt[S]),{a}[[1]]},
+(*delete the point who or whose pair has too large/small x*)
+(*
 ( (#[[1]]/Sqrt[S])<1.0 && (#[[1]]/Sqrt[S])>10.0^-10 )&
+*)
+(*20180322 only delete the point with too large/small x*)
+( #[[-2]]<1.0 && #[[-2]]> 10.0^-10 )&
 ],
 (*ytt, ya==(yt+ytbar)/2: mu~ 2mt+100GeV = 450 GeV, x = (Q/\[Sqrt]S)*e^+-y*)
 "ttbary",
 peakposin=-10000.0;weightcloserin=1.0;
 Select[
 Join[data/.LF[a__]:>LF@@{Sequence@@{a},(400.0/Sqrt[S])*E^(WeightBinAveBySpectrumPeak[{a}[[2]],{a}[[3]],peakposin,weightcloserin]),400.0},data/.LF[a__]:>LF@@{Sequence@@{a},(400.0/Sqrt[S])*E^-(WeightBinAveBySpectrumPeak[{a}[[2]],{a}[[3]],peakposin,weightcloserin]),400.0}],
+(*delete the point who or whose pair has too large/small x*)
+(*
 ( (400.0/Sqrt[S])*E^(WeightBinAveBySpectrumPeak[#[[2]],#[[3]],peakposin,weightcloserin])<1.0 && (400.0/Sqrt[S])*E^(WeightBinAveBySpectrumPeak[#[[2]],#[[3]],peakposin,weightcloserin])>10.0^-10
 (400.0/Sqrt[S])*E^-(WeightBinAveBySpectrumPeak[#[[2]],#[[3]],peakposin,weightcloserin])<1.0 && (400.0/Sqrt[S])*E^-(WeightBinAveBySpectrumPeak[#[[2]],#[[3]],peakposin,weightcloserin])>10.0^-10 )&
+*)
+(*20180322 only delete the point with too large/small x*)
+( #[[-2]]<1.0 && #[[-2]]> 10.0^-10 )&
 ],
 _,
 Print["Wrong expItype value, ",expItype,", ",ExptID] (*data/.LF[a__]\[RuleDelayed]{{a}[[1]],{a}[[2]]}*)
