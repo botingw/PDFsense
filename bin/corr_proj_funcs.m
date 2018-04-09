@@ -7,7 +7,7 @@
 (* ::Input::Initialization:: *)
  (*SetDirectory["/home/botingw/Downloads"];*)(*other files are under the same directory*)
 (*20170620: for script version, executables could not run pdfparse correctly, so modify the path setting*)
-SetDirectory[NotebookDirectory[](*DirectoryName[$InputFileName]*) ];(*Print[Directory[] ];SetDirectory[NotebookDirectory[] ];Print[Directory[] ];*)
+SetDirectory[(*NotebookDirectory[]*)DirectoryName[$InputFileName] ];(*Print[Directory[] ];SetDirectory[NotebookDirectory[] ];Print[Directory[] ];*)
 Print["present directory: ",Directory[]];
 libdir="../lib/";
 lib1=libdir<>"pdfParsePDS2013.m";
@@ -6506,7 +6506,8 @@ ColorPaletteMode,PaletteMax,PaletteMin,
 groupnames,groupExptIDs,classifymode,
 ColorPaletterange,JobDescription,
 shapeslist,abstitle,absPaletteMax,absbarseperator,absbarlegend,xQplotcorr2,exptnamestitle,
-safewidth},
+safewidth,
+HistLogY},
 (*read arguments in config file*)
 (*==============================*)
 {Jobid,JobDescription(*20171128*),PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
@@ -6950,6 +6951,11 @@ Return[PlotDataTypeOne[corrfxQdtaobsclassin,pdfcorr[[1]],exptlist[[1]],plotrange
 (*=============================================================================================================================*)
 (*Histograms: Nbin and hist yrange============================================================================================================*)
 (*=============================================================================================================================*)
+(*20180301*)
+(*set log scale option*)
+HistLogY=False;
+If[HistLogY==True,SetOptions[Histogram,ScalingFunctions->"Log"] ];
+
 {hist1plotrangey,hist2plotrangey,BinWidth,hist1plotrange,hist2plotrange,highlightlines};
 Hist1figureNbin=Hist1figureNbin;
 hist1plotrangey=Hist1figureYrange;
@@ -6963,10 +6969,10 @@ If[
  plottype==2 || plottype==3 || plottype==4 || plottype==5 || plottype==6,
 
 BinWidth=(hist1plotrangex[[2]]-hist1plotrangex[[1]])/Hist1figureNbin;
-If[hist1plotrangey[[1]]=="auto",hist1plotrangey[[1]]=0.0 ];
+If[hist1plotrangey[[1]]=="auto",hist1plotrangey[[1]]=If[HistLogY==False,0.0,0.7] ];
 If[hist1plotrangey[[2]]=="auto",hist1plotrangey[[2]]=Max[HistogramList[Flatten[pdfcorr]/.LF1[a__]:>{a}[[3]],{BinWidth}][[2]] ] ];
 (*set bin width of two histograms the same*)(*BinWidth=(hist2plotrangex[[2]]-hist2plotrangex[[1]])/Hist1figureNbin;*)
-If[hist2plotrangey[[1]]=="auto",hist2plotrangey[[1]]=0.0 ];
+If[hist2plotrangey[[1]]=="auto",hist2plotrangey[[1]]=If[HistLogY==False,0.0,0.7] ];
 If[hist2plotrangey[[2]]=="auto",hist2plotrangey[[2]]=Max[HistogramList[Flatten[pdfcorr]/.LF1[a__]:>Abs[{a}[[3]] ],{BinWidth}][[2]] ] ];
 
 hist1plotrange=Flatten[{hist1plotrangex,hist1plotrangey}];
@@ -7351,8 +7357,8 @@ highlightlines=
 Table[
 xmintmp=highlightrange[[irange]][[1]];
 xmaxtmp=highlightrange[[irange]][[2]];
-(*set lines at x axis*)
-ymintmp=hist1plotrange[[3]];
+(*set lines at x axis*)(*20180301: for log histy*)
+ymintmp=If[HistLogY==False,hist1plotrange[[3]],Log[hist1plotrange[[3]] ] ];
 Style[Line[{{xmintmp,ymintmp},{xmaxtmp,ymintmp} }],Darker[Blue,0.3] ],
 {irange,Length[highlightrange]}
 ];
@@ -7388,8 +7394,10 @@ binset={Table[i*barseperator[[Length[barseperator]/2+1]]/10.0,{i,-100,100}]};(*t
 (*20171111 set lines for y direction*)
 If[
  plottype==2 || plottype==3 || plottype==4 || plottype==5 || plottype==6,
-hist1standardlines=setxlineinplot2[Flatten[pdfcorr]/.LF1[a__]:>{a}[[3]],lineelement,{hist1plotrange[[3]],hist1plotrange[[4]]}];
-hist2standardlines=setxlineinplot2[Flatten[pdfcorr]/.LF1[a__]:>Abs[{a}[[3]] ],lineelement2,{hist2plotrange[[3]],hist2plotrange[[4]]}];
+(*20180301: for histogram logy*)
+hist1standardlines=setxlineinplot2[Flatten[pdfcorr]/.LF1[a__]:>{a}[[3]],lineelement,If[HistLogY==False,#,Log[#]]&/@{hist1plotrange[[3]],hist1plotrange[[4]]} ];
+(*20180301: for histogram logy*)
+hist2standardlines=setxlineinplot2[Flatten[pdfcorr]/.LF1[a__]:>Abs[{a}[[3]] ],lineelement2,If[HistLogY==False,#,Log[#]]&/@{hist2plotrange[[3]],hist2plotrange[[4]]}];
 hist1standardlines=Prepend[hist1standardlines,LineWidth];
 hist2standardlines=Prepend[hist2standardlines,LineWidth];
 "dummy"
@@ -7422,8 +7430,9 @@ xQplotcorr=xQplotcorr2
 (*=============================================================================================================================*)
 
 (*20171111 new histplot function*)
-hist1epilogtext={hist1standardlines,highlightlines,Npttext};
-hist2epilogtext={hist2standardlines,highlightlines,Npttext};
+(*20180301: remove red lines*)
+hist1epilogtext={(*hist1standardlines,*)highlightlines,Npttext};
+hist2epilogtext={(*hist2standardlines,*)highlightlines,Npttext};
 (*20171111 if xrange of histograms are fixed, then we don't need to show red lines because red lines are one the boarder of the figure*)
 (*
 If[
