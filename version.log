@@ -460,3 +460,7 @@ update the .tsv file codes, which are used to generate PCA, t-SNE figures in pap
 also include the Npt in plots and Npt of .dta points that have at least one point specified and drawed in plots,
 these points may depend on various flavours because each plots of flavours would also discard points that PDF values can not be resolved.
 
+20180409
+setup the new mode for the histogram xrange setting for verious plot types in ./bin/histx_auto_config.txt
+the code will read xrange from ./bin/histx_auto_config.txt when a. the zmax, zmin are "auto", b. HistAutoMode == 5 in processdataplotsmultiexp7percentage
+
