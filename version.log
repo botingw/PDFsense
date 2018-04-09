@@ -469,3 +469,6 @@ modify .tsv output function
 if for plot type 2, 3, 4 and residual_norm.tsv, only extract 1 point if there are multiple points specified by a point in .dta files.
 we do it for only extracting the raw data in .dta files so that there is no double-counting of residual info in .tsv files
 
+20180409
+add logy mode for histogram in processdataplotsmultiexp7percentage
+
