@@ -6507,7 +6507,7 @@ groupnames,groupExptIDs,classifymode,
 ColorPaletterange,JobDescription,
 shapeslist,abstitle,absPaletteMax,absbarseperator,absbarlegend,xQplotcorr2,exptnamestitle,
 safewidth,
-HistLogY},
+HistLogY,NptRawlist,NptRaw},
 (*read arguments in config file*)
 (*==============================*)
 {Jobid,JobDescription(*20171128*),PDFname,FigureType,FigureFlag,ExptidType,ExptidFlag,CorrelationArgType,CorrelationArgFlag,(*UserArgName,UserArgValue,*)
@@ -6629,6 +6629,26 @@ DataSD=StandardDeviation[HistDataList];
 AbsDataSD=StandardDeviation[HistAbsDataList];
 "dummy"
 ];
+
+(*20180417*)
+(*Npt of raw data for each expt id*)
+(*temperary use dtacentralclassfinal without defineing it as the local variable*)
+If[
+plottype==1  || plottype==5  || plottype==6,
+NptRawlist=Table[dtacentralclassfinal[[iexpt]][["rawdata"]][[5]],{iexpt,1,Length[dtacentralclassfinal]}]
+];
+If[
+plottype==2  || plottype==3  || plottype==4,
+NptRawlist=Table[dtacentralclassfinal[[iexpt]][["rawdata"]][[5]],{iexpt,1,Length[dtacentralclassfinal]}]
+];
+NptRawlist=Flatten[NptRawlist,1];
+(*check we read integers*)
+Table[
+If[IntegerQ[NptRawlist[[iNptRaw]] ]==False,Print["error, the NptRawlist should be a list of Integer, the ",iNptRaw,"-th element is ",NptRawlist[[iNptRaw]] ];
+Abort[] ],
+{iNptRaw,NptRawlist//Length}];
+(*calculate total Raw Npt (the number of points in .dta files)*)
+NptRaw=Total[NptRawlist];
 (*=============================================================================================================================*)
 (*Highlight range setting============================================================================================================*)
 (*=============================================================================================================================*)
@@ -6953,7 +6973,7 @@ Return[PlotDataTypeOne[corrfxQdtaobsclassin,pdfcorr[[1]],exptlist[[1]],plotrange
 (*=============================================================================================================================*)
 (*20180301*)
 (*set log scale option*)
-HistLogY=False;
+HistLogY=True;
 If[HistLogY==True,SetOptions[Histogram,ScalingFunctions->"Log"] ];
 
 {hist1plotrangey,hist2plotrangey,BinWidth,hist1plotrange,hist2plotrange,highlightlines};
@@ -7316,7 +7336,8 @@ exptnamestable=makeGrid2[exptnames,rows,exptnamestitle<>"\n\n",JobDescription,da
 (*==============================*)
 (*set outlayer points label in plot*)
 textsize=16;
-Npttext=Text[Style["Npt: "<>ToString[Length[pdfcorr//Flatten] ],textsize,Black],Scaled[{0.1,0.9}] ];
+(*20180417 change the Npttext from the #points in the plot to the #points in .dta files*)
+Npttext=Text[Style["Npt: "<>ToString[(*Length[pdfcorr//Flatten]*)NptRaw],textsize,Black],Scaled[{0.1,0.9}] ];
   (*20171201: add x-\[Mu] plot of |data|, this part does not update for it yet*)
 maxtext=Text[Style[ToString[ColorSeperator[[3]] ]<>"%",textsize,Black],Scaled[{0.1,0.8}] ];
 maxmarker={Red,PointSize->0.02,Point[Scaled[{0.175,0.8}] ]};
