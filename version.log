@@ -474,4 +474,5 @@ add logy mode for histogram in processdataplotsmultiexp7percentage
 
 20180417
 change the Npttext (the left-right side in plots) from #points in the plot to #points in .dta files
+change the default histogram as logy scale
 
