@@ -472,3 +472,6 @@ we do it for only extracting the raw data in .dta files so that there is no doub
 20180409
 add logy mode for histogram in processdataplotsmultiexp7percentage
 
+20180417
+change the Npttext (the left-right side in plots) from #points in the plot to #points in .dta files
+
