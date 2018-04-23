@@ -7,3 +7,14 @@ no ID = 252~255
 
 20180101: add CT14HERA2_no_jet, no 247, 254, 255, 191~194
 20180103: update 247 to CT14HERA2_no_jet
+
+20180412: this update includes
+a. for making the ranking table in the paper, modify the way to discard specified points: if one of two specified points has x>1, only discard that point,
+impact: VBP, JP, TTbar, the main impact is in jet data
+b. 542, 545 .dta data redo: the original version does not concern the correlated experimental error so that residuals of 542 and 545 data are large, 
+resulting in some tension with other data
+
+p.s. the CT14NNLO is not finished yet
+
+20180417: replace LHeC 191~194 by the version with uncor errors considered 
+20180422: add the CT14NNLO PDFset 
