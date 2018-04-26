@@ -901,6 +901,50 @@ deltaR
 ]
 
 
+(* ::Input::Initialization:: *)
+(*this function input a residual class with data format {LF[x,Q,r1,r2,...,rNset],...} and dtacentralclass*)
+(*output the r.m.s of r = (\[Sum]r^2/Npt)^(1/2) for Npt in .dta files (experimental point)*)
+(*this function is for generating the r(rms) part in the sensitivity factor (\[Delta]r/r(rms))*C(r,f(x,Q))*)
+(*the input (x,Q,r) data are for plot. if multiple points are specified from the same experimental point (in .dta files), we only take one point*)
+GetResidualRMS[residualNsetclassin_,dtacentralclassin_]:=
+Module[{residualNsetclass=residualNsetclassin,dtacentralclass=dtacentralclassin,
+iptpos,tmpdata,TotalRawChi2,RawNpt,SensNormalize},
+(*define a function to remove duplicate points for the input ipt index*)
+DeleteDuplicatesByNptSpecified[specifieddatain_,ptindexlistin_]:=
+Module[{specifieddata=specifieddatain,ptindexlist=ptindexlistin,Npt1,Npt2,outputin},
+
+Npt1=Length[specifieddata];
+Npt2=Length[ptindexlist];
+If[Npt1!=Npt2,Print["error, the length of input data should be the same as the ipt index list, {Ndata, Niptlist} = ",{Npt1,Npt2}];Abort[] ];
+(*delete the duplicate data by the specified data by the pt index *)
+outputin=DeleteDuplicatesBy[{ptindexlist,specifieddata}//Transpose,#[[1]]&];
+(*the dimension of the output is {left data, {pt index, data}}*)
+(*we only take the data part*)
+outputin[[All,2]]
+];
+
+
+
+(*get the index of ipt in .dta files (raw data) for the specified (x,Q) points from dtacentralclass*)
+iptpos=Position[dtacentralclass[["label"]],"ipt"][[1,1]];
+(*if two residual points have the same ipt index, delete one of them *)
+(*after delete the duplicated points, the left data should be the raw data*)
+tmpdata=DeleteDuplicatesByNptSpecified[residualNsetclass[["data"]],dtacentralclass[["data"]][[All,iptpos]] ];
+(*format is LF[x,Q,residual0,residual1,...], only take the central value*)
+tmpdata=tmpdata[[All,3]];
+(*\[Sum]r^2*)
+tmpdata=tmpdata^2.0;
+TotalRawChi2=tmpdata//Abs//Total;
+(*Npt of raw data*)
+RawNpt=tmpdata//Length;
+
+(*r.m.s of r = (\[Sum]r^2/Npt)^(1/2)*)
+SensNormalize=(TotalRawChi2/RawNpt)^0.5;
+
+SensNormalize
+]
+
+
 getdeltaRclass[dtadataclassin_]:=
 Module[{dtadataclass=dtadataclassin,Npt,observable,deltaR,PDFerror1},
 Npt=Datamethods[["getNpt"]][dtadataclass];
@@ -7132,8 +7176,8 @@ legendlabel="";
 (*20171125: use log scale to seperate the colors min, min/3, min/9, min/27, max/27,max/9,max/3,max*)
 barseperator=Table[(PaletteMin+0.5*(PaletteMax-PaletteMin) )+If[isep>0,1.0,-1.0]*(1/3)^(Abs[isep]-1)*(0.5*(PaletteMax-PaletteMin) ),{isep,{-1,-2,-3,-4,4,3,2,1}}];
 absbarseperator={0}~Join~Table[(1/3)^(Abs[isep]-1)*(absPaletteMax ),{isep,{4,3,2,1}}];  (*20171201*)
-(*20171215: change back to divid colors by the same size*)(*20171219 add color palette to 11 colors*)
-barseperator=Table[PaletteMin+isep*(PaletteMax-PaletteMin)/(*7.0*)11.0,{isep,0,(*7*)11}];
+(*20171215: change back to divid colors by the same size*)(*20171219 add color palette to 11 colors*)(*20180420 back to 7 colors*)
+barseperator=Table[PaletteMin+isep*(PaletteMax-PaletteMin)/(*7.0*)(*11.0*)7.0,{isep,0,(*7*)(*11*)7}];
 absbarseperator=Table[isep*(absPaletteMax)/(*4.0*)6.0,{isep,0,(*4*)6}];
 (*
 barseperator=Table[DataMin+isep*(DataMax-DataMin)/7.0,{isep,0,7}];
@@ -7844,7 +7888,10 @@ pdfcorr=Flatten[#,1]&/@pdfcorr;
 
 (* deletezerovalue: delete data with 0 value (0 value usually from mb, mc cut)*)
 (*{pdfcorr ,dummy1,dummy2}=deletezerovalue[{pdfcorr ,pdfcorr,pdfcorr}];*)
+(*20180420 don't remove points with value = 0 because for the specified points we want the |S|=Mean[{|S1|,|S2|,...}] for the specified points*)
+(*
 pdfcorr=Table[Select[pdfcorr[[igroup]],#[[3]]!=0&],{igroup,1,Length[pdfcorr]}];
+*)
 "dummy"
 ];
 

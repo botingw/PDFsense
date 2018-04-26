@@ -620,11 +620,15 @@ getdeltaRclass[residualNsetclassfinal[[iexpt]] ],
 (*20171213 redefine sensitivity as (\[Delta]r/r)*Corr(Subscript[r, i],fSubscript[(x,Q), i])*)
 Table[
 Npt=dRcorrdataclassfinal[[iexpt,flavour+6]][["data"]]//Length;
+(*
 (*calculate the (Subscript[(\[Chi]^2), ID]/Subscript[Npt, ID])^0.5*)
 iRawdataResidual=Position[dtacentralclassfinal[[iexpt]][["label"]],"ReducedChi2"][[1,1]];
 RawNpt=dtacentralclassfinal[[iexpt]][["data"]]//Length;
 TotalRawChi2=Sum[Abs[dtacentralclassfinal[[iexpt]][["data"]][[irawpt,iRawdataResidual]] ],{irawpt,RawNpt}];
 SensNormalize=(TotalRawChi2/RawNpt)^0.5;
+*)
+(*20180420: replace the calculation of the rms of residual by the function*)
+SensNormalize=GetResidualRMS[residualNsetclassfinal[[iexpt]],dtacentralclassfinal[[iexpt]] ];
 
 Table[
 dRcorrdataclassfinal[[iexpt,flavour+6]][["data"]][[ipt,3]]=(dRcorrdataclassfinal[[iexpt,flavour+6]][["data"]][[ipt,3]]/
