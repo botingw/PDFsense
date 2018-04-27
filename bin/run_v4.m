@@ -1005,7 +1005,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,
 ];
 If[
 FigureFlag[[6]]==1,
-p6expression=Append[p6expression,{p6[[1,1]],p6[[1,2]],p6[[2,1]]}];
+p6expression=Append[p6expression,{p6[[1,1]],p6[[1,2]],p6[[2,2]]}];
 (*
 filename=obsname[[6]]<>"_"<>"plotlist"<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,{p6[[1,1]],p6[[1,2]],p6[[2,1]]}  ];
