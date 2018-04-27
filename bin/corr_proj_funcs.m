@@ -8387,10 +8387,10 @@ If[
  plottype==2 || plottype==3 || plottype==4 || plottype==5 || plottype==6,
 
 BinWidth=(hist1plotrangex[[2]]-hist1plotrangex[[1]])/Hist1figureNbin;
-If[hist1plotrangey[[1]]=="auto",hist1plotrangey[[1]]=If[HistLogY==False,0.0,0.7] ];
+If[hist1plotrangey[[1]]=="auto",hist1plotrangey[[1]]=If[HistLogY==False,0.0,0.4] ];
 If[hist1plotrangey[[2]]=="auto",hist1plotrangey[[2]]=Max[HistogramList[Flatten[pdfcorr]/.LF1[a__]:>{a}[[3]],{BinWidth}][[2]] ] ];
 (*set bin width of two histograms the same*)(*BinWidth=(hist2plotrangex[[2]]-hist2plotrangex[[1]])/Hist1figureNbin;*)
-If[hist2plotrangey[[1]]=="auto",hist2plotrangey[[1]]=If[HistLogY==False,0.0,0.7] ];
+If[hist2plotrangey[[1]]=="auto",hist2plotrangey[[1]]=If[HistLogY==False,0.0,0.4] ];
 If[hist2plotrangey[[2]]=="auto",hist2plotrangey[[2]]=Max[HistogramList[Flatten[pdfcorr]/.LF1[a__]:>Abs[{a}[[3]] ],{BinWidth}][[2]] ] ];
 
 hist1plotrange=Flatten[{hist1plotrangex,hist1plotrangey}];
