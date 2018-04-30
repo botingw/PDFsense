@@ -620,11 +620,15 @@ getdeltaRclass[residualNsetclassfinal[[iexpt]] ],
 (*20171213 redefine sensitivity as (\[Delta]r/r)*Corr(Subscript[r, i],fSubscript[(x,Q), i])*)
 Table[
 Npt=dRcorrdataclassfinal[[iexpt,flavour+6]][["data"]]//Length;
+(*
 (*calculate the (Subscript[(\[Chi]^2), ID]/Subscript[Npt, ID])^0.5*)
 iRawdataResidual=Position[dtacentralclassfinal[[iexpt]][["label"]],"ReducedChi2"][[1,1]];
 RawNpt=dtacentralclassfinal[[iexpt]][["data"]]//Length;
 TotalRawChi2=Sum[Abs[dtacentralclassfinal[[iexpt]][["data"]][[irawpt,iRawdataResidual]] ],{irawpt,RawNpt}];
 SensNormalize=(TotalRawChi2/RawNpt)^0.5;
+*)
+(*20180420: replace the calculation of the rms of residual by the function*)
+SensNormalize=GetResidualRMS[residualNsetclassfinal[[iexpt]],dtacentralclassfinal[[iexpt]] ];
 
 Table[
 dRcorrdataclassfinal[[iexpt,flavour+6]][["data"]][[ipt,3]]=(dRcorrdataclassfinal[[iexpt,flavour+6]][["data"]][[ipt,3]]/
@@ -947,7 +951,7 @@ If[
 (*correlation plots*)
 FigureFlag[[6]]==1 || FigureFlag[[6]]==-1,
 Print["making plot of figure type ",FigureType[[6]],", flavour = ",flavour];
-p6=processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],6,flavour ];
+p6=processdataplotsmultiexp8percentage[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],6,flavour ];
 (*add exptname table into output figure*)
 
 (*p6=GraphicsGrid[p6,Spacings\[Rule]Scaled[0.15] ];*)
@@ -1001,7 +1005,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,
 ];
 If[
 FigureFlag[[6]]==1,
-p6expression=Append[p6expression,{p6[[1,1]],p6[[1,2]],p6[[2,1]]}];
+p6expression=Append[p6expression,{p6[[1,1]],p6[[1,2]],p6[[2,2]]}];
 (*
 filename=obsname[[6]]<>"_"<>"plotlist"<>"_"<>"f"<>ToString[flavour]<>"_samept"<>".m";
 Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,{p6[[1,1]],p6[[1,2]],p6[[2,1]]}  ];
@@ -1021,7 +1025,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6[[2,
 If[
 FigureFlag[[5]]==1 || FigureFlag[[5]]==-1,
 Print["making plot of figure type ",FigureType[[5]],", flavour = ",flavour];
-p5=processdataplotsmultiexp7percentage[{dRcorrdataclassfinal},readcorrconfigfile6[configDir,configfilename],5,flavour];
+p5=processdataplotsmultiexp8percentage[{dRcorrdataclassfinal},readcorrconfigfile6[configDir,configfilename],5,flavour];
 
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
 Table[
@@ -1108,7 +1112,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,p6expr
 If[
 FigureFlag[[2]]==1 || FigureFlag[[2]]==-1,
 Print["making plot of figure type ",FigureType[[2]],", flavour = ",flavour];
-p234=processdataplotsmultiexp7percentage[{expterrordataclassfinal},readcorrconfigfile6[configDir,configfilename],2,flavour];
+p234=processdataplotsmultiexp8percentage[{expterrordataclassfinal},readcorrconfigfile6[configDir,configfilename],2,flavour];
 (*20171202 add important data info*)
 datainfostr=datainfototext[{expterrordataclassfinal},{dtacentralclassfinal},readcorrconfigfile6[configDir,configfilename],2,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
@@ -1159,7 +1163,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,datain
 If[
 FigureFlag[[3]]==1 || FigureFlag[[3]]==-1,
 Print["making plot of figure type ",FigureType[[3]],", flavour = ",flavour];
-p234=processdataplotsmultiexp7percentage[{residualdataclassfinal},readcorrconfigfile6[configDir,configfilename],3,flavour];
+p234=processdataplotsmultiexp8percentage[{residualdataclassfinal},readcorrconfigfile6[configDir,configfilename],3,flavour];
 (*20171202 add important data info*)
 datainfostr=datainfototext[{residualdataclassfinal},{dtacentralclassfinal},readcorrconfigfile6[configDir,configfilename],3,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
@@ -1235,7 +1239,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,datain
 If[
 FigureFlag[[4]]==1 || FigureFlag[[4]]==-1,
 Print["making plot of figure type ",FigureType[[4]],", flavour = ",flavour];
-p234=processdataplotsmultiexp7percentage[{dRdataclassfinal},readcorrconfigfile6[configDir,configfilename],4,flavour];
+p234=processdataplotsmultiexp8percentage[{dRdataclassfinal},readcorrconfigfile6[configDir,configfilename],4,flavour];
 (*20171202 add important data info*)
 datainfostr=datainfototext[{dRdataclassfinal},{dtacentralclassfinal},readcorrconfigfile6[configDir,configfilename],4,flavour];
 (*p5=GraphicsGrid[p5,Spacings\[Rule]Scaled[0.15] ];*)
@@ -1284,7 +1288,7 @@ Export[saveparentpath<>(*pdfnameexpttypeDir<>exptidDir*)jobpath<>filename,datain
 If[
 FigureFlag[[1]]==1 || FigureFlag[[1]]==-1,
 Print["making plot of figure type ",FigureType[[1]] ];
-p1=processdataplotsmultiexp7percentage[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],1,0 ];
+p1=processdataplotsmultiexp8percentage[{corrdataclassfinal},readcorrconfigfile6[configDir,configfilename],1,0 ];
 
 Table[
 filename=obsname[[1]]<>"_"<>representationname[[6]]<>extensionname[[iext[[i]] ]];
@@ -2607,3 +2611,22 @@ If[irun==Length[Lexpt],Print["all processes are done"];Abort[]];
 
 (* ::Input:: *)
 (*datainfototext[{residualdataclassfinal},{dtacentralclassfinal},readcorrconfigfile6[configDir,configfilename],3,flavour]*)
+
+
+(* ::Input:: *)
+(*Get["corr_proj_funcs.m"]*)
+
+
+(* ::Input:: *)
+(*processdataplotsmultiexp7percentage[{dRcorrdataclassfinal},readcorrconfigfile6[configDir,configfilename],5,-1]*)
+
+
+(* ::Input:: *)
+(*Get["corr_proj_funcs.m"]*)
+
+
+(* ::Input:: *)
+(*processdataplotsmultiexp8percentage[{dRcorrdataclassfinal},readcorrconfigfile6[configDir,configfilename],5,-1]*)
+(*processdataplotsmultiexp8percentage[{dRcorrdataclassfinal},readcorrconfigfile6[configDir,configfilename],5,5]*)
+(*processdataplotsmultiexp8percentage[{dRdataclassfinal},readcorrconfigfile6[configDir,configfilename],4,-1]*)
+(*processdataplotsmultiexp8percentage[{expterrordataclassfinal},readcorrconfigfile6[configDir,configfilename],2,-1]*)

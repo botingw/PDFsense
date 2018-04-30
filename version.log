@@ -476,3 +476,15 @@ add logy mode for histogram in processdataplotsmultiexp7percentage
 change the Npttext (the left-right side in plots) from #points in the plot to #points in .dta files
 change the default histogram as logy scale
 
+20180424
+1. update the function GetResidualRMS for calculating the rms of residuals in raw data (.dta files)
+2. fix the color palette problem: when plotting the signed data, not every number label are shown
+3. for making info files, don't remove the 0 value data points because they are also considered in the total |S| calculation
+(for points specified by one raw point, |S| = (|S1|+|S2|)/2, if |S| = 0 (not well-defined), we still take it into account)
+
+20180325
+1. replace the data for filling in histograms, weighting the counts of points sharing the same raw data point by 1/N, 
+where N is the #pt sharing the same raw point 
+the impact is that the t
+2. update the functions to processdataplotsmultiexp7percentage and histplot6 for the weight of histograms
+
