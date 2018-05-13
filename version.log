@@ -482,9 +482,20 @@ change the default histogram as logy scale
 3. for making info files, don't remove the 0 value data points because they are also considered in the total |S| calculation
 (for points specified by one raw point, |S| = (|S1|+|S2|)/2, if |S| = 0 (not well-defined), we still take it into account)
 
-20180325
+20180425
 1. replace the data for filling in histograms, weighting the counts of points sharing the same raw data point by 1/N, 
 where N is the #pt sharing the same raw point 
 the impact is that the t
-2. update the functions to processdataplotsmultiexp7percentage and histplot6 for the weight of histograms
+2. update the functions to processdataplotsmultiexp8percentage and histplot6 for the weight of histograms
 
+20180430
+fix a small bug for outputting correlation .m files 
+
+20180512
+modification of the user_func.txt reading (ReadUserFunctionV3 in corr_proj_funcs.nb/.m)
+if the input username is a Mathematica expression that output a string, then read this username as an expression
+this update is for inputting special characters, users can type the special characters and translate to InputForm 
+in Mathematica, then paste it to the user name in the user_func.txt
+e.g. type a string with special character "xxx"//InputForm, then you will out a string like 
+"\[LeftAngleBracket]\!\(\*SuperscriptBox[\(x\), \(0\)]\)\[RightAngleBracket]g"
+You paste it after "Name:" in user_func.txt, then the ReadUserFunctionV3 will translate it to the "xxx" you input in Mathematica   
