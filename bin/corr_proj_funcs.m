@@ -2655,6 +2655,7 @@ Size,HighlightType,HighlightMode,HighlightMode1,HighlightMode2}
 (* ::Input::Initialization:: *)
 (*20171109*)
 (*read user define function or data, input filename and output user define values*)
+(*
 ReadUserFunction[UserFuncDirin_,UserFuncfilenamein_]:=
 Module[{UserFuncDir=UserFuncDirin,UserFuncfilename=UserFuncfilenamein,
 UserArgNameTag,UserArgValueTag,UserArgName,UserArgValue,
@@ -2697,9 +2698,11 @@ UserArgValue=ReadList[StringToStream[UserArgValue],Number];
 
 {UserArgName,UserArgValue}
 ]
+*)
 
 (*20171116*)
 (*read user define function or data, input filename and output user define function, the function coulld be the Mathematica format function*)
+(*
 ReadUserFunctionV2[UserFuncDirin_,UserFuncfilenamein_]:=
 Module[{UserFuncDir=UserFuncDirin,UserFuncfilename=UserFuncfilenamein,
 UserArgNameTag,UserArgFunctionTag,UserArgName,UserArgFunction,
@@ -2742,6 +2745,7 @@ UserArgFunction=Read[StringToStream[UserArgFunction],Expression];
 
 {UserArgName,UserArgFunction}
 ]
+*)
 
 (*20171119*)
 (*read user define function or data, input filename and output user define function, the function coulld be the Mathematica format function*)
@@ -2805,6 +2809,10 @@ Table[output3[[i,2]]=StringSplit[output3[[i,2]],UserArgFunctionEndTag][[1]];"dum
 
 (*for each user name, read function content into expression format*)
 Table[output3[[i,2]]=Read[StringToStream[output3[[i,2]] ],Expression];"dummy",{i,Length[output3]}];
+
+(*20180501 if the input username is a Mathematica expression that output a string, than read this username as expression*)
+(*this function is for inputtng special characters, users can type the special characters and translate to inputform in Mathematica, then paste it to the user name in the user_func.txt*)
+Table[If[Head[ToExpression[output3[[i,1]] ] ]===String,output3[[i,1]]=ToExpression[output3[[i,1]] ] ];"dummy",{i,Length[output3]}];
 
 Return[output3];
 (*seperate the tag of configure file and arguments by ":"*)
