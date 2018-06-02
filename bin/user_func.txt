@@ -73,3 +73,7 @@ ExptIDin=125;iptin=33;(FxQ[ExptIDin,is,iptin])
 
 
 
+Name: test
+!Function Begin:
+this is a test
+!Function End

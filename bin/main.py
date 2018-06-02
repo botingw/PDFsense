@@ -18,6 +18,12 @@ def submit():
     if not any(allchecks[0]):
         print "No options selected"
     else:
+        #VERY FIRST THING - if user defined function is selected, write it to user_func.txt
+        if allchecks[-5][0]:
+            userFile = open("./user_func.txt","a")
+            userFile.write("Name: "+alltexts[4]+"\n")
+            userFile.write("!Function Begin:\n"+alltexts[5]+"\n!Function End\n")
+            userFile.close()
 
         #Open config file
         configFile = open("./config1.txt","w")
@@ -173,7 +179,7 @@ def changeFunc(one,two,three):
         funcName = tk.Entry(subCell)
         texts[4] = funcName
         funcName.grid(row=0,column=1)
-        tk.Label(subCell,text="Enter 57 values:").grid(row=1,column=0,sticky='w')
+        tk.Label(subCell,text="Function:").grid(row=1,column=0,sticky='w')
         vals = tk.Entry(subCell)
         texts[5] = vals
         vals.grid(row=1,column=1)
@@ -423,7 +429,7 @@ functionsCell.grid(row=2,columnspan=2)
 tk.Label(functionsCell,text="Functions to use in correlations:").grid(row=0,column=0)
 user = [tk.IntVar()]
 #20171116 botingw: new way to set user define function is by writing comment in user_define_func.txt, not by the user inputs in python script
-##user[0].trace('w',changeFunc)
+user[0].trace('w',changeFunc)
 checks.append(user)
 tk.Checkbutton(functionsCell,text="user",variable=user[0]).grid(row=1,column=0,sticky='w')
 

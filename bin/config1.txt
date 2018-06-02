@@ -1,16 +1,16 @@
-Job ID (copy from the counter file): 770825
-Job description: CT14HERA2NNLO
+Job ID (copy from the counter file): 1034687
+Job description: CT14HERA2NNLONoJet
 
-PDF set: CT14HERA2NNLO
+PDF set: CT14HERA2NNLONoJet
 
 Type:  1     2     3     4     5     6     7
-Flag:  1    0     0     0     -1     0     0
+Flag:  0    0     0     -1     0     0     0
 
-Expt. ID:   101   102   104   108   109   110   111   124   125   126   127   145   147   160   169   201   203   204   225   227   234   240   241   260   261   266   267   268   281   504   514   535   538   245   246   247   248   249   250   252   253   254   255   545   565   566   567   568   542   544
-Expt. Flag:  1     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
+Expt. ID:   160   101   102   104   108   109   110   111   124   125   126   127   147   201   203   204   225   227   234   260   261   145   169   267   268   240   241   281   266   106   504   514   535   538   544   565   566   567   568   245   246   247   249   250   252   253   542   545
+Expt. Flag:  0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     1     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0     0
 
 Type:  bb  cb  sb  db  ub  g  u  d  s  c  b  user
-Flag:  0   0   0   0   0   0   1   0   0   0   0   1
+Flag:  1   0   0   0   0   0   0   0   0   0   0   1
 
 xmin,   xmax:  auto  auto
 mumin, mumax:      auto  auto
