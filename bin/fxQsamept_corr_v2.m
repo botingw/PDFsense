@@ -139,6 +139,9 @@ Print["CorrDataFile: ",CorrDataFile];
 
 (* ::Input::Initialization:: *)
 (*initialize datalis file to extract the expt name of each Expt ID*)
+Print["read data lisTable from datalis file ",datalistFile];
+Print["lisTable includes a table of experimental info with the columns = {Expt ID, Expt name}"];
+Print[""];
 ReadLisFile[datalistFile]
 
 
@@ -319,6 +322,7 @@ fxQsamept2class=
 Table[
 (*since every iset of expt data has the same {x,Q}, we only take iset=1*)
 (*take x,Q value of data*)
+(*v2.0 update mark*)
 Dtadatatmp=Datamethods[["take"]][mydtadata[[iexpt,1]],{-2,-1}];
 (*make class*)
 Pdsread[["fxQsamept"]][Dtadatatmp,myPDFsetDir,PDFsetmethod,flavour],
@@ -347,6 +351,7 @@ Print["time of calculating PDF values is ",GetPDFvaluesTime];
 where Pdsread[["fxQsamept"]] is the function using pdfCTEQ to calculate PDF values of data by samept method*)
 GetPDFTimeTest=AbsoluteTiming[
 Table[
+(*v2.0 update mark*)
 x=0.0001;Q=3.0;pdfCTEQ[x,Q,5,iset],
 {i,1,100},{iset,1,(Datamethods[["getNcolumn"]][fxQsamept2class[[1,0+6]] ]-2)}];
 ][[1]];
@@ -382,6 +387,7 @@ fxQsamept2class=Table[Join[fxQsamept2class[[iexpt]],setextrafxQ[fxQsamept2class[
 (* ::Input::Initialization:: *)
 (*check whether the elements used to calculate residual are correct*)
 (*residual === (Theory-ShifteData)/UnCorrError*)
+(*v2.0 update mark*)
 ThIndex=5;ShiftDatIndex=11;UnCorrErrIndex=12;
 Print["begin to calculate residuals from data, labels of indexes used for each experiment:"];
 
@@ -444,6 +450,7 @@ dataNset=Transpose[dataNset,{3,2,1}];
 dataNset=
 Table[
 (*1 represent residual index*)
+(*v2.0 update mark*)
 dataNset[[ix,1]]/.List->LF,
 {ix,1,Length[dataNset]}
 ];
@@ -469,6 +476,7 @@ dataNset
 residualNsetclass=
 Table[
 (*make a class of {LF[x,Q],LF[x,Q],...}, extract (x, Q) *)
+(*v2.0 update mark*)
 Dtadatatmp=Datamethods[["take"]][mydtadata[[iexpt,1]],{-3,-2}];
 (*extract residual data {LF[residual1,...Nset],...} for every experiments*)
 residualdatatmp=getNsetLF[mydtadata[[iexpt]],-1];
@@ -535,6 +543,7 @@ getdeltaRclass[residualNsetclass[[iexpt]] ],
 (*select x, Q, central value of residual (iset==1)*)
 residualclass=
 Table[
+(*v2.0 update mark*)
 Datamethods[["take"]][residualNsetclass[[iexpt]],{1,3}],
 {iexpt,1,Dimensions[mydtadata][[1]]}
 ];
@@ -557,6 +566,7 @@ Datamethods[["take"]][residualNsetclass[[iexpt]],{1,3}],
 
 (* ::Input::Initialization:: *)
 (*check whether the elements used to calculate Expt error/expt are correct*)
+(*v2.0 update mark*)
 ExpIndex=4;ExpErrIndex=6;
 Print["begin to calculate \!\(\*SubscriptBox[\(\[Sigma]\), \(i\)]\)/\!\(\*SubscriptBox[\(D\), \(i\)]\) from data, labels of indexes used for each experiment:"];
 
@@ -574,6 +584,7 @@ mydtadata[[iexpt,1]][["exptinfo","exptid"]],": ",mydtadata[[iexpt,1]][["label"]]
 expterrorclass=
 Table[
 tmpdataclass=mydtadata[[iexpt,1]];
+(*v2.0 update mark*)
 tmpdataclass[["data"]]=tmpdataclass[["data"]]/.LF[a__]:>LF[{a}[[-3]],{a}[[-2]],{a}[[ExpErrIndex]]/{a}[[ExpIndex]] ];
 tmpdataclass[["label"]]={"x","Q","expterror/exptcentral"};
 tmpdataclass,
@@ -688,7 +699,9 @@ Print["check the (x,\[Mu]) value are not abnormal (too large or too small)"];
 Print[""];
 
 Table[
+(*v2.0 update mark*)
 tmpxQ=fxQsamept2class[[iexpt,flavour+6]][["data"]]/.LF[a__]:>{{a}[[1]],{a}[[2]]};
+(*v2.0 update mark*)
 tmpxQerror=Select[tmpxQ,(#[[1]]<10^-10 || #[[1]]>1 || #[[2]]<1 || #[[2]]>10^6)&  ];
 If[
 Length[tmpxQerror]>0,
