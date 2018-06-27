@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    310385,       7452]
-NotebookOptionsPosition[    308013,       7377]
-NotebookOutlinePosition[    308346,       7392]
-CellTagsIndexPosition[    308303,       7389]
+NotebookDataLength[    310438,       7453]
+NotebookOptionsPosition[    308066,       7378]
+NotebookOutlinePosition[    308399,       7393]
+CellTagsIndexPosition[    308356,       7390]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -415,7 +415,7 @@ Cell[BoxData[
          RowBox[{"Print", "[", 
           RowBox[{
           "\"\<can not find expt id = \>\"", ",", "ExptID", ",", 
-           "\"\< in lisTable, so we set the name for id = \>\"", ",", 
+           "\"\< in lisTable, so we set the Exptname for id = \>\"", ",", 
            "ExptID", ",", "\"\< as None\>\""}], "]"}], ";", "\n", 
          RowBox[{"output", "=", "\"\<None\>\""}]}]}], "\n", "]"}], ";", "\n", 
       
@@ -426,7 +426,8 @@ Cell[BoxData[
         RowBox[{"[", "2", "]"}], "]"}], "\n", "*)"}], "\n", "output"}]}], 
     "\n", "\n", "]"}]}]}]], "Input",
  InitializationCell->True,
- CellChangeTimes->{{3.739126265440446*^9, 3.739126379423455*^9}}],
+ CellChangeTimes->{{3.739126265440446*^9, 3.739126379423455*^9}, {
+  3.739126877532028*^9, 3.739126891546055*^9}}],
 
 Cell[BoxData[
  RowBox[{"(*", "\n", 
@@ -7414,44 +7415,44 @@ Cell[4784, 169, 176, 3, 33, "Text"],
 Cell[4963, 174, 6420, 163, 974, "Input",
  InitializationCell->True],
 Cell[11386, 339, 111, 3, 33, "Text"],
-Cell[11500, 344, 3122, 84, 536, "Input",
+Cell[11500, 344, 3175, 85, 536, "Input",
  InitializationCell->True],
-Cell[14625, 430, 821, 22, 220, "Code"],
-Cell[15449, 454, 26, 0, 30, "Input"],
-Cell[15478, 456, 8263, 206, 1528, "Input",
+Cell[14678, 431, 821, 22, 220, "Code"],
+Cell[15502, 455, 26, 0, 30, "Input"],
+Cell[15531, 457, 8263, 206, 1528, "Input",
  InitializationCell->True],
-Cell[23744, 664, 17225, 407, 1367, "Code"]
+Cell[23797, 665, 17225, 407, 1367, "Code"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[41006, 1076, 59, 0, 44, "Subsection"],
-Cell[41068, 1078, 132, 3, 33, "Text"],
-Cell[41203, 1083, 2071, 49, 415, "Input",
+Cell[41059, 1077, 59, 0, 44, "Subsection"],
+Cell[41121, 1079, 132, 3, 33, "Text"],
+Cell[41256, 1084, 2071, 49, 415, "Input",
  InitializationCell->True],
-Cell[43277, 1134, 217, 4, 55, "Text"],
-Cell[43497, 1140, 205, 7, 48, "Input",
+Cell[43330, 1135, 217, 4, 55, "Text"],
+Cell[43550, 1141, 205, 7, 48, "Input",
  InitializationCell->True],
-Cell[43705, 1149, 12578, 261, 1450, "Input",
+Cell[43758, 1150, 12578, 261, 1450, "Input",
  InitializationCell->True],
-Cell[56286, 1412, 5387, 139, 434, "Input"],
-Cell[61676, 1553, 2802, 76, 468, "Code",
+Cell[56339, 1413, 5387, 139, 434, "Input"],
+Cell[61729, 1554, 2802, 76, 468, "Code",
  InitializationCell->False],
-Cell[64481, 1631, 18202, 447, 2514, "Code"],
-Cell[82686, 2080, 13691, 345, 1583, "Code",
+Cell[64534, 1632, 18202, 447, 2514, "Code"],
+Cell[82739, 2081, 13691, 345, 1583, "Code",
  InitializationCell->False],
-Cell[96380, 2427, 163754, 3724, 11828, "Input",
+Cell[96433, 2428, 163754, 3724, 11828, "Input",
  InitializationCell->True],
-Cell[260137, 6153, 8608, 224, 1148, "Code",
+Cell[260190, 6154, 8608, 224, 1148, "Code",
  InitializationCell->False],
-Cell[268748, 6379, 2665, 71, 411, "Code",
+Cell[268801, 6380, 2665, 71, 411, "Code",
  InitializationCell->False],
-Cell[271416, 6452, 8712, 217, 1407, "Code",
+Cell[271469, 6453, 8712, 217, 1407, "Code",
  InitializationCell->False],
-Cell[280131, 6671, 5450, 142, 356, "Code",
+Cell[280184, 6672, 5450, 142, 356, "Code",
  InitializationCell->False],
-Cell[285584, 6815, 15226, 368, 1738, "Code",
+Cell[285637, 6816, 15226, 368, 1738, "Code",
  InitializationCell->False],
-Cell[300813, 7185, 6860, 179, 647, "Code"],
-Cell[307676, 7366, 309, 7, 89, "Code"]
+Cell[300866, 7186, 6860, 179, 647, "Code"],
+Cell[307729, 7367, 309, 7, 89, "Code"]
 }, Open  ]]
 }, Open  ]]
 }

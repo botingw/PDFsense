@@ -147,7 +147,7 @@ If[
 Length[Position[lisTabletmp,ExptID] ]!=0,
 IDPosition=Position[lisTabletmp,ExptID][[1]][[1]];
 output=lisTabletmp[[IDPosition]][[2]],
-Print["can not find expt id = ",ExptID," in lisTable, so we set the name for id = ",ExptID," as None"];
+Print["can not find expt id = ",ExptID," in lisTable, so we set the Exptname for id = ",ExptID," as None"];
 output="None"
 ];
 (*
