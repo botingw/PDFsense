@@ -1,0 +1,10255 @@
+#LyX 2.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 508
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass revtex4
+\begin_preamble
+%\XeTeXlinebreaklocale "zh"
+%\XeTeXlinebreakskip = 0pt plus 1pt
+
+%%\newfontfamily{\myfont}{cwTeX Q Fangsong}
+
+\usepackage{CJKutf8}
+
+%\documentclass[12pt]{article}
+%\usepackage{amsmath,amssymb,graphicx}
+%\usepackage{srcltx,cite}
+%\usepackage{color}
+
+
+\usepackage{mathrsfs}\usepackage{amsfonts}\usepackage{array}\usepackage{epsfig}
+
+
+% need for subequations
+% need for figures
+% useful for program listings
+\@ifundefined{definecolor}
+ {\usepackage{color}}{}
+% use if color is used in text
+\usepackage{subfigure}% use for side-by-side figures
+% use for hypertext links, including those to external documents and URLs
+\usepackage{multirow}
+\end_preamble
+\options prd,aps,preprint,tightenlines,superscriptaddress,nofootinbib
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\font_cjk bsmi
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref true
+\pdf_bookmarks true
+\pdf_bookmarksnumbered false
+\pdf_bookmarksopen false
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks false
+\pdf_backref section
+\pdf_pdfusetitle true
+\papersize default
+\use_geometry false
+\use_package amsmath 2
+\use_package amssymb 2
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 0
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Tutorial of Mathematica Program
+\end_layout
+
+\begin_layout Author
+Bo Ting Wang
+\end_layout
+
+\begin_layout Affiliation
+Department of Physics, Southern Methodist University, Dallas, TX 75275-0181,
+ USA
+\end_layout
+
+\begin_layout Abstract
+No
+\end_layout
+
+\begin_layout Date
+
+\size giant
+\color red
+\begin_inset ERT
+status collapsed
+
+\begin_layout Plain Layout
+
+
+\backslash
+today
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+main text
+\end_layout
+
+\begin_layout Part
+Physics Part
+\end_layout
+
+\begin_layout Section
+A Systematic Appoach To Quantify Constraints On PDFs Imposed By Experimental
+ Data
+\end_layout
+
+\begin_layout Subsection
+Introduction
+\end_layout
+
+\begin_layout Standard
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Situation
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Parton distribution functions (PDFs) are crucial for understanding the behaviour
+ of hadron collisions and then exploring the Standard Model (SM).
+ PDFs describe the structure of hadrons, which affect the configurations
+ of the final particles in the collisions.
+ Therefore, the magnitudes of physical observables in hadron collisions
+ strongly depend on PDFs.
+ Currently, The Large Hadron Collider (LHC) produces a lot of experimental
+ data.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Examining SM is one of the primary aims of LHC.
+\end_layout
+
+\end_inset
+
+ Owning to the fact that uncertainties in measurements constantly decrease,
+ reducing the PDF uncertainties of physical observables and using the higher
+ order PDFs will make it easier to find the inconsistency between SM and
+ the data sets collected by the LHC and then discover new physics.
+ Incorporating more (LHC) new data sets in the global fits of PDFs is a
+ naive way to generate better PDF sets with small uncertainties.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+(We want to incorporate these data sets into our new global fit analysis
+ for generating better PDF sets.) 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Problem Statement
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+LHC expt take more data, searching new physics requires small PDF uncertainties
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+questions (what is downside of the method)
+\end_layout
+
+\end_inset
+
+However, incorporating more experimental data points will substantially
+ increase the time for fitting PDF sets, especially when we fit higher order
+ PDF sets.
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Owning to the fact that uncertainties in measurements constantly decrease,
+ we need to inevitably increase the precisions of theoretical predictions
+ by using the higher order PDFs.
+\end_layout
+
+\end_inset
+
+ From here we know that how to select data sets in global fits will become
+ extremely important in the near future.
+ It is essential to know which data sets will effective constrain the higher
+ order PDFs for the global fits in the limited time of computation.
+ In addition, because physical predictions are sensitive to respective flavours
+ and regions of 
+\begin_inset Formula $\{\xi,\mu\}$
+\end_inset
+
+ in PDFs, we need to narrow down uncertainties of the specific regions of
+ 
+\begin_inset Formula $\{\xi,\mu\}$
+\end_inset
+
+ (in the PDFs).
+ Where partonic 
+\begin_inset Formula $\xi$
+\end_inset
+
+ are momentum fractions and 
+\begin_inset Formula $\mu$
+\end_inset
+
+ are QCD factorization scales.
+ For example, if PDF values 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+on
+\end_layout
+
+\end_inset
+
+for the leading 
+\begin_inset Formula $\{\xi,\mu\}$
+\end_inset
+
+ ranges and flavours that characterize kinematical quantities for Higgs
+ production processes (e.g.
+ at 
+\begin_inset Formula $\mu=125\,GeV$
+\end_inset
+
+) are tightly constrained, the theoretical predictions for these processes
+ are reliable (precise).
+\end_layout
+
+\begin_layout Enumerate
+methods
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+correlation idea
+\end_layout
+
+\end_inset
+
+Using correlation between PDF uncertainties in two observables have been
+ proposed to study constraints on PDFs and constraints on observables imposed
+ by PDFs 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Pumplin:2001ct"
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Nadolsky:2001yg"
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Nadolsky:2008zw"
+
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+the evaluation of the methods
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+The approach can help us to find the 
+\begin_inset Formula $\{\xi,\mu\}$
+\end_inset
+
+ ranges of PDFs affecting physical observables such as total cross section
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Nadolsky:2008zw"
+
+\end_inset
+
+.
+ It is yet be established that how to know the ranges specifying PDFs constraine
+d by experimental data sets.
+ 
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Enumerate
+Objectives
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+Thus, establishing a better understanding of the relationships between the
+ strength of constraints on PDF and experimental data sets will be a significant
+ and beneficial contribution to particle physics.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Methodology
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+statistical quantities
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+find the range with PDF dominate the prediction
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+I have developed and tested a systematic method to study the constraints
+ on PDFs imposed by the experimental data sets.
+ I will use established statistical observables to quantify the strength
+ of these constraints.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+visualization
+\end_layout
+
+\end_inset
+
+After that, I will introduce 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color red
+two techs?
+\end_layout
+
+\end_inset
+
+a statistical technique to visualize the regions of partonic momentum fractions
+ 
+\begin_inset Formula $\xi$
+\end_inset
+
+ and QCD factorization scales 
+\begin_inset Formula $\mu$
+\end_inset
+
+ where the experiments impose strong constraints on the PDFs.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+discussion (future)
+\end_layout
+
+\end_inset
+
+Recent experimental data will be considered in the analysis in order to
+ provide better constraints to various ranges of PDFs.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Scope, Limitations and Asumptions
+\end_layout
+
+\begin_layout Enumerate
+Significance
+\end_layout
+
+\begin_layout Enumerate
+Structure of This Paper
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+The article proceeds as follows.
+ First, in the 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:PDF_fitting"
+
+\end_inset
+
+, we give a brief overview of PDF fitting.
+ Second, the method used to 
+\begin_inset Quotes eld
+\end_inset
+
+see
+\begin_inset Quotes erd
+\end_inset
+
+ PDF from experimental data is introduced in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:chi2-Method"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+also explain parametrization, sum rules
+\end_layout
+
+\end_inset
+
+.
+ Third, an idea to estimate constraint of PDFs that we have seen from this
+ method is provided in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:estimate-PDFresol"
+
+\end_inset
+
+.
+ Fourth, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+advantages of using correlation, residual uncertainty, and
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+sensitivity
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ to study PDF constraint is discussed in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Sensitivity-data-PDF"
+
+\end_inset
+
+.
+ Two methods are discussed in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Samept-Method"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Grid-Method"
+
+\end_inset
+
+.
+ The corresponding Mathematica code is introduced in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "part:Mathematica-Program"
+
+\end_inset
+
+.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Overview of Global fitting and Constraints on PDFs 
+\end_layout
+
+\begin_layout Standard
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+...
+\end_layout
+
+\begin_layout Standard
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+observables for quantifying the PDF constraint from experiments
+\end_layout
+
+\end_inset
+
+We develop a systematic method to study the constraint of PDFs via every
+ experimental data point.
+ We quantify constraints of PDFs from individual data points by some observables
+, and then investigate the strength of constraints from data sets via these
+ observables.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+simultaneous error limits of PDFs and residuals, which represents the goodness
+ of fits of individual data points.
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+visualization
+\end_layout
+
+\end_inset
+
+After that, we visualize the distribution of strong constraint 
+\begin_inset Formula ${\xi,\mu}$
+\end_inset
+
+ regions of PDFs so that we can easily know which data sets strongly constrain
+ PDFs.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+introduction of samept, grid method
+\end_layout
+
+\end_inset
+
+The investigation of PDF constraints includes two ways.
+ The first way (Same point method) is to investigate the theoretical leading
+ 
+\begin_inset Formula ${\xi,\mu}$
+\end_inset
+
+ regions of data sets
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+this sentence weird
+\end_layout
+
+\end_inset
+
+.
+ The second way(Grid method) is to search all 
+\begin_inset Formula ${\xi,\mu}$
+\end_inset
+
+regions which are highly constrained by data for every data points.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+advantages of two ways
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+correlation
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+residual uncertainty
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+investigation of constraint by observables
+\end_layout
+
+\end_inset
+
+In this subsection, the background knowledge of PDF fitting and methods
+ of finding strength of PDF constraint and it's relationship to experiments
+ will be provided.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+In conclusion, we think following observables 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Sensitivity-data-PDF"
+
+\end_inset
+
+ are useful for studying constraint of PDF:
+\end_layout
+
+\begin_layout Enumerate
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+correlation: 
+\begin_inset Formula $Corr(f_{q_{i}}(x,Q),r_{i})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+residual uncertainty: 
+\begin_inset Formula $\delta r_{i}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\end_layout
+
+\begin_layout Enumerate
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+sensitivity: 
+\begin_inset Formula $\delta r_{i}\times Corr(f_{q_{i}}(x,Q),r_{i})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Where 
+\begin_inset Formula $r$
+\end_inset
+
+ is residual, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $f_{q_{i}}(x,Q)$
+\end_inset
+
+ is 
+\begin_inset Formula ${x,Q}$
+\end_inset
+
+ of a PDF,
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\begin_inset Formula $i$
+\end_inset
+
+ is experimental data point index, 
+\begin_inset Formula $q_{i}$
+\end_inset
+
+ is flavour index of a PDF, 
+\begin_inset Formula $Corr$
+\end_inset
+
+ is correlation function of PDF set family members of two observables.
+ They will be introduced in this subsection.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+discuss what do chapters talk about 
+\end_layout
+
+\end_inset
+
+The article proceeds as follows.
+ First, in the 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:PDF_fitting"
+
+\end_inset
+
+, we introduce PDF fitting.
+ Second, the method used to 
+\begin_inset Quotes eld
+\end_inset
+
+see
+\begin_inset Quotes erd
+\end_inset
+
+ PDF from experimental data is introduced in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:chi2-Method"
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+also explain parametrization, sum rules
+\end_layout
+
+\end_inset
+
+.
+ Third, an idea to estimate constraint of PDFs that we have seen from this
+ method is provided in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:estimate-PDFresol"
+
+\end_inset
+
+.
+ Fourth, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+advantages of using correlation, residual uncertainty, and
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+sensitivity
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ to study PDF constraint is discussed in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Sensitivity-data-PDF"
+
+\end_inset
+
+.
+ Two methods are discussed in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Samept-Method"
+
+\end_inset
+
+ and 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Grid-Method"
+
+\end_inset
+
+.
+ The corresponding Mathematica code is introduced in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "part:Mathematica-Program"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+how to make PDF
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+chi2 minimization
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+parametrise
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+experimental data selection
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+small&large x
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+higher twist
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+alphas, heavy quark mass, order selection, Q0
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+sea quark symmetry uncertainty
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+luminasity uncertainty
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+edge of phase space uncertainty
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Lapda QCD scale
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+resummation
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+scheme options (MSbar, DIS)
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+higher order contribution
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Introduction of PDF fitting
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:PDF_fitting"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To fit PDF sets, we first need to determine the input theoretical model
+ and data sets.
+ The model includes the selection of quark mass, coupling constants and
+ the order considered in the correction of perturbation (i.e.
+ LO, NLO and etc).
+ Then we determine the parametrization function form 
+\begin_inset Formula $f_{q}(\xi,Q_{0})=a_{0}\xi^{a_{1}}(1-\xi)^{a_{2}}F(a_{3},a_{4},......)$
+\end_inset
+
+ at the lowest factorization scale 
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+, for which we need to take some physical rules into account.
+ For instance, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $a_{0}\xi^{a_{1}}(1-\xi)^{a_{2}}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ term requires that the probabilities of the partons with momentum fraction
+ 
+\begin_inset Formula $\xi=1$
+\end_inset
+
+ or 
+\begin_inset Formula $\xi=0$
+\end_inset
+
+ are 
+\begin_inset Formula $0$
+\end_inset
+
+.
+ Besides, the momentum conservation (
+\begin_inset Formula $\int_{0}^{1}\xi\underset{i}{\sum}f_{i}(\xi,Q)dx=1$
+\end_inset
+
+) requires that the total momentum of all subparticles in each hadron should
+ equal to the kinematical momentum of that hadron.
+ (
+\begin_inset Formula $\int_{0}^{1}(u(x)-\bar{u}(x))dx=2$
+\end_inset
+
+ and 
+\begin_inset Formula $\int_{0}^{1}(d(x)-\bar{d}(x))dx=1$
+\end_inset
+
+) require that protons consist of 
+\begin_inset Formula $uud$
+\end_inset
+
+ at the low factorization scale.
+ we use 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ minimization to explore the best fit parameters 
+\begin_inset Formula $a_{0}$
+\end_inset
+
+, 
+\begin_inset Formula $a_{1}$
+\end_inset
+
+, 
+\begin_inset Formula $a_{2}$
+\end_inset
+
+ and etc.
+ 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ analysis applies the ratios of the deviations between theoretical predictions
+ and experimental values to experimental error bars to quantify the goodness
+ of fits.
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+Here are steps of the PDF fitting:
+\end_layout
+
+\begin_layout Enumerate
+select the experimental data sets and theoretical model in global fits
+\end_layout
+
+\begin_layout Enumerate
+write down 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+parametrization functions of all flavours
+\end_layout
+
+\begin_layout Enumerate
+determine the best-fitted 
+\begin_inset Formula $a_{0}$
+\end_inset
+
+, 
+\begin_inset Formula $a_{1}$
+\end_inset
+
+, 
+\begin_inset Formula $a_{2}$
+\end_inset
+
+......
+ of 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+the parametrization functions by minimizing 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+determine uncertainties of 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+the parametrization functions by 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+requiring 
+\begin_inset Formula $\chi^{2}<\chi_{min}^{2}+\chi_{torelance}^{2}$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+PDF fitting with 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ Method
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:chi2-Method"
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ test is a way to evaluate the goodness of fits.
+ We assume good fits are theoretical predictions within experimental error
+ bar.
+ Thus, by residuals (
+\begin_inset Formula $r_{i}$
+\end_inset
+
+) of data points 
+\begin_inset Formula $i$
+\end_inset
+
+, We can estimate the goodness of the fit of this point.
+ For data sets, the goodness of fits is the sum of all points 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $r_{i}$
+\end_inset
+
+, which means that we use the squared distance to evaluate the agreement
+ between the model and the data sets.
+ Hence, we can obtain the best coefficients of the model by minimizing 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $\chi^{2}≫N_{data}$
+\end_inset
+
+ for a data set and a theory, this fit is bad.
+ If 
+\begin_inset Formula $\chi^{2}\leq N_{data}$
+\end_inset
+
+, this fit is better than expected.
+ If 
+\begin_inset Formula $\chi^{2}\ll N_{data}$
+\end_inset
+
+, this fit is overfitted.
+ To sum up, 
+\begin_inset Formula $r_{i}$
+\end_inset
+
+ and 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ could be defined as follows:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+r_{i}=\frac{T_{i}-D_{i}}{\sigma_{i}}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\chi^{2}=\sum_{i\text{∈Expt data}}r_{i}^{2}
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Where i 
+\begin_inset Formula $r_{i}$
+\end_inset
+
+, 
+\begin_inset Formula $T_{i}$
+\end_inset
+
+, 
+\begin_inset Formula $D_{i}$
+\end_inset
+
+, and 
+\begin_inset Formula $\sigma_{i}$
+\end_inset
+
+ are the residual, theoretical prediction, experimental central value, and
+ experimental uncertainty in data point 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ When we take systematic uncertainties into account, the experimental central
+ values should be modified to 
+\begin_inset Formula $D_{shift,i}=D_{i}+shift_{i}$
+\end_inset
+
+ since the averages of the measurements are shifted from the real values.
+ Here we provide criteria of good PDF fittings
+\end_layout
+
+\begin_layout Enumerate
+\begin_inset Formula $\chi^{2}\simeq N_{data}$
+\end_inset
+
+, the smaller a 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+, the better a fitting 
+\end_layout
+
+\begin_layout Enumerate
+if residuals of points 
+\begin_inset Formula $i$
+\end_inset
+
+ are small (
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $|r|<1$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $r$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ is called residual 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\frac{T_{i}-D_{shift,i}}{\sigma_{i}}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+), the fit of these points is good
+\end_layout
+
+\begin_layout Standard
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+How to estimate PDF constraints
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:estimate-PDFresol"
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+no resolution-> constraint
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+We want to know how clear the structures of PDFs could be seen by experimental
+ data and which methods can be applied to estimate them.
+ Here we first define the resolution of PDFs:
+\end_layout
+
+\begin_layout Enumerate
+whether the length of the range 
+\begin_inset Formula ${x_{1},x_{2}}$
+\end_inset
+
+ of a PDF could be seen clearly.
+\end_layout
+
+\begin_layout Enumerate
+whether we can constrain (know the possible range of) PDF values of 
+\begin_inset Formula ${x,Q}$
+\end_inset
+
+ from data.
+\end_layout
+
+\begin_layout Enumerate
+bias: whether the fitted f(x,Q) is far away from 
+\begin_inset Quotes eld
+\end_inset
+
+real
+\begin_inset Quotes erd
+\end_inset
+
+ f(x,Q)
+\end_layout
+
+\begin_layout Plain Layout
+Take a photo as an example, 1.
+ is the size of pixels and 2.
+ is the uncertainty of the color of a pixel, and 3.
+ is whether the color of a pixel is distorted.
+ The camera that gets the photo from the real world is 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ minimization.
+ This article will focus on resolving 2.
+ the range of f(x,Q) values.
+\end_layout
+
+\begin_layout Plain Layout
+A simple principle to resolve 1.
+ is that if the variation of 
+\begin_inset Formula $(x_{1},x_{2})$
+\end_inset
+
+ of a PDF could be 
+\begin_inset Quotes eld
+\end_inset
+
+seen
+\begin_inset Quotes erd
+\end_inset
+
+ by 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ or 
+\begin_inset Formula $residual$
+\end_inset
+
+, we say 
+\begin_inset Formula $(x_{1},x_{2})$
+\end_inset
+
+ of the PDF could be resolved by experiments.
+ To resolve 2.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In general, we estimate the uncertainties of the parameters describing PDFs
+ by constraining 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ value.
+ In other words, we identify the region representing to the parameter uncertaint
+ies by the region with 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ smaller than 
+\begin_inset Formula $\chi_{min}^{2}+\chi_{torelance}^{2}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+.
+ We learn that constraints on PDFs are from constraining the upbound
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
++s???
+\end_layout
+
+\end_inset
+
+ of the goodness of fits.
+ When we fit theoretical models to match experimental data so that 
+\begin_inset Formula $r_{i}$
+\end_inset
+
+ for data points 
+\begin_inset Formula $i$
+\end_inset
+
+ and 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ are not too large, PDFs are constrained.
+ Thus, we use 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ and 
+\begin_inset Formula $r_{i}$
+\end_inset
+
+ to see the constraints on PDFs because they represent the criteria of the
+ goodness of fits and 
+\begin_inset Formula $f_{a}(\xi,\mu)$
+\end_inset
+
+ values are constrained to meet this criteria.
+ In other words, the criteria could determine the range of 
+\begin_inset Formula $f_{a}(\xi,\mu)$
+\end_inset
+
+.
+ For instance, Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:deltaR"
+
+\end_inset
+
+ is the comparison of two different fluctuations of theoretical values.
+ Even though mean values of red crosses and blue crosses are the same, we
+ can find the fluctuation of red crosses is easier to be detected because
+ it's affection on residual values is larger than the fluctuation of blue
+ crosses'.
+ Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:sensitivity"
+
+\end_inset
+
+ is the comparison of two different fluctuations of residuals depending
+ on 
+\begin_inset Formula $f_{a}(\xi,\mu)$
+\end_inset
+
+.
+ Although both of red circles and blue circles are strongly correlated,
+ red circles are more sensitive to 
+\begin_inset Formula $f_{a}(\xi,\mu)$
+\end_inset
+
+ because the 
+\begin_inset Formula $f_{a}(\xi,\mu)$
+\end_inset
+
+ fluctuation of red circles strongly affects values of residuals.
+ Therefore, To understand the relationship between data sets and the constraints
+ on PDFs imposed by these data sets, we should study whether 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ and 
+\begin_inset Formula $r_{i}$
+\end_inset
+
+ are sensitive to the variation of 
+\begin_inset Formula $f_{a}(\xi,\mu)$
+\end_inset
+
+ values.
+\end_layout
+
+\begin_layout Standard
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Theoretical predictions and an experimental data point measurement with
+ the error bar.
+ Red crosses and blue crosses are two sets of theoretical prediction uncertainti
+es.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:deltaR"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /home/botingw/Documents/latex_file/presentation/plots/proposal/show_residue.png
+	width 40col%
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The sensitivity of a data point to a PDF.
+ Red circles and blue circles are residuals of two data points versus f(x,Q)
+ values in PDF error sets
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:sensitivity"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /home/botingw/Documents/latex_file/presentation/plots/proposal/show_correlation.png
+	width 40col%
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Systematic method for studying constraints on PDFs imposed by experimental
+ data sets
+\end_layout
+
+\begin_layout Standard
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\color red
+framework
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+observables for quantifying the PDF constraint from experiments
+\end_layout
+
+\end_inset
+
+I have developed and tested a systematic method to study the constraints
+ on PDFs imposed by experimental data sets.
+ I use established statistical observables to quantify the strength of these
+ constraints
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+ on the PDFs imposed by the studied experimental data sets
+\end_layout
+
+\end_inset
+
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+visualization
+\end_layout
+
+\end_inset
+
+After that, I introduce 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color red
+two techs?
+\end_layout
+
+\end_inset
+
+a statistical technique to visualize the regions of partonic momentum fractions
+ 
+\begin_inset Formula $\xi$
+\end_inset
+
+ and QCD factorization scales 
+\begin_inset Formula $\mu$
+\end_inset
+
+ where the experiments impose strong constraints on the PDFs.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+discussion (future)
+\end_layout
+
+\end_inset
+
+Recent experimental data is considered in the analysis in order to provide
+ better constraints to various ranges of PDFs.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+input experiments and PDF sets
+\end_layout
+
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color red
+unclear
+\end_layout
+
+\end_inset
+
+ To test the effectiveness of the proposed method, I study constraints on
+ CT14NNLO parton distributions 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Dulat:2015mca"
+
+\end_inset
+
+ from various data sets.
+ I include various types of experimental data sets in the analysis, including
+ DIS processes, 
+\begin_inset Formula $Z\rightarrow l^{+}l^{-},d\sigma/dy(l)$
+\end_inset
+
+, 
+\begin_inset Formula $W\rightarrow l\nu$
+\end_inset
+
+, and jet productions (
+\begin_inset Formula $p_{1}p_{2}\rightarrow jjX)$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+
+\color red
+visualization method
+\end_layout
+
+\begin_layout Standard
+For data sets of interest, we can demonstrate and identify values of correlation
+/sensitivity data by different colors on the 
+\begin_inset Formula $\xi-\mu$
+\end_inset
+
+ plane (
+\begin_inset Formula $2D-\xi-\mu$
+\end_inset
+
+ figure), such as Figs.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:sensitivity"
+
+\end_inset
+
+, which help us to rapidly estimate the distribution of the strength of
+ constraints on the 
+\begin_inset Formula $\xi-\mu$
+\end_inset
+
+ plane.
+ We can also know the number of data points constraining PDFs by the histograms
+ of the statistical quantities.
+\end_layout
+
+\begin_layout Subsubsection
+Statistical quantities for constraints 
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Sensitivity-data-PDF"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\color red
+introduction correlation and sensitivity
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+correlation and sensitivity factor
+\end_layout
+
+\end_inset
+
+Among various quantities that characterize the sensitivity of the experimental
+ data to the PDFs, the correlations 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $Corr(f_{a}(\xi,\mu),r_{i})$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ of PDFs 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $f_{a}(\xi,\mu)$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ and residuals 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $r_{i}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ can determine whether there exist predictive relationships between PDFs
+ and goodness of fit 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+on
+\end_layout
+
+\end_inset
+
+to data points
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+the strength of the PDF constraints of experimental data points
+\end_layout
+
+\end_inset
+
+.
+ Here 
+\begin_inset Formula $a$
+\end_inset
+
+ is the flavour index, and 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $r_{i}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ is the residual of data point 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ We can also define a factor 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\delta r_{i}\times Corr(f_{a}(\xi,\mu),r_{i})$
+\end_inset
+
+ to quantify the sensitivity of the experimental datum to a variation of
+ the PDF.
+ Both correlation and sensitivity are useful for constraining PDFs
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color red
+need to fill out it?
+\end_layout
+
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Description
+
+\color black
+correlation
+\end_layout
+
+\begin_layout Standard
+
+\color red
+correlation's advantages
+\end_layout
+
+\begin_layout Standard
+Correlation illustrates the strength of the predictive relation between
+ any two observables 
+\begin_inset Formula $X$
+\end_inset
+
+ and 
+\begin_inset Formula $Y$
+\end_inset
+
+.
+ We can use values of one observable to predict values of another observable
+ very well when their correlation is close to 
+\begin_inset Formula $\pm1$
+\end_inset
+
+.
+ correlations of Hessian uncertainties 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Pumplin:2001ct"
+
+\end_inset
+
+ have been used to see the simultaneous constraint on observables 
+\begin_inset Formula $X$
+\end_inset
+
+ and 
+\begin_inset Formula $Y$
+\end_inset
+
+, and to get constraints on PDFs 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Pumplin:2001ct"
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Nadolsky:2001yg"
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Nadolsky:2008zw"
+
+\end_inset
+
+.
+ First, via measuring one physical observable, we are able to predict the
+ value of another observable precisely.
+ In addition, strong correlations are highly likely to show the signs of
+ some physical relations, such as causation, between the two observables.
+\end_layout
+
+\begin_layout Standard
+
+\color red
+Hessian correlation: definition and physical meaning
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Hessian formalism and uncertainty
+\end_layout
+
+\end_inset
+
+There are several ways to evaluate uncertainties on PDFs such as the Hessian
+ method 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Pumplin:2001ct"
+
+\end_inset
+
+, the Monte Carlo method 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Giele:1998gw"
+
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Giele:2001mr"
+
+\end_inset
+
+, and the Lagrange Multiplier 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Stump:2001gu"
+
+\end_inset
+
+.
+ Our PDF set input is CT14NNLO, which uses the Hessian method to estimate
+ uncertainties information.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+quadratic approx
+\end_layout
+
+\end_inset
+
+This idea is based on the quadratic assumption.
+ According to the quadratic assumption, we will get an elliptical shape
+ of PDF parameter space around the best fit parameters 
+\begin_inset Formula $\overset{\rightharpoonup}{a_{0}}$
+\end_inset
+
+ for a given tolerance parameter 
+\begin_inset Formula $\chi_{tolerance}^{2}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\chi^{2}(\overset{\rightharpoonup}{a})<\chi^{2}(\overset{\rightharpoonup}{a_{0}})+\chi_{torelance}^{2}$
+\end_inset
+
+.
+ If errors of an observable 
+\begin_inset Formula $X$
+\end_inset
+
+ along the 
+\begin_inset Formula $\pm$
+\end_inset
+
+ directions of 
+\begin_inset Formula $i$
+\end_inset
+
+-th dimension of the ellipse are 
+\begin_inset Formula $X_{i}^{+}$
+\end_inset
+
+ and 
+\begin_inset Formula $X_{i}^{-}$
+\end_inset
+
+, the uncertainty of 
+\begin_inset Formula $X$
+\end_inset
+
+ based on the variation of parameter at 
+\begin_inset Formula $i$
+\end_inset
+
+-th dimension could be approximated by 
+\begin_inset Formula $(X_{i}^{+}-X_{i}^{-})/2$
+\end_inset
+
+.
+ According to the principle of error propagations, the 
+\begin_inset Formula $X$
+\end_inset
+
+ uncertainty via PDF parameter space is 
+\begin_inset Formula $\Delta X=\frac{1}{2}\sqrt{\underset{i}{\sum}(X_{i}^{+}-X_{i}^{-})^{2}}$
+\end_inset
+
+.
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+correlation definition
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Our idea of studying PDF constraints from data sets uses the correlation
+ between PDF Hessian sets and residual Hessian sets, where the Hessian correlati
+on of two observables is defined as 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $cos\phi=\underset{i}{\sum}(X_{i}^{+}-X_{i}^{-})(Y_{i}^{+}-Y_{i}^{-})/4\Delta X\Delta Y$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+.
+ The correlation of any two observables 
+\begin_inset Formula $X$
+\end_inset
+
+ and 
+\begin_inset Formula $Y$
+\end_inset
+
+ could be used to see the simultaneous constraint of 
+\begin_inset Formula $X$
+\end_inset
+
+ and 
+\begin_inset Formula $Y$
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Pumplin:2001ct"
+
+\end_inset
+
+.
+ The ellipse of simultaneous constraint could be described by “Lissajous
+ figure”
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+X=X_{0}+\Delta X\,sin(\theta+\phi)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+Y=Y_{0}+\Delta Y\,sin(\theta+\phi)
+\]
+
+\end_inset
+
+where 
+\begin_inset Formula $0<\theta<2\pi$
+\end_inset
+
+ traces the shape of the ellipse, and whether the shape is needle-like or
+ circle-like is controled by 
+\begin_inset Formula $\phi$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $|cos\phi|\simeq1$
+\end_inset
+
+, the shape is needle-like, which strongly constrains 
+\begin_inset Formula $Y$
+\end_inset
+
+ for a given 
+\begin_inset Formula $\delta X$
+\end_inset
+
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+need explain more
+\end_layout
+
+\end_inset
+
+(see Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:corr-ellipse"
+
+\end_inset
+
+).
+ Thus, the correlations 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $Corr(f_{a}(\xi,\mu),r_{i})$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ of PDFs 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $f_{a}(\xi,\mu)$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ and the residuals 
+\begin_inset Formula $r_{i}$
+\end_inset
+
+
+\color black
+ 
+\color inherit
+can determine the strength of constraints on PDFs imposed by 
+\begin_inset Formula $r_{i}$
+\end_inset
+
+ in experimental data points.
+ 
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+Lissajous figure of observables X and Y for different 
+\begin_inset Formula $cos\phi$
+\end_inset
+
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:corr-ellipse"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /home/botingw/Documents/latex_file/tutorial/plots/correlation_ellipses.eps
+	width 80col%
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+
+\color black
+\begin_inset Formula $\delta r$
+\end_inset
+
+ and sensitivity
+\end_layout
+
+\begin_layout Standard
+
+\color red
+construct more representative statistical quantity for constraints
+\end_layout
+
+\begin_layout Standard
+Although we can know the predictivities between PDFs and measurements through
+ 
+\begin_inset Formula $Corr(f_{a}(\xi,\mu),r_{i})$
+\end_inset
+
+, 
+\begin_inset Formula $Corr(f_{a}(\xi,\mu),r_{i})$
+\end_inset
+
+ could not specify the strength of constraints on PDFs imposed by 
+\begin_inset Formula $r_{i}$
+\end_inset
+
+ (
+\begin_inset Formula $SOC(PDF)$
+\end_inset
+
+).
+ For instance, the measurements with large uncertainties cannot effectively
+ constrain 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $f_{a}(\xi,\mu)$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ no matter how large 
+\begin_inset Formula $Corr(f_{a}(\xi,\mu),r_{i})$
+\end_inset
+
+ is, since 
+\begin_inset Formula $r_{i}$
+\end_inset
+
+ is not sensitive to the variation of 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $f_{a}(\xi,\mu)$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+.
+ Therefore, we want to find a more representative statistical quantity for
+ 
+\begin_inset Formula $SOC(PDF)$
+\end_inset
+
+.
+ 
+\color black
+To study 
+\color inherit
+
+\begin_inset Formula $SOC(PDF)$
+\end_inset
+
+
+\color black
+ between PDFs and data sets, we study the variation of 
+\color inherit
+
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+
+\color black
+ and 
+\color inherit
+
+\begin_inset Formula $r_{i}$
+\end_inset
+
+
+\color black
+ associated with the fluctuation in 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $f_{a}(\xi,\mu)$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color black
+.
+ Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:sensitivity"
+
+\end_inset
+
+ shows 
+\color inherit
+
+\begin_inset Formula $r_{i}$
+\end_inset
+
+
+\color black
+ in data points depending on the variation in 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $f_{a}(\xi,\mu)$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color black
+ error sets.
+ We find that despite the fact that the correlation between 
+\color inherit
+
+\begin_inset Formula $r_{i}$
+\end_inset
+
+
+\color black
+ in two data points (red circles and blue circles) and 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $f_{a}(\xi,\mu)$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color black
+ are the same, the fluctuation for 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $f_{a}(\xi,\mu)$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color black
+ imposes different levels of impact to 
+\color inherit
+
+\begin_inset Formula $r_{i}$
+\end_inset
+
+.
+
+\color black
+ The 
+\color inherit
+
+\begin_inset Formula $r_{i}$
+\end_inset
+
+,
+\color black
+ represented by red circles, are more sensitive to 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $f_{a}(\xi,\mu)$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color black
+, which indicates that when we constrain 
+\color inherit
+
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+
+\color black
+ for getting the new fitted 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $f_{a}(\xi,\mu)$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color black
+ error sets, the data point represented by the red circles will more dramaticall
+y narrow down the range of the new 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $f_{a}(\xi,\mu)$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color black
+ error sets so that 
+\color inherit
+
+\begin_inset Formula $r_{i}$
+\end_inset
+
+
+\color black
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color red
+of?
+\end_layout
+
+\end_inset
+
+for error sets become smaller.
+ Here we find the 
+\color inherit
+
+\begin_inset Formula $\delta r_{i}$
+\end_inset
+
+
+\color black
+, which evaluates the fraction of theoretical and experimental uncertainties,
+ indicating whether the theoretical uncertainties are apt to be constrained
+ after the fitting.
+ For the above reasons, we advise using 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\delta r_{i}\times Corr(f_{a}(\xi,\mu),r_{i})$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color black
+ to quantify the sensitivity (
+\color inherit
+
+\begin_inset Formula $Sen(f_{a}(\xi,\mu),r_{i})$
+\end_inset
+
+
+\color black
+) for 
+\color inherit
+
+\begin_inset Formula $r_{i}$
+\end_inset
+
+
+\color black
+ to 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $f_{a}(\xi,\mu)$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color black
+, and using the sensitivity to estimate 
+\color inherit
+
+\begin_inset Formula $SOC(PDF)$
+\end_inset
+
+
+\color black
+ for data point 
+\color inherit
+
+\begin_inset Formula $i$
+\end_inset
+
+
+\color black
+.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+Same point method 
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Samept-Method"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\color red
+objective
+\end_layout
+
+\begin_layout Standard
+In principle, we can use the correlation & sensitivity mentioned above to
+ quantify 
+\begin_inset Formula $SOC(PDF)$
+\end_inset
+
+ for any points on the 
+\begin_inset Formula $\xi-\mu$
+\end_inset
+
+ plane and data point 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ Therefore, we can identify which regions in the 
+\begin_inset Formula $\xi-\mu$
+\end_inset
+
+ plane have strong 
+\begin_inset Formula $SOC(PDF)$
+\end_inset
+
+.
+ Our objective is to characterize the strongly constrained ranges (Strong
+ 
+\begin_inset Formula $SOC(PDF)$
+\end_inset
+
+ Regions) imposed by the given data sets.
+\end_layout
+
+\begin_layout Standard
+
+\color red
+difficulties in the analysis and solutions
+\end_layout
+
+\begin_layout Standard
+Acquiring the corresponding Strong 
+\begin_inset Formula $SOC(PDF)$
+\end_inset
+
+ Regions for each point 
+\begin_inset Formula $i$
+\end_inset
+
+ still could not tell us which ranges are constrained by each data set because
+ the amount of information in all data points is too large to analyze it.
+ Therefore, we present a simple method as follows.
+ For each data point 
+\begin_inset Formula $i$
+\end_inset
+
+, we select the points (or the ranges) in the 
+\begin_inset Formula $\xi-\mu$
+\end_inset
+
+ plane whose 
+\begin_inset Formula $f_{a}(\xi_{i},\mu_{i})$
+\end_inset
+
+ are constrained most by the point 
+\begin_inset Formula $i$
+\end_inset
+
+ (Max 
+\begin_inset Formula $SOC(PDF)$
+\end_inset
+
+ Regions).
+ Here we assume that in scattering processes, sizes of physical observables
+ are mainly contributed by the ranges
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+ near 
+\begin_inset Formula $\{\xi_{i},\mu_{i}\}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+.
+ Thus, it is highly possible that the measurement at point 
+\begin_inset Formula $i$
+\end_inset
+
+ will impose the strongest constraints on the 
+\begin_inset Formula $f_{a}(\xi_{i},\mu_{i})$
+\end_inset
+
+ in these ranges.
+ As a result, the combination of these ranges describes the most constrained
+ ranges for all data points in each data set.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\color red
+capability
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+explanation and a DIS example
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It is possible to evaluate those PDF ranges.
+ For each experimental data point 
+\begin_inset Formula $i$
+\end_inset
+
+, we can establish an approximate relation between the 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+{
+\backslash
+it measured}
+\end_layout
+
+\end_inset
+
+ kinematical quantities for that data point, and unobserved quantities 
+\begin_inset Formula $a$
+\end_inset
+
+, 
+\begin_inset Formula $\xi$
+\end_inset
+
+, and 
+\begin_inset Formula $\mu$
+\end_inset
+
+ specifying the PDFs, where 
+\begin_inset Formula $a$
+\end_inset
+
+, 
+\begin_inset Formula $\xi$
+\end_inset
+
+, and 
+\begin_inset Formula $\mu$
+\end_inset
+
+ are flavour, momentum fraction, and resolution scale of partons.
+ For example, in DIS, 
+\begin_inset Formula $\xi$
+\end_inset
+
+ and 
+\begin_inset Formula $\mu$
+\end_inset
+
+ are approximately equal to Bjorken 
+\begin_inset Formula $x$
+\end_inset
+
+ and momentum transfer 
+\begin_inset Formula $Q$
+\end_inset
+
+ according to the Born-level kinematic relation.
+ However, this relation is violated in high-order radiative contributions.
+ Nevertheless, this relation will approximately hold in most scattering
+ events.
+ Therefore, we derive the relation between the kinematical quantities and
+ unobserved quantities we mentioned for data sets in our analysis, including
+ DIS, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $dXsec/dy(l)$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ of 
+\begin_inset Formula $Z\rightarrow l_{+}l_{-}$
+\end_inset
+
+, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $dXsec/dy(l)$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ of 
+\begin_inset Formula $W\rightarrow l\nu$
+\end_inset
+
+, and (di)jet productions.
+ In practice, our fitted PDF sets are not perfect, so even some ranges of
+ the real PDF dominate a physical observable, the PDF sets in these ranges
+ are not always strongly correlated to that physical observable.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Investigating the relationship between those PDF ranges and data points
+ is important since we can know whether the experimental data effectively
+ constrains some PDF flavours and ranges and whether those ranges of PDF
+ fit experimental data well.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Following are formulas (code part: selectExptxQv2 in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:library:-dtareadbotingw2016"
+
+\end_inset
+
+) connecting experimental data points and their leading 
+\begin_inset Formula ${\xi,\mu}$
+\end_inset
+
+ points of PDFs:
+\end_layout
+
+\begin_layout Standard
+DIS: 
+\begin_inset Formula ${x,Q}_{data}={\xi,\mu}_{PDF}$
+\end_inset
+
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+VBP1: 
+\begin_inset Formula ${Q/\sqrt{S},Q}_{data}={\xi,\mu}_{PDF}$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $Z\rightarrow l_{+}l_{-},dXsec/dy(l)$
+\end_inset
+
+: 
+\begin_inset Formula ${(Q/\sqrt{S})\times\exp(\pm y),Q}_{data}={\xi,\mu}_{PDF}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $W\rightarrow l\nu$
+\end_inset
+
+: same as 
+\begin_inset Formula $Z\rightarrow l_{+}l_{-},dXsec/dy(l)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+JP (
+\begin_inset Formula $q_{1}q_{2}\rightarrow j_{1}j_{2}$
+\end_inset
+
+, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $dXsec/dp_{T}(j)dy(j)$
+\end_inset
+
+,
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ estimate 
+\begin_inset Formula $\xi_{1},\xi_{2}$
+\end_inset
+
+ of jet as peak of 
+\begin_inset Formula $y(j_{1}),y(j_{2})$
+\end_inset
+
+): 
+\begin_inset Formula ${(2p_{T}/\sqrt{S})\times\exp(\pm y),2p_{T}}_{data}={\xi,\mu}_{PDF}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $Z\rightarrow l_{+}l_{-},dXsec/dp_{T}(Z)$
+\end_inset
+
+ (ID = 247, 253): 
+\begin_inset Formula ${(\sqrt{p_{T}^{2}+m_{ll}^{2}}/\sqrt{S})\times\exp(\pm y),\sqrt{p_{T}^{2}+m_{ll}^{2}}}_{data}={\xi,\mu}_{PDF}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $Z\rightarrow l_{+}l_{-},dXsec/dy(l)dm_{ll}$
+\end_inset
+
+ (ID = 252): 
+\begin_inset Formula ${(m_{ll}/\sqrt{S})\times\exp(\pm y),m_{ll}}_{data}={\xi,\mu}_{PDF}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $t\overline{t},dXsec/dp_{T}(t)$
+\end_inset
+
+ (ID = 565): 
+\begin_inset Formula ${(2p_{T}/\sqrt{S})\times\exp(\pm y),2p_{T}}_{data}={\xi,\mu}_{PDF}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $t\overline{t},dXsec/d<y(t)>$
+\end_inset
+
+ or 
+\begin_inset Formula $t\overline{t},dXsec/dy_{t\overline{t}}$
+\end_inset
+
+ (ID = 566, 568): 
+\begin_inset Formula ${(400GeV/\sqrt{S})\times\exp(\pm y),400GeV}_{data}={\xi,\mu}_{PDF}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $t\overline{t},dXsec/dm_{t\overline{t}}$
+\end_inset
+
+ (ID = 567): 
+\begin_inset Formula ${(m_{ll}/\sqrt{S})\times\exp(\pm y),m_{ll}}_{data}={\xi,\mu}_{PDF}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Here we give physics of these formulas.
+ DIS processes are just mentioned in the example.
+ In lepton pair production and (di)jet production, the rapidities of the
+ final-state pairs are small for most events.
+ If 
+\begin_inset Formula $y$
+\end_inset
+
+ is integrated out, we set 
+\begin_inset Formula $y=0$
+\end_inset
+
+ 
+\begin_inset Formula $\tau=Q/\sqrt{S}$
+\end_inset
+
+ 
+\begin_inset Formula $\xi_{1}=\xi_{2}=\tau$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $y$
+\end_inset
+
+ of the lepton pair or jet pair is known, we set 
+\begin_inset Formula $\xi_{1,2}=\tau\cdot\exp(\pm y)$
+\end_inset
+
+.
+ For jet production, 
+\begin_inset Formula $\tau=2p_{T}^{{\rm jet}}/\sqrt{S}$
+\end_inset
+
+ at the leading order.
+ In most events, if rapidity 
+\begin_inset Formula $y_{l}$
+\end_inset
+
+ of the lepton is known yet 
+\begin_inset Formula $y$
+\end_inset
+
+ of the boson is unknown, we use the fact that 
+\begin_inset Formula $y_{l}\sim y\pm1$
+\end_inset
+
+ for most events.
+ You can still estimate 
+\begin_inset Formula $\xi_{1}$
+\end_inset
+
+ and 
+\begin_inset Formula $\xi_{2}$
+\end_inset
+
+ as 
+\begin_inset Formula $\xi_{1,2}=\tau\cdot\exp(\pm y)$
+\end_inset
+
+, where 
+\begin_inset Formula $y\sim y_{l}$
+\end_inset
+
+ (up to an error of less than 1 unit).
+ 
+\end_layout
+
+\begin_layout Standard
+
+\color red
+advantages
+\end_layout
+
+\begin_layout Standard
+Because Max 
+\begin_inset Formula $SOC(PDF)$
+\end_inset
+
+ Regions are obtained from a physical relation, we know the constraints
+ in these ranges are the real physical constraints rather than the results
+ of other factors, such as 
+\color black
+
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color red
+how to say it?
+\end_layout
+
+\end_inset
+
+
+\color inherit
+parametrization function dependency.
+\end_layout
+
+\begin_layout Standard
+
+\color red
+practical procedure (step by step)
+\end_layout
+
+\begin_layout Standard
+Finally, we provide steps of Same point method.
+ Steps are as follows:
+\end_layout
+
+\begin_layout Enumerate
+calculate Max 
+\begin_inset Formula $SOC(PDF)$
+\end_inset
+
+ Regions 
+\begin_inset Formula $\{\xi_{i},\mu_{i}\}$
+\end_inset
+
+ from corresponding experimental data points 
+\begin_inset Formula $i$
+\end_inset
+
+ by using a suitable transformation formula describing the approximate relation
+ between 
+\begin_inset Formula $\{\xi_{i},\mu_{i}\}$
+\end_inset
+
+ and kinematical quantities for points 
+\begin_inset Formula $i$
+\end_inset
+
+ (code part: selectExptxQv2 in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:library:-dtareadbotingw2016"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Enumerate
+for each data point, calculate all flavours of PDF values for the same 
+\begin_inset Formula $\{\xi_{i},\mu_{i}\}$
+\end_inset
+
+ (executable part: fxQsamept.nb in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Input-Output"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Enumerate
+calculate correlation 
+\begin_inset Formula $Corr(f_{a}(\xi_{i},\mu_{i}),r_{i})$
+\end_inset
+
+, sensitivity 
+\begin_inset Formula $\delta r_{i}*Corr(f_{a}(\xi,\mu),r_{i})$
+\end_inset
+
+, and other statistical quantities (
+\begin_inset Formula $r_{i,central\,value}$
+\end_inset
+
+, 
+\begin_inset Formula $\delta r_{i}$
+\end_inset
+
+, and experimental error ratio in this code) for every point 
+\begin_inset Formula $i$
+\end_inset
+
+ and every flavour 
+\begin_inset Formula $a$
+\end_inset
+
+ (executable: fxQsamept_corr.nb in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Input-Output"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Enumerate
+draw the histograms and 
+\begin_inset Formula $2D-\xi-\mu$
+\end_inset
+
+ figures for the statistical quantities derived in step 3 (executable: run_v3.nb
+ in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Input-Output"
+
+\end_inset
+
+, example figure: 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:corr-sensitivity-281"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/botingw/Documents/latex_file/presentation/plots/proposal/CT14NNLO_281_corr_xQ_f2_samept.eps
+	width 40col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The correlation (
+\begin_inset Formula $Corr(d(x,\mu),r_{i})$
+\end_inset
+
+) of expt 281(D0 Run-2) and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+d quark.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename /home/botingw/Documents/latex_file/presentation/plots/proposal/CT14NNLO_281_corrdr_xQ_f2_samept.eps
+	width 40col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The sensitivity (
+\begin_inset Formula $\delta r_{i}*Corr(d(x,\mu),r_{i})$
+\end_inset
+
+) of expt 281 (D0 Run-2) 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+and d quark.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The correlation and sensitivity of the Hessian uncertainty of data set 281(D0
+ Run-2) and CT14NNLO depending on the momentum fraction and the factorization
+ scale.
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:corr-sensitivity-281"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../presentation/plots/proposal/CT14NNLO_225_corr_xQ_f2_samept.eps
+	width 40col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The correlation (
+\begin_inset Formula $Corr(d(x,\mu),r_{i})$
+\end_inset
+
+) of expt 225 (cdfLasy) and 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+d quark.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../presentation/plots/proposal/CT14NNLO_225_corrdr_xQ_f2_samept.eps
+	width 40col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The sensitivity (
+\begin_inset Formula $\delta r_{i}*Corr(d(x,\mu),r_{i})$
+\end_inset
+
+) of expt 225 (cdfLasy) 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+and d quark.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The correlation and sensitivity of the Hessian uncertainty of data set 225(cdfLa
+sy) and CT14NNLO depending on the momentum fraction and the factorization
+ scale.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:corr-sensitivity-225"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../presentation/plots/proposal/CT14NNLO_247_corr_xQ_f0_grid.eps
+	width 40col%
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename ../presentation/plots/proposal/CT14NNLO_247_corrdr_xQ_f0_grid.eps
+	width 40col%
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+The correlation and sensitivity of the Hessian uncertainty of data set 247(ATL7Z
+pt) and CT14NNLO depending on the momentum fraction and the factorization
+ scale.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:The-corr-sensitivity-247"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Grid method 
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Grid-Method"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\color red
+eg version code: delete grid method part
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color red
+eg version code: delete grid method part
+\color inherit
+If we can not estimate which 
+\begin_inset Formula $\{\xi,\mu\}$
+\end_inset
+
+ ranges dominate a physical observable, we can still search all 
+\begin_inset Formula $\{\xi,\mu\}$
+\end_inset
+
+ of PDF
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+of what?
+\end_layout
+
+\end_inset
+
+ to find which ranges have an interesting connection to the physical observable.
+ A simple way to investigate all 
+\begin_inset Formula $\{\xi,\mu\}$
+\end_inset
+
+ ranges is that we setup a grid on the 
+\begin_inset Formula $\{\xi,\mu\}$
+\end_inset
+
+ space for small enough 
+\begin_inset Formula $\Delta\xi$
+\end_inset
+
+ and 
+\begin_inset Formula $\Delta\mu$
+\end_inset
+
+ and investigate all points of the grid for every experimental data point.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+formulas of dividing the grid
+\end_layout
+
+\end_inset
+
+Because we want to take more investigation in regions with higher density
+ of data (
+\begin_inset Formula $10^{-5}<\xi<1$
+\end_inset
+
+ with most data are between 
+\begin_inset Formula $10^{-4}$
+\end_inset
+
+ and 
+\begin_inset Formula $10^{-1}$
+\end_inset
+
+, 
+\begin_inset Formula $1<\mu<2000$
+\end_inset
+
+ (GeV)), 
+\begin_inset Formula $\Delta\xi$
+\end_inset
+
+ and 
+\begin_inset Formula $\Delta\mu$
+\end_inset
+
+ are distributed by 
+\begin_inset Formula $\xi_{i}=(10^{-5\alpha x}+i\times(0.99^{\alpha x}-10^{-5\alpha x})/N\xi)^{1/\alpha x}$
+\end_inset
+
+, 
+\begin_inset Formula $\mu_{j}=exp(log1+j\times(log2000-log1)/N\mu)$
+\end_inset
+
+, where 
+\begin_inset Formula $i=0,1,...N\xi-1$
+\end_inset
+
+, 
+\begin_inset Formula $j=0,1,...,N\mu-1$
+\end_inset
+
+, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\alpha x=0.25$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+investigate what?
+\end_layout
+
+\end_inset
+
+ Since the information of all points for every experimental data point is
+ too large to be analyzed, we can select only interesting grid points such
+ as high correlation points to analyze.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+After we find some interesting points (and regions), we can begin to figure
+ out why those points have stronger correlation or constraint than other
+ points (and regions).
+\end_layout
+
+\begin_layout Plain Layout
+Steps are as following:
+\end_layout
+
+\begin_layout Enumerate
+make a grid on the 
+\begin_inset Formula $\{\xi,\mu\}$
+\end_inset
+
+ plane with number of grids on the 
+\begin_inset Formula $\{\xi,\mu\}$
+\end_inset
+
+ plane = 
+\begin_inset Formula $\{N\xi,N\mu\}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+calculate PDF values at all 
+\begin_inset Formula $\{\xi,\mu\}$
+\end_inset
+
+ points of the grid for all flavours (executable part: fxQgrid.nb & fxQxgrid.nb
+ in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Input-Output"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Enumerate
+calculate 
+\begin_inset Formula $Corr(r_{i},f_{a}(x_{grid},\mu_{grid}))$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta r_{i}Corr(r_{i},f(x_{grid},\mu_{grid}))$
+\end_inset
+
+ for every data point 
+\begin_inset Formula $i$
+\end_inset
+
+, every grid point, and every flavour 
+\end_layout
+
+\begin_layout Enumerate
+for every data point, select only 
+\begin_inset Formula $\{\xi,\mu\}$
+\end_inset
+
+ of the grid that have high correlation (
+\begin_inset Formula $Corr(r_{i},f_{a}(x_{grid},\mu_{grid}))>0.7$
+\end_inset
+
+ ) (executable: fxQgrid_corr_cut_05_v2.nb & fxQxgrid_corr_cut_05.nb in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Input-Output"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Enumerate
+we get a region that highly correlated with experimental data points (executable
+:run_grid_v3.nb & run_xgrid_v3.nb in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Input-Output"
+
+\end_inset
+
+, example figure: 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:corr_sensitivity-247"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Plain Layout
+To point out, fxQxgrid.nb, fxQxgrid_corr_cut_05.nb, and run_xgrid_v3.nb are
+ for some 
+\begin_inset Formula $W$
+\end_inset
+
+ and 
+\begin_inset Formula $Z$
+\end_inset
+
+ productions; For experiments of these processes, momentum transfer 
+\begin_inset Formula $Q$
+\end_inset
+
+ are usually mass of 
+\begin_inset Formula $W$
+\end_inset
+
+ and 
+\begin_inset Formula $Z$
+\end_inset
+
+ bosons, so we at least know the 
+\begin_inset Formula $\mu$
+\end_inset
+
+ scale of these processes are 
+\begin_inset Formula $M_{W}$
+\end_inset
+
+ and 
+\begin_inset Formula $M_{Z}$
+\end_inset
+
+.
+ Thus, if we want to apply Grid method on these processes, we only need
+ to set the 
+\begin_inset Formula $\mu$
+\end_inset
+
+ dimension of grids at 
+\begin_inset Formula $M_{W}$
+\end_inset
+
+ and 
+\begin_inset Formula $M_{Z}$
+\end_inset
+
+.
+ Therefore, fxQxgrid.nb automatically set grids as 
+\begin_inset Formula $N\mu=2$
+\end_inset
+
+, 
+\begin_inset Formula $\mu_{1},\,\mu_{2}=M_{W},\,M_{Z}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+Mathematica Program
+\begin_inset CommandInset label
+LatexCommand label
+name "part:Mathematica-Program"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Structure Of The Program
+\end_layout
+
+\begin_layout Standard
+The designing of the program will be introduced in this section.
+ To know how the program works and how to operate it, we need to know its
+ architecture 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Leyers-Of-Program"
+
+\end_inset
+
+, the convention of its data structure (format) 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Data-Format"
+
+\end_inset
+
+, functions that users can use when they want to write their own executables
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Libraries-and-Functions"
+
+\end_inset
+
+, how to run existing executables, and what we expect to get from the existing
+ executables 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:How-To-Run-Program"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Subsection
+Leyers Of The Program
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Leyers-Of-Program"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This program has three levels; In the layer 1 and 2 are functions which
+ are called by the layer 3, and the layer 3 is the user interface.
+ In the Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:-arch-of-program-2"
+
+\end_inset
+
+ is a diagram of the architecture of the program.
+\end_layout
+
+\begin_layout Standard
+Libraries: dtareadbotingw2016.m, pdfParsePDS2013 in ./lib/
+\end_layout
+
+\begin_layout Standard
+Layer 1: dtareadbotingw2016.m, pdfParsePDS2013
+\end_layout
+
+\begin_layout Standard
+dtareadbotingw2016.m includes functions of 1.
+ reading data from the .dta files.
+ 2.
+ reading information from the ExptID
+\end_layout
+
+\begin_layout Standard
+pdfParsePDS2013 includes functions of inteporating PDF from data of .pds
+ files
+\end_layout
+
+\begin_layout Standard
+Layer 2: corr_proj_funcs.m
+\end_layout
+
+\begin_layout Standard
+corr_proj_funcs.m defines the data structure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:data-class"
+
+\end_inset
+
+, read and deals with data from .dta files 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:.dta-data-class"
+
+\end_inset
+
+, read and deals with PDF from .pds files 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:.pds-data-class"
+
+\end_inset
+
+, calculates observables (mainly correlation function) by data of .dta files
+ and PDF 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:correlation-data-class"
+
+\end_inset
+
+, plots figures by data 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:plot-class"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Layer 3: This layer includes following kinds of programs
+\end_layout
+
+\begin_layout Enumerate
+generate PDF data, residual data, and the .dta file of central set of selected
+ 
+\begin_inset Formula $\{\xi,\mu\}$
+\end_inset
+
+ values and flavours and save them into files
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+make observables data of selected 
+\begin_inset Formula $\{\xi,\mu\}$
+\end_inset
+
+ values and save them into files
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+read data from files and calculate observables by data and use these observables
+ to plot figures 
+\end_layout
+
+\begin_layout Enumerate
+tutorial of important functions in the program
+\end_layout
+
+\begin_layout Enumerate
+show information of data in a data file or a PDF set (ex: included Experiments
+ in this data or PDF set) and combine the selected two data
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color red
+eg version code: delete grid method part
+\color inherit
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+the architecture of this program
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:-arch-of-program"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename ../DOWNLO~1/plots/correlation_plot_architecture_v3_eg.png
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+the architecture of this program
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:-arch-of-program-2"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /home/botingw/Documents/latex_file/tutorial/plots/correlation_plot_architecture_v4_eg.png
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Processes Of The Program
+\end_layout
+
+\begin_layout Subsection
+Data Format
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Data-Format"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The program inputs data to draw figures on the 
+\begin_inset Formula $\xi-\mu$
+\end_inset
+
+ plane.
+ The program includes two kinds of executables.
+ The first kind generate files of data; The second kind read data from files,
+ and then calculate observables from data and draw figures of observables.
+ data files contain info of the PDF values of all replicas, the residual
+ values of all replicas, and the .dta file of central set.
+ All observables in the program are listed in the following paragraph:
+\end_layout
+
+\begin_layout Standard
+
+\color blue
+description of observables
+\end_layout
+
+\begin_layout Standard
+fxQ: all family members of PDF 
+\begin_inset Formula $f(\xi,\mu)$
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+residual: central value of residual, formula of residual = (Theory - (shifted
+ expt))/(unCorr error) (in every exptID of .dta file: ([[5]]-[[11]])/[[12]]
+ ) 
+\end_layout
+
+\begin_layout Standard
+deltaR: Hessian symmetric uncertainty of residual 
+\end_layout
+
+\begin_layout Standard
+corr: correlation of PDF and residual
+\end_layout
+
+\begin_layout Standard
+corrdr: deltaR*corr of PDF and residual
+\end_layout
+
+\begin_layout Standard
+expt error/central: (expt error)/(expt central) (in every exptID of .dta
+ file: [[6]]/[[4]] ) 
+\end_layout
+
+\begin_layout Standard
+TH error/central: (THeory error)/(Theory central), Theory error = Hessian
+ asymmetric uncertainty of Theory
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset line
+LatexCommand rule
+offset "0.5ex"
+width "100col%"
+height "1pt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\color blue
+variable names of observables in Mathematica program
+\end_layout
+
+\begin_layout Standard
+following are variable names representing these observables in the program.
+ In different code files, observables may use different variable names.
+ 
+\end_layout
+
+\begin_layout Standard
+fxQ: fxQsamept2class, fxQgridclass, fxQgrid2class
+\end_layout
+
+\begin_layout Standard
+residual: residualdatacorrmaxclass, residualclass
+\end_layout
+
+\begin_layout Standard
+deltaR: dRdatacorrmaxclass, deltaRclass
+\end_layout
+
+\begin_layout Standard
+corr: corrdataclass, corrfxQdtaobsclass
+\end_layout
+
+\begin_layout Standard
+corrdr: dRcorrdataclass, dRcorrfxQdtaobsclass
+\end_layout
+
+\begin_layout Standard
+expt error/central: expterrordatacorrmaxclass, expterrorclass
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset line
+LatexCommand rule
+offset "0.5ex"
+width "100col%"
+height "1pt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\color blue
+formats of data
+\end_layout
+
+\begin_layout Standard
+The basic unit of a data is an Association with data and information of
+ a data.
+ Information contains experimental information (exptid, exptname, feyndiagram)
+ and/or PDF information (PDFname, PDFsetmethod, Nset(total number of family
+ members in this PDF set), iset (family member index of this PDF set), flavour).
+ Data part contains data and data label.
+ For example, fxQ[[iexpt,iflavour]] is a data of PDF of an experiment and
+ a flavour, which looks like:
+\end_layout
+
+\begin_layout Standard
+fxQ[[iexpt,iflavour]] = 
+\end_layout
+
+\begin_layout Standard
+<|
+\end_layout
+
+\begin_layout Standard
+"label" -> {
+\begin_inset Quotes erd
+\end_inset
+
+x
+\begin_inset Quotes erd
+\end_inset
+
+,
+\begin_inset Quotes erd
+\end_inset
+
+Q
+\begin_inset Quotes erd
+\end_inset
+
+,
+\begin_inset Quotes erd
+\end_inset
+
+set1
+\begin_inset Quotes erd
+\end_inset
+
+,...
+\begin_inset Quotes erd
+\end_inset
+
+setN
+\begin_inset Quotes erd
+\end_inset
+
+}, 
+\end_layout
+
+\begin_layout Standard
+"data" -> {LF[
+\begin_inset Formula $\xi,\mu,f_{1}(\xi,\mu),...,f_{N}(\xi,\mu)$
+\end_inset
+
+],LF[
+\begin_inset Formula $\xi,\mu,f_{1}(\xi,\mu),...,f_{N}(\xi,\mu)$
+\end_inset
+
+],......}, 
+\end_layout
+
+\begin_layout Standard
+"exptinfo" -> Exptinfo, 
+\end_layout
+
+\begin_layout Standard
+"PDFinfo" -> PDFinfo
+\end_layout
+
+\begin_layout Standard
+|>
+\end_layout
+
+\begin_layout Standard
+Exptinfo=
+\end_layout
+
+\begin_layout Standard
+<| 
+\end_layout
+
+\begin_layout Standard
+"exptid" -> 159,
+\end_layout
+
+\begin_layout Standard
+"exptname" -> 
+\begin_inset Quotes eld
+\end_inset
+
+HERA1X0
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\end_layout
+
+\begin_layout Standard
+"feyndiagram" -> "unset" 
+\end_layout
+
+\begin_layout Standard
+|>
+\end_layout
+
+\begin_layout Standard
+PDFinfo=
+\end_layout
+
+\begin_layout Standard
+<| 
+\end_layout
+
+\begin_layout Standard
+"PDFname" -> "CT14NNLO",
+\end_layout
+
+\begin_layout Standard
+"PDFsetmethod" -> "Hessian",
+\end_layout
+
+\begin_layout Standard
+"Nset" -> 57,
+\end_layout
+
+\begin_layout Standard
+"iset" -> "unset", 
+\end_layout
+
+\begin_layout Standard
+"flavour" -> "unset" 
+\end_layout
+
+\begin_layout Standard
+|>
+\end_layout
+
+\begin_layout Standard
+The format of Data which are dealed with by functions of this program are
+ always the basic unit or a List of it.
+ For example, corrfxQresidualsamept[[
+\begin_inset Quotes eld
+\end_inset
+
+corrsamept
+\begin_inset Quotes erd
+\end_inset
+
+]][dtadataclassin_, fxQsameptdataclassin_] 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:correlation-data-class"
+
+\end_inset
+
+ inputs data of an experiment and data of a PDF, and then output a correlation
+ data.
+ The format of these inputs and output are just like the format of the example.
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset line
+LatexCommand rule
+offset "0.5ex"
+width "100col%"
+height "1pt"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\color blue
+Format of data files for IO
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color blue
+better way of format: every experiment's data is a file?
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When the program read or writes a data from/into files, it usually read/write
+ data of many experiments and many flavours.
+ In practical, the program read/writes a multi-dimensional List of the basic
+ unit from/into one file.
+ Every element of a List represents data of an experiment and/or a PDF flavour.
+ 
+\end_layout
+
+\begin_layout Standard
+In this program, two methods 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Samept-Method"
+
+\end_inset
+
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Grid-Method"
+
+\end_inset
+
+ are used to get data of observables.
+ Which method is used to get a data determines the format of the data file.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+For example, a residual data of the same point method does not have flavour
+ index, yet which of the grid method has flavour index (every flavour the
+ most correlated 
+\begin_inset Formula $\{\xi,\mu\}$
+\end_inset
+
+ are different).
+ Hence, a file of an observable contains not only data format of the observable
+ but also index of the List.
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+Formats of data files are usually a multi-layer List of Association functions
+ that contain data and information such as ExptID and PDFset.
+ An example of Association is: 
+\end_layout
+
+\begin_layout Plain Layout
+fxQ[[iexpt,iflavour]] = 
+\end_layout
+
+\begin_layout Plain Layout
+<|
+\end_layout
+
+\begin_layout Plain Layout
+"label" -> {
+\begin_inset Quotes erd
+\end_inset
+
+x
+\begin_inset Quotes erd
+\end_inset
+
+,
+\begin_inset Quotes erd
+\end_inset
+
+Q
+\begin_inset Quotes erd
+\end_inset
+
+,
+\begin_inset Quotes erd
+\end_inset
+
+set1
+\begin_inset Quotes erd
+\end_inset
+
+,...
+\begin_inset Quotes erd
+\end_inset
+
+setN
+\begin_inset Quotes erd
+\end_inset
+
+}, 
+\end_layout
+
+\begin_layout Plain Layout
+"data" -> {LF[
+\begin_inset Formula $x,Q,f_{1}(x,Q),...,f_{N}(x,Q)$
+\end_inset
+
+]}, 
+\end_layout
+
+\begin_layout Plain Layout
+"exptinfo" -> Exptinfo, 
+\end_layout
+
+\begin_layout Plain Layout
+"PDFinfo" -> PDFinfo
+\end_layout
+
+\begin_layout Plain Layout
+|>.
+\end_layout
+
+\end_inset
+
+Following are formats of data files of samept observables and grid observables:
+\end_layout
+
+\begin_layout Standard
+samept
+\end_layout
+
+\begin_layout Standard
+f(x,Q) of all replicas: 
+\end_layout
+
+\begin_layout Standard
+list of [[iexpt,iflavour]]
+\end_layout
+
+\begin_layout Standard
+data format=={LF[LF[
+\begin_inset Formula $\xi,\mu,f(\xi,\mu)_{0}$
+\end_inset
+
+,...,
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $f(\xi,\mu)_{N}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+],LF[
+\begin_inset Formula $\xi,\mu,f(\xi,\mu)_{0}$
+\end_inset
+
+,...,
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $f(\xi,\mu)_{N}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+],...}
+\end_layout
+
+\begin_layout Standard
+residual of all replicas:
+\end_layout
+
+\begin_layout Standard
+list of [[iexpt]]
+\end_layout
+
+\begin_layout Standard
+data format=={LF[
+\begin_inset Formula $\xi,\mu,r_{i,0},...,r_{i,N}$
+\end_inset
+
+],LF[
+\begin_inset Formula $\xi,\mu,r_{i,0},...,r_{i,N}$
+\end_inset
+
+],...}
+\end_layout
+
+\begin_layout Standard
+data in the .dta file of central set:
+\end_layout
+
+\begin_layout Standard
+data format=={LF[val1, val2,...],LF[val1, val2,...],...} (formats are the same as
+ in .dta files)
+\end_layout
+
+\begin_layout Standard
+grid
+\end_layout
+
+\begin_layout Standard
+
+\color red
+eg version code: delete grid method part
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color red
+eg version code: delete grid method part
+\end_layout
+
+\begin_layout Plain Layout
+grid
+\end_layout
+
+\begin_layout Plain Layout
+(data format of the grid method and the samept method are the same)
+\end_layout
+
+\begin_layout Plain Layout
+fxQ: 
+\end_layout
+
+\begin_layout Plain Layout
+list of [[iflavour]]
+\end_layout
+
+\begin_layout Plain Layout
+residual:
+\end_layout
+
+\begin_layout Plain Layout
+list of [[iexpt,iflavour]]
+\end_layout
+
+\begin_layout Plain Layout
+deltaR:
+\end_layout
+
+\begin_layout Plain Layout
+list of [[iexpt,iflavour]]
+\end_layout
+
+\begin_layout Plain Layout
+corr:
+\end_layout
+
+\begin_layout Plain Layout
+list of [[iexpt,iflavour]]
+\end_layout
+
+\begin_layout Plain Layout
+corrdr:
+\end_layout
+
+\begin_layout Plain Layout
+list of [[iexpt,iflavour]]
+\end_layout
+
+\begin_layout Plain Layout
+expt error/central:
+\end_layout
+
+\begin_layout Plain Layout
+list of [[iexpt,iflavour]]
+\end_layout
+
+\begin_layout Plain Layout
+residualNset:
+\end_layout
+
+\begin_layout Plain Layout
+list of [[iexpt,iflavour]]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Libraries and Functions
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Libraries-and-Functions"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+global variables
+\end_layout
+
+\begin_layout Standard
+The global variables in this program are category of processes:
+\end_layout
+
+\begin_layout Standard
+the rules of variable names is $var1$var2$var3...
+\end_layout
+
+\begin_layout Standard
+$var1 = P, N, h (means proton, neutron or a complex nucleus is one of target
+ in the collision);
+\end_layout
+
+\begin_layout Standard
+$var2 = DIS, VBP, JP (deep inelestic scattering, vector boson production,
+ jet production);
+\end_layout
+
+\begin_layout Standard
+if $var2 = DIS, then
+\end_layout
+
+\begin_layout Standard
+$var3 = NC, CC (neutral-current, charged-current);
+\end_layout
+
+\begin_layout Standard
+$var4 = l, l1, l2, lqqbar, lccbar, lbbbar (lepton, one lepton, two lepton,
+ 
+\begin_inset Formula $\text{𝑙}q\bar{q}$
+\end_inset
+
+, 
+\begin_inset Formula $\text{𝑙}c\bar{c}$
+\end_inset
+
+, 
+\begin_inset Formula $\text{𝑙}b\bar{b}$
+\end_inset
+
+ in the final state);
+\end_layout
+
+\begin_layout Standard
+if $var2 = VBP, then
+\end_layout
+
+\begin_layout Standard
+$var3 = Z, W (
+\begin_inset Formula $Z,$
+\end_inset
+
+
+\begin_inset Formula $W$
+\end_inset
+
+ boson process);
+\end_layout
+
+\begin_layout Standard
+if $var2 = JP, then
+\end_layout
+
+\begin_layout Standard
+no $var3 and ......
+\end_layout
+
+\begin_layout Standard
+{PDISNC, hDISNC, NDISCC, hDISCC, PDISNCCC, PVBPZ, hVBPZ, PVBPW, PJP} are
+ category of the main types of processes.
+ these variables include Expt IDs with corresponding processes in a List
+ of Mathematica.
+ 
+\end_layout
+
+\begin_layout Subsubsection
+data class
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:data-class"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+this section builds the structure of data and methods handling the data.
+ The data are wrapped by function 
+\begin_inset Quotes eld
+\end_inset
+
+Association
+\begin_inset Quotes erd
+\end_inset
+
+ in Mathematica.
+ Datamethods is an 
+\begin_inset Quotes eld
+\end_inset
+
+Association
+\begin_inset Quotes erd
+\end_inset
+
+ including methods dealing with data.
+\end_layout
+
+\begin_layout Itemize
+dataclass: 
+\begin_inset Quotes eld
+\end_inset
+
+Association
+\begin_inset Quotes erd
+\end_inset
+
+ including data and it's information (experimental information or PDF set
+ information), data are stored in dataclass[[
+\begin_inset Quotes eld
+\end_inset
+
+data
+\begin_inset Quotes erd
+\end_inset
+
+]], the structure is {LF[e1,e2,e3,...],LF[e1,e2,e3...],LF[e1,e2,e3,...],...}, eN means
+ the N-th element of LF[].
+ When set up the data in dataclass, the number of elements in all LF[] should
+ be the same.
+\end_layout
+
+\begin_layout Itemize
+Datamethods[[
+\begin_inset Quotes eld
+\end_inset
+
+getdatainfo
+\begin_inset Quotes erd
+\end_inset
+
+]][dataclass]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+return the information of a data
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Datamethods[[
+\begin_inset Quotes eld
+\end_inset
+
+getdata
+\begin_inset Quotes erd
+\end_inset
+
+]][dataclass]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+return the data part in dataclass
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Datamethods[[
+\begin_inset Quotes eld
+\end_inset
+
+setdata
+\begin_inset Quotes erd
+\end_inset
+
+]][dataclass, data]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+set the data part of dataclass as data
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Datamethods[[
+\begin_inset Quotes eld
+\end_inset
+
+getNpt
+\begin_inset Quotes erd
+\end_inset
+
+]][dataclass]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+return the number of points in the data 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Datamethods[[
+\begin_inset Quotes eld
+\end_inset
+
+getNcolumn
+\begin_inset Quotes erd
+\end_inset
+
+]][dataclass]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+return the number of elements stored in a data point
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Datamethods[[
+\begin_inset Quotes eld
+\end_inset
+
+getdatalabel
+\begin_inset Quotes erd
+\end_inset
+
+]][dataclass]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+return the label corresponding to elements of a data point.
+ For example, the label of a 5-element data could be {
+\begin_inset Quotes erd
+\end_inset
+
+x
+\begin_inset Quotes erd
+\end_inset
+
+,
+\begin_inset Quotes erd
+\end_inset
+
+Q
+\begin_inset Quotes erd
+\end_inset
+
+,
+\begin_inset Quotes erd
+\end_inset
+
+Xsec
+\begin_inset Quotes erd
+\end_inset
+
+,
+\begin_inset Quotes erd
+\end_inset
+
+errorup
+\begin_inset Quotes erd
+\end_inset
+
+,
+\begin_inset Quotes erd
+\end_inset
+
+errorlow
+\begin_inset Quotes erd
+\end_inset
+
+} 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Datamethods[[
+\begin_inset Quotes eld
+\end_inset
+
+add
+\begin_inset Quotes erd
+\end_inset
+
+]][dataclass, dataadd, labeladd]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+add new elements and in every data point and add the corresponding labels
+ and return the dataclass, dataadd = {LF[e1,e2,...,eN],LF[e1,e2,...,eN],...}, labeladd={
+\begin_inset Quotes erd
+\end_inset
+
+lable1
+\begin_inset Quotes erd
+\end_inset
+
+,
+\begin_inset Quotes erd
+\end_inset
+
+label2
+\begin_inset Quotes erd
+\end_inset
+
+,...
+\begin_inset Quotes erd
+\end_inset
+
+labelN
+\begin_inset Quotes erd
+\end_inset
+
+}.
+ the data and label of returned dataclass will have these N more elements
+ and N more labels in the tail of every data point.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Datamethods[[
+\begin_inset Quotes eld
+\end_inset
+
+pick
+\begin_inset Quotes erd
+\end_inset
+
+]][dataclass, picklist]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+pick the specific elements in the picklist in a dataclass and return that
+ dataclass.
+ example: Datamethods[[
+\begin_inset Quotes eld
+\end_inset
+
+pick
+\begin_inset Quotes erd
+\end_inset
+
+]][dataclass, {3,1}], data in dataclass is {LF[e11,...,e13,...],LF[e21,...,e23,...],...,LF[eN1,...
+,eN3,...]}, then the function return {LF[e13,e11],LF[e23,e21],...,LF[eN3,eN1]}
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Datamethods[[
+\begin_inset Quotes eld
+\end_inset
+
+take
+\begin_inset Quotes erd
+\end_inset
+
+]][dataclass, takelist]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+immitate 
+\begin_inset Quotes eld
+\end_inset
+
+Take
+\begin_inset Quotes erd
+\end_inset
+
+ function on every data points of the dataclass and return it, takelist
+ could be the argument used in function 
+\begin_inset Quotes eld
+\end_inset
+
+Take
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Datamethods[[
+\begin_inset Quotes eld
+\end_inset
+
+delete
+\begin_inset Quotes erd
+\end_inset
+
+]][dataclass, deletelist]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Apply 
+\begin_inset Quotes eld
+\end_inset
+
+Delete
+\begin_inset Quotes erd
+\end_inset
+
+ function on every data points of the dataclass and return it, deletelist
+ could be the argument used in function 
+\begin_inset Quotes eld
+\end_inset
+
+Delete
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Datamethods[[
+\begin_inset Quotes eld
+\end_inset
+
+tolist
+\begin_inset Quotes erd
+\end_inset
+
+]][dataclass]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+return the data in dataclass as a List (LF -> List), ex: original data in
+ dataclass is {LF[1,2,3],LF[10,20,30]}, then the function return {{1,2,3},{10,20
+,30}}
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Datamethods[[
+\begin_inset Quotes eld
+\end_inset
+
+picktolist
+\begin_inset Quotes erd
+\end_inset
+
+]][dataclass, picklist]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+example: Datamethods[[
+\begin_inset Quotes eld
+\end_inset
+
+picktolist
+\begin_inset Quotes erd
+\end_inset
+
+]][dataclass, {3,1}], data in dataclass is {LF[e11,...,e13,...],LF[e21,...,e23,...],...,LF[eN1,...
+,eN3,...]}, then the function return {{e13,e23,e33,...eN3},{e11,e21,e31,...eN1}}
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Datamethods[[
+\begin_inset Quotes eld
+\end_inset
+
+LFglobal
+\begin_inset Quotes erd
+\end_inset
+
+]][dataclass]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Since the data generated by functions in dtaread2016boting.m file take the
+ data structure dtaread2016boting`Private`LF[...], the structure should be
+ changed to LF[...] so that some Mathematica skills can be used (such as replace
+ /.) 
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection
+.dta data class
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:.dta-data-class"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+this section is for dealing with .dta data 
+\end_layout
+
+\begin_layout Itemize
+Readdtafile[[
+\begin_inset Quotes eld
+\end_inset
+
+readdta
+\begin_inset Quotes erd
+\end_inset
+
+]][dtaDirin_, explistin_]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+input the Directory of .dta files and a List of experimental ID, return the
+ experimental data and information for all family members of the PDF set,
+ the dimension of output: [[iexpt, iset]], the structure of returned object:
+ if output of function 
+\begin_inset Quotes eld
+\end_inset
+
+ReadExptTable
+\begin_inset Quotes erd
+\end_inset
+
+ is {data1, data2,...}, the output[[iexpt, iset]] = dataN read from the iset-th
+ .dta file, For example: Readdtafile[[
+\begin_inset Quotes eld
+\end_inset
+
+readdta
+\begin_inset Quotes erd
+\end_inset
+
+]][CT14NNLOpath, {101,201}], then the function returns output[[2,57]] for
+ data of exptid = 101, 201 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Readdtafile[[
+\begin_inset Quotes eld
+\end_inset
+
+toclass
+\begin_inset Quotes erd
+\end_inset
+
+]][datain_, PDFnamein_, PDFsetmethodin_]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+input a data (which is one experiment of output of function 
+\begin_inset Quotes eld
+\end_inset
+
+ReadExptTable
+\begin_inset Quotes erd
+\end_inset
+
+), PDFname and PDFset method (present there is only 
+\begin_inset Quotes eld
+\end_inset
+
+Hessian
+\begin_inset Quotes erd
+\end_inset
+
+), return the dataclass corresponding to this data.
+ For example: Readdtafile[[
+\begin_inset Quotes eld
+\end_inset
+
+toclass
+\begin_inset Quotes erd
+\end_inset
+
+]][datain_, 
+\begin_inset Quotes eld
+\end_inset
+
+CT14NNLO
+\begin_inset Quotes erd
+\end_inset
+
+,
+\begin_inset Quotes erd
+\end_inset
+
+Hessian
+\begin_inset Quotes erd
+\end_inset
+
+]
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection
+.pds data class
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:.pds-data-class"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+this section is for generating dataclass of PDF (
+\begin_inset Formula $f(x,\mu,flavour)$
+\end_inset
+
+) by calling pdfParsePDS2013.m in ./lib (see library: dtareadbotingw2016 for
+ detail of this file).
+ 
+\end_layout
+
+\begin_layout Itemize
+fxQcalculate[xQLFin_, PdsDirin_, PDFsetmethodin_, flavourin_]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+input PDFDir, xQLF({LF[
+\begin_inset Formula $x_{1},\mu_{1}$
+\end_inset
+
+],LF[
+\begin_inset Formula $x_{2},\mu_{2}$
+\end_inset
+
+],...}), PDFsetmethod, and flavour (flavour = -5~5), return FxQdata class,
+ with data structure {LF[
+\begin_inset Formula $x_{1},\mu_{1},f(x_{1},\mu_{1},flavour,iset=0),...,f(x_{1},\mu_{1},flavour,iset=Nset)$
+\end_inset
+
+],LF[
+\begin_inset Formula $x_{2},\mu_{2},f(x_{2},\mu_{2},flavour,iset=0),...,f(x_{2},\mu_{2},flavour,iset=Nset)$
+\end_inset
+
+],...}
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+fxQsameptcalculate[dtadataclassin_, PdsDirin_, PDFsetmethodin_, flavourin_]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+similar to fxQcalculate, the only difference is the source of points {LF[
+\begin_inset Formula $x_{1},\mu_{1}$
+\end_inset
+
+],LF[
+\begin_inset Formula $x_{2},\mu_{2}$
+\end_inset
+
+],...} are the data of dtadataclass (and return the FxQsameptdata), p.s.
+ "exptinfo" is copy from Dtadata[[ "exptinfo"]], "PDFinfo" is set by input
+ arguments
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+setextrafxQ[fxQdataclasslistin_]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+this function is specific for adding some system-defined combination of
+ PDFs (
+\begin_inset Formula $\bar{d}/\bar{u}$
+\end_inset
+
+, 
+\begin_inset Formula $d/u$
+\end_inset
+
+, 
+\begin_inset Formula $(s+\bar{s})/(\bar{u}+\bar{d)}$
+\end_inset
+
+).
+ input an array of fxQdataclass which includes flavour from - 5 ~ 5, output
+ the array with customized f(x, Q) (flavour = -5~8), flavour of 6, 7, 8
+ are defined as following : 
+\begin_inset Formula $\bar{d}/\bar{u}$
+\end_inset
+
+, 
+\begin_inset Formula $d/u$
+\end_inset
+
+, 
+\begin_inset Formula $(s+\bar{s})/(\bar{u}+\bar{d)}$
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection
+correlation data class
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:correlation-data-class"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+this section is about calculating the correlation of residual and any function
+\end_layout
+
+\begin_layout Itemize
+corrfxQresidualsamept[[
+\begin_inset Quotes eld
+\end_inset
+
+corrsamept
+\begin_inset Quotes erd
+\end_inset
+
+]][dtadataclassin_, fxQsameptdataclassin_]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+calculating 
+\begin_inset Formula $Corr(residual,f(x,\mu))$
+\end_inset
+
+: input a dtadata class with data == {LF[
+\begin_inset Formula $\xi,\mu$
+\end_inset
+
+, obs1, obs2, ...
+ obsNset], ...} and a fxQsameptdata class with data == {LF[
+\begin_inset Formula $\xi,\mu$
+\end_inset
+
+, f (
+\begin_inset Formula $\xi,\mu$
+\end_inset
+
+, flavour, iset1), ..., f (
+\begin_inset Formula $\xi,\mu$
+\end_inset
+
+, flavour, Nset)], ...}, the function assume 
+\begin_inset Formula $\{\xi,\mu\}$
+\end_inset
+
+ of dtadataclass & fxQsameptdataclass are the same.
+ output the corrsameptdata class with data structure {LF[
+\begin_inset Formula $\xi,\mu$
+\end_inset
+
+, 
+\begin_inset Formula $Corr(obs,f(x,\mu,q))$
+\end_inset
+
+], ...}
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+corrfxQresidualsamept[[
+\begin_inset Quotes eld
+\end_inset
+
+dRcorrsamept
+\begin_inset Quotes erd
+\end_inset
+
+]][dtadataclassin_, fxQsameptdataclassin_]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+calculating 
+\begin_inset Formula $\delta r*Corr(residual,f(x,\mu,flavour))$
+\end_inset
+
+: input a dtadata class with data == {LF[
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\xi,\mu$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+, obs1, obs2, ...
+ obsNset], ...} and a fxQsameptdata class with data == {LF[
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\xi,\mu$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+, f (
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\xi,\mu$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+, flavour, iset1), ..., f (
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\xi,\mu$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+, flavour, Nset)], ...}, the function assume 
+\begin_inset Formula $\{\xi,\mu\}$
+\end_inset
+
+ of dtadataclass & fxQsameptdataclass are the same.
+ output the corrsameptdata class with data structure {LF[
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\xi,\mu$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+, 
+\begin_inset Formula $\delta obs*Corr(obs,f(x,\mu,flavour))$
+\end_inset
+
+], ...}
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+corrfxQresidualsamept[[
+\begin_inset Quotes eld
+\end_inset
+
+deltaR
+\begin_inset Quotes erd
+\end_inset
+
+]][dtadataclassin_]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+calculating 
+\begin_inset Formula $\delta r$
+\end_inset
+
+: input a class with LF[
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\xi,\mu$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+, obs1, ..., obsNset], output 
+\begin_inset Formula $\delta r$
+\end_inset
+
+ as List : {
+\begin_inset Formula $\delta r$
+\end_inset
+
+(1), 
+\begin_inset Formula $\delta r$
+\end_inset
+
+(2), ...
+ 
+\begin_inset Formula $\delta r$
+\end_inset
+
+ (Npt)}
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+r and residue labels are inconsistent
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+corrfxQresidualsamept[[
+\begin_inset Quotes eld
+\end_inset
+
+residual
+\begin_inset Quotes erd
+\end_inset
+
+]][dtadataclassin_]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+calculating 
+\begin_inset Formula $\delta r$
+\end_inset
+
+: input a class with LF[
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\xi,\mu$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+, obs1, ..., obsNset], output the same dataclass with data structure {LF[
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\xi,\mu$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+, 
+\begin_inset Formula $\delta r$
+\end_inset
+
+], ...}
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+r and residue labels are inconsistent
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection
+read/write class
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:read/write-class"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+this section is about read/write function of data in dataclass.
+ Although there are some functions used to deal with IO of 
+\begin_inset Formula $f(x,\mu,q)$
+\end_inset
+
+ (output of fxQsameptcalculate), presently the way data stored into files
+ is by following steps:
+\end_layout
+
+\begin_layout Enumerate
+making the dataclass with it's data and information
+\end_layout
+
+\begin_layout Enumerate
+copy the output dataclass and paste into a .m (package file of Mathematica)
+ file
+\end_layout
+
+\begin_layout Enumerate
+right-click the mouse on the pasted data, there should pop up a menu
+\end_layout
+
+\begin_layout Enumerate
+->style and check the box of 
+\begin_inset Quotes eld
+\end_inset
+
+input
+\begin_inset Quotes erd
+\end_inset
+
+, then give a variable name to it (ex: var = data, so that the data are
+ moved to the .m file)
+\end_layout
+
+\begin_layout Enumerate
+save the .m file and move the file to the path ./quick_data
+\end_layout
+
+\end_inset
+
+This section is about read/write functions in the program.
+\end_layout
+
+\begin_layout Itemize
+readcorrconfigfile4[configDirin_, configfilenamein_]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+read arguments from a configure file.
+ filename = 
+\begin_inset Quotes eld
+\end_inset
+
+configDir/configfilename
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+the configure file is for making figures executables
+\end_layout
+
+\begin_layout Itemize
+the configure file includes 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+readsavedataconfigfile[configDirin_, configfilenamein_]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+read arguments from a configure file.
+ filename = 
+\begin_inset Quotes eld
+\end_inset
+
+configDir/configfilename
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+the configure file is for making data executables
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+readplotdataconfigfile[configDirin_, configfilenamein_]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+read arguments from a configure file.
+ filename = 
+\begin_inset Quotes eld
+\end_inset
+
+configDir/configfilename
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+the configure file is for making figures executables
+\end_layout
+
+\begin_layout Itemize
+the configure file includes data filenames and data information of figures
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection
+plot class
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:plot-class"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+this section is for figures output on the webpage; there are three kinds
+ figure and one experiment name table
+\end_layout
+
+\begin_layout Itemize
+PDFloglogplot[datain_, plotmarkerin_, plotstylein_, titlein_, xtitlein_,
+ ytitlein_, plotrangein_, lgdin_, lgdposin_, imgsizein_]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+plot the PDF data at 
+\begin_inset Formula $\xi-\mu$
+\end_inset
+
+ plane with selected colors and markers to represent different experiments,
+ the plot is log-log scale.
+ data structure: {expt1,expt2,...}, exptN={LF1[
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\xi,\mu$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+],LF1[
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\xi,\mu$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+]}
+\end_layout
+
+\begin_layout Itemize
+detail of argument setting is in the position of function definition in
+ the program
+\begin_inset Note Comment
+status open
+
+\begin_layout Itemize
+PDFCorrelationplot7[datain_, titlein_, xtitlein_, ytitlein_, plotrangein_,
+ stretchxin_, stretchyin_, barseperatorin_, legendlabelin_, epilogtextin_,
+ highlightrangein_, unhighlightsizein_]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+PDFCorrelationplot8[datain_,titlein_,xtitlein_,ytitlein_,plotrangein_,stretchxin
+_,stretchyin_,barseperatorin_,legendlabelin_,epilogtextin_,highlightrangein_,unh
+ighlightsizein_]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+make plot of the data on 
+\begin_inset Formula $\xi-\mu$
+\end_inset
+
+ plane, color of the point of the data depend on value of data at that point,
+ data size, highlighted data will become larger data here is a List of data:
+ {data1, data2, ......}.
+ data structure of dataN = {LF1[
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\xi,\mu$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+,value],LF1[
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\xi,\mu$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+,value],...}
+\end_layout
+
+\begin_layout Itemize
+points of data1, data 2, ...
+ will have different shape 
+\end_layout
+
+\begin_layout Itemize
+detail of arguments setting is in the program
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+histplot4[histlistin_, titlein_, xtitlein_, ytitlein_, binsetin_, lineelementin_
+, plotrangexin_, Nbinin_]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+make histogram of data value: input the List of value and other arguments,
+ return a histogram.
+ data structure = {value, value,...}
+\end_layout
+
+\begin_layout Itemize
+detail of arguments setting is in the program
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+makeGrid2[strin_, rowsin_, titlein_]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+make experiments name table: input List of exptname, #rows per column, title
+ of table, return a table of expt name 
+\end_layout
+
+\begin_layout Itemize
+ex: makeGrid2[{
+\begin_inset Quotes erd
+\end_inset
+
+name1
+\begin_inset Quotes erd
+\end_inset
+
+,
+\begin_inset Quotes erd
+\end_inset
+
+name2
+\begin_inset Quotes erd
+\end_inset
+
+,
+\begin_inset Quotes erd
+\end_inset
+
+name3
+\begin_inset Quotes erd
+\end_inset
+
+,
+\begin_inset Quotes erd
+\end_inset
+
+name4
+\begin_inset Quotes erd
+\end_inset
+
+,
+\begin_inset Quotes erd
+\end_inset
+
+name5
+\begin_inset Quotes erd
+\end_inset
+
+}, 3, 
+\begin_inset Quotes eld
+\end_inset
+
+title example
+\begin_inset Quotes erd
+\end_inset
+
+]
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+the function plotting all kinds of figures for the webpage output
+\end_layout
+
+\begin_layout Itemize
+processdataplotsmultiexp6percentage[corrfxQdtaobsclassin_, configargumentsin_,
+ plottypein_, flavourin_]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+make plots of the selected figure type: the function will return one 
+\begin_inset Formula $\xi-\mu$
+\end_inset
+
+ plot and two histogram for figure type (plottype) = 2~6 and one 
+\begin_inset Formula $\xi-\mu$
+\end_inset
+
+ plot for figure type = 1
+\end_layout
+
+\begin_layout Itemize
+data is set by corrfxQdtaobsclass, for figure type 2, 3, 4, data structure
+ is: dataclass[[iexpt]]; figure type = 5,6, data structure = dataclass[[iexpt,if
+lavour]]; for figure type = 1, data structure is the same as figure type
+ 5, 6, the function will extract the 
+\begin_inset Formula $(\xi,\mu)$
+\end_inset
+
+ from the data 
+\end_layout
+
+\begin_layout Itemize
+figure type option(the same as in config file): # 1: data plots, 2: expt
+ error, 3: residual, 4: "residual error" deltaR_i, 5: "sensitivity factor"
+ deltaR_i*Corr( r_i, F), 6: "correlation" Corr( r_i, F)
+\end_layout
+
+\begin_layout Itemize
+configarguments is the output of configure file, it is convenient to input
+ arguments in config file for making plots 
+\end_layout
+
+\begin_layout Itemize
+when the figure type = 5, 6, the flavour index should be set (convention
+ of the flavour index is in 
+\begin_inset Quotes eld
+\end_inset
+
+.pds data class
+\begin_inset Quotes erd
+\end_inset
+
+ section, and the index of user defined function is 9)
+\end_layout
+
+\begin_layout Itemize
+example: flavour =0; p = processdataplotsmultiexp5percentage[dRcorrfxQdtaobsclas
+sfinal, readcorrconfigfile4[configDir, configfilename], 5, flavour];
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection
+other class
+\end_layout
+
+\begin_layout Standard
+This section is for all functions that are hard to classified
+\end_layout
+
+\begin_layout Itemize
+implementeps[PlotDirin_, DirTypein_]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+convert eps files into one pdf file
+\end_layout
+
+\begin_layout Itemize
+eps files are output of making figure executables
+\end_layout
+
+\begin_layout Itemize
+input : Diretory storing figures, DirType == "samept", "grid", "sameptgrid",
+ users should setup the right type for the method he uses to produce figures
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+implement[PlotDirin_, DirTypein_]
+\end_layout
+
+\begin_layout Subsubsection
+library: dtareadbotingw2016
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:library:-dtareadbotingw2016"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+this library (in ./lib/) is about 1.
+ reading data from the .dta files.
+ 2.
+ reading information from the ExptID
+\end_layout
+
+\begin_layout Standard
+(*perhaps need to clean unused functions*)
+\end_layout
+
+\begin_layout Itemize
+ReadLisFile[lisFileName]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+input the file of CTEQ expt list format (ex: filename = dat16lisxxx), return
+ a lisTable, which record the information of experiments.
+ This lisTable should be activated before some functions in dtareadbotingw2016
+ are used
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+ExptIDtoName[ExptIDin_]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+return the name of ExptID
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+ExptIDEcm[ExptIDin_]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+return the 
+\begin_inset Formula $E_{cm}$
+\end_inset
+
+ of the ExptID
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+ExptIDprocess[ExptIDin_]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+return the information of the ExptID (presently the information includes
+ Expt name, Feynman diagram, 
+\begin_inset Formula $E_{cm}$
+\end_inset
+
+ )
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+ExptIDinfo[ExptIDin_]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+return the type of the process (
+\begin_inset Quotes eld
+\end_inset
+
+DIS
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes eld
+\end_inset
+
+VBP1
+\begin_inset Quotes erd
+\end_inset
+
+,
+\begin_inset Quotes eld
+\end_inset
+
+VBP2
+\begin_inset Quotes erd
+\end_inset
+
+,
+\begin_inset Quotes eld
+\end_inset
+
+VBP3
+\begin_inset Quotes erd
+\end_inset
+
+,"JP" are used in present calculation.
+ other types can be found in function)
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+ReadDta[DtaFileName]
+\end_layout
+
+\begin_layout Itemize
+ReadExptTable[DtaFileName, FileFormat]
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+this function input the .dta file and the file format ("ct2016", "ct66",
+ "ct60").
+ For CT14NNLO .dta, the file format is "ct2016"
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+selectExptxQv2[ExptIDin_, datain_, Sin_] (*Sin is not used, should be modified*)
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+input the ExptID and data (data structure = {LF[a__],...}), then calculate
+ the most possible (
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\xi,\mu$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+) of the PDF depend on Expt type (output of ExptIDinfo).
+ return the data with the structure = {LF[a__, 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\xi,\mu$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+],...}.
+ formulas are explained in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Samept-Method"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+type of processes:
+\end_layout
+
+\begin_layout Standard
+DIS: deep inelastic scattering
+\end_layout
+
+\begin_layout Standard
+VBP1: 
+\begin_inset Formula $Q,\tau$
+\end_inset
+
+ (???)
+\end_layout
+
+\begin_layout Standard
+VBP2: 
+\begin_inset Formula $Z\rightarrow l_{+}l_{-},dXsec/dy(l)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+VBP3: 
+\begin_inset Formula $W\rightarrow l\nu$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+JP: jet production, 
+\begin_inset Formula $q_{1}q_{2}\rightarrow j_{1}j_{2}$
+\end_inset
+
+ (estimate 
+\begin_inset Formula $x_{1},x_{2}$
+\end_inset
+
+ of jet as peak of 
+\begin_inset Formula $y(j_{1}),y(j_{2})$
+\end_inset
+
+) 
+\end_layout
+
+\begin_layout Standard
+Expt ID in types:
+\end_layout
+
+\begin_layout Standard
+DIS = 100~199;
+\end_layout
+
+\begin_layout Standard
+VBPtype1 = {}; 
+\end_layout
+
+\begin_layout Standard
+VBPtype2 = {201, 203, 204, 260, 261, 268, 240}; 
+\end_layout
+
+\begin_layout Standard
+VBPtype3 = {225, 227, 234, 267, 281, 241, 266};
+\end_layout
+
+\begin_layout Standard
+JP = 500~599
+\end_layout
+
+\begin_layout Standard
+formulas:
+\end_layout
+
+\begin_layout Standard
+DIS: 
+\begin_inset Formula ${x,Q}_{data}={\xi,\mu}_{PDF}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+VBP1: 
+\begin_inset Formula ${Q/\sqrt{S},Q}_{data}={\xi,\mu}_{PDF}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+VBP2: 
+\begin_inset Formula ${(Q/\sqrt{S})\times\exp(\pm y),Q}_{data}={\xi,\mu}_{PDF}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+VBP3: same as VBP2
+\end_layout
+
+\begin_layout Standard
+JP: 
+\begin_inset Formula ${(2P_{T}/\sqrt{S})\times\exp(\pm y),P_{T}}_{data}={\xi,\mu}_{PDF}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+derivation of formulas:
+\end_layout
+
+\begin_layout Standard
+(* need modify) By center-of-mass relation: 
+\begin_inset Formula $\hat{s}=\xi_{1}\xi_{2}s$
+\end_inset
+
+ , 
+\begin_inset Formula $\xi_{1}\times\xi_{2}$
+\end_inset
+
+ could be decided.
+ Assuming the 
+\begin_inset Formula $\xi_{1},\xi_{2}$
+\end_inset
+
+ values are close to the peak of some functions such as 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $y(jet)$
+\end_inset
+
+, the 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula $\xi_{1},\xi_{2}$
+\end_inset
+
+ value could be decided.
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Subsubsection
+data in this program 
+\end_layout
+
+\begin_layout Plain Layout
+To acelerate the speed of program, data of correlation 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $Corr(f_{q_{i}}(x,Q),r(x,Q))$
+\end_inset
+
+, residual
+\begin_inset Formula $r(x,Q)$
+\end_inset
+
+ and 
+\begin_inset Formula $\delta r(x,Q)$
+\end_inset
+
+ for all 
+\begin_inset Formula $\{x,Q\}∈dataset$
+\end_inset
+
+ are calculated by using data in .dta & .psd files and stored in a file.
+ These data are read when the program plots figures corresponding to them.
+ following are the file and the variables storing these data: 
+\end_layout
+
+\begin_layout Plain Layout
+
+\color blue
+filename for a PDFset:
+\color inherit
+ 
+\end_layout
+
+\begin_layout Plain Layout
+./quick_data/{$PDFname}_correlation_data.m
+\end_layout
+
+\begin_layout Plain Layout
+
+\color blue
+$PDFname:
+\color inherit
+ 
+\end_layout
+
+\begin_layout Plain Layout
+the string after "PDF set:"
+\end_layout
+
+\begin_layout Plain Layout
+
+\color blue
+quickdatadata stored in files: 
+\end_layout
+
+\begin_layout Plain Layout
+quickdatadeltaR[[iexpt]], data structure = {LF[x,Q,deltaR], ...} 
+\end_layout
+
+\begin_layout Plain Layout
+quickdatacorr[[iexpt,flavour]], data structure = {LF[x,Q,corr(residual(x,Q),
+ f(x,Q,flavour))], ...} 
+\end_layout
+
+\begin_layout Plain Layout
+quickdataresidual[[iexpt]], data structure = {LF[x,Q,1,2,...Nset of residual],
+ ...} 
+\end_layout
+
+\begin_layout Plain Layout
+quickdatatheoryerror[[iexpt]] data structure = {LF[x,Q,TH error/central],
+ ...} 
+\end_layout
+
+\begin_layout Plain Layout
+quickdataexpterror[[iexpt]] data structure = {LF[x,Q,expt error/central],
+ ...}
+\end_layout
+
+\begin_layout Plain Layout
+
+\color blue
+description of some observable 
+\end_layout
+
+\begin_layout Plain Layout
+deltaR: Hessian symmetric uncertainty of residual 
+\end_layout
+
+\begin_layout Plain Layout
+corr: correlation residual: formula = (Theory - (shifted expt))/(unCorr
+ error) (in every exptID of .dta file: ([[5]]-[[11]])/[[12]] ) 
+\end_layout
+
+\begin_layout Plain Layout
+expt error/central: (expt error)/(expt central) (in every exptID of .dta
+ file: [[6]]/[[4]] ) 
+\end_layout
+
+\begin_layout Plain Layout
+TH error/central: (THeory error)/(Theory central), Theory error = Hessian
+ asymmetric uncertainty of Theory
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+How To Run The Program
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:How-To-Run-Program"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Run Step By Step
+\end_layout
+
+\begin_layout Standard
+Executables can be classified into making figures and others.
+ Making figures is the main part of this program.
+ The input/output and processes of Making figures executables will be introduced
+ in this section.
+ Other executables are for tutorial of main functions (code_tutorial.nb)
+ and showing information of data (expts_info_v4.nb).
+ expts_info_v4.nb makes users accessible to the information of data used
+ to draw figures and the analyzed directory with .dta files.
+ This section will focus on making figures executables.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+(*v16: new edition merge the making PDF data and making observable data
+ executables*)
+\end_layout
+
+\begin_layout Plain Layout
+Steps of running the program
+\end_layout
+
+\begin_layout Enumerate
+edit 
+\begin_inset Quotes eld
+\end_inset
+
+savedata_config.txt
+\begin_inset Quotes erd
+\end_inset
+
+, then run making PDF data exoecutables (see 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Input-Output"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Enumerate
+edit 
+\begin_inset Quotes eld
+\end_inset
+
+savedata_config.txt
+\begin_inset Quotes erd
+\end_inset
+
+, then run making observable data executables
+\end_layout
+
+\begin_layout Enumerate
+edit 
+\begin_inset Quotes eld
+\end_inset
+
+config1.txt
+\begin_inset Quotes erd
+\end_inset
+
+ (and "plotdata_config.txt"), then run making figures by observable data
+ executables
+\end_layout
+
+\begin_layout Plain Layout
+Let's take Samept method as example
+\end_layout
+
+\begin_layout Enumerate
+edit 
+\begin_inset Quotes eld
+\end_inset
+
+savedata_config.txt
+\begin_inset Quotes erd
+\end_inset
+
+, then run fxQsamept.nb
+\end_layout
+
+\begin_layout Enumerate
+edit 
+\begin_inset Quotes eld
+\end_inset
+
+savedata_config.txt
+\begin_inset Quotes erd
+\end_inset
+
+, then run fxQsamept_corr.nb
+\end_layout
+
+\begin_layout Enumerate
+edit 
+\begin_inset Quotes eld
+\end_inset
+
+config1.txt
+\begin_inset Quotes erd
+\end_inset
+
+ (and "plotdata_config.txt"), then run run_v3.nb
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Steps of running the program
+\end_layout
+
+\begin_layout Enumerate
+go to ./bin/ directory
+\end_layout
+
+\begin_layout Enumerate
+if you want to run with datasets that exist in the database (./quick_data/),
+ skip to edit 
+\begin_inset Quotes eld
+\end_inset
+
+config1.txt
+\begin_inset Quotes erd
+\end_inset
+
+ part.
+ if you want to make the database by .dta and .pds files (output experimental
+ analysis files of the code developed by CTEQ group), skip to set up the
+ 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\{\xi,\mu\}$
+\end_inset
+
+...
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ part.
+ 
+\end_layout
+
+\begin_layout Enumerate
+set up the 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\{\xi,\mu\}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ transform formulas and 
+\begin_inset Formula $\sqrt{S}$
+\end_inset
+
+ of new experiments: if .dta files include new experiments, check selectExptxQv2
+ in ./lib/dtareadbotingw2016.nb function to see whether there are 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\{\xi,\mu\}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ transform formulas for the corresponding Expt IDs.
+ If the transform formulas are not set for some Expt IDs, set up them by
+ modifying selectExptxQv2.
+ Sometime you also need to modify ExptIDEcm & ExptIDinfo because 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+some 
+\begin_inset Formula $\{\xi,\mu\}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ transform formulas (such as W/Z processes) require 
+\begin_inset Formula $\sqrt{S}$
+\end_inset
+
+ of the respective Expt IDs.
+ After modifying the functions, save the ./lib/dtareadbotingw2016.nb as ./lib/dtare
+adbotingw2016.nb and ./lib/dtareadbotingw2016.m file.
+\end_layout
+
+\begin_layout Enumerate
+edit 
+\begin_inset Quotes eld
+\end_inset
+
+savedata_config.txt
+\begin_inset Quotes erd
+\end_inset
+
+, then run making observable data executables (see 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Input-Output"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Enumerate
+edit 
+\begin_inset Quotes eld
+\end_inset
+
+config1.txt
+\begin_inset Quotes erd
+\end_inset
+
+ (and "plotdata_config.txt"), then run making figures by observable data
+ executables
+\end_layout
+
+\begin_layout Standard
+Let's take Samept method as example
+\end_layout
+
+\begin_layout Enumerate
+edit 
+\begin_inset Quotes eld
+\end_inset
+
+savedata_config.txt
+\begin_inset Quotes erd
+\end_inset
+
+, then run fxQsamept_corr_v2.nb
+\end_layout
+
+\begin_layout Enumerate
+edit 
+\begin_inset Quotes eld
+\end_inset
+
+config1.txt
+\begin_inset Quotes erd
+\end_inset
+
+ (and "plotdata_config.txt"), then run run_v4.nb
+\end_layout
+
+\begin_layout Standard
+Output figures are in ./plots directory
+\end_layout
+
+\begin_layout Subsection
+Processes Of Executables
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+(*v16: new edition merge the making PDF data and making observable data
+ executables*)
+\end_layout
+
+\begin_layout Plain Layout
+There are three kinds of executables: making PDF data, making observable
+ data, and making some figures of data which are produced by the program.
+ The first and the second kinds of executables read arguments from 
+\begin_inset Quotes eld
+\end_inset
+
+savedata_config.txt
+\begin_inset Quotes erd
+\end_inset
+
+; The third kind of executables read arguments from 
+\begin_inset Quotes eld
+\end_inset
+
+config1.txt
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+To conveniently explain processes of these executables, using flowcharts
+ to visualize processes is a simple way.
+ Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:flowchart-PDFdata"
+
+\end_inset
+
+, Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:flowchart-obsdata"
+
+\end_inset
+
+, and Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:flowchart-figure"
+
+\end_inset
+
+ are flowcharts of three kinds of executables: 
+\end_layout
+
+\end_inset
+
+There are two kinds of executables: making observable data and making some
+ figures of data which are produced by the program.
+ The first kind of executables read arguments from 
+\begin_inset Quotes eld
+\end_inset
+
+savedata_config.txt
+\begin_inset Quotes erd
+\end_inset
+
+; The second kind of executables read arguments from 
+\begin_inset Quotes eld
+\end_inset
+
+config1.txt
+\begin_inset Quotes erd
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+To conveniently explain processes of these executables, using flowcharts
+ to visualize processes is a simple way.
+ Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:flowchart-PDFdata"
+
+\end_inset
+
+ and Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:flowchart-obsdata"
+
+\end_inset
+
+ are the flowchart of the first kind excutables (the executables do Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:flowchart-PDFdata"
+
+\end_inset
+
+ first and then do Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:flowchart-figure"
+
+\end_inset
+
+).
+ Fig.
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:flowchart-figure"
+
+\end_inset
+
+ is the flowchart of the second kind of executables: 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+the flowchart of making PDF data
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:flowchart-PDFdata"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /home/botingw/Documents/latex_file/tutorial/plots/make_fxQ_flowchart.png
+	width 100col%
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+the flowchart of making observable data
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:flowchart-obsdata"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /home/botingw/Documents/latex_file/tutorial/plots/make_observable_data_flowchart.png
+	width 70col%
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+the flowchart of making figures
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:flowchart-figure"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename /home/botingw/Documents/latex_file/tutorial/plots/make_figure_flowchart.png
+	width 70col%
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Input And Output Of Executables
+\begin_inset CommandInset label
+LatexCommand label
+name "subsec:Input-Output"
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+savedata_config.txt: the configure file that excutables of making data read
+\end_layout
+
+\begin_layout Plain Layout
+config1.txt: the configure file that excutables of making figures read
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+(*v16: new edition merge the making PDF data and making observable data
+ executables*)
+\end_layout
+
+\begin_layout Plain Layout
+There are three kinds of executables: making PDF data, making observable
+ data, and making some figures of data which are produced by the program.
+ The first and the second kinds of executables read arguments from 
+\begin_inset Quotes eld
+\end_inset
+
+savedata_config.txt
+\begin_inset Quotes erd
+\end_inset
+
+; The third kind of executables read arguments from 
+\begin_inset Quotes eld
+\end_inset
+
+config1.txt
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+plotdata_config.txt
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Following are descriptions of their executables, input, and output (as
+ Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:executables-table-2"
+
+\end_inset
+
+ shows) 
+\end_layout
+
+\begin_layout Plain Layout
+To make data, users need to set up arguments in savedata_config.txt:
+\end_layout
+
+\end_inset
+
+There are two kinds of executables: making observable data and making some
+ figures of data which are produced by the program.
+ The first kind of executables read arguments from 
+\begin_inset Quotes eld
+\end_inset
+
+savedata_config.txt
+\begin_inset Quotes erd
+\end_inset
+
+; The second kind of executables read arguments from 
+\begin_inset Quotes eld
+\end_inset
+
+config1.txt
+\begin_inset Quotes erd
+\end_inset
+
+ and 
+\begin_inset Quotes eld
+\end_inset
+
+plotdata_config.txt
+\begin_inset Quotes erd
+\end_inset
+
+.
+ Following are descriptions of their executables, input, and output (as
+ Table 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:executables-table-2"
+
+\end_inset
+
+ shows) 
+\end_layout
+
+\begin_layout Standard
+To make data, users need to set up arguments in savedata_config.txt:
+\end_layout
+
+\begin_layout Itemize
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+(*v16: new edition merge the making PDF data and making observable data
+ executables*)
+\end_layout
+
+\begin_layout Itemize
+Making PDF data
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+executables: fxQsamept.nb
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color red
+eg version code: delete grid method part
+\color inherit
+, fxQgrid.nb, fxQxgrid.nb
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+arguments that users should set up
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+PDF set Dir, PDF method, Expt ID List
+\end_layout
+
+\begin_layout Itemize
+F(x,Q) Samept Path & F(x,Q) Samept File for samept f(
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\xi,\mu$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+) data
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+xQ labels and 
+\begin_inset Formula $\xi\mu$
+\end_inset
+
+ labels are inconsistent
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+F(x,Q) Grid Path & F(x,Q) Grid File, Nx, NQ for grid f(
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\xi,\mu$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+) data
+\end_layout
+
+\begin_layout Itemize
+F(x,Q) Grid Path & F(x,Q) Grid File, Nx for xgrid f(
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\xi,\mu$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+) data (Q values are temporary set as Z mass and W mass, 
+\color red
+this part should be modified
+\color inherit
+)
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+output: if Path & File are 
+\begin_inset Quotes eld
+\end_inset
+
+default
+\begin_inset Quotes erd
+\end_inset
+
+, the program make a file: 
+\end_layout
+
+\begin_layout Itemize
+./quick_data/fxQ_{$methods}_{$PDFname}.dat for samept data executables, ./quick_dat
+a/fxQ_{$methods}_{$PDFname}_x{$Nx}_{$NQ}.dat for grid data executables, ./quick_da
+ta/fxQ_{$methods}_{$PDFname}_x{$Nx}.dat for xgrid data executables, where
+ $PDFname = PDFname, where $methods = 
+\begin_inset Quotes eld
+\end_inset
+
+samept
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes eld
+\end_inset
+
+grid
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes eld
+\end_inset
+
+xgrid
+\begin_inset Quotes erd
+\end_inset
+
+, $PDFname = PDFname, ex: CT14NNLO
+\end_layout
+
+\end_deeper
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Making observable data
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+executables: fxQsamept_corr_v2.nb
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color red
+eg version code: delete grid method part
+\color inherit
+, fxQgrid_corr_cut_05_v2.nb, fxQxgrid_corr_cut_05.nb
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+arguments that users should set up
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+PDF set Dir, PDF method, Expt ID List, datalis file
+\end_layout
+
+\begin_layout Itemize
+Correlation Path & Correlation File
+\end_layout
+
+\begin_layout Itemize
+F(x,Q) Samept Path & F(x,Q) Samept File for samept f(
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\xi,\mu$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+) data
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+xQ labels and 
+\begin_inset Formula $\xi\mu$
+\end_inset
+
+ labels are inconsistent
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+F(x,Q) Grid Path & F(x,Q) Grid File, Nx, NQ for grid f(
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\xi,\mu$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+) data
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+output: if Path & File are 
+\begin_inset Quotes eld
+\end_inset
+
+default
+\begin_inset Quotes erd
+\end_inset
+
+, the program make files with all $obs indexes:
+\end_layout
+
+\begin_layout Itemize
+./quick_data/{$obs}_samept_data_{$PDFname}.dat for samept data executables,
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color red
+eg version code: delete grid method part
+\color inherit
+./quick_data/{$obs}_samept_data_{$PDFname}_x{$Nx}_{$NQ}.dat for grid data
+ executables, ./quick_data/{$obs}_samept_data_{$PDFname}_{$Nx}.dat for xgrid
+ data executables,
+\end_layout
+
+\end_inset
+
+ where $PDFname = PDFname, ex: CT14NNLO, $obs = 
+\begin_inset Quotes eld
+\end_inset
+
+corr
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes erd
+\end_inset
+
+dRcorr
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes erd
+\end_inset
+
+dR
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes erd
+\end_inset
+
+residual
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes erd
+\end_inset
+
+residualNset
+\begin_inset Quotes erd
+\end_inset
+
+, 
+\begin_inset Quotes erd
+\end_inset
+
+expterror
+\begin_inset Quotes erd
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+To make figures, users need to set up arguments in config1.txt & plotdata_config.t
+xt: 
+\end_layout
+
+\begin_layout Itemize
+Making figures by observable data
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+executables: run_v3, 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color red
+eg version code: delete grid method part
+\color inherit
+run_grid_v3, run_xgrid_v3, run_sptgrid_v4 (they input data of samept, grid,
+ xgrid, sameptgrid and draw figures of data)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+arguments that users should set up
+\begin_inset Separator latexpar
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+#PDF set, # Figures to plot, # Experiments to include, #Functions to use
+ in correlations, #User function parameters are for setup of the input data
+\end_layout
+
+\begin_layout Itemize
+#x-Q figure parameters, #Histogram figure parameters, #in plots, #highlight
+ mode, #data point size are for setup of how figures look like 
+\end_layout
+
+\begin_layout Itemize
+for grid & xgrid executables, Path & File of data, Nx, NQ are temporary
+ set in the code 
+\color red
+(this part should be modified)
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+output: 2D-xQ, histograms
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color red
+eg version code: delete grid method part
+\color inherit
+
+\begin_inset Float table
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+functions of executable files by table: columns are methods of making plots;
+ rows are steps of methods.
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:executables-table"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Tabular
+<lyxtabular version="3" rows="4" columns="4">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="3cm">
+<column alignment="center" valignment="top" width="3.5cm">
+<column alignment="center" valignment="top" width="3.5cm">
+<column alignment="center" valignment="top" width="3.5cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Making PDF data, configure files: savedata_config.txt
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Making observable data, configure files: savedata_config.txt
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Making figures, configure files: config1.txt and plotdata_config.txt
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Samept method
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+fxQsamept.nb (.m)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+fxQsamept_corr.nb (.m)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+run_v3.nb (.m)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Grid method
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+fxQgrid.nb (.m)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+fxQgrid_corr_cut_05_v2.nb (.m)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+run_grid_v3.nb (.m)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Grid method with selected 
+\begin_inset Formula $\mu$
+\end_inset
+
+ value (
+\begin_inset Formula $\mu=M_{W},\,M_{Z}$
+\end_inset
+
+)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+fxQxgrid.nb (.m)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+fxQxgrid_corr_cut_05.nb (.m)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+run_xgrid_v3.nb (.m)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float table
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+functions of executable files by table: columns are methods of making plots;
+ rows are steps of methods.
+\begin_inset CommandInset label
+LatexCommand label
+name "tab:executables-table-2"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Tabular
+<lyxtabular version="3" rows="2" columns="3">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="3cm">
+<column alignment="center" valignment="top" width="3.5cm">
+<column alignment="center" valignment="top" width="3.5cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Making observable data, configure files: savedata_config.txt
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Making figures, configure files: config1.txt and plotdata_config.txt
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Samept method
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+fxQsamept_corr_v2.nb (.m)
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+run_v4.nb (.m)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+SOP of Plotting Figures of New Experiments
+\end_layout
+
+\begin_layout Standard
+When a user want to plot figures of new experiments, he should check whether
+ they are given some (x,Q) transform formulas.
+ The user need to check ExptIDEcm & ExptIDinfo in ./lib/dtareadbotingw2016.nb,
+ which determine which formula should be applied on an experiment and the
+ center-of-momentum energy 
+\begin_inset Formula $\sqrt{S}$
+\end_inset
+
+ of that experiment.
+ We can find from 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:library:-dtareadbotingw2016"
+
+\end_inset
+
+ that some formulas contain information of center-of-momentum energy, which
+ should be set in ExptIDEcm.
+ 
+\end_layout
+
+\begin_layout Standard
+Following are the steps of plotting figures of new experiments:
+\end_layout
+
+\begin_layout Enumerate
+set up the 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\{\xi,\mu\}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ transform formulas and 
+\begin_inset Formula $\sqrt{S}$
+\end_inset
+
+ of new experiments (selectExptxQv2 and ExptIDEcm in 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:library:-dtareadbotingw2016"
+
+\end_inset
+
+)
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+(*v16: making PDF data excutable is merged to making observable executable*)
+ edit configure files and run fxQsamept.nb to get data of PDF for 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\{\xi,\mu\}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ of these experiments
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+edit configure files and run fxQsamept_corr_v2.nb to get data of observables
+ for 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\{\xi,\mu\}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ of these experiments
+\end_layout
+
+\begin_layout Enumerate
+edit configure files and run run_v4.nb to get figures of observables of these
+ experiments
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color red
+eg version code: delete grid method part
+\color inherit
+If the user could not find a suitable formula for an experiment, he could
+ run fxQgrid.nb, fxQgrid_corr_cut_05_v2, and run_grid_v3 to make figures
+ of high correlation regions of the experiment.
+ To run the code in terminal, users can type 
+\begin_inset Quotes eld
+\end_inset
+
+math -script executable_name.m
+\begin_inset Quotes erd
+\end_inset
+
+.
+ For example, 
+\begin_inset Quotes eld
+\end_inset
+
+math -script fxQsamept.m
+\begin_inset Quotes erd
+\end_inset
+
+ is the command of running the script version of fxQsamept.nb.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+Appendix A: update notes
+\end_layout
+
+\begin_layout Standard
+version 22:
+\end_layout
+
+\begin_layout Standard
+make script versions for executables:
+\end_layout
+
+\begin_layout Itemize
+script executables that have been made: all executables of making figures
+\end_layout
+
+\begin_layout Itemize
+run them in terminal: 
+\begin_inset Quotes eld
+\end_inset
+
+math -script xxx.m
+\begin_inset Quotes erd
+\end_inset
+
+ under bin directory 
+\end_layout
+
+\begin_layout Standard
+delete unused functions:
+\end_layout
+
+\begin_layout Itemize
+add functions: implementeps[PlotDirin_, DirTypein_], implement[PlotDirin_,
+ DirTypein_], readplotdataconfigfile[configDirin_, configfilenamein_] (configure
+ file is plotdata_config.txt in
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Input-Output"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+data files of executables that making figures are set up in "plotdata_config.txt"
+ 
+\end_layout
+
+\begin_layout Standard
+version 23:
+\end_layout
+
+\begin_layout Itemize
+fix the error text: residue -> residual
+\end_layout
+
+\begin_layout Itemize
+delete resolution part in physics chapter 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:estimate-PDFresol"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+version 23_v7:
+\end_layout
+
+\begin_layout Itemize
+add formulas of dividing the grid for Grid method 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Grid-Method"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+add a table to describe executable files 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab:executables-table"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+add the description of grid method for 
+\begin_inset Formula $Q=M_{W}$
+\end_inset
+
+, 
+\begin_inset Formula $M_{Z}$
+\end_inset
+
+ processes 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "subsec:Grid-Method"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+version23_eg_v8:
+\end_layout
+
+\begin_layout Itemize
+add descriptions of expt_info_v4.nb
+\end_layout
+
+\begin_layout Itemize
+add new subsection of steps of running the program
+\end_layout
+
+\begin_layout Itemize
+renew figure 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:-arch-of-program"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+saved data file from extensions from .m to .dat
+\end_layout
+
+\begin_layout Standard
+version23_eg_v10:
+\end_layout
+
+\begin_layout Itemize
+rewrite the same point method part
+\end_layout
+
+\begin_layout Standard
+version23_eg_v11:
+\end_layout
+
+\begin_layout Itemize
+delete descriptions about grid method
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename plots/correlation_ellipses.eps
+	width 30col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+ddd
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename plots/correlation_ellipses.eps
+	width 30col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+ddd
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename plots/correlation_ellipses.eps
+	width 30col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+ddd
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\begin_inset Float figure
+wide false
+sideways false
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename plots/correlation_ellipses.eps
+	width 30col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+ddd
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+fff
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+version23_v16 (PDFSENSE_tutorial_1.16): update the step by step running part
+ for the new version, run_v3->run_v4, fxQsamept_corr->fxQsamept_corr_v2
+\end_layout
+
+\begin_layout Standard
+version23_v16.2 add ./lib/ to library filenames
+\end_layout
+
+\begin_layout Section*
+Appendix B: eg version
+\end_layout
+
+\begin_layout Standard
+In mathscript_v23_eg (example version):
+\end_layout
+
+\begin_layout Enumerate
+there are only Samept method executables in this version for simplification
+ of codes.
+\end_layout
+
+\begin_layout Enumerate
+fxQsamept.nb and fxQsamept_corr.nb are combined into fxQsamept_corr.nb; That
+ means fxQsamept_corr.nb produces observable data directly from data in .dta
+ files and PDF values in .pds files 
+\end_layout
+
+\begin_layout Enumerate
+to making figures: run fxQsamept_corr.nb and run_v3.nb
+\end_layout
+
+\begin_layout Enumerate
+users can read code_tutorial.nb to understand important functions in this
+ program
+\end_layout
+
+\begin_layout Enumerate
+expts_info_v4.nb could be used to see information in observable data files
+ and .dta files (such as expt IDs contained in the file)
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Nadolsky:2008zw"
+
+\end_inset
+
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Pumplin:2001ct"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section*
+References
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset bibtex
+LatexCommand bibtex
+bibfiles "proposal20170521,proposal20170521_v2"
+options "plain"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document

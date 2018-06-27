@@ -499,3 +499,6 @@ in Mathematica, then paste it to the user name in the user_func.txt
 e.g. type a string with special character "xxx"//InputForm, then you will out a string like 
 "\[LeftAngleBracket]\!\(\*SuperscriptBox[\(x\), \(0\)]\)\[RightAngleBracket]g"
 You paste it after "Name:" in user_func.txt, then the ReadUserFunctionV3 will translate it to the "xxx" you input in Mathematica   
+
+20180627
+revise the README and tutorial (to v16.2) for making the customized database part
