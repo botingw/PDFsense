@@ -4,6 +4,17 @@ This README introduces the knowledge for running this code, including some intro
 3. python GUI example 
 4. script/notebook example
 
+The section 1 is the introduction of generating correlation and sensitivity plots with the code.
+
+section 3 is an instruction of the GUI for light users. It is easy to use the GUI to make sensitivity plots but it only include datasets in arXiv:1803.02777. 
+If users want to run our code in the terminal, use our package to plot the sensitivities for his own datasets, or modify our code to do the further customization, 
+they need to read other parts.   
+
+The section 4 includes the instruction of an example. The example is for users using the script (terminal) and Mathematica .nb files. 
+Users can run the example and read the section 4 to learn the detail of the running steps and arguments in configure files 
+
+section 2 is for users who want to plot sensitivities for his own datasets (the default datasets (in ./quick_data/) are datasets in Table 1, 2, 3 of arXiv:1803.02777)
+
 #################################
 # How to run the code           #
 #################################
