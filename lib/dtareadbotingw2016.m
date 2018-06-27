@@ -147,7 +147,7 @@ If[
 Length[Position[lisTabletmp,ExptID] ]!=0,
 IDPosition=Position[lisTabletmp,ExptID][[1]][[1]];
 output=lisTabletmp[[IDPosition]][[2]],
-Print["can not find expt id = ",ExptID," in lisTable"];
+Print["can not find expt id = ",ExptID," in lisTable, so we set the name for id = ",ExptID," as None"];
 output="None"
 ];
 (*
@@ -238,7 +238,7 @@ Length[IDPosition]==1,
 IDPosition=IDPosition[[1]][[1]];
 Ecm=expidsqrtS[[IDPosition]][[2]]
 ,
-Print["error (ExptIDEcm), there is no ID match or more than 1 ID match to energy table, ID = ",ExptID]
+Print["error (ExptIDEcm), there is no ID match or more than 1 ID match to energy table, ID = ",ExptID,", return -1"]
 ];
 (*
 IDPosition=Position[expidsqrtS,ExptID][[1]][[1]];
@@ -308,7 +308,7 @@ Length[IDPosition]==1,
 IDPosition=IDPosition[[1]][[1]];
 Ecm=expidsqrtS[[IDPosition]]
 ,
-Print["error (ExptIDprocess), there is no ID match or more than 1 ID match to process table, ID = ",ExptID]
+Print["error (ExptIDprocess), there is no ID match or more than 1 ID match to process table, ID = ",ExptID,", return -1"]
 ];
 (*
 IDPosition=Position[expidsqrtS,ExptID][[1]][[1]];
