@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    310438,       7453]
-NotebookOptionsPosition[    308066,       7378]
-NotebookOutlinePosition[    308399,       7393]
-CellTagsIndexPosition[    308356,       7390]
+NotebookDataLength[    316625,       7563]
+NotebookOptionsPosition[    314253,       7488]
+NotebookOutlinePosition[    314586,       7503]
+CellTagsIndexPosition[    314543,       7500]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -1150,263 +1150,263 @@ Cell[BoxData[
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{"ReadExptTable", "=", 
-   RowBox[{"Function", "[", 
-    RowBox[{
-     RowBox[{"{", 
-      RowBox[{"DtaFileName", ",", "FileFormat"}], "}"}], ",", "\n", 
-     RowBox[{"Module", "[", "\n", 
-      RowBox[{
-       RowBox[{"{", 
-        RowBox[{
-        "NExperiments", ",", "MyStream", ",", "ExptID", ",", "R2String", ",", 
-         "NormFac", ",", "NPoints", ",", "DataDescription", ",", "DataLabel", 
-         ",", "DataString", ",", "NDataColumns", ",", "DataList", ",", 
-         "tmpTable", ",", "chi2", ",", "S"}], "}"}], ",", 
-       RowBox[{"(*", 
-        RowBox[{
-         RowBox[{
-          RowBox[{"20161103", " ", 
-           RowBox[{"botingw", ":", " ", "S"}]}], "&"}], " ", "chi2", " ", 
-         "become", " ", "local", " ", "variable"}], "*)"}], "\n", "\n", 
-       RowBox[{"(*", " ", 
-        RowBox[{
-        "Read", " ", "the", " ", "experiment", " ", "strings", " ", "from", 
-         " ", 
-         RowBox[{"the", " ", ".", "dta"}], " ", "file"}], " ", "*)"}], "\n", 
+  RowBox[{
+   RowBox[{"ReadExptTable", "=", 
+    RowBox[{"Function", "[", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"DtaFileName", ",", "FileFormat"}], "}"}], ",", "\n", 
+      RowBox[{"Module", "[", "\n", 
        RowBox[{
-        RowBox[{"ExperimentRecords", "=", 
-         RowBox[{"ReadDta", "[", "DtaFileName", "]"}]}], ";", "\n", "\n", 
-        RowBox[{"NExperiments", "=", 
+        RowBox[{"{", 
          RowBox[{
-          RowBox[{"Dimensions", "[", "ExperimentRecords", "]"}], "[", 
-          RowBox[{"[", "1", "]"}], "]"}]}], ";", "\n", "\n", 
+         "NExperiments", ",", "MyStream", ",", "ExptID", ",", "R2String", ",",
+           "NormFac", ",", "NPoints", ",", "DataDescription", ",", 
+          "DataLabel", ",", "DataString", ",", "NDataColumns", ",", 
+          "DataList", ",", "tmpTable", ",", "chi2", ",", "S"}], "}"}], ",", 
+        RowBox[{"(*", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"20161103", " ", 
+            RowBox[{"botingw", ":", " ", "S"}]}], "&"}], " ", "chi2", " ", 
+          "become", " ", "local", " ", "variable"}], "*)"}], "\n", "\n", 
         RowBox[{"(*", " ", 
          RowBox[{
-         "Process", " ", "the", " ", "input", " ", "string", " ", "for", " ", 
-          "each", " ", "experiment", " ", "and", " ", "write", " ", "into", 
-          " ", "a", " ", "temporary", " ", "table"}], "*)"}], "\n", 
-        RowBox[{"If", "[", 
-         RowBox[{"PrintExpt", ",", 
+         "Read", " ", "the", " ", "experiment", " ", "strings", " ", "from", 
+          " ", 
+          RowBox[{"the", " ", ".", "dta"}], " ", "file"}], " ", "*)"}], "\n", 
+        
+        RowBox[{
+         RowBox[{"ExperimentRecords", "=", 
+          RowBox[{"ReadDta", "[", "DtaFileName", "]"}]}], ";", "\n", "\n", 
+         RowBox[{"NExperiments", "=", 
           RowBox[{
-          "Print", "[", 
-           "\"\<#  ExptID ExptName  NormFac  #points  #data entries\>\"", 
-           "]"}]}], "]"}], ";", "\n", "\n", 
-        RowBox[{"tmpTable", "=", 
-         RowBox[{"Table", "[", "\n", 
+           RowBox[{"Dimensions", "[", "ExperimentRecords", "]"}], "[", 
+           RowBox[{"[", "1", "]"}], "]"}]}], ";", "\n", "\n", 
+         RowBox[{"(*", " ", 
           RowBox[{
-           RowBox[{"{", "\n", 
-            RowBox[{
+          "Process", " ", "the", " ", "input", " ", "string", " ", "for", " ",
+            "each", " ", "experiment", " ", "and", " ", "write", " ", "into", 
+           " ", "a", " ", "temporary", " ", "table"}], "*)"}], "\n", 
+         RowBox[{"If", "[", 
+          RowBox[{"PrintExpt", ",", 
+           RowBox[{
+           "Print", "[", 
+            "\"\<#  ExptID ExptName  NormFac  #points  #data entries\>\"", 
+            "]"}]}], "]"}], ";", "\n", "\n", 
+         RowBox[{"tmpTable", "=", 
+          RowBox[{"Table", "[", "\n", 
+           RowBox[{
+            RowBox[{"{", "\n", 
              RowBox[{
-              RowBox[{"Experiment", "=", 
-               RowBox[{"ExperimentRecords", "[", 
-                RowBox[{"[", "iExperiment", "]"}], "]"}]}], ";", "\n", "\n", 
-              RowBox[{"MyStream", "=", 
-               RowBox[{"StringToStream", "[", "Experiment", "]"}]}], ";", 
-              "\n", "\n", 
-              RowBox[{"Switch", "[", 
-               RowBox[{"FileFormat", ",", "\n", 
-                RowBox[{"(*", 
-                 RowBox[{"2016.11", ".01", " ", "botingw"}], "*)"}], "\n", 
-                "\"\<ct2016\>\"", ",", "\n", 
-                RowBox[{
-                 RowBox[{"{", 
-                  RowBox[{
-                  "ExptID", ",", "dummy", ",", "dummy", ",", "dummy", ",", 
-                   "dummy", ",", "NormFac", ",", "dummy", ",", "dummy", ",", 
-                   "dummy", ",", "dummy", ",", "dummy", ",", "NPoints", ",", 
-                   "dummy", ",", "dummy", ",", "dummy", ",", "chi2", ",", 
-                   "dummy", ",", "S"}], "}"}], "=", 
-                 RowBox[{"Read", "[", 
-                  RowBox[{"MyStream", ",", 
-                   RowBox[{"{", 
+              RowBox[{
+               RowBox[{"Experiment", "=", 
+                RowBox[{"ExperimentRecords", "[", 
+                 RowBox[{"[", "iExperiment", "]"}], "]"}]}], ";", "\n", "\n", 
+               
+               RowBox[{"MyStream", "=", 
+                RowBox[{"StringToStream", "[", "Experiment", "]"}]}], ";", 
+               "\n", "\n", 
+               RowBox[{"Switch", "[", 
+                RowBox[{"FileFormat", ",", "\n", 
+                 RowBox[{"(*", 
+                  RowBox[{"2016.11", ".01", " ", "botingw"}], "*)"}], "\n", 
+                 "\"\<ct2016\>\"", ",", "\n", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                   "ExptID", ",", "dummy", ",", "dummy", ",", "dummy", ",", 
+                    "dummy", ",", "NormFac", ",", "dummy", ",", "dummy", ",", 
+                    "dummy", ",", "dummy", ",", "dummy", ",", "NPoints", ",", 
+                    "dummy", ",", "dummy", ",", "dummy", ",", "chi2", ",", 
+                    "dummy", ",", "S"}], "}"}], "=", 
+                  RowBox[{"Read", "[", 
+                   RowBox[{"MyStream", ",", 
+                    RowBox[{"{", 
                     RowBox[{
                     "Number", ",", "Word", ",", "Word", ",", "Word", ",", 
                     "Word", ",", "Number", ",", "Word", ",", "Word", ",", 
                     "Word", ",", "Word", ",", "Word", ",", "Number", ",", 
                     "Word", ",", "Word", ",", "Word", ",", "Number", ",", 
                     "Word", ",", "Number"}], "}"}]}], "]"}]}], ",", "\n", 
-                "\"\<ct66\>\"", ",", "\n", 
-                RowBox[{
-                 RowBox[{"{", 
-                  RowBox[{
-                  "ExptID", ",", "dummy", ",", "dummy", ",", "dummy", ",", 
-                   "dummy", ",", "NormFac", ",", "dummy", ",", "dummy", ",", 
-                   "dummy", ",", "dummy", ",", "dummy", ",", "NPoints", ",", 
-                   "dummy", ",", "dummy", ",", "dummy", ",", "chi2"}], "}"}], 
-                 "=", 
-                 RowBox[{"Read", "[", 
-                  RowBox[{"MyStream", ",", 
-                   RowBox[{"{", 
+                 "\"\<ct66\>\"", ",", "\n", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                   "ExptID", ",", "dummy", ",", "dummy", ",", "dummy", ",", 
+                    "dummy", ",", "NormFac", ",", "dummy", ",", "dummy", ",", 
+                    "dummy", ",", "dummy", ",", "dummy", ",", "NPoints", ",", 
+                    "dummy", ",", "dummy", ",", "dummy", ",", "chi2"}], "}"}],
+                   "=", 
+                  RowBox[{"Read", "[", 
+                   RowBox[{"MyStream", ",", 
+                    RowBox[{"{", 
                     RowBox[{
                     "Number", ",", "Word", ",", "Word", ",", "Word", ",", 
                     "Word", ",", "Number", ",", "Word", ",", "Word", ",", 
                     "Word", ",", "Word", ",", "Word", ",", "Number", ",", 
                     "Word", ",", "Word", ",", "Word", ",", "Number"}], 
                     "}"}]}], "]"}]}], ",", "\n", "\"\<ct60\>\"", ",", "\n", 
-                RowBox[{
-                 RowBox[{"{", 
-                  RowBox[{
-                  "ExptID", ",", "dummy", ",", "dummy", ",", "dummy", ",", 
-                   "dummy", ",", "NormFac", ",", "dummy", ",", "dummy", ",", 
-                   "dummy", ",", "dummy", ",", "dummy", ",", "NPoints"}], 
-                  "}"}], "=", 
-                 RowBox[{"Read", "[", 
-                  RowBox[{"MyStream", ",", 
-                   RowBox[{"{", 
+                 RowBox[{
+                  RowBox[{"{", 
+                   RowBox[{
+                   "ExptID", ",", "dummy", ",", "dummy", ",", "dummy", ",", 
+                    "dummy", ",", "NormFac", ",", "dummy", ",", "dummy", ",", 
+                    "dummy", ",", "dummy", ",", "dummy", ",", "NPoints"}], 
+                   "}"}], "=", 
+                  RowBox[{"Read", "[", 
+                   RowBox[{"MyStream", ",", 
+                    RowBox[{"{", 
                     RowBox[{
                     "Number", ",", "Word", ",", "Word", ",", "Word", ",", 
                     "Word", ",", "Number", ",", "Word", ",", "Word", ",", 
                     "Word", ",", "Word", ",", "Word", ",", "Number"}], 
                     "}"}]}], "]"}]}], ",", "\n", "_", ",", "\n", 
-                RowBox[{"Print", "[", 
-                 RowBox[{
-                 "\"\<Wrong FileFormat value=\>\"", ",", "FileFormat"}], 
-                 "]"}]}], "\n", "]"}], ";", "\n", "\n", 
-              RowBox[{"(*", " ", 
-               RowBox[{
-               "Read", " ", "one", " ", "or", " ", "two", " ", "line", " ", 
-                "of", " ", "the", " ", "data", " ", "description"}], " ", 
-               "*)"}], "\n", 
-              RowBox[{"DataDescription", "=", 
-               RowBox[{"Read", "[", 
-                RowBox[{"MyStream", ",", "Record"}], "]"}]}], ";", "\n", 
-              RowBox[{"(*", 
-               RowBox[{
-               "Read", " ", "correlated", " ", "systematic", " ", "error", 
-                " ", "parameters"}], " ", "*)"}], "\n", 
-              RowBox[{"R2String", "=", "\"\<\>\""}], ";", 
-              RowBox[{"If", "[", 
-               RowBox[{
-                RowBox[{"StringMatchQ", "[", 
-                 RowBox[{"DataDescription", ",", "\"\<*r(k)*\>\""}], "]"}], 
-                ",", "\n", 
-                RowBox[{"R2String", "=", "DataDescription"}]}], "]"}], ";", 
-              RowBox[{"(*", 
-               RowBox[{
+                 RowBox[{"Print", "[", 
+                  RowBox[{
+                  "\"\<Wrong FileFormat value=\>\"", ",", "FileFormat"}], 
+                  "]"}]}], "\n", "]"}], ";", "\n", "\n", 
+               RowBox[{"(*", " ", 
                 RowBox[{
-                 RowBox[{"Read", "[", 
-                  RowBox[{"MyStream", ",", "Record"}], "]"}], "]"}], ";"}], 
-               "*)"}], 
-              RowBox[{"(*", " ", 
-               RowBox[{
-                RowBox[{"Correlated", " ", "systematic", " ", "errors"}], " ",
-                 "\[Rule]"}], " ", "*)"}], "\n", 
-              RowBox[{"(*", 
-               RowBox[{"20170828", ":", " ", 
+                "Read", " ", "one", " ", "or", " ", "two", " ", "line", " ", 
+                 "of", " ", "the", " ", "data", " ", "description"}], " ", 
+                "*)"}], "\n", 
+               RowBox[{"DataDescription", "=", 
+                RowBox[{"Read", "[", 
+                 RowBox[{"MyStream", ",", "Record"}], "]"}]}], ";", "\n", 
+               RowBox[{"(*", 
                 RowBox[{
-                "add", " ", "the", " ", "info", " ", "of", " ", "column", " ",
-                  "labels", " ", "of", " ", "data"}]}], "*)"}], "\n", 
-              RowBox[{"DataLabel", "=", 
+                "Read", " ", "correlated", " ", "systematic", " ", "error", 
+                 " ", "parameters"}], " ", "*)"}], "\n", 
+               RowBox[{"R2String", "=", "\"\<\>\""}], ";", 
                RowBox[{"If", "[", 
                 RowBox[{
                  RowBox[{"StringMatchQ", "[", 
                   RowBox[{"DataDescription", ",", "\"\<*r(k)*\>\""}], "]"}], 
-                 ",", 
-                 RowBox[{"Read", "[", 
-                  RowBox[{"MyStream", ",", "Record"}], "]"}], ",", 
-                 "DataDescription"}], "]"}]}], ";", "\n", "\n", 
-              RowBox[{"(*", " ", 
-               RowBox[{
+                 ",", "\n", 
+                 RowBox[{"R2String", "=", "DataDescription"}]}], "]"}], ";", 
+               RowBox[{"(*", 
                 RowBox[{
-                "Read", " ", "in", " ", "the", " ", "data", " ", "string", 
-                 " ", "and", " ", "get", " ", "rid", " ", "of", " ", "the", 
-                 " ", "intermediary", " ", "comments", " ", "specifying", " ",
-                  "the", " ", "value", " ", "of", " ", "x"}], ",", " ", "yj", 
-                ",", " ", 
-                RowBox[{"etc", "."}]}], "*)"}], "\n", 
-              RowBox[{"DataString", "=", 
-               RowBox[{"Select", "[", 
-                RowBox[{
-                 RowBox[{"ReadList", "[", 
-                  RowBox[{"MyStream", ",", "Record"}], "]"}], ",", "\n", 
                  RowBox[{
+                  RowBox[{"Read", "[", 
+                   RowBox[{"MyStream", ",", "Record"}], "]"}], "]"}], ";"}], 
+                "*)"}], 
+               RowBox[{"(*", " ", 
+                RowBox[{
+                 RowBox[{"Correlated", " ", "systematic", " ", "errors"}], 
+                 " ", "\[Rule]"}], " ", "*)"}], "\n", 
+               RowBox[{"(*", 
+                RowBox[{"20170828", ":", " ", 
+                 RowBox[{
+                 "add", " ", "the", " ", "info", " ", "of", " ", "column", 
+                  " ", "labels", " ", "of", " ", "data"}]}], "*)"}], "\n", 
+               RowBox[{"DataLabel", "=", 
+                RowBox[{"If", "[", 
+                 RowBox[{
+                  RowBox[{"StringMatchQ", "[", 
+                   RowBox[{"DataDescription", ",", "\"\<*r(k)*\>\""}], "]"}], 
+                  ",", 
+                  RowBox[{"Read", "[", 
+                   RowBox[{"MyStream", ",", "Record"}], "]"}], ",", 
+                  "DataDescription"}], "]"}]}], ";", "\n", "\n", 
+               RowBox[{"(*", " ", 
+                RowBox[{
+                 RowBox[{
+                 "Read", " ", "in", " ", "the", " ", "data", " ", "string", 
+                  " ", "and", " ", "get", " ", "rid", " ", "of", " ", "the", 
+                  " ", "intermediary", " ", "comments", " ", "specifying", 
+                  " ", "the", " ", "value", " ", "of", " ", "x"}], ",", " ", 
+                 "yj", ",", " ", 
+                 RowBox[{"etc", "."}]}], "*)"}], "\n", 
+               RowBox[{"DataString", "=", 
+                RowBox[{"Select", "[", 
+                 RowBox[{
+                  RowBox[{"ReadList", "[", 
+                   RowBox[{"MyStream", ",", "Record"}], "]"}], ",", "\n", 
                   RowBox[{
-                   RowBox[{"!", 
+                   RowBox[{
+                    RowBox[{"!", 
                     RowBox[{"StringMatchQ", "[", 
                     RowBox[{"#", ",", "\"\<* X *\>\""}], "]"}]}], " ", "&&", 
-                   " ", 
-                   RowBox[{"!", 
+                    " ", 
+                    RowBox[{"!", 
                     RowBox[{"StringMatchQ", "[", 
                     RowBox[{"#", ",", "\"\<*Tau*\>\""}], "]"}]}], "&&", " ", 
-                   RowBox[{"!", 
+                    RowBox[{"!", 
                     RowBox[{"StringMatchQ", "[", 
                     RowBox[{"#", ",", "\"\<*Y*\>\""}], "]"}]}]}], "&"}]}], 
-                "]"}]}], ";", "\n", "\n", 
-              RowBox[{"(*", " ", 
-               RowBox[{
-               "Determine", " ", "the", " ", "number", " ", "of", " ", "data",
-                 " ", "columns", " ", "by", " ", "sampling", " ", "the", " ", 
-                "first", " ", "element", " ", "of", " ", "DataString"}], " ", 
-               "*)"}], "\n", 
-              RowBox[{"NDataColumns", "=", 
-               RowBox[{
-                RowBox[{"Dimensions", "[", 
-                 RowBox[{"ReadList", "[", 
-                  RowBox[{
-                   RowBox[{"StringToStream", "[", 
+                 "]"}]}], ";", "\n", "\n", 
+               RowBox[{"(*", " ", 
+                RowBox[{
+                "Determine", " ", "the", " ", "number", " ", "of", " ", 
+                 "data", " ", "columns", " ", "by", " ", "sampling", " ", 
+                 "the", " ", "first", " ", "element", " ", "of", " ", 
+                 "DataString"}], " ", "*)"}], "\n", 
+               RowBox[{"NDataColumns", "=", 
+                RowBox[{
+                 RowBox[{"Dimensions", "[", 
+                  RowBox[{"ReadList", "[", 
+                   RowBox[{
+                    RowBox[{"StringToStream", "[", 
                     RowBox[{"DataString", "[", 
                     RowBox[{"[", "1", "]"}], "]"}], "]"}], ",", "Number"}], 
-                  "]"}], "]"}], "[", 
-                RowBox[{"[", "1", "]"}], "]"}]}], ";", "\n", "\n", 
-              RowBox[{"(*", 
-               RowBox[{
-               "Append", " ", "a", " ", "blank", " ", "character", " ", "to", 
-                " ", "the", " ", "end", " ", "of", " ", "each", " ", "line", 
-                " ", "in", " ", "DataString", " ", "to", " ", "separate", " ",
-                 "the", " ", "first", " ", "number", " ", "in", " ", "each", 
-                " ", "line", " ", "from", " ", "the", " ", "last", " ", 
-                "number", " ", "in", " ", "the", " ", "previous", " ", "line",
-                 " ", "in", " ", "the", " ", "concatenated", " ", "string"}], 
-               " ", "*)"}], "\n", 
-              RowBox[{"DataString", "=", 
-               RowBox[{"(", 
+                   "]"}], "]"}], "[", 
+                 RowBox[{"[", "1", "]"}], "]"}]}], ";", "\n", "\n", 
+               RowBox[{"(*", 
                 RowBox[{
+                "Append", " ", "a", " ", "blank", " ", "character", " ", "to",
+                  " ", "the", " ", "end", " ", "of", " ", "each", " ", "line",
+                  " ", "in", " ", "DataString", " ", "to", " ", "separate", 
+                 " ", "the", " ", "first", " ", "number", " ", "in", " ", 
+                 "each", " ", "line", " ", "from", " ", "the", " ", "last", 
+                 " ", "number", " ", "in", " ", "the", " ", "previous", " ", 
+                 "line", " ", "in", " ", "the", " ", "concatenated", " ", 
+                 "string"}], " ", "*)"}], "\n", 
+               RowBox[{"DataString", "=", 
+                RowBox[{"(", 
                  RowBox[{
-                  RowBox[{"StringJoin", "[", 
-                   RowBox[{"#", ",", "\"\< \>\""}], "]"}], "&"}], "/@", 
-                 "DataString"}], ")"}]}], ";", "\n", "\n", 
-              RowBox[{"(*", " ", 
-               RowBox[{"Finally", ",", " ", 
-                RowBox[{"read", " ", "the", " ", "data", " ", "list"}]}], " ",
-                "*)"}], "\n", 
-              RowBox[{"DataList", "=", 
-               RowBox[{"ReadList", "[", 
-                RowBox[{
-                 RowBox[{"StringToStream", "[", 
-                  RowBox[{"StringJoin", "[", "DataString", "]"}], "]"}], ",", 
-                 
+                  RowBox[{
+                   RowBox[{"StringJoin", "[", 
+                    RowBox[{"#", ",", "\"\< \>\""}], "]"}], "&"}], "/@", 
+                  "DataString"}], ")"}]}], ";", "\n", "\n", 
+               RowBox[{"(*", " ", 
+                RowBox[{"Finally", ",", " ", 
+                 RowBox[{"read", " ", "the", " ", "data", " ", "list"}]}], 
+                " ", "*)"}], "\n", 
+               RowBox[{"DataList", "=", 
+                RowBox[{"ReadList", "[", 
                  RowBox[{
-                  RowBox[{"Table", "[", 
-                   RowBox[{"Number", ",", 
+                  RowBox[{"StringToStream", "[", 
+                   RowBox[{"StringJoin", "[", "DataString", "]"}], "]"}], ",", 
+                  RowBox[{
+                   RowBox[{"Table", "[", 
+                    RowBox[{"Number", ",", 
                     RowBox[{"{", "NDataColumns", "}"}]}], "]"}], "/.", 
-                  RowBox[{"List", "->", "LF"}]}]}], "]"}]}], ";", "\n", "\n", 
-              
-              RowBox[{"If", "[", 
-               RowBox[{"PrintExpt", ",", 
-                RowBox[{"Print", "[", 
-                 RowBox[{
-                 "iExperiment", ",", "\"\<  \>\"", ",", "ExptID", ",", 
-                  "\"\<    \>\"", ",", 
-                  RowBox[{"ExptIDtoName", "[", "ExptID", "]"}], ",", 
-                  "\"\<    \>\"", ",", "NormFac", ",", "\"\<     \>\"", ",", 
-                  "NPoints", ",", "\"\<     \>\"", ",", 
-                  RowBox[{"Dimensions", "[", "DataList", "]"}]}], "]"}]}], 
-               "]"}], ";", "\n", 
-              RowBox[{"Close", "[", "MyStream", "]"}], ";", "\n", "ExptID"}], 
-             ",", 
-             RowBox[{"ExptIDtoName", "[", "ExptID", "]"}], ",", "DataLabel", 
-             ",", "NormFac", ",", "NPoints", ",", "DataDescription", ",", 
-             "DataList", ",", "S", ",", "R2String"}], "\n", "}"}], ",", "\n", 
-           
-           RowBox[{"{", 
-            RowBox[{"iExperiment", ",", "NExperiments"}], "}"}]}], "]"}]}], 
-        ";", 
-        RowBox[{"(*", " ", 
-         RowBox[{"tmpTable", " ", "\[Rule]"}], " ", "*)"}], "\n", 
-        "tmpTable"}]}], "\n", "]"}]}], 
-    RowBox[{"(*", " ", 
-     RowBox[{"Module", " ", "\[Rule]"}], "*)"}], "\n", "]"}]}], ";", 
+                   RowBox[{"List", "->", "LF"}]}]}], "]"}]}], ";", "\n", "\n", 
+               RowBox[{"If", "[", 
+                RowBox[{"PrintExpt", ",", 
+                 RowBox[{"Print", "[", 
+                  RowBox[{
+                  "iExperiment", ",", "\"\<  \>\"", ",", "ExptID", ",", 
+                   "\"\<    \>\"", ",", 
+                   RowBox[{"ExptIDtoName", "[", "ExptID", "]"}], ",", 
+                   "\"\<    \>\"", ",", "NormFac", ",", "\"\<     \>\"", ",", 
+                   "NPoints", ",", "\"\<     \>\"", ",", 
+                   RowBox[{"Dimensions", "[", "DataList", "]"}]}], "]"}]}], 
+                "]"}], ";", "\n", 
+               RowBox[{"Close", "[", "MyStream", "]"}], ";", "\n", "ExptID"}],
+               ",", 
+              RowBox[{"ExptIDtoName", "[", "ExptID", "]"}], ",", "DataLabel", 
+              ",", "NormFac", ",", "NPoints", ",", "DataDescription", ",", 
+              "DataList", ",", "S", ",", "R2String"}], "\n", "}"}], ",", "\n", 
+            RowBox[{"{", 
+             RowBox[{"iExperiment", ",", "NExperiments"}], "}"}]}], "]"}]}], 
+         ";", 
+         RowBox[{"(*", " ", 
+          RowBox[{"tmpTable", " ", "\[Rule]"}], " ", "*)"}], "\n", 
+         "tmpTable"}]}], "\n", "]"}]}], 
+     RowBox[{"(*", " ", 
+      RowBox[{"Module", " ", "\[Rule]"}], "*)"}], "\n", "]"}]}], ";"}], 
   RowBox[{"(*", " ", 
    RowBox[{"Function", " ", "->"}], "*)"}]}]], "Input",
  InitializationCell->True],
@@ -1632,452 +1632,494 @@ Cell[BoxData[
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{
-   RowBox[{"ExptIDinfo", "[", "ExptIDin_", "]"}], ":=", "\n", 
-   RowBox[{"Module", "[", 
+  RowBox[{"(*", 
+   RowBox[{
     RowBox[{
-     RowBox[{"{", 
-      RowBox[{
-       RowBox[{"ExptID", "=", "ExptIDin"}], ",", "output", ",", "expItype", 
-       ",", "VBPtype1", ",", "VBPtype2", ",", "VBPtype3", ",", "\n", "JP", 
-       ",", "ttbarpT", ",", "ttbarmtt", ",", "ttbary", ",", "ID267", ",", 
-       "ID247", ",", "ID252", ",", "ID253", ",", "ID254", ",", "ID255"}], 
-      "}"}], ",", "\n", 
-     RowBox[{"(*", "\n", 
-      RowBox[{
-       RowBox[{"1", ":", "DIS"}], ";", "\n", 
-       RowBox[{"2", ":", 
-        RowBox[{"VBP", " ", 
-         RowBox[{"(", 
-          RowBox[{
-           RowBox[{
-            RowBox[{"VectorBosonProd", "."}], ";", 
-            RowBox[{
-             RowBox[{"real", "/", "virtual"}], " ", "photon"}], ";", "W"}], 
-           ",", "Z", ",", "..."}], ")"}], "\n", "3"}], ":", 
-        RowBox[{"Direct", " ", "Photon", "\n", "4"}], ":", 
-        RowBox[{"Heavy", " ", "Quark", " ", "production", "\n", "5"}], ":", 
-        RowBox[{"Jet", " ", "production"}]}]}], "\n", "*)"}], "\n", "\n", 
-     RowBox[{"(*", "\n", 
-      RowBox[{
-       RowBox[{"VBPtype", "\n", 
-        RowBox[{"format", ":", "\n", "1", ":", " ", "Q"}]}], ",", " ", 
-       RowBox[{
-        RowBox[{"tau", "\n", "2"}], ":", " ", "Q"}], ",", " ", "y", ",", " ", 
-       
-       RowBox[{
-        RowBox[{"sqrt", 
-         RowBox[{"(", "S", ")"}], "\n", "3"}], ":", " ", 
-        RowBox[{"Asym", 
-         RowBox[{"(", "yl", ")"}]}]}]}], "\n", "*)"}], "\n", "\n", 
-     RowBox[{"(*", 
-      RowBox[{
-       RowBox[{"seems", " ", "not", " ", "totally", " ", "right"}], ",", " ", 
-       
-       RowBox[{"need", " ", "to", " ", "check", " ", "later"}]}], "*)"}], 
-     "\n", 
-     RowBox[{"(*", 
-      RowBox[{
-       RowBox[{
-        RowBox[{
-        "200170426", " ", "new", " ", "CT14NNLO", " ", "add", " ", "new", " ",
-          "exptid"}], " ", "=", " ", "245"}], ",", "246", ",", "247", ",", 
-       "542", ",", "544"}], "*)"}], "\n", 
-     RowBox[{"(*", 
-      RowBox[{
-       RowBox[{"20170530", ":", " ", "240"}], ",", "268", ",", 
-       RowBox[{
-        RowBox[{
-         RowBox[{"245", " ", "are", " ", "mix", " ", "of", " ", "W"}], "&"}], 
-        "Z"}], ",", " ", 
-       RowBox[{
-        RowBox[{"it", "'"}], "s", " ", "dangerous", " ", "to", " ", "use", 
-        " ", "formula", " ", "of", " ", "VBPtype2"}], ",", " ", 
-       RowBox[{
-       "3", " ", "on", " ", "these", " ", "processes", "\n", "however"}], ",",
-        " ", 
-       RowBox[{"since", " ", "VBPtype2"}], ",", " ", 
-       RowBox[{"3", " ", "formulas", " ", "are", " ", "the", " ", "same"}], 
-       ",", " ", 
-       RowBox[{
-       "I", " ", "still", " ", "add", " ", "them", " ", "into", " ", 
-        "VBPtype2", " ", "for", " ", "researching", " ", "how", " ", "well", 
-        " ", "formulas", " ", "works", " ", "on", " ", "them"}]}], " ", 
-      "*)"}], "\n", 
-     RowBox[{"(*", 
-      RowBox[{
-       RowBox[{"20170602", ":", " ", "249", ":", 
-        RowBox[{"W", " ", "asym"}]}], ",", " ", 
-       RowBox[{"250", ":", " ", 
-        RowBox[{
-         RowBox[{"W", "/", "Z"}], " ", "mix"}]}], ",", " ", 
-       RowBox[{
-        RowBox[{"565", "~", "568"}], ":", " ", "ttbbar"}], ",", " ", 
-       RowBox[{
-        RowBox[{"don", "'"}], "t", " ", "sure", " ", "whether", " ", "them", 
-        " ", "work", " ", "on", " ", "JP", " ", "formula"}], ",", " ", 
-       RowBox[{
-       "but", " ", "still", " ", "add", " ", "them", " ", "into", " ", 
-        "it"}]}], "*)"}], "\n", 
-     RowBox[{"(*", 
-      RowBox[{"20170606", ":", " ", 
-       RowBox[{"248", " ", 
-        RowBox[{"W", "/", "Z"}], " ", "mix"}]}], "*)"}], "\n", 
+    "this", " ", "function", " ", "classify", " ", "Expt", " ", "IDs", " ", 
+     "by", " ", "the", " ", "formulas", " ", "that", " ", "specify", " ", 
+     RowBox[{"(", 
+      RowBox[{"x", ",", "\[Mu]"}], ")"}], " ", "of", " ", "points", " ", "in",
+      " ", "IDs"}], ",", " ", 
+    RowBox[{
+    "selectExptxQv2", " ", "could", " ", "use", " ", "this", " ", "function", 
+     " ", "\n", "to", " ", "match", " ", "the", " ", "formulas", " ", "and", 
+     " ", "IDs", " ", "to", " ", "get", " ", 
+     RowBox[{"(", 
+      RowBox[{"x", ",", "\[Mu]"}], ")"}], " ", "of", " ", "data", " ", 
+     "points"}]}], "*)"}], "\n", 
+  RowBox[{"(*", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"e", ".", "g", ".", " ", 
+      RowBox[{"(", 
+       RowBox[{"x", ",", "\[Mu]"}], ")"}]}], " ", "of", " ", "DIS", " ", 
+     "measurements", " ", "are", " ", "equal", " ", "to", " ", 
+     RowBox[{"(", 
+      RowBox[{"x", ",", "Q"}], ")"}], " ", "kinematical", " ", "quantities", 
+     " ", "of", " ", "them"}], ",", " ", 
+    RowBox[{
+    "so", " ", "the", " ", "function", " ", "classify", " ", "them", " ", 
+     "to", " ", "type", " ", "\"\<DIS\>\""}]}], "*)"}], "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"ExptIDinfo", "[", "ExptIDin_", "]"}], ":=", "\n", 
+    RowBox[{"Module", "[", 
      RowBox[{
-      RowBox[{"VBPtype1", "=", 
-       RowBox[{"{", "}"}]}], ";", "\n", 
-      RowBox[{"VBPtype2", "=", 
+      RowBox[{"{", 
        RowBox[{
-        RowBox[{"{", 
-         RowBox[{
-         "201", ",", "203", ",", "204", ",", "260", ",", "261", ",", "268", 
-          ",", "240"}], "}"}], "~", "Join", "~", 
-        RowBox[{"{", 
-         RowBox[{"246", ",", "245", ",", "250", ",", "248"}], "}"}]}]}], ";", 
-      "\n", 
-      RowBox[{"VBPtype3", "=", 
-       RowBox[{
-        RowBox[{"{", 
-         RowBox[{"225", ",", "227", ",", "234", ",", 
-          RowBox[{"(*", 
-           RowBox[{"267", ","}], "*)"}], "281", ",", "241", ",", "266"}], 
-         "}"}], "~", "Join", "~", 
-        RowBox[{"{", "249", "}"}]}]}], ";", "\n", "\n", 
-      RowBox[{"(*", "20171118", "*)"}], "\n", 
-      RowBox[{"JP", "=", 
-       RowBox[{"{", 
-        RowBox[{
-        "504", ",", "514", ",", "535", ",", "538", ",", "542", ",", "544", 
-         ",", "545"}], "}"}]}], ";", "\n", 
-      RowBox[{"ttbarpT", "=", 
-       RowBox[{"{", "565", "}"}]}], ";", "\n", 
-      RowBox[{"ttbarmtt", "=", 
-       RowBox[{"{", "567", "}"}]}], ";", "\n", 
-      RowBox[{"ttbary", "=", 
-       RowBox[{"{", 
-        RowBox[{"566", ",", "568"}], "}"}]}], ";", "\n", 
-      RowBox[{"(*", 
-       RowBox[{
-        RowBox[{
-         RowBox[{"20171121", ":", " ", 
-          RowBox[{
-           RowBox[{"it", "'"}], "s", " ", "Q"}]}], " ", "=", " ", "0"}], ",", 
-        " ", 
-        RowBox[{"set", " ", "it", " ", "as", " ", "W", " ", "mass"}]}], 
-       "*)"}], "\n", 
-      RowBox[{"ID267", "=", 
-       RowBox[{"{", "267", "}"}]}], ";", "\n", 
-      RowBox[{"(*", 
-       RowBox[{
-        RowBox[{"20171130", ":", " ", "Zpt"}], ",", " ", 
-        RowBox[{
-         RowBox[{"Q", "^", "2"}], "=", 
-         RowBox[{
-          RowBox[{
-           RowBox[{"Subscript", "[", 
-            RowBox[{"M", ",", " ", "Z"}], "]"}], "^", "2"}], "+", 
-          RowBox[{"Subscript", "[", 
-           RowBox[{
-            RowBox[{"p", "^", "2"}], ",", " ", "T"}], "]"}]}]}]}], "*)"}], 
-      "\n", 
-      RowBox[{"ID247", "=", 
-       RowBox[{"{", "247", "}"}]}], ";", "\n", 
-      RowBox[{"(*", 
-       RowBox[{
-       "20171208", " ", "add", " ", "customized", " ", "formulas", " ", "for",
-         " ", 
-        RowBox[{"252", " ", "~", " ", "255"}]}], "*)"}], "\n", 
-      RowBox[{"ID252", "=", 
-       RowBox[{"{", "252", "}"}]}], ";", "\n", 
-      RowBox[{"ID253", "=", 
-       RowBox[{"{", "253", "}"}]}], ";", "\n", 
-      RowBox[{"ID254", "=", 
-       RowBox[{"{", "254", "}"}]}], ";", "\n", 
-      RowBox[{"ID255", "=", 
-       RowBox[{"{", "255", "}"}]}], ";", "\n", "\n", 
-      RowBox[{"expItype", "=", "\n", 
-       RowBox[{"Which", "[", "\n", 
-        RowBox[{
-         RowBox[{
-          RowBox[{"ExptID", ">", "99"}], " ", "&&", " ", 
-          RowBox[{"ExptID", "<", "200"}]}], ",", "\n", "\"\<DIS\>\"", ",", 
-         "\n", " ", 
-         RowBox[{
-          RowBox[{"ExptID", ">", "199"}], " ", "&&", " ", 
-          RowBox[{"ExptID", "<", "300"}], " ", "&&", " ", 
-          RowBox[{"SubsetQ", "[", 
-           RowBox[{"VBPtype1", ",", 
-            RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", "\n", 
-         "\"\<VBP1\>\"", ",", "\n", " ", 
-         RowBox[{
-          RowBox[{"ExptID", ">", "199"}], " ", "&&", " ", 
-          RowBox[{"ExptID", "<", "300"}], " ", "&&", " ", 
-          RowBox[{"SubsetQ", "[", 
-           RowBox[{"VBPtype2", ",", 
-            RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", 
-         RowBox[{"(*", 
-          RowBox[{
-           RowBox[{"Z", " ", "\[Rule]", " ", 
-            RowBox[{"l", "+", "l", "-"}]}], ",", " ", 
-           RowBox[{
-            RowBox[{"dXsec", "/", "dy"}], 
-            RowBox[{"(", "l", ")"}]}]}], "*)"}], "\n", "\"\<VBP2\>\"", ",", 
-         "\n", " ", 
-         RowBox[{
-          RowBox[{"ExptID", ">", "199"}], " ", "&&", " ", 
-          RowBox[{"ExptID", "<", "300"}], " ", "&&", " ", 
-          RowBox[{"SubsetQ", "[", 
-           RowBox[{"VBPtype3", ",", 
-            RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", 
-         RowBox[{"(*", 
-          RowBox[{
-           RowBox[{"W", " ", "\[Rule]", " ", "lv"}], ",", " ", "asym"}], 
-          "*)"}], "\n", "\"\<VBP3\>\"", ",", "\n", 
-         RowBox[{
-          RowBox[{"ExptID", ">", "199"}], " ", "&&", " ", 
-          RowBox[{"ExptID", "<", "300"}], " ", "&&", " ", 
-          RowBox[{"SubsetQ", "[", 
-           RowBox[{"ID267", ",", 
-            RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", 
-         RowBox[{"(*", 
-          RowBox[{
-           RowBox[{"W", " ", "\[Rule]", " ", "lv"}], ",", " ", "asym"}], 
-          "*)"}], "\n", "\"\<ID267\>\"", ",", "\n", 
-         RowBox[{
-          RowBox[{"ExptID", ">", "199"}], " ", "&&", " ", 
-          RowBox[{"ExptID", "<", "300"}], " ", "&&", " ", 
-          RowBox[{"SubsetQ", "[", 
-           RowBox[{"ID247", ",", 
-            RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", 
-         RowBox[{"(*", 
-          RowBox[{
-           RowBox[{"W", " ", "\[Rule]", " ", "lv"}], ",", " ", "asym"}], 
-          "*)"}], "\n", "\"\<ID247\>\"", ",", "\n", 
-         RowBox[{
-          RowBox[{"ExptID", ">", "199"}], " ", "&&", " ", 
-          RowBox[{"ExptID", "<", "300"}], " ", "&&", " ", 
-          RowBox[{"SubsetQ", "[", 
-           RowBox[{"ID252", ",", 
-            RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", 
-         RowBox[{"(*", 
-          RowBox[{
-           RowBox[{"W", " ", "\[Rule]", " ", "lv"}], ",", " ", "asym"}], 
-          "*)"}], "\n", "\"\<ID252\>\"", ",", "\n", 
-         RowBox[{
-          RowBox[{"ExptID", ">", "199"}], " ", "&&", " ", 
-          RowBox[{"ExptID", "<", "300"}], " ", "&&", " ", 
-          RowBox[{"SubsetQ", "[", 
-           RowBox[{"ID253", ",", 
-            RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", 
-         RowBox[{"(*", 
-          RowBox[{
-           RowBox[{"W", " ", "\[Rule]", " ", "lv"}], ",", " ", "asym"}], 
-          "*)"}], "\n", "\"\<ID253\>\"", ",", "\n", 
-         RowBox[{
-          RowBox[{"ExptID", ">", "199"}], " ", "&&", " ", 
-          RowBox[{"ExptID", "<", "300"}], " ", "&&", " ", 
-          RowBox[{"SubsetQ", "[", 
-           RowBox[{"ID254", ",", 
-            RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", 
-         RowBox[{"(*", 
-          RowBox[{
-           RowBox[{"W", " ", "\[Rule]", " ", "lv"}], ",", " ", "asym"}], 
-          "*)"}], "\n", "\"\<ID254\>\"", ",", "\n", 
-         RowBox[{
-          RowBox[{"ExptID", ">", "199"}], " ", "&&", " ", 
-          RowBox[{"ExptID", "<", "300"}], " ", "&&", " ", 
-          RowBox[{"SubsetQ", "[", 
-           RowBox[{"ID255", ",", 
-            RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", 
-         RowBox[{"(*", 
-          RowBox[{
-           RowBox[{"W", " ", "\[Rule]", " ", "lv"}], ",", " ", "asym"}], 
-          "*)"}], "\n", "\"\<ID255\>\"", ",", "\n", " ", 
-         RowBox[{
-          RowBox[{"ExptID", ">", "199"}], " ", "&&", " ", 
-          RowBox[{"ExptID", "<", "300"}]}], ",", "\n", "\"\<VBPothers\>\"", 
-         ",", "\n", " ", 
-         RowBox[{
-          RowBox[{"ExptID", ">", "299"}], " ", "&&", " ", 
-          RowBox[{"ExptID", "<", "400"}]}], ",", "\n", "\"\<DP\>\"", ",", 
-         "\n", " ", 
-         RowBox[{
-          RowBox[{"ExptID", ">", "399"}], " ", "&&", " ", 
-          RowBox[{"ExptID", "<", "500"}]}], ",", "\n", "\"\<HQP\>\"", ",", 
-         "\n", " ", 
-         RowBox[{
-          RowBox[{"ExptID", ">", "499"}], " ", "&&", " ", 
-          RowBox[{"ExptID", "<", "600"}], " ", "&&", "  ", 
-          RowBox[{"SubsetQ", "[", 
-           RowBox[{"JP", ",", 
-            RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", "\n", "\"\<JP\>\"", 
-         ",", "\n", 
-         RowBox[{
-          RowBox[{"ExptID", ">", "499"}], " ", "&&", " ", 
-          RowBox[{"ExptID", "<", "600"}], " ", "&&", "  ", 
-          RowBox[{"SubsetQ", "[", 
-           RowBox[{"ttbarpT", ",", 
-            RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", "\n", 
-         "\"\<ttbarpT\>\"", ",", "\n", " ", 
-         RowBox[{
-          RowBox[{"ExptID", ">", "499"}], " ", "&&", " ", 
-          RowBox[{"ExptID", "<", "600"}], " ", "&&", "  ", 
-          RowBox[{"SubsetQ", "[", 
-           RowBox[{"ttbarmtt", ",", 
-            RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", "\n", 
-         "\"\<ttbarmtt\>\"", ",", "\n", " ", 
-         RowBox[{
-          RowBox[{"ExptID", ">", "499"}], " ", "&&", " ", 
-          RowBox[{"ExptID", "<", "600"}], " ", "&&", "  ", 
-          RowBox[{"SubsetQ", "[", 
-           RowBox[{"ttbary", ",", 
-            RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", "\n", 
-         "\"\<ttbary\>\"", ",", "\n", " ", 
-         RowBox[{
-          RowBox[{"ExptID", ">", "599"}], " ", "&&", " ", 
-          RowBox[{"ExptID", "<", "700"}]}], ",", "\n", "\"\<undefine\>\"", 
-         ",", "\n", " ", 
-         RowBox[{
-          RowBox[{"ExptID", ">", "699"}], " ", "&&", " ", 
-          RowBox[{"ExptID", "<", "800"}]}], ",", "\n", "\"\<undefine\>\"", 
-         ",", "\n", "_", ",", "\n", 
-         RowBox[{
-          RowBox[{"Print", "[", 
-           RowBox[{"\"\<Wrong ExptID value=\>\"", ",", "ExptID"}], "]"}], 
-          ";"}]}], "\n", "]"}]}], ";", "\n", "\n", 
+        RowBox[{"ExptID", "=", "ExptIDin"}], ",", "output", ",", "expItype", 
+        ",", "VBPtype1", ",", "VBPtype2", ",", "VBPtype3", ",", "\n", "JP", 
+        ",", "ttbarpT", ",", "ttbarmtt", ",", "ttbary", ",", "ID267", ",", 
+        "ID247", ",", "ID252", ",", "ID253", ",", "ID254", ",", "ID255"}], 
+       "}"}], ",", "\n", 
       RowBox[{"(*", "\n", 
        RowBox[{
-        RowBox[{"type1a", "\[Equal]", " ", 
-         RowBox[{"lp", " ", "scattering"}]}], ",", " ", "DIS", ",", " ", 
-        RowBox[{
-         RowBox[{"NC", "\n", "type1b"}], "\[Equal]", " ", 
-         RowBox[{"lp", " ", "scattering"}]}], ",", " ", "DIS", ",", " ", 
-        RowBox[{
-         RowBox[{
-          RowBox[{"CC", "\n", "type2a"}], "\[Equal]", " ", "lp"}], " ", 
-         "\[Rule]", " ", "cX"}], ",", " ", "DIS", ",", " ", 
-        RowBox[{
-         RowBox[{
-          RowBox[{"NC", "\n", "type2b"}], "\[Equal]", " ", "lp"}], " ", 
-         "\[Rule]", " ", "bX"}], ",", " ", "DIS", ",", " ", 
-        RowBox[{
-         RowBox[{
-          RowBox[{"NC", "\n", "type3"}], "\[Equal]", " ", "lN"}], " ", 
-         "\[Rule]", " ", "X"}], ",", " ", 
-        RowBox[{
-         RowBox[{
-          RowBox[{"DIS", "\n", "type4a"}], "\[Equal]", " ", "nuN"}], " ", 
-         "\[Rule]", " ", "X"}], ",", " ", 
-        RowBox[{
-         RowBox[{
-          RowBox[{"DIS", "\n", "type4b"}], "\[Equal]", " ", "nuN"}], " ", 
-         "\[Rule]", " ", "cX"}], ",", " ", 
-        RowBox[{
-         RowBox[{
-          RowBox[{"DIS", "\n", "type5"}], "\[Equal]", " ", "pN"}], " ", 
-         "\[Rule]", " ", 
-         RowBox[{"l", "+", "l", "-", "X"}]}], ",", " ", 
-        RowBox[{
-         RowBox[{
-          RowBox[{"VBP", "\n", "type6"}], "\[Equal]", " ", "ppbar"}], " ", 
-         "\[Rule]", " ", 
-         RowBox[{"l", "+", "l", "-", "X"}]}], ",", " ", 
-        RowBox[{
-         RowBox[{
-          RowBox[{"VBP", "\n", "type7"}], "\[Equal]", " ", "ppbar"}], " ", 
-         "\[Rule]", " ", 
-         RowBox[{"l", " ", "nu", " ", "X"}]}], ",", " ", 
-        RowBox[{
-         RowBox[{
-          RowBox[{"VBP", "\n", "type8"}], "\[Equal]", " ", "ppbar"}], " ", 
-         "\[Rule]", " ", 
-         RowBox[{"jet", " ", "X"}]}], ",", " ", 
-        RowBox[{
-         RowBox[{"JP", "\n", "type9a"}], "\[Equal]", " ", 
-         RowBox[{"ld", " ", "scattering"}]}], ",", " ", "DIS", ",", " ", 
-        RowBox[{
-         RowBox[{"NC", "\n", "type9b"}], "\[Equal]", " ", 
-         RowBox[{"ld", " ", "scattering"}]}], ",", " ", "DIS", ",", " ", 
-        RowBox[{
-         RowBox[{
-          RowBox[{"CC", "\n", "type10a"}], "\[Equal]", " ", "nuFe"}], " ", 
-         "\[Rule]", " ", "X"}], ",", " ", 
-        RowBox[{
-         RowBox[{
-          RowBox[{"DIS", "\n", "type10b"}], "\[Equal]", " ", "nuFe"}], " ", 
-         "\[Rule]", " ", "cX"}], ",", " ", 
-        RowBox[{
-         RowBox[{"DIS", "\n", "type11"}], "\[Equal]", " ", 
-         RowBox[{"p", " ", "copper", " ", "scattering"}]}], ",", " ", 
-        RowBox[{
-         RowBox[{
-          RowBox[{"VBP", "\n", "type12"}], "==", "pd"}], " ", "\[Rule]", " ", 
-         
-         RowBox[{"l", "+", "l", "-", "X"}]}], ",", " ", 
-        RowBox[{
-         RowBox[{"VBP", "\n", "\n", "type9"}], "\[Equal]", " ", 
-         RowBox[{
-         "combination", " ", "of", " ", "pp", " ", "and", " ", "pN", " ", 
-          "scattering", " ", 
+        RowBox[{"1", ":", "DIS"}], ";", "\n", 
+        RowBox[{"2", ":", 
+         RowBox[{"VBP", " ", 
           RowBox[{"(", 
-           RowBox[{"pd", ",", " ", 
-            RowBox[{"p", " ", "copper"}], ",", " ", 
-            RowBox[{"nu", " ", "Fe"}]}], ")"}]}]}]}], "\n", "*)"}], "\n", 
-      "\n", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"VectorBosonProd", "."}], ";", 
+             RowBox[{
+              RowBox[{"real", "/", "virtual"}], " ", "photon"}], ";", "W"}], 
+            ",", "Z", ",", "..."}], ")"}], "\n", "3"}], ":", 
+         RowBox[{"Direct", " ", "Photon", "\n", "4"}], ":", 
+         RowBox[{"Heavy", " ", "Quark", " ", "production", "\n", "5"}], ":", 
+         RowBox[{"Jet", " ", "production"}]}]}], "\n", "*)"}], "\n", "\n", 
       RowBox[{"(*", "\n", 
        RowBox[{
-        RowBox[{"type1a", "=", 
-         RowBox[{"{", 
-          RowBox[{"101", ",", "106", ",", "169"}], "}"}]}], ";", "\n", 
-        RowBox[{"type1b", "=", 
-         RowBox[{"{", 
-          RowBox[{"145", ",", "147"}], "}"}]}], ";", "\n", 
-        RowBox[{"type2a", "=", 
-         RowBox[{"{", "}"}]}], ";", "\n", 
-        RowBox[{"type2b", "=", 
-         RowBox[{"{", "}"}]}], ";", "\n", 
-        RowBox[{"type3", "=", 
-         RowBox[{"{", "}"}]}], ";", "\n", 
-        RowBox[{"type4a", "=", 
-         RowBox[{"{", "}"}]}], ";", "\n", 
-        RowBox[{"type4b", "=", 
-         RowBox[{"{", 
-          RowBox[{"124", ",", "125"}], "}"}]}], ";", "\n", 
-        RowBox[{"type5", "=", 
-         RowBox[{"{", "}"}]}], ";", "\n", 
-        RowBox[{"type6", "=", 
-         RowBox[{"{", 
-          RowBox[{"260", ",", "261"}], "}"}]}], ";", "\n", 
-        RowBox[{"type7", "=", 
+        RowBox[{"VBPtype", "\n", 
+         RowBox[{"format", ":", "\n", "1", ":", " ", "Q"}]}], ",", " ", 
+        RowBox[{
+         RowBox[{"tau", "\n", "2"}], ":", " ", "Q"}], ",", " ", "y", ",", " ", 
+        RowBox[{
+         RowBox[{"sqrt", 
+          RowBox[{"(", "S", ")"}], "\n", "3"}], ":", " ", 
+         RowBox[{"Asym", 
+          RowBox[{"(", "yl", ")"}]}]}]}], "\n", "*)"}], "\n", "\n", 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{"seems", " ", "not", " ", "totally", " ", "right"}], ",", " ", 
+        RowBox[{"need", " ", "to", " ", "check", " ", "later"}]}], "*)"}], 
+      "\n", 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{
+         RowBox[{
+         "200170426", " ", "new", " ", "CT14NNLO", " ", "add", " ", "new", 
+          " ", "exptid"}], " ", "=", " ", "245"}], ",", "246", ",", "247", 
+        ",", "542", ",", "544"}], "*)"}], "\n", 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{"20170530", ":", " ", "240"}], ",", "268", ",", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"245", " ", "are", " ", "mix", " ", "of", " ", "W"}], "&"}],
+          "Z"}], ",", " ", 
+        RowBox[{
+         RowBox[{"it", "'"}], "s", " ", "dangerous", " ", "to", " ", "use", 
+         " ", "formula", " ", "of", " ", "VBPtype2"}], ",", " ", 
+        RowBox[{
+        "3", " ", "on", " ", "these", " ", "processes", "\n", "however"}], 
+        ",", " ", 
+        RowBox[{"since", " ", "VBPtype2"}], ",", " ", 
+        RowBox[{"3", " ", "formulas", " ", "are", " ", "the", " ", "same"}], 
+        ",", " ", 
+        RowBox[{
+        "I", " ", "still", " ", "add", " ", "them", " ", "into", " ", 
+         "VBPtype2", " ", "for", " ", "researching", " ", "how", " ", "well", 
+         " ", "formulas", " ", "works", " ", "on", " ", "them"}]}], " ", 
+       "*)"}], "\n", 
+      RowBox[{"(*", 
+       RowBox[{
+        RowBox[{"20170602", ":", " ", "249", ":", 
+         RowBox[{"W", " ", "asym"}]}], ",", " ", 
+        RowBox[{"250", ":", " ", 
+         RowBox[{
+          RowBox[{"W", "/", "Z"}], " ", "mix"}]}], ",", " ", 
+        RowBox[{
+         RowBox[{"565", "~", "568"}], ":", " ", "ttbbar"}], ",", " ", 
+        RowBox[{
+         RowBox[{"don", "'"}], "t", " ", "sure", " ", "whether", " ", "them", 
+         " ", "work", " ", "on", " ", "JP", " ", "formula"}], ",", " ", 
+        RowBox[{
+        "but", " ", "still", " ", "add", " ", "them", " ", "into", " ", 
+         "it"}]}], "*)"}], "\n", 
+      RowBox[{"(*", 
+       RowBox[{"20170606", ":", " ", 
+        RowBox[{"248", " ", 
+         RowBox[{"W", "/", "Z"}], " ", "mix"}]}], "*)"}], "\n", 
+      RowBox[{
+       RowBox[{"VBPtype1", "=", 
+        RowBox[{"{", "}"}]}], ";", "\n", 
+       RowBox[{"VBPtype2", "=", 
+        RowBox[{
          RowBox[{"{", 
           RowBox[{
-          "225", ",", "227", ",", "234", ",", "241", ",", "266", ",", "267", 
-           ",", "268", ",", "281"}], "}"}]}], ";", "\n", 
-        RowBox[{"type8", "=", 
+          "201", ",", "203", ",", "204", ",", "260", ",", "261", ",", "268", 
+           ",", "240"}], "}"}], "~", "Join", "~", 
          RowBox[{"{", 
-          RowBox[{"514", ",", "535", ",", "538"}], "}"}]}], ";", "\n", 
-        RowBox[{"type9a", "=", 
-         RowBox[{"{", 
-          RowBox[{"102", ",", "104"}], "}"}]}], ";", "\n", 
-        RowBox[{"type9b", "=", 
-         RowBox[{"{", "}"}]}], ";", "\n", 
-        RowBox[{"type10a", "=", 
-         RowBox[{"{", 
-          RowBox[{"108", ",", "109", ",", "110", ",", "111"}], "}"}]}], ";", 
+          RowBox[{"246", ",", "245", ",", "250", ",", "248"}], "}"}]}]}], ";",
         "\n", 
-        RowBox[{"type10b", "=", 
+       RowBox[{"VBPtype3", "=", 
+        RowBox[{
          RowBox[{"{", 
-          RowBox[{"126", ",", "127"}], "}"}]}], ";", "\n", 
-        RowBox[{"type11", "=", 
-         RowBox[{"{", "201", "}"}]}], ";", "\n", 
-        RowBox[{"type12", "=", 
-         RowBox[{"{", 
-          RowBox[{"203", ",", "204"}], "}"}]}], ";"}], "\n", "*)"}], "\n", 
-      "\n", 
-      RowBox[{"output", " ", "=", "expItype"}]}]}], "\n", "]"}]}], 
-  ";"}]], "Code",
+          RowBox[{"225", ",", "227", ",", "234", ",", 
+           RowBox[{"(*", 
+            RowBox[{"267", ","}], "*)"}], "281", ",", "241", ",", "266"}], 
+          "}"}], "~", "Join", "~", 
+         RowBox[{"{", "249", "}"}]}]}], ";", "\n", "\n", 
+       RowBox[{"(*", "20171118", "*)"}], "\n", 
+       RowBox[{"JP", "=", 
+        RowBox[{"{", 
+         RowBox[{
+         "504", ",", "514", ",", "535", ",", "538", ",", "542", ",", "544", 
+          ",", "545"}], "}"}]}], ";", "\n", 
+       RowBox[{"ttbarpT", "=", 
+        RowBox[{"{", "565", "}"}]}], ";", "\n", 
+       RowBox[{"ttbarmtt", "=", 
+        RowBox[{"{", "567", "}"}]}], ";", "\n", 
+       RowBox[{"ttbary", "=", 
+        RowBox[{"{", 
+         RowBox[{"566", ",", "568"}], "}"}]}], ";", "\n", 
+       RowBox[{"(*", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"20171121", ":", " ", 
+           RowBox[{
+            RowBox[{"it", "'"}], "s", " ", "Q"}]}], " ", "=", " ", "0"}], ",",
+          " ", 
+         RowBox[{"set", " ", "it", " ", "as", " ", "W", " ", "mass"}]}], 
+        "*)"}], "\n", 
+       RowBox[{"ID267", "=", 
+        RowBox[{"{", "267", "}"}]}], ";", "\n", 
+       RowBox[{"(*", 
+        RowBox[{
+         RowBox[{"20171130", ":", " ", "Zpt"}], ",", " ", 
+         RowBox[{
+          RowBox[{"Q", "^", "2"}], "=", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"Subscript", "[", 
+             RowBox[{"M", ",", " ", "Z"}], "]"}], "^", "2"}], "+", 
+           RowBox[{"Subscript", "[", 
+            RowBox[{
+             RowBox[{"p", "^", "2"}], ",", " ", "T"}], "]"}]}]}]}], "*)"}], 
+       "\n", 
+       RowBox[{"ID247", "=", 
+        RowBox[{"{", "247", "}"}]}], ";", "\n", 
+       RowBox[{"(*", 
+        RowBox[{
+        "20171208", " ", "add", " ", "customized", " ", "formulas", " ", 
+         "for", " ", 
+         RowBox[{"252", " ", "~", " ", "255"}]}], "*)"}], "\n", 
+       RowBox[{"ID252", "=", 
+        RowBox[{"{", "252", "}"}]}], ";", "\n", 
+       RowBox[{"ID253", "=", 
+        RowBox[{"{", "253", "}"}]}], ";", "\n", 
+       RowBox[{"ID254", "=", 
+        RowBox[{"{", "254", "}"}]}], ";", "\n", 
+       RowBox[{"ID255", "=", 
+        RowBox[{"{", "255", "}"}]}], ";", "\n", "\n", 
+       RowBox[{"expItype", "=", "\n", 
+        RowBox[{"Which", "[", "\n", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"ExptID", ">", "99"}], " ", "&&", " ", 
+           RowBox[{"ExptID", "<", "200"}]}], ",", "\n", "\"\<DIS\>\"", ",", 
+          "\n", " ", 
+          RowBox[{
+           RowBox[{"ExptID", ">", "199"}], " ", "&&", " ", 
+           RowBox[{"ExptID", "<", "300"}], " ", "&&", " ", 
+           RowBox[{"SubsetQ", "[", 
+            RowBox[{"VBPtype1", ",", 
+             RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", "\n", 
+          "\"\<VBP1\>\"", ",", "\n", " ", 
+          RowBox[{
+           RowBox[{"ExptID", ">", "199"}], " ", "&&", " ", 
+           RowBox[{"ExptID", "<", "300"}], " ", "&&", " ", 
+           RowBox[{"SubsetQ", "[", 
+            RowBox[{"VBPtype2", ",", 
+             RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", 
+          RowBox[{"(*", 
+           RowBox[{
+            RowBox[{"Z", " ", "\[Rule]", " ", 
+             RowBox[{"l", "+", "l", "-"}]}], ",", " ", 
+            RowBox[{
+             RowBox[{"dXsec", "/", "dy"}], 
+             RowBox[{"(", "l", ")"}]}]}], "*)"}], "\n", "\"\<VBP2\>\"", ",", 
+          "\n", " ", 
+          RowBox[{
+           RowBox[{"ExptID", ">", "199"}], " ", "&&", " ", 
+           RowBox[{"ExptID", "<", "300"}], " ", "&&", " ", 
+           RowBox[{"SubsetQ", "[", 
+            RowBox[{"VBPtype3", ",", 
+             RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", 
+          RowBox[{"(*", 
+           RowBox[{
+            RowBox[{"W", " ", "\[Rule]", " ", "lv"}], ",", " ", "asym"}], 
+           "*)"}], "\n", "\"\<VBP3\>\"", ",", "\n", 
+          RowBox[{
+           RowBox[{"ExptID", ">", "199"}], " ", "&&", " ", 
+           RowBox[{"ExptID", "<", "300"}], " ", "&&", " ", 
+           RowBox[{"SubsetQ", "[", 
+            RowBox[{"ID267", ",", 
+             RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", 
+          RowBox[{"(*", 
+           RowBox[{
+            RowBox[{"W", " ", "\[Rule]", " ", "lv"}], ",", " ", "asym"}], 
+           "*)"}], "\n", "\"\<ID267\>\"", ",", "\n", 
+          RowBox[{
+           RowBox[{"ExptID", ">", "199"}], " ", "&&", " ", 
+           RowBox[{"ExptID", "<", "300"}], " ", "&&", " ", 
+           RowBox[{"SubsetQ", "[", 
+            RowBox[{"ID247", ",", 
+             RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", 
+          RowBox[{"(*", 
+           RowBox[{
+            RowBox[{"W", " ", "\[Rule]", " ", "lv"}], ",", " ", "asym"}], 
+           "*)"}], "\n", "\"\<ID247\>\"", ",", "\n", 
+          RowBox[{
+           RowBox[{"ExptID", ">", "199"}], " ", "&&", " ", 
+           RowBox[{"ExptID", "<", "300"}], " ", "&&", " ", 
+           RowBox[{"SubsetQ", "[", 
+            RowBox[{"ID252", ",", 
+             RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", 
+          RowBox[{"(*", 
+           RowBox[{
+            RowBox[{"W", " ", "\[Rule]", " ", "lv"}], ",", " ", "asym"}], 
+           "*)"}], "\n", "\"\<ID252\>\"", ",", "\n", 
+          RowBox[{
+           RowBox[{"ExptID", ">", "199"}], " ", "&&", " ", 
+           RowBox[{"ExptID", "<", "300"}], " ", "&&", " ", 
+           RowBox[{"SubsetQ", "[", 
+            RowBox[{"ID253", ",", 
+             RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", 
+          RowBox[{"(*", 
+           RowBox[{
+            RowBox[{"W", " ", "\[Rule]", " ", "lv"}], ",", " ", "asym"}], 
+           "*)"}], "\n", "\"\<ID253\>\"", ",", "\n", 
+          RowBox[{
+           RowBox[{"ExptID", ">", "199"}], " ", "&&", " ", 
+           RowBox[{"ExptID", "<", "300"}], " ", "&&", " ", 
+           RowBox[{"SubsetQ", "[", 
+            RowBox[{"ID254", ",", 
+             RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", 
+          RowBox[{"(*", 
+           RowBox[{
+            RowBox[{"W", " ", "\[Rule]", " ", "lv"}], ",", " ", "asym"}], 
+           "*)"}], "\n", "\"\<ID254\>\"", ",", "\n", 
+          RowBox[{
+           RowBox[{"ExptID", ">", "199"}], " ", "&&", " ", 
+           RowBox[{"ExptID", "<", "300"}], " ", "&&", " ", 
+           RowBox[{"SubsetQ", "[", 
+            RowBox[{"ID255", ",", 
+             RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", 
+          RowBox[{"(*", 
+           RowBox[{
+            RowBox[{"W", " ", "\[Rule]", " ", "lv"}], ",", " ", "asym"}], 
+           "*)"}], "\n", "\"\<ID255\>\"", ",", "\n", " ", 
+          RowBox[{
+           RowBox[{"ExptID", ">", "199"}], " ", "&&", " ", 
+           RowBox[{"ExptID", "<", "300"}]}], ",", "\n", "\"\<VBPothers\>\"", 
+          ",", "\n", " ", 
+          RowBox[{
+           RowBox[{"ExptID", ">", "299"}], " ", "&&", " ", 
+           RowBox[{"ExptID", "<", "400"}]}], ",", "\n", "\"\<DP\>\"", ",", 
+          "\n", " ", 
+          RowBox[{
+           RowBox[{"ExptID", ">", "399"}], " ", "&&", " ", 
+           RowBox[{"ExptID", "<", "500"}]}], ",", "\n", "\"\<HQP\>\"", ",", 
+          "\n", " ", 
+          RowBox[{
+           RowBox[{"ExptID", ">", "499"}], " ", "&&", " ", 
+           RowBox[{"ExptID", "<", "600"}], " ", "&&", "  ", 
+           RowBox[{"SubsetQ", "[", 
+            RowBox[{"JP", ",", 
+             RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", "\n", "\"\<JP\>\"",
+           ",", "\n", 
+          RowBox[{
+           RowBox[{"ExptID", ">", "499"}], " ", "&&", " ", 
+           RowBox[{"ExptID", "<", "600"}], " ", "&&", "  ", 
+           RowBox[{"SubsetQ", "[", 
+            RowBox[{"ttbarpT", ",", 
+             RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", "\n", 
+          "\"\<ttbarpT\>\"", ",", "\n", " ", 
+          RowBox[{
+           RowBox[{"ExptID", ">", "499"}], " ", "&&", " ", 
+           RowBox[{"ExptID", "<", "600"}], " ", "&&", "  ", 
+           RowBox[{"SubsetQ", "[", 
+            RowBox[{"ttbarmtt", ",", 
+             RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", "\n", 
+          "\"\<ttbarmtt\>\"", ",", "\n", " ", 
+          RowBox[{
+           RowBox[{"ExptID", ">", "499"}], " ", "&&", " ", 
+           RowBox[{"ExptID", "<", "600"}], " ", "&&", "  ", 
+           RowBox[{"SubsetQ", "[", 
+            RowBox[{"ttbary", ",", 
+             RowBox[{"{", "ExptID", "}"}]}], "]"}]}], ",", "\n", 
+          "\"\<ttbary\>\"", ",", "\n", 
+          RowBox[{"(*", "\n", " ", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"ExptID", ">", "599"}], " ", "&&", " ", 
+             RowBox[{"ExptID", "<", "700"}]}], ",", "\n", "\"\<undefine\>\"", 
+            ",", "\n", " ", 
+            RowBox[{
+             RowBox[{"ExptID", ">", "699"}], " ", "&&", " ", 
+             RowBox[{"ExptID", "<", "800"}]}], ",", "\n", "\"\<undefine\>\"", 
+            ","}], "\n", "*)"}], "\n", 
+          RowBox[{"(*", 
+           RowBox[{"exception", " ", "case"}], "*)"}], "\n", "True", ",", 
+          "\n", 
+          RowBox[{
+           RowBox[{"Print", "[", 
+            RowBox[{
+            "\"\<error (ExptIDinfo), can not get the Expt info (process type) \
+of ExptID = \>\"", ",", "ExptID", ",", 
+             "\"\< in this function, return the process type = \
+undefine\>\""}], "]"}], ";", "\n", "\"\<undefine\>\""}]}], "\n", "]"}]}], ";",
+        "\n", "\n", 
+       RowBox[{"(*", "\n", 
+        RowBox[{
+         RowBox[{"type1a", "\[Equal]", " ", 
+          RowBox[{"lp", " ", "scattering"}]}], ",", " ", "DIS", ",", " ", 
+         RowBox[{
+          RowBox[{"NC", "\n", "type1b"}], "\[Equal]", " ", 
+          RowBox[{"lp", " ", "scattering"}]}], ",", " ", "DIS", ",", " ", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"CC", "\n", "type2a"}], "\[Equal]", " ", "lp"}], " ", 
+          "\[Rule]", " ", "cX"}], ",", " ", "DIS", ",", " ", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"NC", "\n", "type2b"}], "\[Equal]", " ", "lp"}], " ", 
+          "\[Rule]", " ", "bX"}], ",", " ", "DIS", ",", " ", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"NC", "\n", "type3"}], "\[Equal]", " ", "lN"}], " ", 
+          "\[Rule]", " ", "X"}], ",", " ", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"DIS", "\n", "type4a"}], "\[Equal]", " ", "nuN"}], " ", 
+          "\[Rule]", " ", "X"}], ",", " ", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"DIS", "\n", "type4b"}], "\[Equal]", " ", "nuN"}], " ", 
+          "\[Rule]", " ", "cX"}], ",", " ", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"DIS", "\n", "type5"}], "\[Equal]", " ", "pN"}], " ", 
+          "\[Rule]", " ", 
+          RowBox[{"l", "+", "l", "-", "X"}]}], ",", " ", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"VBP", "\n", "type6"}], "\[Equal]", " ", "ppbar"}], " ", 
+          "\[Rule]", " ", 
+          RowBox[{"l", "+", "l", "-", "X"}]}], ",", " ", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"VBP", "\n", "type7"}], "\[Equal]", " ", "ppbar"}], " ", 
+          "\[Rule]", " ", 
+          RowBox[{"l", " ", "nu", " ", "X"}]}], ",", " ", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"VBP", "\n", "type8"}], "\[Equal]", " ", "ppbar"}], " ", 
+          "\[Rule]", " ", 
+          RowBox[{"jet", " ", "X"}]}], ",", " ", 
+         RowBox[{
+          RowBox[{"JP", "\n", "type9a"}], "\[Equal]", " ", 
+          RowBox[{"ld", " ", "scattering"}]}], ",", " ", "DIS", ",", " ", 
+         RowBox[{
+          RowBox[{"NC", "\n", "type9b"}], "\[Equal]", " ", 
+          RowBox[{"ld", " ", "scattering"}]}], ",", " ", "DIS", ",", " ", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"CC", "\n", "type10a"}], "\[Equal]", " ", "nuFe"}], " ", 
+          "\[Rule]", " ", "X"}], ",", " ", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"DIS", "\n", "type10b"}], "\[Equal]", " ", "nuFe"}], " ", 
+          "\[Rule]", " ", "cX"}], ",", " ", 
+         RowBox[{
+          RowBox[{"DIS", "\n", "type11"}], "\[Equal]", " ", 
+          RowBox[{"p", " ", "copper", " ", "scattering"}]}], ",", " ", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"VBP", "\n", "type12"}], "==", "pd"}], " ", "\[Rule]", " ", 
+          RowBox[{"l", "+", "l", "-", "X"}]}], ",", " ", 
+         RowBox[{
+          RowBox[{"VBP", "\n", "\n", "type9"}], "\[Equal]", " ", 
+          RowBox[{
+          "combination", " ", "of", " ", "pp", " ", "and", " ", "pN", " ", 
+           "scattering", " ", 
+           RowBox[{"(", 
+            RowBox[{"pd", ",", " ", 
+             RowBox[{"p", " ", "copper"}], ",", " ", 
+             RowBox[{"nu", " ", "Fe"}]}], ")"}]}]}]}], "\n", "*)"}], "\n", 
+       "\n", 
+       RowBox[{"(*", "\n", 
+        RowBox[{
+         RowBox[{"type1a", "=", 
+          RowBox[{"{", 
+           RowBox[{"101", ",", "106", ",", "169"}], "}"}]}], ";", "\n", 
+         RowBox[{"type1b", "=", 
+          RowBox[{"{", 
+           RowBox[{"145", ",", "147"}], "}"}]}], ";", "\n", 
+         RowBox[{"type2a", "=", 
+          RowBox[{"{", "}"}]}], ";", "\n", 
+         RowBox[{"type2b", "=", 
+          RowBox[{"{", "}"}]}], ";", "\n", 
+         RowBox[{"type3", "=", 
+          RowBox[{"{", "}"}]}], ";", "\n", 
+         RowBox[{"type4a", "=", 
+          RowBox[{"{", "}"}]}], ";", "\n", 
+         RowBox[{"type4b", "=", 
+          RowBox[{"{", 
+           RowBox[{"124", ",", "125"}], "}"}]}], ";", "\n", 
+         RowBox[{"type5", "=", 
+          RowBox[{"{", "}"}]}], ";", "\n", 
+         RowBox[{"type6", "=", 
+          RowBox[{"{", 
+           RowBox[{"260", ",", "261"}], "}"}]}], ";", "\n", 
+         RowBox[{"type7", "=", 
+          RowBox[{"{", 
+           RowBox[{
+           "225", ",", "227", ",", "234", ",", "241", ",", "266", ",", "267", 
+            ",", "268", ",", "281"}], "}"}]}], ";", "\n", 
+         RowBox[{"type8", "=", 
+          RowBox[{"{", 
+           RowBox[{"514", ",", "535", ",", "538"}], "}"}]}], ";", "\n", 
+         RowBox[{"type9a", "=", 
+          RowBox[{"{", 
+           RowBox[{"102", ",", "104"}], "}"}]}], ";", "\n", 
+         RowBox[{"type9b", "=", 
+          RowBox[{"{", "}"}]}], ";", "\n", 
+         RowBox[{"type10a", "=", 
+          RowBox[{"{", 
+           RowBox[{"108", ",", "109", ",", "110", ",", "111"}], "}"}]}], ";", 
+         "\n", 
+         RowBox[{"type10b", "=", 
+          RowBox[{"{", 
+           RowBox[{"126", ",", "127"}], "}"}]}], ";", "\n", 
+         RowBox[{"type11", "=", 
+          RowBox[{"{", "201", "}"}]}], ";", "\n", 
+         RowBox[{"type12", "=", 
+          RowBox[{"{", 
+           RowBox[{"203", ",", "204"}], "}"}]}], ";"}], "\n", "*)"}], "\n", 
+       "\n", 
+       RowBox[{"output", " ", "=", "expItype"}]}]}], "\n", "]"}]}], 
+   ";"}]}]], "Code",
  CellChangeTimes->{{3.72176107059964*^9, 3.7217611521967173`*^9}, {
-  3.721761196885932*^9, 3.72176122333927*^9}}],
+  3.721761196885932*^9, 3.72176122333927*^9}, {3.739130771814715*^9, 
+  3.7391308675756607`*^9}, {3.7391309882095823`*^9, 3.739131200060771*^9}, {
+  3.739131258233849*^9, 3.7391312635635242`*^9}, {3.739131297642104*^9, 
+  3.7391313066454077`*^9}, {3.739131407544621*^9, 3.739131424400465*^9}, {
+  3.7391315086530123`*^9, 3.7391315446123962`*^9}, {3.739131649713504*^9, 
+  3.739131706485187*^9}, {3.73915099694491*^9, 3.7391510163051367`*^9}, {
+  3.739154416075719*^9, 3.739154418743355*^9}, {3.739154472523863*^9, 
+  3.7391545192101917`*^9}, {3.7391545844844837`*^9, 3.739154594332015*^9}}],
 
 Cell[BoxData[
  RowBox[{
@@ -4181,13 +4223,43 @@ last element of the input bin list \>\"", "]"}], ";", "\[IndentingNewLine]",
        "]"}]}], ";"}], "\n", "*)"}], "\n", "\[IndentingNewLine]", 
   RowBox[{"(*", 
    RowBox[{
+    RowBox[{"2017.01", ".15"}], ",", " ", 
+    RowBox[{"like", " ", "selectExptxQ"}], ",", " ", 
+    RowBox[{"but", " ", "keep", " ", "other", " ", "data"}]}], "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{"(*", 
+   RowBox[{
     RowBox[{"old", " ", "bin", " ", "center", " ", 
      RowBox[{"formula", ":", " ", 
       RowBox[{"bin", " ", "center"}]}]}], " ", "=", " ", 
     RowBox[{
      RowBox[{"(", 
       RowBox[{"binup", " ", "+", " ", "binlow"}], ")"}], "/", "2"}]}], "*)"}],
-   "\n", 
+   "\[IndentingNewLine]", 
+  RowBox[{"(*", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+    "this", " ", "function", " ", "input", " ", "data", " ", "Expt", " ", 
+     "ID", " ", "and", " ", "data", " ", "format", " ", 
+     RowBox[{"{", 
+      RowBox[{"pt1", ",", "pt2", ",", "..."}], "}"}], " ", "with", " ", 
+     "pt1"}], ",", " ", "pt2", ",", 
+    RowBox[{"...", " ", "=", " ", 
+     RowBox[{"LF", "[", 
+      RowBox[{"var1", ",", "var2", ",", "..."}], "]"}]}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{"determining", " ", "the", " ", 
+     RowBox[{"(", 
+      RowBox[{"x", ",", "Q"}], ")"}], " ", "transform", " ", "formula", " ", 
+     "by", " ", "the", " ", "input", " ", "Expt", " ", "ID", " ", "and", " ", 
+     "calculating", " ", 
+     RowBox[{"(", 
+      RowBox[{"x", ",", "Q"}], ")"}]}], ",", "\[IndentingNewLine]", 
+    RowBox[{"then", " ", "output", " ", "pt1"}], ",", " ", "pt2", ",", 
+    RowBox[{"...", " ", "=", " ", 
+     RowBox[{"LF", "[", 
+      RowBox[{"var1", ",", "var2", ",", "...", ",", "x", ",", "Q"}], 
+      "]"}]}]}], "\[IndentingNewLine]", "*)"}], "\n", 
   RowBox[{
    RowBox[{
     RowBox[{"selectExptxQv2", "[", 
@@ -4615,19 +4687,46 @@ last element of the input bin list \>\"", "]"}], ";", "\[IndentingNewLine]",
          ";"}], "\n", "*)"}], "\n", "\n", 
        RowBox[{"expItype", "=", 
         RowBox[{"ExptIDinfo", "[", "ExptID", "]"}]}], ";", "\n", 
-       RowBox[{"sqrtS", "=", 
-        RowBox[{"ExptIDEcm", "[", "ExptID", "]"}]}], ";", "\n", 
-       RowBox[{"S", "=", 
-        RowBox[{"sqrtS", "^", "2"}]}], ";", "\n", "\n", 
+       "\[IndentingNewLine]", 
        RowBox[{"(*", 
-        RowBox[{"test", " ", "mathematica", " ", "symbols"}], "*)"}], "\n", 
-       SqrtBox["S"], ";", 
-       SuperscriptBox["\[ExponentialE]", "1.5"], ";", 
-       RowBox[{"Log", "[", "39", "]"}], ";", 
-       FractionBox["8", "1"], ";", 
-       FractionBox["5", "3"], ";", 
-       FractionBox["5", 
-        SqrtBox["S"]], ";", "\n", "\n", "\n", 
+        RowBox[{"20180628", ",", " ", 
+         RowBox[{"DIS", " ", "measurements", " ", 
+          RowBox[{"don", "'"}], "t", " ", "need", " ", "S", " ", "to", " ", 
+          "calculate", " ", 
+          RowBox[{"(", 
+           RowBox[{"x", ",", "Q"}], ")"}], " ", "and", " ", "data", " ", 
+          "points", " ", "in", " ", "DIS", " ", "measurements", " ", "also", 
+          " ", "have", " ", "no", " ", "unique", " ", 
+          RowBox[{"S", ".", "\[IndentingNewLine]", "to"}], " ", "avoid", " ", 
+          "error", " ", "messages", " ", "of", " ", "ExptIDEcm", " ", 
+          "confuse", " ", "users"}], ",", " ", 
+         RowBox[{"we", " ", 
+          RowBox[{"don", "'"}], "t", " ", "run", " ", "ExptIDEcm", " ", 
+          "when", " ", "the", " ", "Expt", " ", "IDs", " ", "are", " ", 
+          "classified", " ", "as", " ", "DIS"}]}], "*)"}], 
+       "\[IndentingNewLine]", 
+       RowBox[{"If", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"expItype", "\[NotEqual]", "\"\<DIS\>\""}], ",", 
+         "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"sqrtS", "=", 
+           RowBox[{"ExptIDEcm", "[", "ExptID", "]"}]}], ";", "\n", 
+          RowBox[{"S", "=", 
+           RowBox[{"sqrtS", "^", "2"}]}]}]}], "\[IndentingNewLine]", "]"}], 
+       ";", "\n", "\n", 
+       RowBox[{"(*", 
+        RowBox[{"test", " ", "mathematica", " ", "symbols"}], "*)"}], 
+       "\[IndentingNewLine]", 
+       RowBox[{"(*", "\n", 
+        RowBox[{
+         SqrtBox["S"], ";", 
+         SuperscriptBox["\[ExponentialE]", "1.5"], ";", 
+         RowBox[{"Log", "[", "39", "]"}], ";", 
+         FractionBox["8", "1"], ";", 
+         FractionBox["5", "3"], ";", 
+         FractionBox["5", 
+          SqrtBox["S"]], ";"}], "\[IndentingNewLine]", "*)"}], "\n", "\n", 
        RowBox[{"output", "=", "\n", 
         RowBox[{"Switch", "[", 
          RowBox[{"expItype", ",", "\n", "\"\<DIS\>\"", ",", "\n", 
@@ -6053,23 +6152,26 @@ last element of the input bin list \>\"", "]"}], ";", "\[IndentingNewLine]",
                  SuperscriptBox["10.0", 
                   RowBox[{"-", "10"}]]}]}], " ", ")"}], "&"}]}], 
             "\[IndentingNewLine]", "]"}]}], ",", "\n", "_", ",", "\n", 
-          RowBox[{"Print", "[", 
-           RowBox[{
-           "\"\<Wrong expItype value, \>\"", ",", "expItype", ",", 
-            "\"\<, \>\"", ",", "ExptID"}], "]"}]}], " ", 
-         RowBox[{"(*", 
-          RowBox[{"data", "/.", 
-           RowBox[{
-            RowBox[{"LF", "[", "a__", "]"}], "\[RuleDelayed]", 
-            RowBox[{"{", 
+          RowBox[{
+           RowBox[{"Print", "[", 
+            RowBox[{
+            "\"\<error (selectExptxQv2), expItype \>\"", ",", "expItype", 
+             ",", "\"\< for ID = \>\"", ",", "ExptID", ",", 
+             "\"\< has no match formula to extract (x,\[Mu]) in this function\
+\>\""}], "]"}], ";", " ", 
+           RowBox[{"(*", 
+            RowBox[{"data", "/.", 
              RowBox[{
-              RowBox[{
-               RowBox[{"{", "a", "}"}], "[", 
-               RowBox[{"[", "1", "]"}], "]"}], ",", 
-              RowBox[{
-               RowBox[{"{", "a", "}"}], "[", 
-               RowBox[{"[", "2", "]"}], "]"}]}], "}"}]}]}], "*)"}], "\n", 
-         "]"}]}], ";", "\n", "\n", 
+              RowBox[{"LF", "[", "a__", "]"}], "\[RuleDelayed]", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"{", "a", "}"}], "[", 
+                 RowBox[{"[", "1", "]"}], "]"}], ",", 
+                RowBox[{
+                 RowBox[{"{", "a", "}"}], "[", 
+                 RowBox[{"[", "2", "]"}], "]"}]}], "}"}]}]}], "*)"}], 
+           "\[IndentingNewLine]", "False"}]}], "\n", "]"}]}], ";", "\n", "\n", 
        RowBox[{"(*", "\n", 
         RowBox[{
          RowBox[{"output", "=", 
@@ -6150,7 +6252,15 @@ last element of the input bin list \>\"", "]"}], ";", "\[IndentingNewLine]",
    3.723973750874295*^9, 3.7239737537216997`*^9}, {3.7307624432143183`*^9, 
    3.7307625402685623`*^9}, {3.7307628213117847`*^9, 3.730762971592671*^9}, {
    3.730763004014716*^9, 3.730763097045967*^9}, {3.730763134176324*^9, 
-   3.730763159433503*^9}}],
+   3.730763159433503*^9}, {3.739127334380361*^9, 3.7391273713322887`*^9}, {
+   3.739132282997686*^9, 3.739132329577161*^9}, {3.739132362587041*^9, 
+   3.739132403873291*^9}, {3.739151675011833*^9, 3.739151680861878*^9}, {
+   3.73915171294617*^9, 3.739151723841805*^9}, {3.73915177489734*^9, 
+   3.739151810065675*^9}, {3.73915185227772*^9, 3.739151896021021*^9}, {
+   3.7391519338266783`*^9, 3.7391519781215773`*^9}, {3.739152037850862*^9, 
+   3.739152336013183*^9}, {3.739153244890679*^9, 3.73915324588699*^9}, {
+   3.739153342852566*^9, 3.739153526856186*^9}, {3.739153570120468*^9, 
+   3.7391535763834553`*^9}, {3.739154666792274*^9, 3.739154671377685*^9}}],
 
 Cell[BoxData[{
  RowBox[{
@@ -7431,28 +7541,28 @@ Cell[41256, 1084, 2071, 49, 415, "Input",
 Cell[43330, 1135, 217, 4, 55, "Text"],
 Cell[43550, 1141, 205, 7, 48, "Input",
  InitializationCell->True],
-Cell[43758, 1150, 12578, 261, 1450, "Input",
+Cell[43758, 1150, 12801, 261, 1450, "Input",
  InitializationCell->True],
-Cell[56339, 1413, 5387, 139, 434, "Input"],
-Cell[61729, 1554, 2802, 76, 468, "Code",
+Cell[56562, 1413, 5387, 139, 434, "Input"],
+Cell[61952, 1554, 2802, 76, 468, "Code",
  InitializationCell->False],
-Cell[64534, 1632, 18202, 447, 2514, "Code"],
-Cell[82739, 2081, 13691, 345, 1583, "Code",
+Cell[64757, 1632, 20728, 489, 2642, "Code"],
+Cell[85488, 2123, 13691, 345, 1583, "Code",
  InitializationCell->False],
-Cell[96433, 2428, 163754, 3724, 11828, "Input",
+Cell[99182, 2470, 167192, 3792, 12115, "Input",
  InitializationCell->True],
-Cell[260190, 6154, 8608, 224, 1148, "Code",
+Cell[266377, 6264, 8608, 224, 1148, "Code",
  InitializationCell->False],
-Cell[268801, 6380, 2665, 71, 411, "Code",
+Cell[274988, 6490, 2665, 71, 411, "Code",
  InitializationCell->False],
-Cell[271469, 6453, 8712, 217, 1407, "Code",
+Cell[277656, 6563, 8712, 217, 1407, "Code",
  InitializationCell->False],
-Cell[280184, 6672, 5450, 142, 356, "Code",
+Cell[286371, 6782, 5450, 142, 356, "Code",
  InitializationCell->False],
-Cell[285637, 6816, 15226, 368, 1738, "Code",
+Cell[291824, 6926, 15226, 368, 1738, "Code",
  InitializationCell->False],
-Cell[300866, 7186, 6860, 179, 647, "Code"],
-Cell[307729, 7367, 309, 7, 89, "Code"]
+Cell[307053, 7296, 6860, 179, 647, "Code"],
+Cell[313916, 7477, 309, 7, 89, "Code"]
 }, Open  ]]
 }, Open  ]]
 }

@@ -468,6 +468,9 @@ tmpTable
 (*];*)
 
 
+(*this function classify Expt IDs by the formulas that specify (x,\[Mu]) of points in IDs, selectExptxQv2 could use this function 
+to match the formulas and IDs to get (x,\[Mu]) of data points*)
+(*e.g. (x,\[Mu]) of DIS measurements are equal to (x,Q) kinematical quantities of them, so the function classify them to type "DIS"*)
 ExptIDinfo[ExptIDin_]:=
 Module[{ExptID=ExptIDin,output,expItype,VBPtype1,VBPtype2,VBPtype3,
 JP,ttbarpT,ttbarmtt,ttbary,ID267,ID247,ID252,ID253,ID254,ID255},
@@ -548,12 +551,16 @@ ExptID>499 && ExptID<600 &&  SubsetQ[ttbarpT,{ExptID}],
 "ttbarmtt",
  ExptID>499 && ExptID<600 &&  SubsetQ[ttbary,{ExptID}],
 "ttbary",
+(*
  ExptID>599 && ExptID<700,
 "undefine",
  ExptID>699 && ExptID<800,
 "undefine",
-_,
-Print["Wrong ExptID value=",ExptID];
+*)
+(*exception case*)
+True,
+Print["error (ExptIDinfo), can not get the Expt info (process type) of ExptID = ",ExptID," in this function, return the process type = undefine"];
+"undefine"
 ];
 
 (*
@@ -913,7 +920,13 @@ output
 ];
 *)
 
+(*2017.01.15, like selectExptxQ, but keep other data*)
 (*old bin center formula: bin center = (binup + binlow)/2*)
+(*
+this function input data Expt ID and data format {pt1,pt2,...} with pt1, pt2,... = LF[var1,var2,...],
+determining the (x,Q) transform formula by the input Expt ID and calculating (x,Q),
+then output pt1, pt2,... = LF[var1,var2,...,x,Q]
+*)
 selectExptxQv2[ExptIDin_,datain_,Sin_]:=
 Module[{ExptID=ExptIDin,data=datain,S=Sin,sqrtS,expItype,datatmp,output,i,
 GetAveByBinUp,GetAveByBinLow,mllrange,yrange,
@@ -1007,12 +1020,19 @@ datatmp=data[[i]]/.List\[RuleDelayed]LF,
 *)
 
 expItype=ExptIDinfo[ExptID];
+
+(*20180628, DIS measurements don't need S to calculate (x,Q) and data points in DIS measurements also have no unique S.
+to avoid error messages of ExptIDEcm confuse users, we don't run ExptIDEcm when the Expt IDs are classified as DIS*)
+If[
+expItype!="DIS",
 sqrtS=ExptIDEcm[ExptID];
-S=sqrtS^2;
+S=sqrtS^2
+];
 
 (*test mathematica symbols*)
-Sqrt[S];E^1.5;Log[39];8/1;5/3;5/Sqrt[S];
-
+(*
+Sqrt[S];\[ExponentialE]^1.5;Log[39];8/1;5/3;5/Sqrt[S];
+*)
 
 output=
 Switch[expItype,
@@ -1154,7 +1174,8 @@ Join[data/.LF[a__]:>LF@@{Sequence@@{a},(400.0/Sqrt[S])*E^(WeightBinAveBySpectrum
 ( #[[-2]]<1.0 && #[[-2]]> 10.0^-10 )&
 ],
 _,
-Print["Wrong expItype value, ",expItype,", ",ExptID] (*data/.LF[a__]\[RuleDelayed]{{a}[[1]],{a}[[2]]}*)
+Print["error (selectExptxQv2), expItype ",expItype," for ID = ",ExptID," has no match formula to extract (x,\[Mu]) in this function"]; (*data/.LF[a__]\[RuleDelayed]{{a}[[1]],{a}[[2]]}*)
+False
 ];
 
 (*
