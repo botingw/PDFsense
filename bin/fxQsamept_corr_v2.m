@@ -251,18 +251,29 @@ Print[""];
 
 
 (*decide calculate the grid correlation or samept correlation*)
+(*20180628 if selectExptxQv2 return False, end the program*)
+xQerrorBool=False;
 fxQmode="samept";
 If[
 fxQmode=="samept",
 Table[
 (*add (x,Q) specifying PDFs for kinematic quantities of data by the corresponding formulas in selectExptxQv2*)
 mydtadata[[iexpt,iset]][["data"]]=selectExptxQv2[mydtadata[[iexpt,iset]][["exptinfo","exptid"]],mydtadata[[iexpt,iset]][["data"]],"dummy"];
+(*20180628 if selectExptxQv2 return False, end the program*)
+If[mydtadata[[iexpt,iset]][["data"]]==False,xQerrorBool=True];
 (*add label of {x,Q} to -2&-1 -th column*)
 mydtadata[[iexpt,iset]][["label"]]=Join[mydtadata[[iexpt,iset]][["label"]],{"x","Q"}];
 (*LF[...] become global variable*)
 mydtadata[[iexpt,iset]]=Datamethods[["LFglobal"]][mydtadata[[iexpt,iset]] ],
 {iexpt,1,Dimensions[mydtadata][[1]]},{iset,1,Dimensions[mydtadata][[2]]}
 ]
+];
+(*20180628 if selectExptxQv2 return False, end the program*)
+If[
+xQerrorBool==True,
+Print[""];
+Print["error, at least one Expt ID could not extract the corresponding (x,Q) in function (selectExptxQv2). stop the running"];
+Abort[]
 ];
 
 If[
