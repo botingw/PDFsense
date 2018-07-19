@@ -1,0 +1,34 @@
+#Comment Sample configuration file for the online plotter of CT14 data
+#Comment 2
+#Comment 3
+#Comment 4
+
+#the input files and format
+#read Analyzed data file 
+AnalyzeFile: /home/botingw/Dropbox/pavel_project_myself/PDF_resolution/20180630/ct14nlo_pLHC.txt
+
+#the directory with PDFsets
+PDFsets Dir: ~/code/pdf_correlation/LHAPDF/
+
+#PDF name
+#PDFset name: 5xx_CT14H2
+
+#PDFset format (LHA or PDS)
+PDFtableFormat: LHA
+
+#PDF method of the used PDFset, options: Hessian or MC
+#the program will deal with the PDFset by this method, 
+#ex: the uncertainty formula would be different depends on the method
+PDF method: Hessian
+
+#Expt ID of experiments used in the calculation, ex: 101 201 504
+Expt ID List: 542 545
+
+
+#the path of correlation/sensitivity data (the database for plotting)
+#if set as default, then the default file path (./quick_data/) and name will be used
+Database Path: default
+Database File: default
+
+
+
