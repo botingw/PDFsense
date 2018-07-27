@@ -7,7 +7,7 @@
 (* ::Input::Initialization:: *)
  (*SetDirectory["/home/botingw/Downloads"];*)(*other files are under the same directory*)
 (*20170620: for script version, executables could not run pdfparse correctly, so modify the path setting*)
-SetDirectory[NotebookDirectory[](*DirectoryName[$InputFileName]*) ];(*Print[Directory[] ];SetDirectory[NotebookDirectory[] ];Print[Directory[] ];*)
+SetDirectory[(*NotebookDirectory[]*)DirectoryName[$InputFileName] ];(*Print[Directory[] ];SetDirectory[NotebookDirectory[] ];Print[Directory[] ];*)
 Print["present directory: ",Directory[]];
 
 (*v2.0 update mark*)
