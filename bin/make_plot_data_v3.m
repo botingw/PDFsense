@@ -515,6 +515,10 @@ If[NseteqQ==False,Print["error, for Expt ID = ",ToString[tmpID],", the #replicas
 
 
 (* ::Input:: *)
+(*Nset*)
+
+
+(* ::Input:: *)
 (*(*make f(x,Q) list for bbar~b*)*)
 (*Table[pdfFlavor[iflv],{iflv,-5,5}]*)
 
@@ -544,7 +548,8 @@ ThiIndex=Position[mydtadata[[iexpt]][["label"]],"Th_1"][[1,1]];
 *)
 (*residual case*)
 ThiIndex=Position[mydtadata[[iexpt]][["label"]],"r_1"][[1,1]];
-(*need modify later*)ThfIndex=Position[mydtadata[[iexpt]][["label"]],"r_57"][[1,1]];
+(*20180814 modify*)
+(*need modify later*)ThfIndex=Position[mydtadata[[iexpt]][["label"]],"r_"<>ToString[Nset] ][[1,1]];
 
 ExpIndex=Position[mydtadata[[iexpt]][["label"]],"Exp"][[1,1]];
 TotErrIndex=Position[mydtadata[[iexpt]][["label"]],"TotErr"][[1,1]];
@@ -561,6 +566,10 @@ tmpclass[["label"]]=Join[tmpclass[["label"]][[{XIndex,QIndex}]],labelPDF];
 tmpclass,
 {iexpt,mydtadata//Length},{iflavour,{ibbar,icbar,isbar,idbar,iubar,ig,iu,id,is,ic,ib}}
 ];
+
+
+(* ::Input:: *)
+(*mydtadata[[28]]*)
 
 
 (* ::Input:: *)
@@ -600,7 +609,8 @@ ThiIndex=Position[mydtadata[[iexpt]][["label"]],"Th_1"][[1,1]];
 *)
 (*residual case*)
 ThiIndex=Position[mydtadata[[iexpt]][["label"]],"r_1"][[1,1]];
-(*need modify later*)ThfIndex=Position[mydtadata[[iexpt]][["label"]],"r_57"][[1,1]];
+(*20180814 modify*)
+(*need modify later*)ThfIndex=Position[mydtadata[[iexpt]][["label"]],"r_"<>ToString[Nset] ][[1,1]];
 
 ExpIndex=Position[mydtadata[[iexpt]][["label"]],"Exp"][[1,1]];
 TotErrIndex=Position[mydtadata[[iexpt]][["label"]],"TotErr"][[1,1]];
@@ -645,7 +655,8 @@ ThiIndex=Position[mydtadata[[iexpt]][["label"]],"Th_1"][[1,1]];
 *)
 (*residual case*)
 ThiIndex=Position[mydtadata[[iexpt]][["label"]],"r_1"][[1,1]];
-(*need modify later*)ThfIndex=Position[mydtadata[[iexpt]][["label"]],"r_57"][[1,1]];
+(*20180814 modify*)
+(*need modify later*)ThfIndex=Position[mydtadata[[iexpt]][["label"]],"r_"<>ToString[Nset] ][[1,1]];
 
 ExpIndex=Position[mydtadata[[iexpt]][["label"]],"Exp"][[1,1]];
 TotErrIndex=Position[mydtadata[[iexpt]][["label"]],"TotErr"][[1,1]];
