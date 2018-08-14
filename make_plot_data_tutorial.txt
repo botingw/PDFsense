@@ -1,0 +1,88 @@
+## PDFsense.v2 make correlation and sensitivity plots with the plotted datafiles in the database (the default path is ./quick_data/)
+## to prepare plotted datafiles, users need to input the input analyzed datasets to make_plot_data.nb(.m) and output plotted datafiles. 
+## The configure file for make_plot_data.nb(.m) is analyzeddata_config.txt
+## according to the paper, correlation and sensitivity information includes Parton Distribution Functions at (x,mu) that are specified by 
+## kinematic quantities of hadronic experimental datasets and residuals. Therefore, our plotted data include at least x, mu, f(x,mu), residuals
+## for each experimental data point. Also, points of the plotted data are catorized by 
+## PDFset: we use for calculating PDFs and theoretical predictions in residuals  
+## Expt ID: the number ID representing specific datasets. users determine the plotted datasets by their corresponding ID numbers and each ID number 
+## is associated with the specific shape listed in output 2D plots, exptname_table.png(.pdf), and xQbyexpt_xQ.png(.pdf) 
+
+## the make_plot_data.nb(.m) input input files (with metadata: Expt ID, Exptname, PDFset and data columns: x, mu, residuals, etc), 
+## the data format will be introduced later
+## output plotted data files: (with metadata: Expt ID, Exptname, PDFset and x, Q, f(x,Q), residuals, ...  )
+## what make_plot_data.nb(.m) does are a. interpolate PDF values from x, mu. b. transform input data to the format that Mathematica could read 
+## if users want to plot correlation/sensitivity/etc plots, they only need to know 
+## a. the input data format and how to run make_plot_data.nb(.m)   
+## b. how to run run_v4.m to plot (and where to find the output plots)
+## c. users can only select datasets in one database when plotting with run_v4.nb(.m) at the same time. Users may want to learn how to combine   
+## multiple databases into one by plotted_data_combine_test.nb 
+   
+for a.:
+we will introduce A. input data format B. how to set up analyzeddata_config.txt and run make_plot_data.nb(.m)
+for b.:
+users can read README for the running of run_v4.nb(.m)
+for c.:
+users need to open plotted_data_combine_test.nb in the ./bin/tools/, then set up database1, database2, combineddatabase filenames and run Implement section
+
+##a. A
+##The input data format of PDFsense.v2 is as following
+##PDFname: PDFset
+## DATA SET: exptid_number; Expt Name: exptname; Expt Npt: number of experimental data points (not always the same as #rows, see the dataset 601); 
+## !METADATA
+## any description of the data, they will be read as a string in Mathematica
+## !DATA
+## label1 label2 label3 ...... labeln (there are some default labelnames users need to input: ipt, x, Q, Exp, TotErr,  r_1, ..., r_Nset 
+## (where Nset is the #replicas of the PDFset), 
+## ipt: the indices of experimental data points, for measurements that specifying two (x, mu) from one point, there are multiple rows with the same ipt such as dataset 601
+## x, mu: momentum fractions and factorization scales of partons, for how to calculate (x, mu) from experimental data please read our paper
+## Exp, TotErr: experimental cental values and errors
+## r_1, ..., r_Nset: shiftted residuals of replicas, please see the paper for the definition of the shiftted residual 
+## n columns * m rows of data
+## next DATA SET with the same format and etc...
+## following is an example of the input data format:
+
+PDFname: CT14HERA2NNLO
+ DATA SET: 191; Expt Name: LHeCCCe-p; Expt Npt: 3;
+!METADATA
+{191, None,      Q          x         y          Exp      Th./Norm     TotErr     EXP/FIT  ERR/FIT    ChiSq  Shift    ShiftedData  UnCorErr  ReducedChi2  lob/lio, 1., 93, R^2, r(k) =    0.000   0.000, 1.64273, R^2, r(k) =    0.000   0.000}
+!DATA
+ipt   x         Q       Exp       TotErr      ShiftedData   UnCorErr    r_1           r_2          r_3          r_4          r_5          r_6          r_7           r_8          r_9          r_10          r_11         r_12         r_13          r_14          r_15           r_16          r_17         r_18         r_19          r_20         r_21         r_22         r_23         r_24          r_25         r_26         r_27        r_28         r_29         r_30         r_31         r_32            r_33         r_34         r_35         r_36          r_37          r_38         r_39         r_40         r_41         r_42         r_43         r_44         r_45         r_46         r_47         r_48         r_49         r_50         r_51          r_52         r_53         r_54         r_55         r_56         r_57
+1     0.0005    10.     1.74557   0.038       1.746         0.03699     0.226548      0.350906     0.642065     0.2598       -0.161936    1.40741      -0.390916     0.52744      1.63774      0.776156      0.231955     0.593944     0.0462287     -0.349554     0.935118       -0.0243309    0.321979     0.184915     0.293863      0.180049     0.250879     0.353609     0.221952     -0.182211     0.887537     -0.133009    0.777507    -0.290349    0.731819     -0.257367    0.457962     0.379562        0.0381184    0.261152     0.249527     0.309002      0.0765072     0.545823     0.062179     -0.06299     -0.06299     0.456069     0.941065     0.159773     -0.0592052   0.581238     -0.185996    0.624223     0.525818     0.0302785    0.153014      -0.0483915   -0.286294    -0.161125    -0.282509    1.37983      -1.07137
+2     0.00085   10.     2.0642    0.0454      2.064         0.04421     -0.603257     -0.37435     -0.400814    0.132323     -1.33725     0.0142502    -0.339516     -0.0484053   0.353992     -0.430672     -0.4361      -0.399231    -0.630627     -0.590364     -0.312825      -1.02398      -0.258313    -0.660936    -0.527256     -0.66252     -0.570912    -0.238181    -0.79439     -0.759783     -0.172359    -0.937344    -0.114228   -1.0147      -0.204026    -0.635829    -0.579055    -0.473648       -0.76295     -0.533363    -0.610948    -0.458041     -0.831034     -0.408957    -0.681746    -0.774485    -0.774485    -0.212848    -0.186157    -0.624067    -0.928749    -0.486768    -0.811355    -0.248812    -0.422755    -0.760235    -0.735806     -0.944356    -1.10631     -1.02081     -1.04026     0.140466     -1.53133
+3     0.002     10.     2.11586   0.04542     2.116         0.04417     -0.592257     -0.229568    -0.625311    0.552411     -1.66855     -0.571202    0.232737      0.218927     -0.193118    -0.722662     -0.285488    -0.455739    -0.570523     -0.377858     -0.628028      -1.18474      -0.0971247   -0.699343    -0.485624     -0.705683    -0.520263    -0.160969    -0.867331    -0.411818     -0.473625    -0.794883    -0.299751   -0.836541    -0.366312    -0.191306    -0.766584    -0.479511       -0.734888    -0.494453    -0.650894    -0.434231     -0.837673     -0.562599    -0.554449    -0.732171    -0.732171    0.0235454    -0.590446    -0.580937    -0.966493    -0.72719     -0.605615    -0.27779     -0.630066    -0.746208    -0.814806     -1.09577     -1.0489      -1.08875     -1.00294     -0.260811    -0.875255
+
+ DATA SET: 192; Expt Name: LHeCCCe+p; Expt Npt: 4;
+!METADATA
+{192, None,      Q          x         y          Exp      Th./Norm     TotErr     EXP/FIT  ERR/FIT    ChiSq  Shift    ShiftedData  UnCorErr  ReducedChi2  lob/lio, 1., 109, R^2, r(k) =    0.000   0.000, -2.15316, R^2, r(k) =    0.000   0.000}
+!DATA
+ipt   x          Q       Exp       TotErr      ShiftedData   UnCorErr    r_1          r_2           r_3           r_4          r_5          r_6          r_7          r_8           r_9           r_10         r_11          r_12         r_13          r_14         r_15          r_16          r_17         r_18         r_19         r_20          r_21         r_22          r_23         r_24         r_25         r_26          r_27          r_28         r_29        r_30         r_31         r_32         r_33         r_34          r_35          r_36         r_37         r_38          r_39          r_40         r_41         r_42         r_43         r_44         r_45          r_46          r_47         r_48         r_49         r_50          r_51          r_52         r_53         r_54          r_55          r_56         r_57
+1     0.000085   10.     3.22669   0.06978     3.227         0.06789     0.234055     0.401532      0.552806      1.1146       -0.600825    1.22978      0.436294     0.550155      2.24333       0.517897     0.393136      0.606717     0.0740904     0.234939     0.836795      0.0240094     0.436736     0.314627     0.219178     0.262042      0.198262     0.360141      0.369274     -0.697894    1.44336      -0.547798     1.30196       -0.149359    0.609663    0.114744     0.301223     0.314185     0.14553      0.727795      -0.144204     0.490794     -0.138312    0.479894      0.13242       0.00397702   0.00397702   0.484902     1.10871      0.169686     -0.0425689    0.418471      -0.0184121   1.22463      0.22124      -0.044631     0.343497      -0.0584769   -0.309619    -0.105465     -0.215348     3.47327      -1.60436
+2     0.0002     10.     3.98081   0.08498     3.981         0.08262     -1.94662     -1.70976      -1.75067      -0.176107    -3.02844     -1.46139     -0.622004    -1.35573      -0.495522     -2.00278     -1.64282      -1.79496     -1.88017      -1.08255     -1.77427      -2.39337      -1.34834     -1.91431     -1.92835     -1.9344       -1.97277     -1.48608      -2.084       -2.5023      -1.09816     -2.65759      -0.994311     -2.29303     -1.60821    -1.73505     -2.03135     -1.8901      -2.00641     -1.4701       -2.28686      -1.66388     -2.34895     -1.8182       -1.97047      -2.02905     -2.02905     -1.61753     -1.29351     -1.98523     -2.24074      -1.92714      -2.06524     -1.16885     -1.89736     -2.14427      -1.9488       -2.19063     -2.51864     -2.31094      -2.3383       -0.0229969   -3.53171
+3     0.0005     10.     3.55684   0.07611     3.557         0.074       -1.01392     -0.70527      -0.915946     0.888514     -2.22378     -0.838919    0.542297     -0.223378     -0.0266216    -1.26014     -0.616757     -0.955541    -0.864189     -0.116622    -1.05811      -1.61473      -0.318108    -1.04176     -0.953378    -1.04595      -1.00581     -0.422297     -1.29959     -1.24324     -0.478108    -1.60378      -0.227568     -1.37081     -0.667568   -0.526486    -1.22554     -0.951351    -1.08365     -0.68         -1.23         -0.734324    -1.4123      -0.966892     -0.981351     -1.05703     -1.05703     -0.536622    -0.633919    -1.01986     -1.36432      -1.10473      -1.05297     -0.436081    -0.909054    -1.15405      -1.13811      -1.29514     -1.57851     -1.42824      -1.38419      0.0851351    -2.27459
+4     0.00085    10.     3.18237   0.06915     3.182         0.06729     -1.14014     -0.80428      -1.10299      0.61391      -2.36261     -1.12691     0.31342      -0.284886     -0.448804     -1.42904     -0.735622     -1.09719     -0.996433     -0.409719    -1.25962      -1.77411      -0.479863    -1.20374     -1.05647     -1.20984      -1.10195     -0.553425     -1.46352     -1.17373     -0.802051    -1.60841      -0.514044     -1.48566     -0.807252   -0.552237    -1.39872     -1.06896     -1.22351     -0.901471     -1.28756      -0.888245    -1.50334     -1.12766      -1.08575      -1.19037     -1.19037     -0.584485    -0.947986    -1.12914     -1.51077      -1.26096      -1.15857     -0.675583    -1.06465     -1.27538      -1.31297      -1.48774     -1.66414     -1.5723       -1.48774      -0.410165    -2.04889
+
+ DATA SET: 601; Expt Name: postLHC; Expt Npt: 2;
+!METADATA
+{post_LHC_fix_target_pseudo-data,115,ptl>1.2GeV,dXsec/dy}
+!DATA
+ipt   x            Q       ShiftedData   UnCorErr     r_1           r_2          r_3          r_4            r_5           r_6          r_7           r_8           r_9           r_10         r_11         r_12         r_13          r_14         r_15         r_16         r_17         r_18          r_19           r_20          r_21          r_22          r_23          r_24         r_25          r_26          r_27          r_28           r_29         r_30         r_31          r_32         r_33         r_34         r_35         r_36          r_37          r_38         r_39          r_40          r_41           r_42         r_43          r_44         r_45          r_46         r_47         r_48         r_49          r_50          r_51          r_52         r_53         r_54          r_55         r_56         r_57
+1 0.00305536953918 4.5 36.39053 0.18089 0.949582619271 0.473049919841 4.24274420919 4.54845486207 3.077395102 -3.28779921499 2.30454972635 1.83465089281 8.50389739621 -0.762507601305 3.23550223893 4.91939852949 -1.87202167063 -0.216319310078 0.500138205539 5.82105146774 -6.18569296257 9.22311902261 -8.49317264636 1.35093150533 0.374647575875 3.60478743988 -4.31107302781 -0.267731770689 1.9468737907 9.55536513903 -5.87003151086 0.560395820665 1.48305600088 -2.1572779037 2.11437890431 1.67820222235 0.254132345624 -0.350655094256 4.12499308972 -7.46824036707 9.6305489524 1.95184919012 -0.865332522527 -1.74266128586 1.73016750511 5.09574879761 -3.59295704572 3.08568743435 -0.641439548897 2.43888551053 3.4627121455 0.0717010337774 1.58422245564 2.15473492178 2.7512300293 -1.00740781691 0.982199126541 5.94598927525 0.67427718503 -10.0438387971 10.0910498093 
+1 0.501147539322 4.5 36.39053 0.18089 0.949582619271 0.473049919841 4.24274420919 4.54845486207 3.077395102 -3.28779921499 2.30454972635 1.83465089281 8.50389739621 -0.762507601305 3.23550223893 4.91939852949 -1.87202167063 -0.216319310078 0.500138205539 5.82105146774 -6.18569296257 9.22311902261 -8.49317264636 1.35093150533 0.374647575875 3.60478743988 -4.31107302781 -0.267731770689 1.9468737907 9.55536513903 -5.87003151086 0.560395820665 1.48305600088 -2.1572779037 2.11437890431 1.67820222235 0.254132345624 -0.350655094256 4.12499308972 -7.46824036707 9.6305489524 1.95184919012 -0.865332522527 -1.74266128586 1.73016750511 5.09574879761 -3.59295704572 3.08568743435 -0.641439548897 2.43888551053 3.4627121455 0.0717010337774 1.58422245564 2.15473492178 2.7512300293 -1.00740781691 0.982199126541 5.94598927525 0.67427718503 -10.0438387971 10.0910498093 
+2 0.00503745274909 4.5 73.14258 0.37535 -1.07973891035 -0.70568802451 0.499587052085 -0.252777407753 1.50478220328 -3.1053150393 -5.42794724923 -0.551698414813 5.65584121487 -2.25757293193 0.468948980951 0.560330358332 -2.28634607699 -1.31951511922 -2.55382975889 3.32468362861 -7.88485413614 7.21198881044 -10.7216731051 1.02789396563 -3.82011455974 0.029892100706 -4.39238044492 -0.754708938324 -1.7838817104 6.92265885174 -7.69250033302 -0.81864926069 -1.75324363927 -3.75164513121 -0.212814706274 -1.04457173305 -1.18470760623 -0.905235113894 -1.57740775276 -6.78774477155 4.82861329426 -0.0652191288131 -3.31924870121 -4.45738643932 -0.0279206074331 2.18707872652 -4.58766484614 0.309897429066 -2.43953643266 -0.265831890236 0.461222858665 -1.12076728387 -1.95492207273 -1.17191954176 1.03162381777 -3.58060476888 -1.4404688957 2.43458105768 -2.85967763421 -8.78747835354 5.87377114693 
+2 0.303961347638 4.5 73.14258 0.37535 -1.07973891035 -0.70568802451 0.499587052085 -0.252777407753 1.50478220328 -3.1053150393 -5.42794724923 -0.551698414813 5.65584121487 -2.25757293193 0.468948980951 0.560330358332 -2.28634607699 -1.31951511922 -2.55382975889 3.32468362861 -7.88485413614 7.21198881044 -10.7216731051 1.02789396563 -3.82011455974 0.029892100706 -4.39238044492 -0.754708938324 -1.7838817104 6.92265885174 -7.69250033302 -0.81864926069 -1.75324363927 -3.75164513121 -0.212814706274 -1.04457173305 -1.18470760623 -0.905235113894 -1.57740775276 -6.78774477155 4.82861329426 -0.0652191288131 -3.31924870121 -4.45738643932 -0.0279206074331 2.18707872652 -4.58766484614 0.309897429066 -2.43953643266 -0.265831890236 0.461222858665 -1.12076728387 -1.95492207273 -1.17191954176 1.03162381777 -3.58060476888 -1.4404688957 2.43458105768 -2.85967763421 -8.78747835354 5.87377114693 
+
+##a. B
+##to run make_plot_data.nb(.m), go to ./bin/, open make_plot_data.nb and run it or run the command math -script make_plot_data.m
+##arguments of make_plot_data.nb(.m) are in ./bin/analyzeddata_config.txt, following are explanations of arguments 
+##AnalyzeFile: the filename of input data
+##PDFsets Dir: the directory with PDFsets (the PDFset could be LHAPDF format or .pds format developed by CTEQ group), the code will interpolate PDF values 
+##with the PDFset under PDFsetsDir/PDFname for PDFname at the top of input data
+##e.g. you can set it as xxxx/LHAPDF/, if PDFname in the AnalyzeFile is CT14nlo, then the program will read PDF values from xxxx/LHAPDF/CT14nlo
+##PDFtableFormat: options are LHA or PDS, this argument determine the PDFs format in PDFsetsDir/PDFname, LHA: LHAPDF format, PDS: .pds format developed by CTEQ group
+##PDF method: options are Hessian or MC, this is for the method of determining PDF replicas, e.g. CT14nlo is Hessian method. the different methods use 
+##different formulas to calculate uncertainties, correlation, etc
+##Expt ID List: Expt ID for experimental datasets you want to inlude in your database (these IDs must in analyzeddata_config.txt, if IDs in analyzeddata_config.txt 
+##are not in the AnalyzeFile, the program will ignore them  
+##Database Path: default is in ./quick_data/
+##Database File: default rules of filenames could be seen in ./quick_data/
