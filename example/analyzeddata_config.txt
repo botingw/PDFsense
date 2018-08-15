@@ -5,13 +5,10 @@
 
 #the input files and format
 #read Analyzed data file 
-AnalyzeFile: ./default_config_files/input_data_format_example.txt
+AnalyzeFile: ../example/CT14NNLO_example/CT14NNLO_example.txt
 
 #the directory with PDFsets
-PDFsets Dir: ../examples/
-
-#PDF name
-#PDFset name: 5xx_CT14H2
+PDFsets Dir: ../example/
 
 #PDFset format (LHA or PDS)
 PDFtableFormat: PDS
@@ -22,7 +19,7 @@ PDFtableFormat: PDS
 PDF method: Hessian
 
 #Expt ID of experiments used in the calculation, ex: 101 201 504
-Expt ID List: 601
+Expt ID List:  101 102 104 106 108 109 110 111 124 125 126 127 145 147 159 169 201 203 204 225 227 234 240 241 260 261 266 267 268 281 504 514 535 538
 
 
 #the path of correlation/sensitivity data (the database for plotting)
