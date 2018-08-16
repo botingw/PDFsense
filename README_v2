@@ -64,28 +64,6 @@ The folder name is controlled by "Job ID (copy from the counter file):" in confi
 #################################
 # generating the data for plots #
 #################################
-v1.0:
-If one doesn't want to only use the data in our database (data default in ./quick_data), one could also generate the
-data from the Mathematica scripts (.m executables), or Mathematica notebooks.
-The input data they need is the analyzed data from CTEQ code: .pds file and .dta file 
-.pds contains the PDF info and .dta contains analyzed data of experiments and the selected PDF set
-The detail way to set the customized database is in III A, D of the tutorial
-
-a. edit the savedata_config.txt
-PDF set Dir, PDF method, Expt ID List, datalis file for input setting
-Correlation Path & Correlation File for output setting
-If output setting is "default", the data would be saved in ./quick_data
-
-b. if Expt ID List in include savedata_config.txt new experiments (new IDs) whose (x,mu) transform formulas are not set in the function selectExptxQv2 in 
-./lib/dtareadbotingw2016.nb, modify the function to incorporate the formulas for these Expt IDs, then save dtareadbotingw2016.nb by dtareadbotingw2016.nb and 
-dtareadbotingw2016.m (see III A, D in the tutorial) 
-
-c. run fxQsamept_corr_v2.nb (or .m by math -script fxQsamept_corr_v2.m)
-
-d. check whether the new database files are in the ./quick_data/ folder
-(dtacentral_samept_data_($PDF_set_Dir).dat, fxQNset_samept_data_($PDF_set_Dir).dat, metadata_samept_data_($PDF_set_Dir).dat, residualNset_samept_data_($PDF_set_Dir).dat)
-
-
 v2.0:
 If one doesn't want to only use the data in our database (data default in ./quick_data), one could also generate the
 data from the Mathematica scripts (.m executables), or Mathematica notebooks.
@@ -98,7 +76,7 @@ and run make_plot_data_v3.nb(.m) with the configure file = analyzeddata_config.t
 The detail way to set the customized database is in make_plot_data_tutorial.txt
 
 The interface for CTEQ .dta file to PDFsense input format
-for users with .dta files (output analyzed files of CTEQ code), they can convert .dta files to the input data by cteq_to_user_input.nb(.m) and savedata_config.txt
+for users with .dta files (output analyzed files of CTEQ code), they can convert .dta files to the input data by cteq_to_user_input.nb(.m) and cteq_to_input_config.txt
 #################################
 # python GUI example            #
 #################################
