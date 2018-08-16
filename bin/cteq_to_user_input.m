@@ -66,25 +66,31 @@ Print["present directory: ",Directory[]];
 
 configDir=Directory[]<>"/";(*NotebookDirectory[];*)(*DirectoryName[$InputFileName];*)
 (*configfilename="config_pdf_resolution_test.txt";*)
-configfilename="savedata_config.txt";
+configfilename="cteq_to_input_config.txt";
 
 
 (* ::Input::Initialization:: *)
 (*read arguments from config file*)
-{PDFsetDir,PDFsetmethod,ExptIDList,datalistFile,(*FxQGridDir*)dummy2,(*FxQGridFile*)dummy3,FxQSameptDir,FxQSameptFile,CorrDataDir,CorrDataFile,(*GridNx*)dummy6,(*GridNQ*)dummy7}=
-readsavedataconfigfile[configDir,configfilename]
+(*20180815 change savedata to CTEQtoUserInput config file*)
+{PDFset,dtaDir,PDFsetmethod,ExptIDList,datalistFile(*,(*FxQGridDir*)dummy2,(*FxQGridFile*)dummy3,FxQSameptDir,FxQSameptFile,CorrDataDir,CorrDataFile,(*GridNx*)dummy6,(*GridNQ*)dummy7*)}=
+readCTEQtoUserInputconfigfile[configDir,configfilename]
 
+
+
+(* ::Input:: *)
+(*readCTEQtoUserInputconfigfile[configDir,configfilename]*)
 
 
 (* ::Input::Initialization:: *)
 (*20170620*)
 Print["configure file directory: ",configDir];
 Print["configure filename : ",configfilename];
-Print["arguments read:\n","{PDFsetDir,PDFsetmethod,ExptIDList,datalistFile,(*FxQGridDir*)dummy2,(*FxQGridFile*)dummy3,FxQSameptDir,FxQSameptFile,CorrDataDir,CorrDataFile,(*GridNx*)dummy6,(*GridNQ*)dummy7}=\n",readsavedataconfigfile[configDir,configfilename] ];
+Print["arguments read:\n","{PDFset,dtaDir,PDFsetmethod,ExptIDList,datalistFile}=\n",readCTEQtoUserInputconfigfile[configDir,configfilename] ];
 
 
 (* ::Input::Initialization:: *)
-
+(*20180815 hange savedata to CTEQtoUserInput config file*)
+(*
 myPDFsetDir=PDFsetDir
 
 myPDFsetdtafile=FileNames[myPDFsetDir<>"*dta"][[1]];
@@ -94,6 +100,14 @@ Analyzename=StringSplit[myPDFsetDir,"/"][[-1]]
 
 (*set dta Dir you want to read data, it's the PDFset Dir you choose*)
 DtaDir=myPDFsetDir;
+*)
+
+
+(* ::Input::Initialization:: *)
+(*set PDFset*)
+PDFname=PDFset
+Analyzename=StringSplit[dtaDir,"/"][[-1]]
+
 
 
 (* ::Input::Initialization:: *)
@@ -109,10 +123,10 @@ If[FxQGridFile\[Equal]"default",FxQGridFile="fxQ_grid_"<>PDFname<>"_x"<>ToString
 If[FxQSameptDir\[Equal]"default",FxQSameptDir=quickdataDir]
 If[FxQSameptFile\[Equal]"default",FxQSameptFile="fxQ_samept_"<>PDFname<>".dat"]
 *)
-
-If[CorrDataDir=="default",CorrDataDir=quickdataDir]
-If[CorrDataFile=="default",CorrDataFile="samept_data_"<>PDFname<>".dat"]
-
+(*
+If[CorrDataDir\[Equal]"default",CorrDataDir=quickdataDir]
+If[CorrDataFile\[Equal]"default",CorrDataFile="samept_data_"<>PDFname<>".dat"]
+*)
 
 
 (* ::Input::Initialization:: *)
@@ -129,9 +143,10 @@ Print["FxQGridFile: ",FxQGridFile];
 Print["FxQSameptDir: ",FxQSameptDir];
 Print["FxQSameptFile: ",FxQSameptFile];
 *)
+(*
 Print["CorrDataDir: ",CorrDataDir];
 Print["CorrDataFile: ",CorrDataFile];
-
+*)
 
 
 (* ::Input:: *)
@@ -164,7 +179,7 @@ Print[""];
 Print["read .dta files to extract analyzed data"];
 Print[""];
 
-exptdata=Readdtafile[["readdta"]][DtaDir,exptlist]
+exptdata=Readdtafile[["readdta"]][dtaDir,exptlist]
 
 
 (* ::Input:: *)
@@ -595,10 +610,12 @@ If[IntegerQ[tmpNpt]==False,Print["error, the Npt of ID = ",tmpID," is not intege
 
 
 (* ::Input::Initialization:: *)
-OutputDir=PDFsetDir;
+(*20180815 change to cteq to inputdata config file*)
+OutputDir=dtaDir;
 OutputFile=Analyzename<>".txt";
 (*make the output string*)
 outputstr=""
+outputstr=outputstr<>"PDFset: "<>PDFname<>"\n";
 
 Table[
 tmpID=generalformatclass[[iexpt]][["exptinfo","exptid"]];

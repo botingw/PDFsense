@@ -1660,6 +1660,122 @@ If[output3[[itag,1]]==GridNQTag,GridNQ=output3[[itag,2]];GridNQ=Read[StringToStr
 
 
 (* ::Input::Initialization:: *)
+(*20170514: for save data*)
+readCTEQtoUserInputconfigfile[configDirin_,configfilenamein_]:=
+Module[{configDir=configDirin,configfilename=configfilenamein,
+PDFsetTag,dtaDirTag,PDFsetmethodTag,ExptIDListTag,datalistFileTag,FxQGridDirTag,FxQGridFileTag,FxQSameptDirTag,FxQSameptFileTag,CorrDataDirTag,CorrDataFileTag,GridNxTag,GridNQTag,
+PDFset,dtaDir,PDFsetmethod,ExptIDList,datalistFile,FxQGridDir,FxQGridFile,FxQSameptDir,FxQSameptFile,CorrDataDir,CorrDataFile,GridNx,GridNQ,
+itag,s,output,output2,output3},
+
+PDFsetTag="PDF set";
+dtaDirTag="dta Dir";
+PDFsetmethodTag="PDF method";
+ExptIDListTag="Expt ID List";
+datalistFileTag="datalis file";
+FxQGridDirTag="F(x,Q) Grid Path";
+FxQGridFileTag="F(x,Q) Grid File";
+FxQSameptDirTag="F(x,Q) Samept Path";
+FxQSameptFileTag="F(x,Q) Samept File";
+CorrDataDirTag="Correlation Path";
+CorrDataFileTag="Correlation File";
+
+GridNxTag="Nx";
+GridNQTag="NQ";
+{PDFsetTag,dtaDirTag,PDFsetmethodTag,ExptIDListTag,datalistFileTag,FxQGridDirTag,FxQGridFileTag,FxQSameptDirTag,FxQSameptFileTag,CorrDataDirTag,CorrDataFileTag,GridNxTag,GridNQTag};
+
+PDFset="unset";
+dtaDir="unset";
+PDFsetmethod="unset";
+ExptIDList="unset";
+datalistFile="unset";
+FxQGridDir="unset";
+FxQGridFile="unset";
+FxQSameptDir="unset";
+FxQSameptFile="unset";
+CorrDataDir="unset";
+CorrDataFile="unset";
+
+GridNx="unset";
+GridNQ="unset";
+{PDFset,dtaDir,PDFsetmethod,ExptIDList,datalistFile,FxQGridDir,FxQGridFile,FxQSameptDir,FxQSameptFile,CorrDataDir,CorrDataFile,GridNx,GridNQ};
+
+
+(*read config file line by line into list*)
+s=OpenRead[configDir<>configfilename];
+output=ReadList[s,String];
+Close[s];
+
+(*delete comments: with "#" at begining of line*)
+output2={};
+Table[
+If[StringTake[output[[i]],1]!="#",output2=Append[output2,output[[i]] ] ];
+"dummy"
+,{i,1,Length[output]}
+];
+(*seperate the tag of configure file and arguments by ":"*)
+output3=Table[StringSplit[output2[[i]],":"],{i,1,Length[output2]}];
+
+{PDFsetTag,dtaDirTag,PDFsetmethodTag,ExptIDListTag,datalistFileTag,FxQGridDirTag,FxQSameptDirTag,CorrDataDirTag};
+(*check tag exist, if a tag exist, read arguments corresponding to that tag*)
+(*read PDFset Dir*)
+itag=1;
+If[output3[[itag,1]]==PDFsetTag,PDFset=output3[[itag,2]];PDFset=Read[StringToStream[PDFset],Word] ];
+
+(*read PDFset Dir*)
+itag=itag+1;
+If[output3[[itag,1]]==dtaDirTag,dtaDir=output3[[itag,2]];dtaDir=Read[StringToStream[dtaDir],Word] ];
+
+(*read PDF method *)
+itag=itag+1;
+If[output3[[itag,1]]==PDFsetmethodTag,PDFsetmethod=output3[[itag,2]];PDFsetmethod=Read[StringToStream[PDFsetmethod],Word] ];
+
+(*read ExptID List *)
+itag=itag+1;
+If[output3[[itag,1]]==ExptIDListTag,ExptIDList=output3[[itag,2]];ExptIDList=ReadList[StringToStream[ExptIDList],Number] ];
+
+(*read datalist File *)
+itag=itag+1;
+If[output3[[itag,1]]==datalistFileTag,datalistFile=output3[[itag,2]];datalistFile=Read[StringToStream[datalistFile],Word] ];
+(*for the cteq to input data configure file, these arguments are useless*)
+(*
+(*read FxQGrid Dir *)
+itag=itag+1;
+If[output3[[itag,1]]==FxQGridDirTag,FxQGridDir=output3[[itag,2]];FxQGridDir=Read[StringToStream[FxQGridDir],Word] ];
+
+(*read FxQGrid File *)
+itag=itag+1;
+If[output3[[itag,1]]==FxQGridFileTag,FxQGridFile=output3[[itag,2]];FxQGridFile=Read[StringToStream[FxQGridFile],Word] ];
+
+(*read FxQSamept Dir *)
+itag=itag+1;
+If[output3[[itag,1]]==FxQSameptDirTag,FxQSameptDir=output3[[itag,2]];FxQSameptDir=Read[StringToStream[FxQSameptDir],Word] ];
+
+(*read FxQSamept File *)
+itag=itag+1;
+If[output3[[itag,1]]==FxQSameptFileTag,FxQSameptFile=output3[[itag,2]];FxQSameptFile=Read[StringToStream[FxQSameptFile],Word] ];
+
+(*read Correlation Data Dir *)
+itag=itag+1;
+If[output3[[itag,1]]==CorrDataDirTag,CorrDataDir=output3[[itag,2]];CorrDataDir=Read[StringToStream[CorrDataDir],Word] ];
+
+(*read Correlation Data File *)
+itag=itag+1;
+If[output3[[itag,1]]==CorrDataFileTag,CorrDataFile=output3[[itag,2]];CorrDataFile=Read[StringToStream[CorrDataFile],Word] ];
+
+(*read Grid Nx *)
+itag=itag+1;
+If[output3[[itag,1]]==GridNxTag,GridNx=output3[[itag,2]];GridNx=Read[StringToStream[GridNx],Number] ];
+
+(*read Grid NQ *)
+itag=itag+1;
+If[output3[[itag,1]]==GridNQTag,GridNQ=output3[[itag,2]];GridNQ=Read[StringToStream[GridNQ],Number] ];
+*)
+
+{PDFset,dtaDir,PDFsetmethod,ExptIDList,datalistFile(*,FxQGridDir,FxQGridFile,FxQSameptDir,FxQSameptFile,CorrDataDir,CorrDataFile,GridNx,GridNQ*)}
+]
+
+
+(* ::Input::Initialization:: *)
 (*v2.0 update mark*)
 (*20180711: reading the configure file for make_plot_data_v2.nb using*)
 (*for PDFsense v2*)
