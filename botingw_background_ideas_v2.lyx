@@ -2102,12 +2102,16 @@ Fig.
 s之間的bounding非常強，這qualitatively解釋了為什麼我們無法在hadronic scattering experiments中看到單獨的qu
 ark和gluon。由於兩個距離很遠(此時它們處在low energy scale狀態)的quarks之間的能量遠高於兩對距離很遠的color
  neutral的quark pairs，真空會製造多餘的quarks把兩個single quarks變成兩對quark pairs。除此之外，由於太強的str
-ong coupling不滿足pertubative theory的approximation，我們只能在在一個initial scale 
-\begin_inset Formula $Q_{0}\sim1\,GeV$
+ong coupling不滿足pertubative theory的approximation，我們只能在在一個
+\strikeout on
+initial
+\strikeout default
+ scale 
+\begin_inset Formula $\Lambda\sim1\,GeV$
 \end_inset
 
 以上相信QCD pertubative theory的結果。因此，我們必須用其它方式了解
-\begin_inset Formula $Q_{0}$
+\begin_inset Formula $\Lambda$
 \end_inset
 
 以下的hadronic states，PDFs研究即是其主要的手段。
@@ -2167,13 +2171,13 @@ ely explains why we can't see separate quarks and gluons in hadronic scattering
  In addition, because too large strong coupling does not satisfy the approximati
 on of perturbative theory, we can only believe the results of QCD perturbative
  theory above an initial scale 
-\begin_inset Formula $Q_{0}\sim1\,GeV$
+\begin_inset Formula $\Lambda\sim1\,GeV$
 \end_inset
 
 .
  Therefore, we must use other methods to understand the hadronic states
  below 
-\begin_inset Formula $Q_{0}$
+\begin_inset Formula $\Lambda$
 \end_inset
 
 .
@@ -2245,8 +2249,11 @@ begin{CJK}{UTF8}{bsmi}
 \begin_layout Plain Layout
 因為asymtotic freedom的緣故，quarks and gluons are confined and we can only see
  hadrons in experimental detectors。除此之外，我們也無法解析的理解hadronic states。研究hadrons的手段因此
-強烈的依賴於hadronic scattering experiments。這類實驗會用1 GeV以上能量的hadrons進行對撞，並偵測對撞過程中的碎片來反推
-hadrons內的狀態。
+強烈的依賴於hadronic scattering experiments。這類實驗會用
+\begin_inset Formula $\Lambda$
+\end_inset
+
+以上能量的hadrons進行對撞，並偵測對撞過程中的碎片來反推hadrons內的狀態。
 \end_layout
 
 \begin_layout Plain Layout
@@ -2283,8 +2290,12 @@ Because of asymptotic freedom, quarks and gluons are confined and we can
  The means of studying hadrons are therefore strongly dependent on hadronic
  scattering experiments.
  This type of experiment will implement hadronic collisions with energy
- above 1 GeV and detect debris in the collision process to study the state
- inside the hadrons.
+ above 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+ and detect debris in the collision process to study the state inside the
+ hadrons.
 \end_layout
 
 \begin_layout Standard
@@ -2778,11 +2789,11 @@ begin{CJK}{UTF8}{bsmi}
 
 \begin_layout Plain Layout
 另一個看法是，我們估計hadrons內quarks and gluons之間的interaction的反應時間為
-\begin_inset Formula $t\sim1/\Lambda_{QCD}$
+\begin_inset Formula $t\sim1/\Lambda$
 \end_inset
 
 。若我們用遠大於
-\begin_inset Formula $\Lambda_{QCD}$
+\begin_inset Formula $\Lambda$
 \end_inset
 
 的能量的對撞quarks or gluons，其反應時間會遠小於
@@ -2823,12 +2834,12 @@ end{CJK}
 \begin_layout Standard
 Another way to see this is to estimate the reaction time between the quarks
  and gluons in the hadrons as 
-\begin_inset Formula $t\sim1/\Lambda_{QCD}$
+\begin_inset Formula $t\sim1/\Lambda$
 \end_inset
 
 .
  If we collide quarks or gluons at energy scale much larger than 
-\begin_inset Formula $\Lambda_{QCD}$
+\begin_inset Formula $\Lambda$
 \end_inset
 
 , the reaction time will be much less than 
@@ -2924,6 +2935,128 @@ alization中引進arbitrary cutoff
 
 \end_inset
 
+ 剛才的解釋說明每種flavour在hadrons內的機率分佈是獨立的
+\begin_inset Formula $F_{a}(x)$
+\end_inset
+
+，然而，convoluion eq中的
+\begin_inset Formula $F_{a}(x,\mu)$
+\end_inset
+
+顯示碰撞過程中外來粒子看到的partons的分佈會和碰撞能量有關，譬如，DIS的processes的實驗就可以觀察到
+\begin_inset Formula $F_{a}(x)$
+\end_inset
+
+隨energy Q改變 (Fig.
+ 12 in [hep-ex/9607002])。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The above explanation just illustrates that the probability distribution
+ of each flavour in hadrons is 
+\begin_inset Formula $F_{a}(x)$
+\end_inset
+
+.
+ However, 
+\begin_inset Formula $F_{a}(x,\mu)$
+\end_inset
+
+ in the convoluion equation shows that during collision processes, the parton
+ distributions seen by external particles will also be related to the collision
+ energy.
+ For example, we can observe that 
+\begin_inset Formula $F_{a}(x)$
+\end_inset
+
+ change by the energy scale 
+\begin_inset Formula $Q$
+\end_inset
+
+ in DIS processes at HERA (Fig.
+ 12 in [hep-ex/9607002]).
+ How do we understand the 
+\begin_inset Formula $\mu$
+\end_inset
+
+ dependency in PDFs?
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+parton level的gluon ratiations和其它higher order terms是發散的，考慮the lowest order
+ correction，我們會發現soft radiation和loop的發散項會抵銷留下有限項，而collinear radiation(即radiation
+s with low transverse momentum)的發散無法被消掉，這需要引進collinear factorization處理。類比於renorm
+alization中引進arbitrary cutoff 
+\begin_inset Formula $\Lambda_{cutoff}$
+\end_inset
+
+，我們用選定的factorization scale
+\begin_inset Formula $\mu_{F}$
+\end_inset
+
+把long distance和short distance contributions分開，並將long distance的high order
+ logarithm terms吸收到無法為擾計算的PDFs中，並給定PDFs在不同給定energy scale之間的轉換關係。
+\end_layout
+
+\end_inset
+
 然而，這模型
 \color blue
 ->我們剛才
@@ -2968,15 +3101,19 @@ end{CJK}
 \end_layout
 
 \begin_layout Standard
+
+\strikeout on
 However, we only explain the 
 \begin_inset Formula $x$
 \end_inset
 
  dependency in PDFs.
  Why is the distribution of partons in the hadrons related to the collision
- energy during the collision? As we mentioned earlier, the convolution equation
- indicates that we can divide the hadronic scattering processes into high-energy
- scale perturbative part and low energy scale non-perturbative parts.
+ energy during the collision?
+\strikeout default
+ As we mentioned earlier, the convolution equation indicates that we can
+ divide the hadronic scattering processes into high-energy scale perturbative
+ part and low energy scale non-perturbative parts.
  However, choosing which energy scale to use to separate high energy and
  low energy parts is free.
  This means that the chosen scale will change the (energy) range covered
@@ -3501,6 +3638,14 @@ Analogous to the running coupling in the renormalization group, we can also
 
 .
  The equation is written as
+\begin_inset Formula 
+\[
+\partial f/\partial log(\mu)=splittingfunction-convolute-f(x,\mu)
+\]
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -3562,8 +3707,13 @@ begin{CJK}{UTF8}{bsmi}
 \begin_inset Formula $Q>Q_{0}$
 \end_inset
 
- region is related to the convolution of PDFs and the splitting functions
- 。下圖是兩個不同scale的PDFs的比較，我們在high 
+ region is related to the convolution of PDFs and the splitting functions,
+ where we only extract the PDFs above an intial scale 
+\begin_inset Formula $Q_{0}>>\Lambda$
+\end_inset
+
+ as we want to make sure that the perturbative assumption works well。下圖是兩個不同scal
+e的PDFs的比較，我們在high 
 \begin_inset Formula $Q^{2}$
 \end_inset
 
@@ -3613,7 +3763,12 @@ The splitting function
 \begin_inset Formula $Q>Q_{0}$
 \end_inset
 
- region is related to the convolution of PDFs and the splitting functions.
+ region is related to the convolution of PDFs and the splitting functions,
+ , where we only extract the PDFs above an intial scale 
+\begin_inset Formula $Q_{0}>>\Lambda$
+\end_inset
+
+ as we want to make sure that the perturbative assumption works well.
  The Fig.
  
 \begin_inset CommandInset ref
@@ -4118,8 +4273,8 @@ Currently, the data used in PDF global fits include the following types:
  processes.
  Among them, DIS directly measures the structure functions of the nucleon.
  Therefore, its results are related to various PDFs of flavours.
- The most common channels in Drell-Yan processes are W, Z production processes
- (Fig.
+ The most common channels in Drell-Yan processes are W and Z production
+ processes (Fig.
  
 \begin_inset CommandInset ref
 LatexCommand ref
@@ -4131,23 +4286,24 @@ noprefix "false"
 \end_inset
 
 ).
- These W, Z bosons have a high probability of being produced by u, d, so
- Drell-Yan processes have a great 
+ These W and Z bosons have a high probability of being produced by u and
+ d, so Drell-Yan processes have a great 
 \color blue
 influence(wrong word?)
 \color inherit
- on u, d PDFs.
- The asymmetry of W+, W-process is also sensitive to u, d ratio of PDFs.
+ on u and d PDFs.
+ The asymmetry of W+ and W- processes is also sensitive to u, d ratio of
+ PDFs.
  The main channels of jet processes are gluon interactions, so jet processes
  are very sensitive to gluon PDF.
  In addition, jet processes are also sensitive to c, b PDFs.
  This is because we usually assume no intrinsic charm and bottom quarks.
- That is to say, on 
+ That is to say, on initial scale 
 \begin_inset Formula $Q_{0}$
 \end_inset
 
- scale, charm and bottom are not in nucleon and therefore are all produced
- by gluon splitting processes.
+, charm and bottom are not in nucleon and therefore are all produced by
+ gluon splitting processes.
  (ttbar diagram: Fig.
  
 \begin_inset CommandInset ref
@@ -5063,7 +5219,7 @@ ideasub{we need minimize chi 2}
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 
@@ -5153,6 +5309,10 @@ end{CJK}
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 Since small 
 \begin_inset Formula $\chi^{2}$
 \end_inset
@@ -5225,6 +5385,94 @@ tes other points near the point to estimate the first-order derivative and
 r derivative disappear).
 \end_layout
 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+由於small 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+代表the quality of fit is good，我們不斷的改變parameters去找到最小的
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+，其對應的參數就是best fitted PDFs。主要的minimization的方法分別為gradient descent method or
+ Genetic Algorithms [arXiv:0808.1231]。gradient descent method藉由朝向函數的gradient的方向逼近
+global minimum，因為函數在gradient的方向 decreases fastest。每一步的step size可以不斷調整來優化收斂的速度。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+Since small 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ represents that the quality of fit is good, we constantly change the parameters
+ to find the minimum 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+, and the corresponding parameter set is best fitted PDFs.
+ The main methods of minimization are Gradient Descent method or Genetic
+ Algorithms [arXiv:0808.1231].
+ The gradient descent method iteratively approaches the global minimum by
+ pointing toward the gradient of the function as the function value decreases
+ fastest in the direction of the gradient.
+ The step size of each iteration can be continually adjusted to optimize
+ the speed of convergence.
+\end_layout
+
 \begin_layout Standard
 \begin_inset ERT
 status open
@@ -5243,7 +5491,7 @@ ideasub{MC/Hessian uncertainties}
 
 \begin_layout Standard
 \begin_inset Note Note
-status open
+status collapsed
 
 \begin_layout Plain Layout
 
@@ -5405,6 +5653,10 @@ end{CJK}
 \end_layout
 
 \begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
 The estimation of the uncertainties of PDF and PDF dependent physical observable
 s depends on the minimization method we select.
  If we use the MC method, we will run the MC N times, get a set of best-fit
@@ -5430,6 +5682,295 @@ s depends on the minimization method we select.
 \end_inset
 
 .
+ According to the quadratic assumption, we will get an elliptical shape
+ of PDF parameter space around the best fit parameters 
+\begin_inset Formula $\overset{\rightharpoonup}{a_{0}}$
+\end_inset
+
+ for a given tolerance parameter 
+\begin_inset Formula $\chi_{tolerance}^{2}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\chi^{2}(\overset{\rightharpoonup}{a})<\chi^{2}(\overset{\rightharpoonup}{a_{0}})+\chi_{torelance}^{2}$
+\end_inset
+
+.
+ If errors of An observable X along the 
+\begin_inset Formula $\pm$
+\end_inset
+
+ directions of i-th dimension of the ellipse are 
+\begin_inset Formula $X_{i}^{+}$
+\end_inset
+
+ and 
+\begin_inset Formula $X_{i}^{-}$
+\end_inset
+
+, the uncertainty of X based on the variation of parameter at i-th dimension
+ Could be approximated by 
+\begin_inset Formula $(X_{i}^{+}-X_{i}^{-})/2$
+\end_inset
+
+.
+ According to the principle of error propagations, the X uncertainty via
+ PDF parameter space is 
+\begin_inset Formula $\Delta X=\frac{1}{2}\sqrt{\underset{i}{\sum}(X_{i}^{+}-X_{i}^{-})^{2}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+The ensemble, which estimates PDF uncertainties, also carries a lot of statistic
+al information, enabling us to explore the relationship between PDF dependent
+ observables.
+ My study for the impact of data on PDF knowledge is based on the statistical
+ analysis of Hessian ensembles.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+對uncertainties of PDF and PDF dependent physical observables的估計分別為Monte
+ Carlo (MC) [0104052] Method and Hessian method [0101032]。
+\end_layout
+
+\begin_layout Plain Layout
+MC的基本思想是用隨機抽樣和統計方法解決一些複雜的問題。以optimization為例，在尋找一個multi-dimensional function的最小值時
+，MC會先generate random points in the parameter space。接下來，我們可以估計哪些parameter
+ regions的值比較低，並進一步用隨機變數縮小這些regions。反覆的進行同樣的steps，我們就可以在數值上逼近真正的最小值。在PDF
+ errors的估計中，we generate N sets of Monte Carlo replicas of the experimental
+ data, then fit PDFs with these replicas。我們將得到N組best-fit PDF replicas，並從PDF
+ replicas extract statistical uncertainties。
+\end_layout
+
+\begin_layout Plain Layout
+Hessian method則利用second-order Taylor expansion探索
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+函數的neighborhood of local minimum，並估計可接受的best-fit parameter的誤差。我們假設
+\begin_inset Formula $\chi^{2}(\overset{\rightharpoonup}{a})$
+\end_inset
+
+為the best-fit parameters的quadratic expansion: 
+\begin_inset Formula $\chi^{2}=\chi_{0}^{2}+\underset{i,j}{\Sigma}H_{i,j}y_{i}y_{j}$
+\end_inset
+
+ for the displacement 
+\begin_inset Formula $y_{i}$
+\end_inset
+
+ from the best-fit parameter 
+\begin_inset Formula $\overset{\rightharpoonup}{a_{0}}$
+\end_inset
+
+ to 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\overset{\rightharpoonup}{a}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+。其中H(x)包含了二階微分的貢獻，我們叫它Hessian matrix。 According to the quadratic assumption,
+ we will get an elliptical shape of PDF parameter space around the best
+ fit parameters 
+\begin_inset Formula $\overset{\rightharpoonup}{a_{0}}$
+\end_inset
+
+ for a given tolerance parameter 
+\begin_inset Formula $\chi_{tolerance}^{2}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\chi^{2}(\overset{\rightharpoonup}{a})<\chi^{2}(\overset{\rightharpoonup}{a_{0}})+\chi_{torelance}^{2}$
+\end_inset
+
+.
+ If errors of an observable 
+\begin_inset Formula $X$
+\end_inset
+
+ along the 
+\begin_inset Formula $\pm$
+\end_inset
+
+ directions of 
+\begin_inset Formula $i$
+\end_inset
+
+-th dimension of the ellipse are 
+\begin_inset Formula $X_{i}^{+}$
+\end_inset
+
+ and 
+\begin_inset Formula $X_{i}^{-}$
+\end_inset
+
+, the uncertainty of 
+\begin_inset Formula $X$
+\end_inset
+
+ based on the variation of parameter at 
+\begin_inset Formula $i$
+\end_inset
+
+-th dimension could be approximated by 
+\begin_inset Formula $(X_{i}^{+}-X_{i}^{-})/2$
+\end_inset
+
+.
+ According to the principle of error propagations, the 
+\begin_inset Formula $X$
+\end_inset
+
+ uncertainty via PDF parameter space is 
+\begin_inset Formula $\Delta X=\frac{1}{2}\sqrt{\underset{i}{\sum}(X_{i}^{+}-X_{i}^{-})^{2}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+這套估計PDF uncertainties的ensemble還攜帶了大量的統計信息，使我們能夠探索PDF dependent observables之間的關係。
+我評估data對PDF knowledge的衝擊的研究即是建立在Hessian ensemble的statistical analysis。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The estimation of the uncertainties of PDF and PDF dependent physical observable
+s are Monte Carlo (MC) [0104052] Method and Hessian method [0101032], respective
+ly.
+\end_layout
+
+\begin_layout Standard
+The basic idea of MC is to solve some complex problems with random sampling
+ and statistical methods.
+ Taking optimization as an example, when searching for the minimum value
+ of a multi-dimensional function, the MC will first generate random points
+ in the parameter space.
+ Next, we can estimate which parameter regions have lower values and further
+ narrow these regions with further random points.
+ By repeating the same steps, we can numerically approach the true minimum
+ value.
+ When we estimate PDF uncertainties, we generate N sets of Monte Carlo replicas
+ of the experimental data, then fit PDFs with these replicas.
+ We will get N sets of best-fit PDF replicas and extract statistical uncertainti
+es from PDF replicas.
+\end_layout
+
+\begin_layout Standard
+The Hessian method uses the second-order Taylor expansion to explore the
+ neighborhood of the 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ global minimum and estimates an acceptable error region near the best-fit
+ parameter.
+ We assume that 
+\begin_inset Formula $\chi^{2}(\overset{\rightharpoonup}{a})$
+\end_inset
+
+ is the quadratic expansion of the best-fit parameters: 
+\begin_inset Formula $\chi^{2}=\chi_{0}^{2}+\underset{i,j}{\Sigma}H_{i,j}y_{i}y_{j}$
+\end_inset
+
+ for the displacement 
+\begin_inset Formula $y_{i}$
+\end_inset
+
+ from the best-fit parameter 
+\begin_inset Formula $\overset{\rightharpoonup}{a_{0}}$
+\end_inset
+
+ to 
+\begin_inset Formula $\overset{\rightharpoonup}{a}$
+\end_inset
+
+, where 
+\begin_inset Formula $H_{i,j}$
+\end_inset
+
+ contains the contribution of the second-order derivative, which is called
+ the Hessian matrix.
  According to the quadratic assumption, we will get an elliptical shape
  of PDF parameter space around the best fit parameters 
 \begin_inset Formula $\overset{\rightharpoonup}{a_{0}}$
