@@ -1,0 +1,8600 @@
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
+\textclass article
+\begin_preamble
+\usepackage{CJKutf8}
+\end_preamble
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding utf8
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures false
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+newcommand
+\backslash
+idea[1]{
+\backslash
+subsection{#1}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+newcommand
+\backslash
+ideasub[1]{
+\backslash
+subsubsection{#1}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+newcommand
+\backslash
+ideasub[1]{}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+define whether comment out a section, if 
+\backslash
+commentout is defined by on, them comment out the text inside it
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+newcommand
+\backslash
+commentouton[1]{
+\backslash
+iffalse #1 
+\backslash
+fi}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+newcommand
+\backslash
+commentoutoff[1]{#1}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+newcommand
+\backslash
+commentout[1]{
+\backslash
+commentouton{#1}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+commentouti{}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+commentoutf{}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+commentout{ddd}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+commentout{asdas}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Title
+Outline of the Background Knowledge in the Thesis 
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+Abstract
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+新的high-energy experiments, 未來的實驗提案，和計算工具預期會提升nucleon structure的知識。然而，評估它們對PDFs知識
+的衝擊的global analysis，受限於large size of data，是非常的computationally expensive。
+ 我們開發了一個可以快速作preliminary evaluation的新方法來幫助分析的過程，它根據Hessian correlation和quality
+ of measurements量化hadronic experiments對Parton Distribution Functions (PDFs)的衝擊。我
+們可以透過PDFSense，一個開源軟體，獲取這個方法。我們用PDFSense和其他統計方法prelimi調查最新的Large Hadron Collider
+ (LHC) datasets對PDFs的影響。除此之外，我們還應用這套軟體去調查synergy of lattice calculations
+ and MSbar PDFs on improving the picture of the nucleon’s collinear structure.
+ 評估High liminosity upgrade to the LHC (HL-LHC), Large Hadron-electron Collider
+ (LHeC), and Electron Ion Collider (EIC), some future high-energy experimental
+ plans,對PDFs知識的衝擊。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+New high-energy experiments, future experimental proposals, and computational
+ tools are expected to enhance the knowledge of the nucleon structure.
+ However, the global analysis that assesses their impact on Parton Distribution
+ Functions (PDFs) knowledge is computationally expensive due to the correspondin
+g large size of data.
+ I developed a new approach that can make a quickly preliminary evaluation
+ to help the analysis process.
+ It quantifies the impact of hadronic experiments on PDFs based on Hessian
+ correlation and quality of measurements.
+ This approach is accessible through an open source software called PDFSense.
+ I use PDFSense and other statistical methods to evaluate the impact of
+ the latest Large Hadron Collider (LHC) datasets on PDFs.
+ In addition, I use this software to investigate the synergy of lattice
+ calculations and 
+\begin_inset Formula $\overline{MS}$
+\end_inset
+
+ PDFs on improving the picture of the nucleon's collinear structure.
+ The assessment of the impact of PDFs knowledge imposed by high luminosity
+ upgrade to the LHC (HL-LHC), Large Hadron-electron Collider (LHeC), and
+ Electron Ion Collider (EIC), some future high-energy experimental proposals,
+ is also implemented.
+\end_layout
+
+\begin_layout Part
+Introduction
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Outline
+\end_layout
+
+\begin_layout Enumerate
+importance of Standard Model for explaining the universe
+\end_layout
+
+\begin_layout Enumerate
+what is collinear PDF (QCD in SM, asymmtotic freedom, describe the nucleon
+ structure with probability P(q) as function of momentum)
+\end_layout
+
+\begin_layout Enumerate
+importance of precise collinear PDF constraint (QCD (how quarks bound, asymmety
+ breakings, structure of nucleon), hadron collisions(new physics, quantities
+ that are sensitive to PDF errors) )
+\end_layout
+
+\begin_layout Enumerate
+utilize sensitivity mapping for evaluating the impact of hadronic experiments
+ (data size are time-expensive for the global fit, overview what the paper
+ did with sensitivity mapping, ranking, Tensorflow techniques and datasets
+ in the analysis)
+\end_layout
+
+\begin_layout Enumerate
+evaluating impact of collinear PDFs from future collider experimental plans
+ (overview new experimental plans including benefit evaluation, list plans
+ and flavours I analyze)
+\end_layout
+
+\begin_layout Enumerate
+evaluating (overview lattice QCD quantities associated with collinear PDFs,
+ argue the neccesarity of synergy assessment for computation and fit PDFs,
+ overview what what the paper did)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The standard model (SM) explains the interaction between matter and matter
+ in the universe.
+ Under the SM structure, there are 25 kinds of particles and corresponding
+ three kinds of interactions in the universe, namely, strong force, weak
+ force, electromagnetic force, The four gravitational forces have not been
+ successfully integrated into the SM framework.
+ The electromagnetic force describes the interaction between charged particles,
+ and the weak force describes the atomic decay of subatomic particles.
+ Strong force describes the interaction among colored particles, that is,
+ the interaction between particles in the nucleus.
+ The gravitational force describes the rules of celestial body movement
+ and many phenomena on the ground, such as free fall motion and projectile
+ motion.
+ Confirmation of the W and Z bosons (1983), top quark (1995), the tau neutrino
+ (2000), and the Higgs boson (2012) confirm the ability of SM to interpret
+ the physical world.
+ Among them, quantum chromodynamics (QCD) is the theory of quarks and gluon
+ in SM.
+ In this theory, gluon is responsible for transferring strong force between
+ quarks.
+ The relationship between quarks and gluon can be analogized to the relationship
+ between electrons and photons.
+ The difference between them is QCD is a quantum field theory of SU(3) symmetry,
+ that is, three color charges carried by quarks represent three degrees
+ of freedoms of SU(3) and gluon is the corresponding gauge field.
+ (a) QCD predicts that quarks and gluons will not exist alone, but only
+ bound into a particle called hadron, referring to particles consisting
+ of two or three quarks.
+ QCD's interpretation of this bound particle is that the coupling between
+ them becomes stronger with the energy scale.
+ When hadron collided, the quark that was knocked out produced a strong
+ dependence on the coupling, which made it more stable to make another quark
+ from the vacuum to set it up.
+ This phenomenon is usually called asymtotic freedom.
+ Due to the asymtotic freedom relationship, above about 1 GeV, this bound
+ structure is difficult to predict with perturbation theory.
+ Above this energy, we assuming in collision processes, quarks and gluons
+ in hadron are non-interacting.
+ In this hypothesis, in hadron scattering processes, the probability of
+ various quarks participating in the collision is independent of processes.
+ We can use the probability function to describe quarks and gluon as function
+ of momentum fraction and factorization scale.
+ We call such a function Parton Distribution Functions (PDFs).
+ PDFs are important models for studying hadron scattering processes, and
+ the theoretical predictions of these processes depend on our knowledge
+ of these functions.
+ Taking Deep Inelastic Scattering (DIS) process 
+\begin_inset Formula $ep\rightarrow eX$
+\end_inset
+
+ as an example, its cross section could be expressed as following: 
+\begin_inset Formula $\sigma_{tot}=\underset{a}{\sum}\int dxf_{a/p}(x,\mu)\sigma_{ea\rightarrow eX}(x)$
+\end_inset
+
+.
+ Where 
+\begin_inset Formula $a$
+\end_inset
+
+ refers to quark and gluon and 
+\begin_inset Formula $f_{a/p}(x,\mu)$
+\end_inset
+
+ is PDFs for various quarks and gluon.
+ This relation tells us that the theoretical prediction of hadron collision
+ processes could be divided into two independent parts: PDFs part and and
+ the hard scattering 
+\begin_inset Formula $\sigma_{ea\rightarrow eX}(x)$
+\end_inset
+
+ which we can derive from Feynman diagram.
+\end_layout
+
+\begin_layout Standard
+Accurate collinear PDF knowledge has an impact on the field of various particle
+ physics.
+ First, it helps us better understand some QCD problems.
+ Like 
+\begin_inset Formula $u$
+\end_inset
+
+ and 
+\begin_inset Formula $d$
+\end_inset
+
+ SU(2) symmetry breaking, 
+\begin_inset Formula $s$
+\end_inset
+
+ and 
+\begin_inset Formula $\bar{s}$
+\end_inset
+
+ asymmetry, evolution of PDFs.
+ In addition, it is also useful for understanding SM and BSM, as it is confirmed
+ that SM and BSM models often require experiments comparing hadronic scattering
+ processes with their corresponding theoretical predictions.
+ Analysis of current Hadron Large Collider (LHC) experimental data shows
+ that PDF uncertainties are the main source of error for many of the physical
+ quantities and models we currently measure, which further enhances the
+ benefits and necessity of improving the accuracy of PDFs.
+ My thesis study focuses on techniques and methods for improving PDF knowledge.
+ There are three main themes: a.
+ statistically quantify and map the sensitivities to PDFs imposed by hadronic
+ experimental datasets, we can preliminary evaluate the impact of data In
+ the PDF global fit.
+ b.
+ exploring the potential impact and benefit of PDFs take n from future experimen
+tal plans with their corresponding pseudodata.
+ c.
+ performing the analysis of the coming synergy between lattice QCD (a field
+ that solving non-perturbative phenomena in QCD By computational approaches)
+ and high-energy PDF phenomenology.
+ I will introduce these three topics in the following paragraphs.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%PDFsense
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Determinations of the proton's collinear parton distribution functions (PDFs)
+ are emerging with growing precision due to increased experimental activity
+ at facilities like the Large Hadron Collider.
+ While this copious information is valuable, the speed at which it is released
+ makes it difficult to quickly assess its impact on the PDFs, short of performin
+g computationally expensive global fits.
+ As an alternative, we explore new methods for quantifying the potential
+ impact of experimental data on the extraction of proton PDFs.
+ Our approach relies crucially on the Hessian correlation between theory-data
+ residuals and the PDFs themselves, as well as on a newly defined quantity
+ --- the 
+\begin_inset Formula ${\it sensitivity}$
+\end_inset
+
+ --- which represents an extension of the correlation and reflects both
+ PDF-driven and experimental uncertainties.
+ This approach is realized in a new, publicly available analysis package
+ 
+\begin_inset Formula $\textsc{PDFSense}$
+\end_inset
+
+, which operates with these statistical measures to identify particularly
+ sensitive experiments, weigh their relative or potential impact on PDFs,
+ and visualize their detailed distributions in a space of the parton momentum
+ fraction 
+\begin_inset Formula $x$
+\end_inset
+
+ and factorization scale 
+\begin_inset Formula $\mu$
+\end_inset
+
+.
+ This tool offers a new means of understanding the influence of individual
+ measurements in existing fits, as well as a predictive device for directing
+ future fits toward the highest impact data and assumptions.
+ Along the way, many new physics insights can be gained or reinforced.
+ As one of many examples, 
+\begin_inset Formula $\textsc{PDFSense}$
+\end_inset
+
+ is employed to rank the projected impact of new LHC measurements in jet,
+ vector boson, and 
+\begin_inset Formula $t\bar{t}$
+\end_inset
+
+ production and leads us to the conclusion that inclusive jet production
+ at the LHC has a potential for playing an indispensable role in future
+ PDF fits.
+ These conclusions are independently verified by preliminarily fitting this
+ experimental information and investigating the constraints they supply
+ using the Lagrange multiplier technique.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%HL-LHC, LHeC, EIC
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Particle and nuclear physics are moving toward a new generation of experiments
+ to stress-test the Standard Model (SM), search for novel degrees of freedom,
+ and comprehensively map the internal structure of hadrons.
+ Due to the complex nature of QCD and wide array of past, present, and possible
+ future experiments, measurements taken at these next-generation facilities
+ will inhabit an expansive space of high-energy data.
+ Maximizing the impact of each future collider program will depend on identifyin
+g its place within this sprawling landscape.
+ As an initial exploration, we use the recently-developed 
+\begin_inset Formula $\texttt{PDFSense}$
+\end_inset
+
+ framework to assess the PDF sensitivity of two future high-energy facilities
+ --- the high-luminosity upgrade to the LHC (HL-LHC) and the Large Hadron-electr
+on Collider (LHeC) proposal --- as well as the electron-ion collider (EIC)
+ proposed to map the few-GeV quark-hadron transition region.
+ We report that each of the experimental facilities considered occupies
+ a unique place in the kinematical parameter space with specialized pulls
+ on particular collinear quantities.
+ As such, there is a clear complementarity among these programs, with an
+ opportunity for each to mutually reinforce and inform the others.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%Lattice QCD quantities
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Building upon the 
+\begin_inset Formula $\texttt{PDFSense}$
+\end_inset
+
+ framework developed in Ref.
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Wang:2018heo"
+literal "true"
+
+\end_inset
+
+, we perform a comprehensive analysis of the sensitivity of present and
+ future high-energy data to a number of ``standard candle'' quantities typically
+ evaluated in lattice gauge theory, with a particular focus on the integrated
+ Mellin moments of nucleon parton distribution functions (PDFs), such as
+ 
+\begin_inset Formula $\langle x\rangle_{u^{+}-d^{+}}$
+\end_inset
+
+ and 
+\begin_inset Formula $\langle x\rangle_{g}$
+\end_inset
+
+, as well as 
+\begin_inset Formula $x$
+\end_inset
+
+-dependent quark quasi-distributions --- in particular, that of the isovector
+ combination.
+ Our results demonstrate the potential for lattice calculations and phenomenolog
+ical quark distributions informed by high-energy data to cooperatively improve
+ the picture of the nucleon's collinear structure.
+ This will increasingly be the case as computational resources for lattice
+ calculations further exponentiate and QCD global analyses continue to grow
+ in sophistication.
+ Our sensitivity analysis suggests that a future lepton-hadron collider
+ would be especially instrumental in providing phenomenological constraints
+ to lattice observables.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%overview chapters
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The structure of my thesis is as follows: in chapter 2, I will overview
+ the background knowledge of the SM and PDF global fit, where the PDF global
+ fit is the classical approach to extract PDF knowledge from hadronic experiment
+al data.
+ Understand tt is crucial for the improvement of PDF knowledge.
+ In chapter 3, I will talk about my first topic: statistically quantify
+ and map the sensitivities to PDFs imposed by hadronic experimental datasets.
+ In chapter 4, I will discuss the potential impact and benefit of PDFs taken
+ from future experimental plans.
+ In chapter 5, I will show my work of the coming synergy between lattice
+ QCD and high-energy PDF phenomenology.
+ Chapter 6 are my results and conclusions.
+\end_layout
+
+\begin_layout Part
+Background Knowledge
+\end_layout
+
+\begin_layout Section
+The Standard Model
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%
+\backslash
+idea{
+\backslash
+sout{SM introduction}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{motivation: describe fundamental particles and forces}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+自古以來，人類就試圖了解宇宙最基本的運作法則。根據目前我們對宇宙的了解，我們可以用四種基本作用力來描述物質之間的交互作用。它們是電磁力，弱作用力，強作用力，和重
+力。The Standard Model (SM)負責描述宇宙中目前已知的四種fundamental forces中的電磁力，弱作用力，和強作用力。它包含了fe
+rmions, gauge bosons,和scalar bosons三種類型的粒子。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since ancient times, humans have tried to understand the most fundamental
+ rules of operation of the universe.
+ Based on our current understanding of the universe, we can use four basic
+ forces to describe the interactions between matter.
+ They are electromagnetic forces, weak forces, strong forces, and gravity.
+ The Standard Model (SM) is responsible for describing the electromagnetic
+ forces, weak forces, and strong forces in the four fundamental forces currently
+ known in the universe.
+ It contains three types of particles: fermions, gauge bosons, and scalar
+ bosons.
+ (the table in Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:SM_table"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ summarize the particles and their properties in the SM)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename src/Chapters/CH2_plots/SM_table.jpg
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+xxx 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:SM_table"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{forces: QED, QCD, Electroweak (U(1)xSU(2)xSU(3)), their symmetry/phenome
+non they explain}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+SM是一個在量子場論的框架下的gauge symmetry的理論。它的三種作用力對應到以下的對稱性: SU(3)xSU(2)xU(1)。每種對稱性都伴隨一些co
+nserved quantities，我們在電磁學裡熟悉的electric charge就是這類quantities之一。SU(3)對應到強作用力，由SM下的Q
+CD描述，解釋和預測了在質子，中子和其它類似粒子內的物質和力。SU(2)xU(1)描述弱作用力和電磁力，統稱electroweak force，可以用QED來描
+述。它們的symmetry breaking產生了帶有質量的W, Z和沒有質量的photon。它們解釋了電磁學和原子的衰變現象。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+SM is a theory of gauge symmetry in the framework of Quantum Field Theory
+ (QFT).
+ Its three forces correspond to the following symmetry: SU(3)xSU(2)xU(1).
+ Each symmetry is accompanied by a number of conserved quantities, and one
+ of the quantities that we are familiar with is the electric charge in electroma
+gnetism.
+ SU(3) corresponds to a strong force, which is described by quantum chromodynami
+cs (QCD) under SM, which explains and predicts the matter and force inside
+ protons, neutrons, and other similar particles.
+ SU(2)xU(1) describes weak and electromagnetic forces, collectively referred
+ to as electroweak force, which can be described by quantum electrodynamics
+ (QED).
+ Their symmetry breaking produces massive W, Z and massless photon.
+ They explain the phenomenon of electromagnetics and atomic decay.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{fermions, bosons}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+SM裡的fermions是spin-1/2的粒子，可以分成兩大類:lepton和quark。lepton和quark都各有3 generations。每個gen
+eration下有兩種particles。不同的generations除了質量不同外，其他性質都是相同的。lepton攜帶electrical
+ charge和isospin charge，他們受電磁力和弱作用力影響。每一代lepton的粒子分別是electron&electron neutrino,
+ muon&muon neutrino, tau&tau neutrino.
+ quark攜帶electrical charge, isospin charge, and color charge，他們受電磁力，弱作用力和強作用力影響。每
+一代的quark是u&d, c&s, t&b。
+\end_layout
+
+\begin_layout Plain Layout
+SM裡的gauge bosons是spin-1的粒子，負責傳遞之前談到的三種作用力。photon負責傳遞電磁力。由於photon沒有質量，電磁力可以長距離傳播(
+根據uncertainty principle，傳遞力的粒子可以存在的時間為 
+\begin_inset Formula $\Delta t=h/2\pi\Delta E$
+\end_inset
+
+。因此根據
+\begin_inset Formula $E=mc^{2}$
+\end_inset
+
+，zero mass的photon可以存在無限長的時間)。W，Z負責傳遞弱作用力。由於帶有質量，其傳遞的力的強度會隨距離exponential
+ decay，因此只能在短距離內傳播。gluon負責傳遞強作用力，由於
+\begin_inset Quotes erd
+\end_inset
+
+color confinement
+\begin_inset Quotes erd
+\end_inset
+
+ (我會在QCD的section討論它)，強作用力的有效範圍被限制在核子內。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The fermions in SM are spin-1/2 particles that can be divided into two broad
+ categories: leptons and quarks.
+ Both leptons and quarks have 3 generations each.
+ There are two kinds of particles under each generation.
+ Different generations have the same properties except for the different
+ masses.
+ Leptons carry electrical charge and isospin charge, which are affected
+ by electromagnetic forces and weak forces.
+ The particles of each generation of leptons are electron and electron neutrino,
+ muon and muon neutrino, as well as tau and tau neutrino.
+ quarks carry electrical charge, isospin charge, and color charge, which
+ are affected by electromagnetic force, weak force and strong force.
+ The quarks of each generation are u and d, c and s, t and b.
+\end_layout
+
+\begin_layout Standard
+The gauge bosons in SM are particles of spin-1 and are responsible for transmitt
+ing the three forces previously discussed.
+ Photon is responsible for transmitting electromagnetic force.
+ Since the photon is massless, the electromagnetic force can propagate over
+ long distances (according to the uncertainty principle, the particles that
+ can transmit force can exist for 
+\begin_inset Formula $\Delta t=h/2\pi\Delta E$
+\end_inset
+
+.
+ Therefore, according to 
+\begin_inset Formula $E=mc^{2}$
+\end_inset
+
+, the massless photon can exist for an infinite amount of time).
+ W, Z are responsible for transmitting weak forces.
+ Due to their mass, the strength of the transmitted force exponential decay
+ by the distance, so they can only propagate within a short distance.
+ Gluon is responsible for transmitting strong forces.
+ Because of the "color confinement" (I will discuss it in the QCD section),
+ the effective range of strong forces is limited to the sizes of nucleons.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{Higgs}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+除此之外，SM中的scalar boson是Higgs particle，它和electronweak field的交互作用解釋了為什麼electronweak
+ field會symmetry breaking。在LHC實驗中發現Higgs particle，是對SM強而有力的驗證。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In addition, the scalar boson in the SM is the Higgs particle, and its interacti
+on with the electroweak field explains why the electroweak field is symmetry
+ breaking.
+ The Higgs particle found in the Large Hadron Collider (LHC) experiment
+ is a powerful validation of SM.
+\end_layout
+
+\begin_layout Section
+
+\strikeout on
+QCD
+\strikeout default
+Quantum Chromodynamics
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Quantum chromodynamics (QCD) 是一個建立在SU(3) symmetry的gauge field theory，它成功描述了quark
+ and gluon之間的strong interaction，它的重要特性像是asymptotic freedom, color confinement,
+ and scaling violation都可以解釋實驗觀察到的現象。以下我會，在讀者已經有Quantum Field Theory基礎知識的假設下，over
+view QCD的一些部分和特性。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+QCD Lagrangian is given as 
+\begin_inset Formula 
+\[
+(-1/4)F^{\mu\nu a}F_{\mu\nu a}+\underset{n}{\sum}\bar{\psi}_{n}(i\gamma^{\mu}D_{\mu}-m)\psi_{n}
+\]
+
+\end_inset
+
+第二項是fermion的動能項，滿足SU(3) local gauge transformation。我們稱QCD的fermion和gauge
+ boson為quark和gluon。
+\begin_inset Formula $n$
+\end_inset
+
+代表quark的flavour(類型)，在我們目前的QCD架構下，quark的flavour有u,d,s,c,b,t六種。如同QED，quark
+ couple to gluon field 
+\begin_inset Formula $A_{\mu}^{a}$
+\end_inset
+
+ via the the covariant derivative
+\begin_inset Formula 
+\[
+D_{\mu}=\partial_{\mu}-igA_{\mu}^{a}t_{a}
+\]
+
+\end_inset
+
+由於QCD是SU(3) field，quark field有三個charge，它們分別是red, blue, and green charge，而gluon則有
+八個degree of freedom 
+\begin_inset Formula $a$
+\end_inset
+
+，這是因為SU(3)對應的generators 
+\begin_inset Formula $t_{a}$
+\end_inset
+
+有八個(
+\begin_inset Formula $n^{2}-1$
+\end_inset
+
+)。第一項類比於量子電動力學(QED)裡面的電磁場，但是是SU(3)的gauge boson field。
+\begin_inset Formula 
+\[
+F_{\mu\nu a}=\partial_{\mu}A_{\nu a}-\partial_{\nu}A_{\mu a}-gf_{abc}A_{\mu}^{b}A_{\nu}^{c}
+\]
+
+\end_inset
+
+This term includes triple and quartic gluon self-interactions which give
+ rise to asymptotic freedom and jet.這個公式包含三個quark和4個quark之間的self-interactions，這導致
+一些QCD很重要的特性，像是asymptotic freedom and jet。由於gluons會不斷radiate更多的gluons和quark
+ pairs，hadronic scattering processes會製造包含大量quarks and gluons的jets，使的QCD
+ scattering的final states變的複雜。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+asymptotic freedom指的是strong coupling隨著energy scale上升而變弱。在量子場論中，feynman diagram的l
+oop項的修正會導致場之間的coupling隨scattering processes的energy scale改變而不是在Lagrangian裡的coupli
+ng constant。譬如說，在QED中，photon propagator的第一階修正是photon create electron-positron
+ pair and the pair recombine to a photon。in the process of 
+\begin_inset Formula $ee\longrightarrow ee$
+\end_inset
+
+，the repulsive force is caused by the exchanged photon between two electrons，pho
+ton propagator的第一階修正可以看作是真空中產生dipole，它造成screen effect使的電磁作用力在遠距離(low energy
+ scale)時變弱。在QCD中，quarks之間的strong interations會隨energy scale下降，這是由於gluon self-inte
+rations會製造anti-screen effect，抵銷color dipoles造成的screen effect，詳細的推導不在這裡說明。這個特性對QC
+D phonomenology有很重大的影響，首先，由於低能量的coupling接近無限大，quarks和gluons會bound在一起，這解釋了為什麼我們無法
+在scattering experiments中看到單獨的quark和gluon。除此之外，我們只能在在
+\begin_inset Formula $1\,GeV$
+\end_inset
+
+以上相信pertubative theory的結果。在hadronic scattering processes中，實際的做法是把過程分成hadron
+ level and parton level，在
+\begin_inset Formula $1\,GeV$
+\end_inset
+
+以上，我們用pertubative theory處理，而在
+\begin_inset Formula $1\,GeV$
+\end_inset
+
+以下，我們用實驗fit the probability distribution of quarks and gluons in hadrons，在下一節會有較
+深入的介紹。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Quantum chromodynamics (QCD) 是一個建立在SU(3) symmetry的gauge field theory，它成功描述了quark
+ and gluon之間的strong interaction，它的重要特性像是asymptotic freedom, color confinement,
+ and scaling violation都可以解釋實驗觀察到的現象。以下我會，在讀者已經有Quantum Field Theory (QFT)基礎知識的假設
+下，overview QCD的一些部分和特性。
+\end_layout
+
+\begin_layout Plain Layout
+QCD Lagrangian is given as 
+\begin_inset Formula 
+\[
+\underset{n}{\sum}\bar{\psi}_{n}(i\gamma^{\mu}D_{\mu}-m)\psi_{n}+(-1/4)F^{\mu\nu a}F_{\mu\nu a}
+\]
+
+\end_inset
+
+第一項是fermion的動能項，滿足SU(3) local gauge transformation。我們稱QCD的fermion和gauge
+ boson為quark和gluon。
+\begin_inset Formula $n$
+\end_inset
+
+代表quark的flavour(類型)，在我們目前的QCD架構下，quark的flavour有六種，也就是u,d,s,c,b,t。如同QED，quark
+ couple to gluon field 
+\begin_inset Formula $A_{\mu}^{a}$
+\end_inset
+
+ via the the covariant derivative
+\begin_inset Formula 
+\[
+D_{\mu}=\partial_{\mu}-igA_{\mu}^{a}t_{a}
+\]
+
+\end_inset
+
+由於QCD是SU(3) field，quark field有三個charge，它們分別是red, blue, and green charge，而gluon則有
+八個degree of freedom 
+\begin_inset Formula $a$
+\end_inset
+
+，這是因為SU(3)對應的generators 
+\begin_inset Formula $t_{a}$
+\end_inset
+
+有八個(
+\begin_inset Formula $n^{2}-1$
+\end_inset
+
+)。第二項類比於量子電動力學(QED)裡面的電磁場，是一個SU(3)的gauge boson field。It is written as
+\begin_inset Formula 
+\[
+F_{\mu\nu a}=\partial_{\mu}A_{\nu a}-\partial_{\nu}A_{\mu a}-gf_{abc}A_{\mu}^{b}A_{\nu}^{c}
+\]
+
+\end_inset
+
+The third term in Eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:QCD_Lagrangian"
+
+\end_inset
+
+ leads to triple and quartic gluon self-interactions which give rise to
+ some important features of QCD, such as asymptotic freedom and the existence
+ of jets.這個公式包含三個quark和4個quark之間的self-interactions，這導致一些QCD很重要的特性，像是jet and
+ asymptotic freedom。Jet是hadronic collisions中的產物，gluons攜帶charges和self-interaction
+的特性使它們不斷radiate更多的gluons和quark pairs，這導致hadronic scattering processes會產生大量指向相同方向
+的quarks and gluons的"jets"，使的QCD scattering的final states變的複雜。asymptotic freedom指的
+是strong coupling隨著energy scale上升而變弱。在量子場論中，feynman diagram的higher order
+ terms的修正會導致場之間的coupling隨scattering processes的energy scale改變而不是在Lagrangian裡的coup
+ling constant。譬如說，in the process of 
+\begin_inset Formula $ee\longrightarrow ee$
+\end_inset
+
+ (QED)，the repulsive force is caused by the exchanged photon between two
+ electrons.
+ photon propagator的第一階修正是photon create electron-positron pair and the pair
+ recombine to a photon。這個修正可以看作是真空中產生dipole，它造成screen effect使的電磁作用力在遠距離(low
+ energy scale)時變弱。在QCD中，由於gluon self-interations會製造anti-screen effect，抵銷color
+ dipoles造成的screen effect，quarks之間的strong interations的coupling在low energy
+ scale時接近無限大，並隨energy scale升高而下降，其one-loop beta function為
+\begin_inset Formula 
+\[
+\beta(\alpha_{s})=\alpha\frac{\alpha_{s}^{2}(11N_{c}-2N_{f})}{12\pi}
+\]
+
+\end_inset
+
+其中
+\begin_inset Formula $N_{c}$
+\end_inset
+
+和
+\begin_inset Formula $N_{f}$
+\end_inset
+
+分別是是the number of color charges and flavours。這個部分無法很簡單的從Lagrangian看出，詳細的推導不在這裡說明
+。這個特性對QCD phonomenology有很重大的影響，首先，quarks和gluons在low energy scale時會bound在一起，這qual
+itatively解釋了為什麼我們無法在scattering experiments中看到單獨的quark和gluon。除此之外，我們只能在在一個initial
+ scale 
+\begin_inset Formula $Q_{0}\sim1\,GeV$
+\end_inset
+
+以上相信QCD pertubative theory的結果。因此，在hadronic scattering processes的理論計算中我們必須特別處理
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+以下的部分， 
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+在
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+以上(parton level)，我們用pertubative theory處理，而在
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+以下(hadron level)
+\end_layout
+
+\end_inset
+
+，我們以用實驗data fit the probability distribution of quarks and gluons in hadrons的方式編
+碼hadronic states，在下一節會有較深入的介紹。
+\end_layout
+
+\begin_layout Plain Layout
+Quantum chromodynamics (QCD) is a gauge field theory based on SU(3) symmetry
+ that successfully describes the strong interaction between quark and gluon.
+ Its important features like asymptotic freedom, color confinement, and
+ scaling violation can explain Experimental observations.
+ Below I will review some parts and features of QCD under the assumption
+ that the reader already has the basic knowledge of Quantum Field Theory.
+\end_layout
+
+\begin_layout Plain Layout
+QCD Lagrangian is given as
+\begin_inset Formula 
+\begin{equation}
+\underset{n}{\sum}\bar{\psi}_{n}(i\gamma^{\mu}D_{\mu}-m)\psi_{n}+(-1/4)F^{\mu\nu a}F_{\mu\nu a}\label{eq:QCD_Lagrangian}
+\end{equation}
+
+\end_inset
+
+ The second term is the kinetic energy term of fermion, which satisfies
+ SU(3) local gauge transformation.
+ We call QCD's fermion and gauge boson quark and gluon.
+ 
+\begin_inset Formula $n$
+\end_inset
+
+ stands for flak's flavour.
+ Under our current QCD architecture, quark's flavour has six kinds of u,
+ d, s, c, b, and t.
+ Like QED, quark couple to gluon field 
+\begin_inset Formula $A_{\mu}^{a}$
+\end_inset
+
+ via the covariant derivative
+\begin_inset Formula 
+\begin{equation}
+D_{\mu}=\partial_{\mu}-igA_{\mu}^{a}t_{a}\label{eq:SU3_Cov_Derivative}
+\end{equation}
+
+\end_inset
+
+ Since QCD is a SU(3) field, the quark field has three charges, which are
+ red, blue, and green charge, and gluon has eight degrees of freedom 
+\begin_inset Formula $a$
+\end_inset
+
+, because SU(3) corresponds to generators 
+\begin_inset Formula $t_{a}$
+\end_inset
+
+ There are eight (
+\begin_inset Formula $n^{2}-1$
+\end_inset
+
+).
+ The first is analogous to the electromagnetic field in quantum electrodynamics
+ (QED), but is the gauge boson field of SU(3).
+\begin_inset Formula 
+\begin{equation}
+F_{\mu\nu a}=\partial_{\mu}A_{\nu a}-\partial_{\nu}A_{\mu a}-gf_{abc}A_{\mu}^{b}A_{\nu}^{c}\label{eq:QCD_F_munu}
+\end{equation}
+
+\end_inset
+
+ This term includes triple and quartic gluon self-interactions which give
+ rise to asymptotic freedom and jet.
+ This formula contains self-interactions between three quarks and four quarks,
+ which leads to some important features of QCD, such as asymptotic freedom
+ and Jet.
+ Since gluons will continuously radiate more gluons and quark pairs, hadronic
+ scattering processes will make jets containing a large number of quarks
+ and gluons, making the final states of QCD scattering complicated.
+\end_layout
+
+\begin_layout Plain Layout
+Asymptotic freedom means that the strong coupling weakens as the energy
+ scale rises.
+ In quantum field theory, the modification of the loop term of the feynman
+ diagram causes the coupling between fields to change with the energy scale
+ of the scattering processes rather than the coupling constant in Lagrangian.
+ For example, in QED, the first-order correction of photon propagator is
+ photon create electron-positron pair and the pair recombine to a photon.
+ In the process of 
+\begin_inset Formula $ee\longrightarrow ee$
+\end_inset
+
+, the repulsive force is caused by the exchanged photon between two electrons,
+ photon propagator's first-order correction can be seen as creating a dipole
+ in a vacuum, which causes the screen effect to make the electromagnetic
+ force at a long distance.
+ (low energy scale) becomes weaker.
+ In QCD, the strong interations between quarks will decrease with the energy
+ scale, because gluon self-interations will create an anti-screen effect,
+ offsetting the screen effect caused by color dipoles.
+ The detailed derivation is not explained here.
+ This feature has a significant impact on QCD phonomenology.
+ First, because the low-energy coupling is close to infinity, quarks and
+ gluons will be bound together, which explains why we can't see separate
+ quarks and gluons in scattering experiments.
+ In addition, we can only believe in the results of pertubative theory above
+ 
+\begin_inset Formula $1\,GeV$
+\end_inset
+
+.
+ In the hadronic scattering processes, the actual practice is to divide
+ the process into the hadron level and parton level.
+ Above 
+\begin_inset Formula $1\,GeV$
+\end_inset
+
+, we use the pertubative theory, and below 
+\begin_inset Formula $1\,GeV$
+\end_inset
+
+, we use the experiment fit the probability distribution of quarks and Gluons
+ in hadrons, there will be a more in-depth introduction in the next section.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+idea{
+\backslash
+sout{QCD introduction}Overview}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{there are quarks, gluons, flavours}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Quantum chromodynamics (QCD) 是一個建立在SU(3) symmetry的non-Abelian gauge field
+ theory，它成功解釋了核子內的現象，也是PDFs研究的基礎。這個理論架構中包含了quarks和gluons兩種粒子。quark相當於QED中的電子，有三種
+charges和正反兩種粒子，分別是紅色藍色和綠色和對應的反粒子。而gluon相當於QED中的光子，負責在quarks之間傳遞strong force。除此之外
+，我們目前發現six types of quarks，也就是up ,down ,strange, charm, bottom, top。我們稱quarks的ty
+pes為flavour。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Quantum chromodynamics (QCD) is a non-Abelian gauge field theory based on
+ SU(3) symmetry that successfully explains the phenomena in the nucleon
+ and is the basis for PDFs research.
+ This theoretical framework contains two kinds of particles (i.e.
+ quarks and gluons).
+ Quarks are analogous to electrons in QED.
+ There are three kinds of charges (colors) and three corresponding anticolor
+\strikeout on
+and the associated anti-particles
+\strikeout default
+, which are red, blue, green, anti-red, anti-blue, and anti-green charges.
+ Each color anti-red, etc.
+ Gluons are analogous to the photon in QED and are responsible for transmitting
+ strong forces between quarks.
+ In addition, we currently find six types, or flavours, of quarks, namely
+ up, down, strange, charm, bottom, top.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{how they interact to each other (analogy to photon and electron,
+ color charge)}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+和QED不同的是，gluon攜帶charge，因此可以在emission的過程中交換quark的color。譬如說，red quark and
+ blue quark can exchange a gluon with red and anti-blue charges so that
+ they red become blue and blue become red.
+ 由於gluon 可以攜帶charge，gluon可以和gluon self-interaction。這導致一些QCD現象學很重要的特性，像是jet,
+ asymptotic freedom, and color confinement。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Unlike QED, gluons carry charge, so you can exchange quarks' color during
+ the emission.
+ For example, red quark and blue quark can exchange a gluon with red and
+ anti-blue charges, so that the red becomes blue and the blue becomes red.
+ Since gluons can carry charge, gluons are self-interacting.
+ This leads to some important features of QCD phenomenology, such as asymptotic
+ freedom and color confinement.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+idea{
+\backslash
+sout{color confinement}Color Confinement}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+...
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{only baryon, meson, we can not see single quark}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Color confinement是QCD一個很重要的特性。我們無法在實驗中看到individual color-charged particles。我們看到的
+總是包含兩顆quarks的mesons和三顆quarks的baryons。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Color confinement is a very important feature of QCD.
+ We are unable to see the individual color-charged particles in experiments.
+ What we see always consists of mesons with two quarks and baryons with
+ three quarks.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{neutral color, because of gluon force}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+這類複合粒子叫做hadron，他們總是color neutral。譬如說，ud無法攜帶color neutral charge，因此是被禁止的。這個現象可以用q
+uarks之間的gluon force解釋。quarks之間會形成一種gluon flux tube，當他們被分開時，彼此之間的gluon field不會衰減而
+是一個常數。當一個quark pair分開的足夠遠時，這個tube會斷掉並形成quark pair各自和tube兩端的quark配對。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This type of composite particles is called hadrons, which are always color
+ neutral.
+ For example, u and d quarks can't carry color neutral charges, so the correspon
+ding meson is forbidden.
+ This phenomenon can be explained by the gluon force between quarks.
+ Gluon flux tubes are formed between quark pairs.
+ When quark pairs are separated, the gluon field between them does not decay
+ but is a constant.
+ When a quark pair is separated far enough, the tube is broken and the quark
+ pair is paired with the quark at each end of the tube (see Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:color_confinement"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename src/Chapters/CH2_plots/color_field_snap.gif
+	width 50col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+xxx 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:color_confinement"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+idea{
+\backslash
+sout{asym freedom}Asymptotic Freedom}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{what is asymptotic freedom (coupling descrease by energy scale,
+ compared with QED)}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+asymptotic freedom指的是strong coupling隨著energy scale上升而變弱，這是和QED非常不同的地方。QED中的coupl
+ing constant隨著能量增強而下降。相反的，QCD的coupling constant在能量非常高的地方消失(Fig.
+ xxx)。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Asymptotic freedom means that the strong coupling weakens as the energy
+ scale rises, which is very differ from QED.
+ The coupling constant in QED decreases as energy increases.
+ Conversely, QCD's coupling constant disappears at very high energy (Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:aym_freedom"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename src/Chapters/CH2_plots/asym_freedom.png
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+xxx 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:aym_freedom"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{running coupling, gluon contribute opposite to quark (show the plot)}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+這個coupling constant隨能量改變的現象是量子場論給出的重要預測之一。考慮一個古典版本的QED，電子之間的Coulomb repulsive
+ force是kq1q2/r^2，其中電荷的大小總是一個常數。然而，但在QED中，真空可以產生virtual particles，這會使電子感受到的彼此的電荷的
+大小隨他們之間的距離改變。譬如說，in the process of 
+\begin_inset Formula $ee\longrightarrow ee$
+\end_inset
+
+ (QED)，the Coulomb force is produced by the exchanged photon between two
+ electrons.同時，兩個electrons之間的真空中產生polarized dipole，它造成screen effect使的電磁作用力在遠距離(low
+ energy scale)時變弱。
+\end_layout
+
+\begin_layout Plain Layout
+在QCD中，gluon self-interations會增強gluon field的強度，抵銷color dipoles造成的screen effect，我們
+通常稱這個效應為anti-screen effect。根據計算，只要number of flavours小於16，anti-screen effect就會強過s
+creen effect，使的coupling constant隨能量變小。由於QCD只有6種quarks，quarks之間的strong interation
+s的coupling在low energy scale時接近無限大，並隨energy scale升高而下降。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This phenomenon in which the coupling constant changes with energy is one
+ of the important predictions given by quantum field theory.
+ Considering a classical version of QED, the Coulomb repulsive force between
+ electrons is 
+\begin_inset Formula $kq_{1}q_{2}/r^{2}$
+\end_inset
+
+, where the magnitude of the charge is always a constant.
+ However, in QED, the vacuum can produce virtual particles, which causes
+ the magnitude of each other's charge to change with the distance between
+ them.
+ For example, in the process of 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset Formula $ee\longrightarrow ee$
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+electron-electron scattering(QED), the Coulomb force is produced by the
+ exchanged photon between two electrons.
+ At the same time, polarized dipoles are generated in the vacuum between
+ the two electrons, which cause the screening effect that weakens electromagneti
+c force at low energy scale (or long distance).
+\end_layout
+
+\begin_layout Standard
+In QCD, gluon self-interactions will enhance the strength of the gluon field,
+ offsetting the screening effect caused by color dipoles, which we usually
+ call the anti-screening effect.
+ According to the calculation, as long as the number of flavours is less
+ than 16, the anti-screening effect will be stronger than the screening
+ effect, so that the coupling constant becomes smaller by the energy scale.
+ Since QCD has only six kinds of quarks, the coupling of strong interactions
+ between quarks is close to infinite at low energy scale and decreases with
+ 
+\color blue
+increasing(<-delete it?)
+\color inherit
+ energy scale.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status collapsed
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{beta function: the physical observable is independent of scaling,
+ so by the chain rule, coupling constant will depend on the scaling}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Quantum 
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{show the plot of $
+\backslash
+alpha_{s}(Q)$  }
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Fig.
+ xxx是strong coupling在不同energy scales的強度變化: 它造成了許多包括confinement在內的一些結果。在低能量下quark
+s之間的bounding非常強，這qualitatively解釋了為什麼我們無法在hadronic scattering experiments中看到單獨的qu
+ark和gluon。由於兩個距離很遠(此時它們處在low energy scale狀態)的quarks之間的能量遠高於兩對距離很遠的color
+ neutral的quark pairs，真空會製造多餘的quarks把兩個single quarks變成兩對quark pairs。除此之外，由於太強的str
+ong coupling不滿足pertubative theory的approximation，我們只能在在一個
+\strikeout on
+initial
+\strikeout default
+ scale 
+\begin_inset Formula $\Lambda\sim1\,GeV$
+\end_inset
+
+以上相信QCD pertubative theory的結果。因此，我們必須用其它方式了解
+\begin_inset Formula $\Lambda$
+\end_inset
+
+以下的hadronic states，PDFs研究即是其主要的手段。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:aym_freedom"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ is the strength change of strong coupling on 
+\color blue
+different(wrong word?)
+\color inherit
+ energy scales: it causes a number of results including confinement.
+ The bounding between quarks at very low energy is very strong, which qualitativ
+ely explains why we can't see separate quarks and gluons in hadronic scattering
+ experiments.
+ Since the energy between the two quarks that are far apart (when they are
+ in the low energy scale state) is much higher than the two pairs of color
+ neutral quark pairs that are far apart, the vacuum creates extra quarks
+ and turns the two single quarks into two quark pairs.
+ In addition, because too large strong coupling does not satisfy the approximati
+on of perturbative theory, we can only believe the results of QCD perturbative
+ theory above an initial scale 
+\begin_inset Formula $\Lambda\sim1\,GeV$
+\end_inset
+
+.
+ Therefore, we must use other methods to understand the hadronic states
+ below 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+.
+ PDFs research is the main means for understanding it.
+\end_layout
+
+\begin_layout Section
+PDFs and factorization
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+idea{
+\backslash
+sout{convolution eq}Hadronic Phenomenology}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{q, g are confined, we need experiment to explore them}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+因為asymtotic freedom的緣故，quarks and gluons are confined and we can only see
+ hadrons in experimental detectors。除此之外，我們也無法解析的理解hadronic states。研究hadrons的手段因此
+強烈的依賴於hadronic scattering experiments。這類實驗會用
+\begin_inset Formula $\Lambda$
+\end_inset
+
+以上能量的hadrons進行對撞，並偵測對撞過程中的碎片來反推hadrons內的狀態。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Because of asymptotic freedom, quarks and gluons are confined and we can
+ only see hadrons in experimental detectors.
+ Besides, we are also unable to get analytically solutions of hadronic states.
+ The means of studying hadrons are therefore strongly dependent on hadronic
+ scattering experiments.
+ This type of experiment will implement hadronic collisions with energy
+ above 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+ and detect debris in the collision process to study the state inside the
+ hadrons.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{$
+\backslash
+sigma=F(
+\backslash
+mu) 
+\backslash
+otimes 
+\backslash
+sigma(
+\backslash
+mu)_{hard_scattering}$}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+hadronic scattering experiments觀測到的結果同時關連到hadronic states和hard scattering
+ processes。以Deep Inelastic Processes (DIS)為例子，這種process包含一個hadron和一個lepton
+ particle。整個碰撞過程可以分解成兩部分，一部分是lepton和一個quark or gluon對撞的過程，另一部分根據hadronic
+ state決定哪種quark or gluon參與反應。這個實驗結果和hadronic states之間的關係可以寫成
+\begin_inset Formula 
+\begin{equation}
+\sigma(\mu)=F(x,\mu)\otimes\hat{\sigma}(\mu)
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+其中LHS是實驗量到的cross section，RHS包含了和hadronic state有關的F和對應於lepton-quark/gluon
+ scattering process的cross section，也就是hard scattering process。
+\color blue
+(或許需要解釋convolution eq)
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The results observed by hadronic scattering experiments are related to both
+ hadronic states and hard scattering processes.
+ Let's take Deep Inelastic Processes (DIS) as an example, this type of processes
+ contains a hadron and a lepton particle in the initial state.
+ The entire collision process can be broken down into two parts, one is
+ the process of the collision between a lepton and a quark or gluon, and
+ another part is based on the hadronic state to determine which quark or
+ gluon is involved in the reaction.
+ The relationship between the experimental results and hadronic states can
+ be written as 
+\begin_inset Formula 
+\begin{equation}
+\sigma(\mu)=\underset{a}{\sum}F_{a}(x,\mu)\otimes\hat{\sigma}^{a}(\mu)\label{eq:convolution_eq}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The LHS is the experimental cross section, and the RHS contains the 
+\begin_inset Formula $F_{a}(x,\mu)$
+\end_inset
+
+ (associated with the hadronic state) and the cross section corresponding
+ to the lepton-quark/gluon scattering process, which is also called the
+ hard scattering process.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{it is divide the whole process into pertubative and non-pertubative
+ parts}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+這個equation中，hard scattering process的cross section是pertubatively calculable，這使我們能
+夠藉由hadronic scattering experiments獲取hadronic state的知識。另一方面，這個equation顯示了，DIS
+ processes可以分解成pertubative (hard scattering) and non-pertubative parts (hadronic
+ physics)。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In this equation, the cross section of the hard scattering process is perturbati
+vely calculable, which allows us to acquire hadronic state knowledge through
+ hadronic scattering experiments.
+ On the other hand, this equation shows that DIS processes can be broken
+ down into perturbative (hard scattering) and non-perturbative parts (hadronic
+ physics).
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+idea{
+\backslash
+sout{PDFs}Parton Distribution Functions}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{define PDFs $f(x, 
+\backslash
+mu)$, probability of finding partons}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+convolution equation中的F，叫做Parton Distribution Functions 
+\begin_inset Formula $f_{a}(x,\mu)$
+\end_inset
+
+ (PDFs)為特定parton
+\color blue
+->quarks and gluons (也叫做partons)
+\color inherit
+ in the hadron with a momentum fraction 
+\begin_inset Formula $x$
+\end_inset
+
+ and the factorization scale 
+\begin_inset Formula $\mu$
+\end_inset
+
+ (usually set as the transverse energy of scattering processes)參與碰撞的機率。這個parton在
+歷史上被證實是quarks and gluons in the quark model。
+\color blue
+->delete it
+\color inherit
+\lang american
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The 
+\begin_inset Formula $F_{a}(x,\mu)$
+\end_inset
+
+ in the convolution equation is called Parton Distribution Functions (PDFs),
+ representing the probability that a specific quarks and gluons (also called
+ partons) 
+\begin_inset Formula $a$
+\end_inset
+
+ in the hadron with a momentum fraction 
+\begin_inset Formula $x$
+\end_inset
+
+ participating the interaction 
+\strikeout on
+(usually set as the transverse energy of scattering processes )
+\strikeout default
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{x dependency: partons are point-like, free (no interaction with
+ each others)}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+這個描述hadronic state的模型
+\color blue
+->方式
+\color inherit
+的特性是，他假設hadrons裡面的partons是point-like and free particle。不同類型和momentum fraction
+ x的partons有各自的機率。在這個假設下，hadronic interations實際上是外來的粒子隨機的和hadrons裡面的其中一個free
+ parton碰撞。這樣的假設在high energy scale是合理的，因為asymptotic freedom使的這些partons之間的coupling
+是很小的。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The characteristic of this way which describes the hadronic state is that
+ it assumes that the partons in hadrons are point-like and free particles.
+ Partons with different types and momentum fraction 
+\begin_inset Formula $x$
+\end_inset
+
+ have their own probabilities.
+ Under this assumption, in a hadronic interaction, an external particle
+ randomly collides with one of the free partons inside the hadron.
+ This assumption is reasonable at a high energy scale because the asymptotic
+ freedom guarantees the small coupling between partons.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{When time of scattering << time of strong force $1/
+\backslash
+Lambda_{QCD}$, the model works ($Q~
+\backslash
+Lambda_{QCD}$, higher twist effect become important)}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+另一個看法是，我們估計hadrons內quarks and gluons之間的interaction的反應時間為
+\begin_inset Formula $t\sim1/\Lambda$
+\end_inset
+
+。若我們用遠大於
+\begin_inset Formula $\Lambda$
+\end_inset
+
+的能量的對撞quarks or gluons，其反應時間會遠小於
+\begin_inset Formula $t$
+\end_inset
+
+，這就使的反應在quarks and gluons感受到彼此之間的的力前就完成了。因此，在遠大於1 GeV的對撞中，我們的assumption是合理的。在接近1
+ GeV的對撞中，這些quarks and gluons之間的力造成的高階效應叫做higher twist effect，不在thesis的討論範圍之內。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Another way to see this is to estimate the reaction time between the quarks
+ and gluons in the hadrons as 
+\begin_inset Formula $t\sim1/\Lambda$
+\end_inset
+
+.
+ If we collide quarks or gluons at energy scale much larger than 
+\begin_inset Formula $\Lambda$
+\end_inset
+
+, the reaction time will be much less than 
+\begin_inset Formula $t$
+\end_inset
+
+, which will allow the reaction to be completed before the quarks and gluons
+ feel the force between each other.
+ Therefore, at a collision energy far greater than 
+\strikeout on
+1 GeV
+\strikeout default
+
+\begin_inset Formula $\Lambda$
+\end_inset
+
+, our assumption is reasonable.
+ In a collision close to 
+\strikeout on
+1 GeV
+\strikeout default
+
+\begin_inset Formula $\Lambda$
+\end_inset
+
+, the higher-order effect caused by the forces between these quarks and
+ gluons is called the high twist effect and is not within the scope of thesis.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+idea{
+\backslash
+sout{factorization}Factorization}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{Q dependency: the scale to divide the hadron level and parton level}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+parton level的gluon ratiations和其它higher order terms是發散的，考慮the lowest order
+ correction，我們會發現soft radiation和loop的發散項會抵銷留下有限項，而collinear radiation(即radiation
+s with low transverse momentum)的發散無法被消掉，這需要引進collinear factorization處理。類比於renorm
+alization中引進arbitrary cutoff 
+\begin_inset Formula $\Lambda_{cutoff}$
+\end_inset
+
+，我們用選定的factorization scale
+\begin_inset Formula $\mu_{F}$
+\end_inset
+
+把long distance和short distance contributions分開，並將long distance的high order
+ logarithm terms吸收到無法為擾計算的PDFs中，並給定PDFs在不同給定energy scale之間的轉換關係。
+\end_layout
+
+\end_inset
+
+ 剛才的解釋說明每種flavour在hadrons內的機率分佈是獨立的
+\begin_inset Formula $F_{a}(x)$
+\end_inset
+
+，然而，convoluion eq中的
+\begin_inset Formula $F_{a}(x,\mu)$
+\end_inset
+
+顯示碰撞過程中外來粒子看到的partons的分佈會和碰撞能量有關，譬如，DIS的processes的實驗就可以觀察到
+\begin_inset Formula $F_{a}(x)$
+\end_inset
+
+隨energy Q改變 (Fig.
+ 12 in [hep-ex/9607002])。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The above explanation just illustrates that the probability distribution
+ of each flavour in hadrons is 
+\begin_inset Formula $F_{a}(x)$
+\end_inset
+
+.
+ However, 
+\begin_inset Formula $F_{a}(x,\mu)$
+\end_inset
+
+ in the convoluion equation shows that during collision processes, the parton
+ distributions seen by external particles will also be related to the collision
+ energy.
+ For example, we can observe that 
+\begin_inset Formula $F_{a}(x)$
+\end_inset
+
+ change by the energy scale 
+\begin_inset Formula $Q$
+\end_inset
+
+ in DIS processes at HERA (Fig.
+ 12 in [hep-ex/9607002]).
+ How do we understand the 
+\begin_inset Formula $\mu$
+\end_inset
+
+ dependency in PDFs?
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+parton level的gluon ratiations和其它higher order terms是發散的，考慮the lowest order
+ correction，我們會發現soft radiation和loop的發散項會抵銷留下有限項，而collinear radiation(即radiation
+s with low transverse momentum)的發散無法被消掉，這需要引進collinear factorization處理。類比於renorm
+alization中引進arbitrary cutoff 
+\begin_inset Formula $\Lambda_{cutoff}$
+\end_inset
+
+，我們用選定的factorization scale
+\begin_inset Formula $\mu_{F}$
+\end_inset
+
+把long distance和short distance contributions分開，並將long distance的high order
+ logarithm terms吸收到無法為擾計算的PDFs中，並給定PDFs在不同給定energy scale之間的轉換關係。
+\end_layout
+
+\end_inset
+
+然而，這模型
+\color blue
+->我們剛才
+\color inherit
+只解釋了PDFs中的x dependency。為什麼碰撞過程中，partons在hadrons內的分佈會和碰撞能量有關呢?我們之前提到，convolution
+ equation指出我們可以把hadronic scattering processes分成high energy scale的pertubative
+ part and low energy scale non-pertubative part。然而，選擇用哪個energy scale去分開high
+ energy and low energy part是自由的。這代表選擇的scale會改變hadronic physics涵蓋的範圍，進而影響PDFs。Fig.
+ xxx中分開Feynman diagram的線表示了可以自由選擇的energy scale。我們把這個分開high energy and low
+ energy parts的scale叫做factorization scale 
+\begin_inset Formula $\mu_{F}$
+\end_inset
+
+。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\strikeout on
+However, we only explain the 
+\begin_inset Formula $x$
+\end_inset
+
+ dependency in PDFs.
+ Why is the distribution of partons in the hadrons related to the collision
+ energy during the collision?
+\strikeout default
+ As we mentioned earlier, the convolution equation indicates that we can
+ divide the hadronic scattering processes into high-energy scale perturbative
+ part and low energy scale non-perturbative parts.
+ However, choosing which energy scale to use to separate high energy and
+ low energy parts is free.
+ This means that the chosen scale will change the (energy) range covered
+ by hadronic physics, which in turn affects PDFs.
+ The line separating the Feynman diagram in Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:factorization"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+ represents the freely selectable energy scale.
+ We call this scale that divides the high energy and low energy parts the
+ factorization scale 
+\begin_inset Formula $\mu_{F}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename src/Chapters/CH2_plots/collinear_factorization.png
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+xxx 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:factorization"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{$
+\backslash
+sigma(
+\backslash
+mu)_{hard_scattering}$, by chain rule, $F(
+\backslash
+mu)$ should valence the change of $
+\backslash
+sigma(
+\backslash
+mu)_{hard_scattering}$}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+The derivative of convolution equation with respect to 
+\begin_inset Formula $\mu_{F}$
+\end_inset
+
+可以更清楚的知道PDFs如何隨
+\begin_inset Formula $\mu_{F}$
+\end_inset
+
+變化。hadronic cross section並不會和factorization scale有關，因此根據chain rule，
+\begin_inset Formula $\partial F(x,\mu)/\partial\mu\otimes\hat{\sigma}(\mu)=F(x,\mu)\otimes\partial\hat{\sigma}(\mu)/\partial\mu$
+\end_inset
+
+，the change of hard scattering contribution by 
+\begin_inset Formula $\mu_{F}$
+\end_inset
+
+ must be balanced by the change of PDFs.
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The derivative of convolution equation with respect to 
+\begin_inset Formula $\mu_{F}$
+\end_inset
+
+ 
+\color blue
+***
+\color inherit
+makes us know more clearly how PDFs change with 
+\begin_inset Formula $\mu_{F}$
+\end_inset
+
+.
+ The hadronic cross section is not related to the factorization scale (
+\begin_inset Formula $\partial\sigma(\mu)/\partial\mu=0$
+\end_inset
+
+).
+ Therefore, according to the chain rule 
+\begin_inset Formula $(\partial F(x,\mu)/\partial\mu)\otimes\hat{\sigma}(\mu)+F(x,\mu)\otimes(\partial\hat{\sigma}(\mu)/\partial\mu)=0$
+\end_inset
+
+, which suggests the change of hard scattering contribution by 
+\begin_inset Formula $\mu_{F}$
+\end_inset
+
+ must be balanced by the change of PDFs.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{show the feyman diagram with $
+\backslash
+mu$ indicating the factorization}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+xxx
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{remind the factorization is like the running coupling (optional)}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+如
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{mention that the factorization is not in general}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+證明the university of factorization theorem is not trivial。並且，factorization並不是對所有的
+processes都有效。我們並不在此探討。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+xxx
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+idea{
+\backslash
+sout{DGLAP eq (RG group, beta function, comparison of PDFs at 2GeV and 100
+ GeV)}DGLAP Equation}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{show the DGLAP equation for quark and gluon}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+類比於running coupling in the renormalization group，我們還能用DGLAP equation描述PDFs隨
+\begin_inset Formula $\mu_{F}$
+\end_inset
+
+的變化速率。the equation is written as
+\begin_inset Formula 
+\[
+\partial f/\partial log(\mu)=splittingfunction-convolute-f(x,\mu)
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+其中spliting function是來自hard scattering的貢獻。有了這個equation，hadronic experiments
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\color blue
+***
+\color inherit
+Analogous to the running coupling in the renormalization group, we can also
+ use the DGLAP equation 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{Altarelli:1977zs,Dokshitzer:1977sg,Gribov:1972ri}
+\end_layout
+
+\end_inset
+
+ to describe the rate of change of PDFs with 
+\begin_inset Formula $\mu_{F}$
+\end_inset
+
+.
+ The equation is written as
+\color blue
+***
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\[
+\partial F_{a}(x,\mu)/\partial\ln\mu^{2}\sim\frac{\alpha_{s}(\mu^{2})}{2\pi}\underset{b}{\sum}(P_{ab}\otimes F_{b}(x,\mu))
+\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{explain what is splitting function with no formulas (q$
+\backslash
+rightarrow$qg, g$
+\backslash
+rightarrow$qq, g$
+\backslash
+rightarrow$gg)}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+其中spliting function是來自hard scattering的貢獻，描述the probability that quarks and
+ gluons with momentum fraction 
+\begin_inset Formula $x$
+\end_inset
+
+ radiate a soft or collinear gluon，目前我們對splitting function的估計是到NNLO.
+ DGLAP equation告訴我們the evolution of PDFs in any 
+\begin_inset Formula $Q>Q_{0}$
+\end_inset
+
+ region is related to the convolution of PDFs and the splitting functions,
+ where we only extract the PDFs above an intial scale 
+\begin_inset Formula $Q_{0}>>\Lambda$
+\end_inset
+
+ as we want to make sure that the perturbative assumption works well。下圖是兩個不同scal
+e的PDFs的比較，我們在high 
+\begin_inset Formula $Q^{2}$
+\end_inset
+
+發現small x PDFs變得很大，它們來自於大量的gluon radiation。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The splitting function
+\color blue
+***
+\color inherit
+ 
+\begin_inset Formula $P_{ab}$
+\end_inset
+
+ comes from the hard scattering contribution, which describes the probability
+ that 
+\strikeout on
+quarks and gluons
+\strikeout default
+ parton 
+\begin_inset Formula $a$
+\end_inset
+
+ with momentum fraction 
+\begin_inset Formula $x$
+\end_inset
+
+ radiates a soft or collinear 
+\strikeout on
+gluon
+\strikeout default
+ 
+\begin_inset Formula $b$
+\end_inset
+
+.
+ At present, our knowledge
+\strikeout on
+estimation
+\strikeout default
+ of the splitting function is to NNLO [cite xxx].
+ The DGLAP equation tells us that the evolution of PDFs in any 
+\begin_inset Formula $Q>Q_{0}$
+\end_inset
+
+ region is related to the convolution of PDFs and the splitting functions,
+ , where we only extract the PDFs above an intial scale 
+\begin_inset Formula $Q_{0}>>\Lambda$
+\end_inset
+
+ as we want to make sure that the perturbative assumption works well.
+ The Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:CT10-NNLO_2_scales"
+
+\end_inset
+
+ is a comparison of two different scales of PDFs.
+ We found that small 
+\begin_inset Formula $x$
+\end_inset
+
+ PDFs became very large at high 
+\begin_inset Formula $Q^{2}$
+\end_inset
+
+, which came from a large amount of gluon radiation.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename src/Chapters/CH2_plots/nadolsky_pavel_fig1.png
+	width 50col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+CT10 NNLO (solid color) and NLO (dashed) parton distribution functions at
+ 2 
+\begin_inset Formula $GeV$
+\end_inset
+
+ and 85 
+\begin_inset Formula $GeV$
+\end_inset
+
+.
+ 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:CT10-NNLO_2_scales"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\color blue
+***
+\color inherit
+section or subsection? PDFs and it’s role in experiments (VBP, jet, ttbar),
+ status: PDF groups and sets
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+idea{
+\backslash
+sout{PDFs and it’s role in experiments (VBP, jet, ttbar), status: PDF groups
+ and sets} Status of PDF Researches}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{DY $
+\backslash
+rightarrow$ W/Z; jet $
+\backslash
+rightarrow$ gluon (feynman diagram); ttbar $
+\backslash
+rightarrow$ gluon (feynman diagram)}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+目前hadronic experiments對PDFs的限制範圍大約在
+\begin_inset Formula $x\sim(10^{-5},0.5)$
+\end_inset
+
+ and 
+\begin_inset Formula $\mu\sim(1,5000)$
+\end_inset
+
+ GeV 之間。這些hadronic experiments包括DIS processes, Drell-Yan processes, inclusive
+ jet processes, ttbar processes，我們已經在the PDF global fit section 提過.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\strikeout on
+Currently, hadronic experiments have constrained on PDFs between
+\strikeout default
+At present, the kinematic parameter space in PDFs constrained by hadron
+ experiments is approximately between 
+\begin_inset Formula $x\sim(10^{-5},0.5)$
+\end_inset
+
+ and 
+\begin_inset Formula $\mu\sim(1,5000)$
+\end_inset
+
+ GeV.
+ These hadronic experiments include DIS processes, Drell-Yan processes,
+ inclusive jet processes, 
+\begin_inset Formula $t\bar{t}$
+\end_inset
+
+ processes, which we 
+\strikeout on
+have already mentioned
+\strikeout default
+ will mention in the next section: PDF global fit 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec:PDF-global-fit"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+由於PDFs是one of main sources of uncertainties for LHC cross sections and quantitie
+s，我們需要縮小PDF uncertainties和擴大探索的
+\begin_inset Formula ${x,\mu}$
+\end_inset
+
+ range。除了目前LHC的data外，一些LHC的升級計畫，像是High-Luminosity LHC (HL-LHC) and The Large
+ Hadron Electron Collider (LHeC) 也有潛力進一步限制PDFs。HL-LHC是一個升級LHC使其產生更高的luminosity的計
+畫。LHeC則是在LHC裡加裝電子加速器的計畫。這個計畫使我們獲得更高能量的electron-proton and electron-ion collision
+s (遠高於目前的HERA的能量)。另外，也有一些的electron–ion collider (EIC)的計畫，它們都有限制PDFs的潛力。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Since PDFs are one of main sources of uncertainties for LHC cross sections
+ and quantities, we need to narrow down the PDF uncertainties and expand
+ the 
+\begin_inset Formula ${x,\mu}$
+\end_inset
+
+ range of exploration.
+ In addition to the current LHC data, some LHC upgrade programs, such as
+ High-Luminosity LHC (HL-LHC) and The Large Hadron Electron Collider (LHeC),
+ have the potential to further constrain PDFs.
+ The HL-LHC is a program to upgrade the LHC to produce higher luminosity.
+ LHeC is a plan to install an electron accelerator in the LHC.
+ This project allows us to obtain higher energy electron-proton and electron-ion
+ collisions (far higher than the energy scale of current HERA).
+ In addition, there are some electron-ion collider (EIC) projects that have
+ the potential to constrain PDFs.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Therefore, I will talk about my survey about the impact of future experimental
+ plans to PDF knowledge in chapter xxx.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Therefore, I will talk about my survey about the impact of future experimental
+ plans to PDF knowledge in chapter xxx.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{energy scales and x ranges of present hadronic experiments}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+xxx
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+xxx
+\end_layout
+
+\begin_layout Section
+PDF global fit
+\begin_inset CommandInset label
+LatexCommand label
+name "sec:PDF-global-fit"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+idea{
+\backslash
+sout{we need fit PDFs with different kinds of data}Overview}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{why we need diff data}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+PDFs由在low energy scale的non-pertubative QCD決定，我們沒有辦法計算它的analytical solution
+\color blue
+->從第一原理計算它的analytical Solutions是非常有挑戰性的(幾個目前的嘗試為xxx Cite)
+\color inherit
+。 目前最可靠的獲取PDFs知識的方法是PDF global fit。 global fit這個方法常常在高能物理的領域被使用。給定的有許多參數的物理模型，這個
+方法利用實驗data來估計最佳的參數。除此之外，這個方法也允許我們評估which models fit the data best。In the
+ case of PDF global fit，我們希望能探索不同flavours, {x,
+\backslash
+mu} ranges的PDFs。因此，我們挑選的data必須能盡量sensitive to廣大的{x,
+\backslash
+mu}的PDFs。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+PDFs are determined by the non-perturbative QCD on the low energy scale.
+ Numerically computing its analytical solutions via the first principle
+ is still challenging.
+ The most reliable way to get knowledge of PDFs is PDF global fit.
+ The global fit method is often applied in the field of high energy physics.
+ Given a physical model with many parameters, this method uses experimental
+ data to estimate the best parameters.
+ In addition, this method also allows us to evaluate which models fit the
+ data best.
+ In the case of PDF global fit, we hope to explore PDFs of various flavours,
+ 
+\begin_inset Formula ${x,\mu}$
+\end_inset
+
+ ranges.
+ Therefore, the data we choose must be as sensitive as possible to a broad
+ range of 
+\begin_inset Formula ${x,\mu}$
+\end_inset
+
+ PDFs.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{we have DIS, VBP, jet, ttbar}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+目前PDF global fits中使用的data包含以下幾種類型: DIS processes, Drell-Yan processes, inclusive
+ jet processes, ttbar processes.
+ DIS直接測量nucleon的structure functions，因此它的結果跟各種flavours的PDFs都有關係。
+\end_layout
+
+\begin_layout Plain Layout
+Drell-Yan processes中最常見的channels是W, Z production processes。這些W, Z有很大機率由u,
+ d產生，因此Drell-Yan processes對u, d PDFs有很大的影響。W+, W- processes的asymmetry也sensitive
+ to u, d PDFs的ratio。jet processes的最主要channels則是gluon interactions，因此jet
+ processes對gluon很敏感。另外，jet processes也sensitive to c, b PDFs。這是因為我們通常會假設no
+ intrinsic charm and bottom quarks。也就是說在Q0 scale，charm and bottom並不在nucleon裡，c
+ and b因此都來自gluon splitting。 
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+u,
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Currently, the data used in PDF global fits include the following types:
+ Deep Inelastic processes (DIS), Drell-Yan processes, inclusive jet processes,
+ 
+\begin_inset Formula $t\overline{t}$
+\end_inset
+
+ processes.
+ Among them, DIS directly measures the structure functions of the nucleon.
+ Therefore, its results are related to various PDFs of flavours.
+ The most common channels in Drell-Yan processes are W and Z production
+ processes (Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:DY"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+).
+ These W and Z bosons have a high probability of being produced by u and
+ d, so Drell-Yan processes have a great 
+\color blue
+influence(wrong word?)
+\color inherit
+ on u and d PDFs.
+ The asymmetry of 
+\begin_inset Formula $W_{+}$
+\end_inset
+
+ and 
+\begin_inset Formula $W_{-}$
+\end_inset
+
+ processes is also sensitive to u/d ratio of PDFs.
+ The main channels of jet processes are gluon interactions, so jet processes
+ are very sensitive to gluon PDF.
+ In addition, jet processes are also sensitive to c and b PDFs.
+ This is because we usually assume 
+\strikeout on
+no 
+\strikeout default
+that intrinsic charm and bottom quarks do not exist.
+ That is to say, on initial scale 
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+, charm and bottom are not in nucleon and therefore are all produced by
+ gluon splitting processes.
+ (ttbar diagram: Fig.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig:ttbar"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename src/Chapters/CH2_plots/DY.png
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+xxx 
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:DY"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Graphics
+	filename src/Chapters/CH2_plots/tt_prod2.png
+	width 100col%
+
+\end_inset
+
+
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+xxx
+\begin_inset CommandInset label
+LatexCommand label
+name "fig:ttbar"
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+idea{
+\backslash
+sout{parametrization functions}Parametrization Functions}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{model PDFs with x of a1 (1-x) of a2 F(a3,...,an)}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+在PDF global fit中，我們藉由parametrized functions 描述理論模型(即PDFs)，並fit這些models。理論模型通常包含所
+有flavours的parametrised functions: 
+\begin_inset Formula $f_{i}(x,Q_{0})=a_{0}x^{a_{1}}(1-x)^{a_{2}}F(a_{3},a_{4},......)$
+\end_inset
+
+，其中i是flavour指標，
+\begin_inset Formula $a_{n}$
+\end_inset
+
+是函數的參數。
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $a_{0}x^{a_{1}}(1-x)^{a_{2}}$
+\end_inset
+
+項要求一個parton的動量ratio的機率在ratio等於0或1時是0。所以大部分的PDF sets的參數化包含這項。每個PDF set有自己的
+\begin_inset Formula $F(a_{3},a_{4},......)$
+\end_inset
+
+，好的
+\begin_inset Formula $F(a_{3},a_{4},......)$
+\end_inset
+
+要用盡量少的parameters並且flexible enough。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In PDF global fit, we describe theoretical models (ie PDFs) with parametrized
+ functions and fit these models.
+ The theoretical models usually contain the parametrised functions of all
+ flavours: 
+\begin_inset Formula $f_{i}(x,Q_{0})=a_{0}x^{a_{1}}(1-x)^{a_{2}}F(a_{3},a_{4},...)$
+\end_inset
+
+, where i is the flavour indicator and 
+\begin_inset Formula $a_{n}$
+\end_inset
+
+ are the parameters of the functions.
+ 
+\begin_inset Formula $a_{0}x^{a_{1}}(1-x)^{a_{2}}$
+\end_inset
+
+ term requires that there is no parton that taking momentum ratio 
+\begin_inset Formula $x=0$
+\end_inset
+
+ or 
+\begin_inset Formula $x=1$
+\end_inset
+
+.
+ So most of the parameterization of PDF sets includes this term.
+ Each PDF set has its own 
+\begin_inset Formula $F(a_{3},a_{4},...)$
+\end_inset
+
+, and good 
+\begin_inset Formula $F(a_{3},a_{4},...)$
+\end_inset
+
+ are flexible enough with as little parameters as possible.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{why it is good parametrization}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+The
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{we use convolution equation to extract parameters}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+我們用convolution equation in eq.
+ xxx，其連結實驗結果和PDFs之間的關係，來extract PDFs parameters。 其中hadronic level cross
+ section和parton level cross section可以分別從實驗和pertubative expansion獲取。Hence,
+ PDFs are the only unknown part to be fitted.
+ 利用DGLAP equation，we fit PDFs at ，and evolve PDFs to the energy scale in
+ the convolution equation。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+To extract PDF parameters, we use the convolution equation in eq.
+ 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "eq:convolution_eq"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, which relates the experimental results and PDFs.
+ Where the hadronic level cross section and the parton level cross section
+ can be obtained from experiments and perturbative expansion, respectively.
+ Hence, PDFs are the only unknown part to be fitted.
+ Utilizing DGLAP equation, we fit PDFs at 
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+ and evolve PDFs to the energy scale in the convolution equation.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+idea{
+\backslash
+sout{chi 2 fit}PDFs $
+\backslash
+chi^{2}$ Fit}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{define chi 2}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+The process utilizes the the minimization of 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ value corresponding to experimental data and theoretical predictions, a
+ measure of goodness of fit, to determine the best-fit parameters in parametriza
+tion functions.
+ To sum up, residual (
+\begin_inset Formula $r_{i}$
+\end_inset
+
+) and 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ could be defined as following:
+\begin_inset Formula 
+\begin{equation}
+r_{i}=\frac{T_{i}-D_{i}}{\sigma_{i}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Formula 
+\begin{equation}
+\chi^{2}=\sum_{i\text{\ensuremath{\in}Expt data}}r_{i}^{2}
+\end{equation}
+
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+We
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ estimate the goodness of the fit of each point 
+\begin_inset Formula $i$
+\end_inset
+
+ by defining 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $r_{i}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ as the ratio of the deviation between the theoretical value 
+\begin_inset Formula $T_{i}$
+\end_inset
+
+ and the experimental value 
+\begin_inset Formula $D_{i}$
+\end_inset
+
+ to an experimental error bar 
+\begin_inset Formula $\sigma_{i}$
+\end_inset
+
+.
+ To measure the goodness of the fits of all data points, we define 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ as the summation of all 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $r_{i}^{2}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ for all 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $\chi^{2}≫N_{data}$
+\end_inset
+
+ for a data set and a theory, this fit is bad.
+ If 
+\begin_inset Formula $\chi^{2}\leq N_{data}$
+\end_inset
+
+, this fit is better than expected.
+ If 
+\begin_inset Formula $\chi^{2}\ll N_{data}$
+\end_inset
+
+, this fit is overfitted.
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The process utilizes the minimization of 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ value corresponding to experimental data and theoretical predictions, a
+ measure of goodness of fit, to determine the best-fit parameters in parametriza
+tion functions.
+ To sum up, residual (
+\begin_inset Formula $r_{i}$
+\end_inset
+
+) and 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ could be defined as following:
+\begin_inset Formula 
+\begin{equation}
+r_{i}=\frac{T_{i}-D_{i}}{\sigma_{i}}
+\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula 
+\begin{equation}
+\chi^{2}=\sum_{i\text{\ensuremath{\in}Expt data}}r_{i}^{2}
+\end{equation}
+
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+We
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ estimate the goodness of the fit of each point 
+\begin_inset Formula $i$
+\end_inset
+
+ by defining 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $r_{i}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ as the ratio of the deviation between the theoretical value 
+\begin_inset Formula $T_{i}$
+\end_inset
+
+ and the experimental value 
+\begin_inset Formula $D_{i}$
+\end_inset
+
+ to an experimental error bar 
+\begin_inset Formula $\sigma_{i}$
+\end_inset
+
+.
+ To measure the goodness of the fits of all data points, we define 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ as the summation of all 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $r_{i}^{2}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ for all 
+\begin_inset Formula $i$
+\end_inset
+
+.
+ If 
+\begin_inset Formula $\chi^{2}≫N_{data}$
+\end_inset
+
+ for a data set and a theory, this fit is bad.
+ If 
+\begin_inset Formula $\chi^{2}\leq N_{data}$
+\end_inset
+
+, this fit is better than expected.
+ If 
+\begin_inset Formula $\chi^{2}\ll N_{data}$
+\end_inset
+
+, this fit is overfitted.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{why chi 2 is quality of fits}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+The
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{we need minimize chi 2}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+由於small 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+代表the quality of fit is good，我們不斷的改變parameters去找到最小的
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+，其對應的參數就是best fitted PDFs。兩種主要的minimization的方法分別為Monte Carlo (MC) Method
+ and Hessian method。MC的基本思想是用隨機抽樣和統計方法解決一些複雜的問題。這個方法也被應用在optimization，由其適合處理high
+ dimension space的optimization problems。在尋找一個multi-dimensional function的最小值時，MC會先
+generate random points in the parameter space。接下來，我們可以估計哪些parameter regions的值比較低
+，並進一步用隨機變數縮小這些regions。反覆的進行同樣的steps，我們就可以在數值上逼近真正的最小值。在PDF global fit中，the
+ best fit PDFs正是我們要逼近的對象。Hessian method則是一個利用second-order Taylor expansion尋找函數的l
+ocal minimum的方法。在一個convex function的最小值和其附近的點之間的關係可以寫成
+\begin_inset Formula $f(x+\Delta x)=f(x)+f'\Delta x+\Delta xH(x)\Delta x+O(\Delta x^{3})$
+\end_inset
+
+，其中H(x)包含了二階微分的貢獻，我們叫它Hessian matrix。我們改寫這個關係成
+\begin_inset Formula $f'(x+\Delta x)=\frac{f(x+\Delta x)-f(x)}{\Delta x}=f'(x)+H(x)\Delta x$
+\end_inset
+
+，這關係顯示我們可以用parameter space的一個點的一階微分和二階微分得到附近任意點的一階微分。由於local minimum的一階微分為0且二階微分
+>0，找到某個點附近的local minimum即是要求Hessian matrix為positive definition且RHS為0，則我們得到朝向loca
+l minimum的向量
+\begin_inset Formula $\Delta x=-H(x)^{-1}f'(x)$
+\end_inset
+
+。實際上Taylor expansion的高階項在距離local minimum很遠的地方不可忽略，所以我們找到的點和真實的local minimum會有偏差。
+然而，我們可以藉由不斷重複這個過程來逼近真實的local minimum。Hessian method的步驟是，從initial point開始，調查該點附近的
+其他點來估計一階微分和Hessian matrix，然後移動到
+\begin_inset Formula $x+\Delta x$
+\end_inset
+
+，接著重複同樣過程直到local minimum。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Since small 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ represents that the quality of fit is good, we constantly change the parameters
+ to find the minimum 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+, and the corresponding parameter set is best fitted PDFs.
+ The two main methods of minimization are the Monte Carlo (MC) method and
+ Hessian method.
+ The basic idea of MC is to solve some complex problems with random sampling
+ and statistical methods.
+ This method is also applied to optimization, which is suitable for processing
+ optimization problems of multi-dimensional space.
+ When searching for the minimum value of a multi-dimensional function, the
+ MC will first generate random points in the parameter space.
+ Next, we can estimate which parameter regions have lower values and further
+ narrow these regions with further random points.
+ By repeating the same steps, we can numerically approximate the true minimum
+ value.
+ In the case of PDF global fit, the parameters associated with the best-fit
+ PDFs are the minimum point we want to approach.
+ The Hessian method is a method of finding the local minimum of a function
+ using second-order Taylor expansion.
+ The relationship between the minimum value of a convex function and the
+ point near it can be written as 
+\begin_inset Formula 
+\begin{equation}
+f(x+\Delta x)=f(x)+f'\Delta x+\Delta xH(x)\Delta x+O(\Delta x^{3})
+\end{equation}
+
+\end_inset
+
+Where H(x) contains the contribution of the second-order differential, which
+ we call the Hessian matrix.
+ We rewrite this relationship to 
+\begin_inset Formula 
+\begin{equation}
+f'(x+\Delta x)=\frac{f(x+\Delta x)-f(x)}{\Delta x}=f'(x)+H(x)\Delta x
+\end{equation}
+
+\end_inset
+
+This relationship shows that we can use the first-order derivative and second-or
+der derivative of a point in the parameter space to get the first-order
+ derivative of any nearby point.
+ Since the first-order derivative of local minimum is 0 and the second-order
+ derivative of which is positive.
+ Finding the local minimum nearby a point requires that the Hessian matrix
+ be positive and RHS is 0, then we get the vector toward the local minimum
+ 
+\begin_inset Formula $\Delta x=-H(x)^{-1}f'(x)$
+\end_inset
+
+.
+ In practice, the high-order terms of Taylor expansion are not negligible
+ for points far from the local minimum, so the points we find have deviation
+ from the real local minimum.
+ However, we can constantly approach the real local minimum by repeating
+ the searching process.
+ Steps of the Hessian method are as following: from the initial point, investiga
+tes other points near the point to estimate the first-order derivative and
+ Hessian matrix, then moves to 
+\begin_inset Formula $x+\Delta x$
+\end_inset
+
+, and then repeats the same process until the real local minimum (the first-orde
+r derivative disappear).
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+由於small 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+代表the quality of fit is good，我們不斷的改變parameters去找到最小的
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+，其對應的參數就是best fitted PDFs。主要的minimization的方法分別為gradient descent method or
+ Genetic Algorithms [arXiv:0808.1231]。gradient descent method藉由朝向函數的gradient的方向逼近
+global minimum，因為函數在gradient的方向 decreases fastest。每一步的step size可以不斷調整來優化收斂的速度。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+Since small 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ represents that the quality of fit is good, we constantly change the parameters
+ to find the minimum 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+, and the corresponding parameter set is best fitted PDFs.
+ The main methods of minimization are Gradient Descent method or Genetic
+ Algorithms [arXiv:0808.1231].
+ The gradient descent method iteratively approaches the global minimum by
+ pointing toward the gradient of the function as the function value decreases
+ fastest in the direction of the gradient.
+ The step size of each iteration can be continually adjusted to optimize
+ the speed of convergence.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+idea{
+\backslash
+sout{PDF uncertainties}PDF Uncertainties}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{MC/Hessian uncertainties}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+對uncertainties of PDF and PDF dependent physical observables的估計依賴於我們選擇的minimizat
+ion method。如果我們使用MC method，我們會跑N次MC，得到一組best-fit PDF ensemble，並從這組ensemble
+ extract statistical uncertainties。如果我們使用Hessian method，我們會假設
+\begin_inset Formula $\chi^{2}(\overset{\rightharpoonup}{a})$
+\end_inset
+
+為the best-fit parameters的quadratic expansion: 
+\begin_inset Formula $\chi^{2}=\chi_{0}^{2}+\underset{i,j}{\Sigma}H_{i,j}y_{i}y_{j}$
+\end_inset
+
+ for the displacement 
+\begin_inset Formula $y_{i}$
+\end_inset
+
+ from the best-fit parameter 
+\begin_inset Formula $\overset{\rightharpoonup}{a_{0}}$
+\end_inset
+
+ to 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\overset{\rightharpoonup}{a}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+。 According to the quadratic assumption, we will get an elliptical shape
+ of PDF parameter space around the best fit parameters 
+\begin_inset Formula $\overset{\rightharpoonup}{a_{0}}$
+\end_inset
+
+ for a given tolerance parameter 
+\begin_inset Formula $\chi_{tolerance}^{2}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\chi^{2}(\overset{\rightharpoonup}{a})<\chi^{2}(\overset{\rightharpoonup}{a_{0}})+\chi_{torelance}^{2}$
+\end_inset
+
+.
+ If errors of an observable 
+\begin_inset Formula $X$
+\end_inset
+
+ along the 
+\begin_inset Formula $\pm$
+\end_inset
+
+ directions of 
+\begin_inset Formula $i$
+\end_inset
+
+-th dimension of the ellipse are 
+\begin_inset Formula $X_{i}^{+}$
+\end_inset
+
+ and 
+\begin_inset Formula $X_{i}^{-}$
+\end_inset
+
+, the uncertainty of 
+\begin_inset Formula $X$
+\end_inset
+
+ based on the variation of parameter at 
+\begin_inset Formula $i$
+\end_inset
+
+-th dimension could be approximated by 
+\begin_inset Formula $(X_{i}^{+}-X_{i}^{-})/2$
+\end_inset
+
+.
+ According to the principle of error propagations, the 
+\begin_inset Formula $X$
+\end_inset
+
+ uncertainty via PDF parameter space is 
+\begin_inset Formula $\Delta X=\frac{1}{2}\sqrt{\underset{i}{\sum}(X_{i}^{+}-X_{i}^{-})^{2}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+這套估計PDF uncertainties的ensemble還攜帶了大量的統計信息，使我們能夠探索PDF dependent observables之間的關係。
+我評估data對PDF knowledge的衝擊的研究即是建立在Hessian ensemble的statistical analysis。 
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+The estimation of the uncertainties of PDF and PDF dependent physical observable
+s depends on the minimization method we select.
+ If we use the MC method, we will run the MC N times, get a set of best-fit
+ PDF ensemble, and from this set of ensemble extract statistical uncertainties.
+ If we use the Hessian method, we assume that 
+\begin_inset Formula $\chi^{2}(\overset{\rightharpoonup}{a})$
+\end_inset
+
+ is the quadratic expansion of the best-fit parameters: 
+\begin_inset Formula $\chi^{2}=\chi_{0}^{2}+\underset{i,j}{\Sigma}H_{i,j}y_{i}y_{j}$
+\end_inset
+
+ for the displacement 
+\begin_inset Formula $y_{i}$
+\end_inset
+
+ from the best-fit parameter 
+\begin_inset Formula $\overset{\rightharpoonup}{a_{0}}$
+\end_inset
+
+ to 
+\begin_inset Formula $\overset{\rightharpoonup}{a}$
+\end_inset
+
+.
+ According to the quadratic assumption, we will get an elliptical shape
+ of PDF parameter space around the best fit parameters 
+\begin_inset Formula $\overset{\rightharpoonup}{a_{0}}$
+\end_inset
+
+ for a given tolerance parameter 
+\begin_inset Formula $\chi_{tolerance}^{2}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\chi^{2}(\overset{\rightharpoonup}{a})<\chi^{2}(\overset{\rightharpoonup}{a_{0}})+\chi_{torelance}^{2}$
+\end_inset
+
+.
+ If errors of An observable X along the 
+\begin_inset Formula $\pm$
+\end_inset
+
+ directions of i-th dimension of the ellipse are 
+\begin_inset Formula $X_{i}^{+}$
+\end_inset
+
+ and 
+\begin_inset Formula $X_{i}^{-}$
+\end_inset
+
+, the uncertainty of X based on the variation of parameter at i-th dimension
+ Could be approximated by 
+\begin_inset Formula $(X_{i}^{+}-X_{i}^{-})/2$
+\end_inset
+
+.
+ According to the principle of error propagations, the X uncertainty via
+ PDF parameter space is 
+\begin_inset Formula $\Delta X=\frac{1}{2}\sqrt{\underset{i}{\sum}(X_{i}^{+}-X_{i}^{-})^{2}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+The ensemble, which estimates PDF uncertainties, also carries a lot of statistic
+al information, enabling us to explore the relationship between PDF dependent
+ observables.
+ My study for the impact of data on PDF knowledge is based on the statistical
+ analysis of Hessian ensembles.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+對uncertainties of PDF and PDF dependent physical observables的估計分別為Monte
+ Carlo (MC) [0104052] Method and Hessian method [0101032]。
+\end_layout
+
+\begin_layout Plain Layout
+MC的基本思想是用隨機抽樣和統計方法解決一些複雜的問題。以optimization為例，在尋找一個multi-dimensional function的最小值時
+，MC會先generate random points in the parameter space。接下來，我們可以估計哪些parameter
+ regions的值比較低，並進一步用隨機變數縮小這些regions。反覆的進行同樣的steps，我們就可以在數值上逼近真正的最小值。在PDF
+ errors的估計中，we generate N sets of Monte Carlo replicas of the experimental
+ data, then fit PDFs with these replicas。我們將得到N組best-fit PDF replicas，並從PDF
+ replicas extract statistical uncertainties。
+\end_layout
+
+\begin_layout Plain Layout
+Hessian method則利用second-order Taylor expansion探索
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+函數的neighborhood of local minimum，並估計可接受的best-fit parameter的誤差。我們假設
+\begin_inset Formula $\chi^{2}(\overset{\rightharpoonup}{a})$
+\end_inset
+
+為the best-fit parameters的quadratic expansion: 
+\begin_inset Formula $\chi^{2}=\chi_{0}^{2}+\underset{i,j}{\Sigma}H_{i,j}y_{i}y_{j}$
+\end_inset
+
+ for the displacement 
+\begin_inset Formula $y_{i}$
+\end_inset
+
+ from the best-fit parameter 
+\begin_inset Formula $\overset{\rightharpoonup}{a_{0}}$
+\end_inset
+
+ to 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\overset{\rightharpoonup}{a}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+。其中H(x)包含了二階微分的貢獻，我們叫它Hessian matrix。 According to the quadratic assumption,
+ we will get an elliptical shape of PDF parameter space around the best
+ fit parameters 
+\begin_inset Formula $\overset{\rightharpoonup}{a_{0}}$
+\end_inset
+
+ for a given tolerance parameter 
+\begin_inset Formula $\chi_{tolerance}^{2}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\chi^{2}(\overset{\rightharpoonup}{a})<\chi^{2}(\overset{\rightharpoonup}{a_{0}})+\chi_{torelance}^{2}$
+\end_inset
+
+.
+ If errors of an observable 
+\begin_inset Formula $X$
+\end_inset
+
+ along the 
+\begin_inset Formula $\pm$
+\end_inset
+
+ directions of 
+\begin_inset Formula $i$
+\end_inset
+
+-th dimension of the ellipse are 
+\begin_inset Formula $X_{i}^{+}$
+\end_inset
+
+ and 
+\begin_inset Formula $X_{i}^{-}$
+\end_inset
+
+, the uncertainty of 
+\begin_inset Formula $X$
+\end_inset
+
+ based on the variation of parameter at 
+\begin_inset Formula $i$
+\end_inset
+
+-th dimension could be approximated by 
+\begin_inset Formula $(X_{i}^{+}-X_{i}^{-})/2$
+\end_inset
+
+.
+ According to the principle of error propagations, the 
+\begin_inset Formula $X$
+\end_inset
+
+ uncertainty via PDF parameter space is 
+\begin_inset Formula $\Delta X=\frac{1}{2}\sqrt{\underset{i}{\sum}(X_{i}^{+}-X_{i}^{-})^{2}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Plain Layout
+這套估計PDF uncertainties的ensemble還攜帶了大量的統計信息，使我們能夠探索PDF dependent observables之間的關係。
+我評估data對PDF knowledge的衝擊的研究即是建立在Hessian ensemble的statistical analysis。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The estimation of the uncertainties of PDFs and PDFs-dependent physical
+ observables are Monte Carlo (MC) [0104052] Method and Hessian method [0101032],
+ respectively.
+\end_layout
+
+\begin_layout Standard
+The basic idea of MC is to solve some complex problems with random sampling
+ and statistical methods.
+ Taking optimization as an example, when searching for the minimum value
+ of a multi-dimensional function, the MC will first generate random points
+ in the parameter space.
+ Next, we can estimate which parameter regions have lower values and further
+ narrow these regions with further random points.
+ By repeating the same steps, we can numerically approach the true minimum
+ value.
+ When we estimate PDF uncertainties, we generate N sets of Monte Carlo replicas
+ of the experimental data, then fit PDFs with these replicas.
+ We will get N sets of best-fit PDF replicas and extract statistical uncertainti
+es from PDF replicas.
+\end_layout
+
+\begin_layout Standard
+The Hessian method uses the second-order Taylor expansion to explore the
+ neighborhood of the 
+\begin_inset Formula $\chi^{2}$
+\end_inset
+
+ global minimum and estimates an acceptable error region near the best-fit
+ parameter.
+ We assume that 
+\begin_inset Formula $\chi^{2}(\overset{\rightharpoonup}{a})$
+\end_inset
+
+ is the quadratic expansion of the best-fit parameters: 
+\begin_inset Formula $\chi^{2}=\chi_{0}^{2}+\underset{i,j}{\Sigma}H_{i,j}y_{i}y_{j}$
+\end_inset
+
+ for the displacement 
+\begin_inset Formula $y_{i}$
+\end_inset
+
+ from the best-fit parameter 
+\begin_inset Formula $\overset{\rightharpoonup}{a_{0}}$
+\end_inset
+
+ to 
+\begin_inset Formula $\overset{\rightharpoonup}{a}$
+\end_inset
+
+, where 
+\begin_inset Formula $H_{i,j}$
+\end_inset
+
+ contains the contribution of the second-order derivative, which is called
+ the Hessian matrix.
+ According to the quadratic assumption, we will get an elliptical shape
+ of PDF parameter space around the best fit parameters 
+\begin_inset Formula $\overset{\rightharpoonup}{a_{0}}$
+\end_inset
+
+ for a given tolerance parameter 
+\begin_inset Formula $\chi_{tolerance}^{2}$
+\end_inset
+
+ satisfying 
+\begin_inset Formula $\chi^{2}(\overset{\rightharpoonup}{a})<\chi^{2}(\overset{\rightharpoonup}{a_{0}})+\chi_{torelance}^{2}$
+\end_inset
+
+.
+ If errors of An observable X along the 
+\begin_inset Formula $\pm$
+\end_inset
+
+ directions of i-th dimension of the ellipse are 
+\begin_inset Formula $X_{i}^{+}$
+\end_inset
+
+ and 
+\begin_inset Formula $X_{i}^{-}$
+\end_inset
+
+, the uncertainty of X based on the variation of parameter at i-th dimension
+ Could be approximated by 
+\begin_inset Formula $(X_{i}^{+}-X_{i}^{-})/2$
+\end_inset
+
+.
+ 
+\strikeout on
+According to the principle of error propagations
+\strikeout default
+Therefore, under the assumption that uncertainties of various dimensions
+ are uncorrelated to each other, the X uncertainty via PDF parameter space
+ is 
+\begin_inset Formula $\Delta X=\frac{1}{2}\sqrt{\underset{i}{\sum}(X_{i}^{+}-X_{i}^{-})^{2}}$
+\end_inset
+
+ [hep-ph/0201195].
+\end_layout
+
+\begin_layout Standard
+The ensemble, which estimates PDF uncertainties, also carries a lot of statistic
+al information, enabling us to explore the relationship between PDF dependent
+ observables (e.g.
+ utilize the Hessian correlation to do it [0802.0007]).
+ My study for quantifying the impact of data on PDF knowledge is based on
+ the statistical analysis of Hessian ensembles (see chapter xxx).
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+idea{
+\backslash
+sout{sum rules}Sum Rules}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{we want to reduce number of parameters (3000pts, 13 functions)}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+如果我們在沒有任何限制的情況下直接fit PDF，總共要fit的函數有13個(one for each flavour)，每個函數也要有足夠多的paramete
+rs。目前用來fit的data size可能無法得到能夠好的重建真實PDF特徵的PDF set。目前人們使用的策略是利用我們已知的關於nucleon
+ structure的知識或asumption限制可能的PDF set。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If we fit the PDF directly without any restrictions, there are 13 functions
+ for one for each flavour, and each function must have enough parameters.
+ The data size currently used for fit may not be able to get a PDF set that
+ is good for reconstructing real PDF features.
+ The strategy currently used is to use our known knowledge of the nucleon
+ structure or the assumption to limit the possible PDF set.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{rules of PDFs (uud, momentum converv, normalization)}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+我們根據已知的物理和機率統計上的限制決定在intial scale 
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+上的PDFs的Parametrizations。 統計上的限制包含
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+:一個parton的momentum fraction為0或1的機率在ratio是0，還有機率的總和為1。最基本物理上的限制包含以下的sum rules限制
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+
+\begin_inset Formula 
+\[
+\int_{0}^{1}x\underset{i}{\sum}f_{i}(x,Q)dx=1
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\int_{0}^{1}(u(x)-\bar{u}(x))dx=2
+\]
+
+\end_inset
+
+
+\begin_inset Formula 
+\[
+\int_{0}^{1}(d(x)-\bar{d}(x))dx=1
+\]
+
+\end_inset
+
+其代表動量守恆和每個質子在
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+由
+\begin_inset Formula $uud$
+\end_inset
+
+ 組成。除此之外，我們也常常使用其它限制，譬如，CTEQ group的global fits也加入以下限制: 
+\begin_inset Formula $s=\overline{s}$
+\end_inset
+
+ at 
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+, no intrinsic charm and bottom。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+we determine the parametrizations of the PDFs at the initial scale 
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+ based on known physical and statistical constraints.
+ The statistical limit consists of 1).
+ the probability of a parton with momentum fraction 
+\begin_inset Formula $x=0$
+\end_inset
+
+ or 
+\begin_inset Formula $x=1$
+\end_inset
+
+ is 0, and 2).
+ the sum of the probabilities is 1.
+ The most fundamental physical restrictions include the following sum rules
+\begin_inset Formula 
+\begin{equation}
+\int_{0}^{1}x\underset{i}{\sum}f_{i}(x,Q)dx=1
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\int_{0}^{1}(u(x)-\bar{u}(x))dx=2
+\end{equation}
+
+\end_inset
+
+
+\begin_inset Formula 
+\begin{equation}
+\int_{0}^{1}(d(x)-\bar{d}(x))dx=1
+\end{equation}
+
+\end_inset
+
+Which represent the momentum conservation law of partons in hadrons and
+ the fact that each proton consists of 
+\begin_inset Formula $uud$
+\end_inset
+
+ at 
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+.
+ In addition, we often use other restrictions.
+ For example, the global fits of the CTEQ group also include the following
+ restrictions: 
+\begin_inset Formula $s=\overline{s}$
+\end_inset
+
+ at 
+\begin_inset Formula $Q_{0}$
+\end_inset
+
+ (see Appendix in [arXiv:1506.07443]), no intrinsic charm and bottom quarks.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{show formulas}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+The
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+commentout{
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Lattice QCD
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%
+\backslash
+idea{
+\backslash
+sout{motivation: asym freedom, strong coupling}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{it numerically compute nucleon structure, because we can not get
+ analytical solutions}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+Lattice QCD是研究non-pertubative QCD的最成功有效的方法之一。在nucleon structure的研究上，它和PDF
+ global fit是互補的方法。它是主要思路是在space-time grid上formulate a QCD theory of discrete
+ version，這個discrete QCD theory在lattice無限大時趨近continuum QCD。它使的我們能用first principle
+來數值模擬non-pertubative QCD。到目前為止，我們已經有一些手段extract 和PDFs有關的quantities and informati
+on。
+\end_layout
+
+\begin_layout Plain Layout
+PDFs Mellin Moments是其中一種可以extract的quantities。它們類似於古典電磁學裡的multipole moments:
+ 電荷的分佈可以展開成一組multiple moments，前幾項(monopole, dipole)保留了關於電荷分佈的最重要的訊息。理論上，只要知道足夠多的
+moments，我們就可以reconstruct PDFs。雖然目前Lattice QCD的技術只能extract前三項，它們仍然可以提供有用的訊息，像是用來c
+onstraint PDFs。另一方面，quasi-PDFs是另一個近年來受注目的新的approach，它可以extract x-dependent
+ PDFs from Lattice QCD。雖然PDF global fit仍然是extract PDFs最成熟的方法，Lattice QCD提供的這些方法很
+可望在未來為PDFs knowledge帶來更多貢獻。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Lattice QCD 
+\strikeout on
+is one of the most successful and effective approach
+\strikeout default
+ a tool for studying non-perturbative QCD based on first-principle.
+ It has been successful applied to study some hadronic properties [PDG 2018,
+ lattice QCD] 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+cite{Tanabashi:2018oca}
+\end_layout
+
+\end_inset
+
+.
+ In the study of the nucleon structure, it is complementary to the PDF global
+ fit.
+ The main idea of Lattice QCD is to build a QCD theory of discrete version
+ on the space-time grid.
+ This discrete QCD theory approaches the continuum QCD when the lattice
+ comes to the continuum limit.
+ It allows us to numerically simulate non-pertubative QCDs with the first
+ principle.
+ So far, we have some means to extract PDFs related quantities and information
+ [white paper].
+\end_layout
+
+\begin_layout Standard
+PDFs Mellin Moments is one of the quantities that can be extracted.
+ They are similar to multipole moments in classical electromagnetism: the
+ distribution of charge can be expanded into a series of multiple moments,
+ where the first few terms (monopole, dipole) retain the most important
+ information about the charge distribution.
+ Theoretically, as long as we know enough moments, we can reconstruct PDFs.
+ Although the current Lattice QCD technology can only extract the first
+ three items, they can still provide useful information for constraining
+ PDFs.
+ On the other hand, quasi-PDFs is another new approach that has attracted
+ attention in recent years.
+ It can extract x-dependent PDFs from Lattice QCD.
+ While the PDF global fit is still the most mature method for PDFs extraction,
+ the methods provided by Lattice QCD are expected to contribute more to
+ PDFs knowledge in the future.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Therefore, I discuss my research on guilding the synerge between Lattice
+ QCD and PDF phenomenologist communities to improve the PDF knowledge in
+ chapter xxx.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Therefore, I discuss my research on guilding the synerge between Lattice
+ QCD and PDF phenomenologist communities to improve the PDF knowledge in
+ chapter xxx.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{how it help PDFs: Mellin Moments, qPDFs in the future}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+如
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+xxx
+\end_layout
+
+\begin_layout Section
+
+\strikeout on
+New Colliders and Data
+\strikeout default
+ merged into 
+\begin_inset Quotes eld
+\end_inset
+
+Status of PDF Researches
+\begin_inset Quotes erd
+\end_inset
+
+ subsection
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%
+\backslash
+idea{
+\backslash
+sout{there are LHeC, EIC, HL-LHC}}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{HL-LHC}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+PDFs主要的應用是預測physical cross sections。目前我們最有興趣的預測是LHC cross sections (像是Higgs
+ physics and new physics)。由於PDFs是one of main sources of uncertainties for
+ LHC cross sections and quantities，我們需要縮小PDF uncertainties和擴大探索的
+\begin_inset Formula ${x,\mu}$
+\end_inset
+
+ range。除了目前LHC的data外，一些LHC的升級計畫，像是High-Luminosity LHC (HL-LHC) and The Large
+ Hadron Electron Collider (LHeC) 也有潛力進一步限制PDFs。HL-LHC是一個升級LHC使其產生更高的luminosity的計
+畫。LHeC則是在LHC裡加裝電子加速器的計畫。這個計畫使我們獲得更高能量的electron-proton and electron-ion collision
+s (遠高於目前的HERA的能量)。另外，也有一些的electron–ion collider (EIC)的計畫，它們都有限制PDFs的潛力。
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+The main application of PDFs is to predict physical cross sections.
+ The most interesting predictions we have today are LHC cross sections (like
+ Higgs physics and new physics).
+ Since PDFs are one of main sources of uncertainties for LHC cross sections
+ and quantities, we need to narrow down the PDF uncertainties and expand
+ the 
+\begin_inset Formula ${x,\mu}$
+\end_inset
+
+ range of exploration.
+ In addition to the current LHC data, some LHC upgrade programs, such as
+ High-Luminosity LHC (HL-LHC) and The Large Hadron Electron Collider (LHeC),
+ have the potential to further constrain PDFs.
+ The HL-LHC is a program to upgrade the LHC to produce higher luminosity.
+ LHeC is a plan to install an electron accelerator in the LHC.
+ This project allows us to obtain higher energy electron-proton and electron-ion
+ collisions (far higher than the energy scale of current HERA).
+ In addition, there are some electron-ion collider (EIC) projects that have
+ the potential to limit PDFs.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{LHeC}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+如
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{EIC}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+如
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+ideasub{FCC}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{CJK}{UTF8}{bsmi}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+如
+\end_layout
+
+\begin_layout Plain Layout
+
+\lang american
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{CJK}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Part
+Conclusion
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%introduction
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+xxx我們開發了一些統計方法去促進和幫助PDFs的分析。
+\end_layout
+
+\begin_layout Plain Layout
+PDFsense，一個用Hessian correlation和實驗測量的精確程度去量化和視覺化實驗測量對PDFs影響的open source
+ package，和Lagrange multiplier相比，他的速度快100000倍左右，在估計影響PDFs最多的data sets的順位時，卻得到相似的結
+果。這表示PDFsense能使的評估data對PDFs的影響這個過程更方便。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+我們面對快速增長的global QCD datasets的現代挑戰，採用新的統計方法來量化和探索這些信息的影響。這些新方法在新的分析工具PDFSENSE
+ [xxx]中實現，該工具允許快速探索現有和潛在數據對PDF determination的影響。這種分析的關鍵是引入sensitivity 
+\begin_inset Formula $S_{f}$
+\end_inset
+
+，它是一種特別強大的鑑別器;這個和相關性
+\begin_inset Formula $C_{f}$
+\end_inset
+
+允許我們visualize由{x,
+\backslash
+mu}中的寬範圍內的數據提供的PDF constraint。雖然我們已經在CT14 global fit的背景下證明了這些技術，但它們具有足夠的通用性，可以使用
+alternative PDF sets輕鬆地重複我們的分析。 這些不同的工具共同提出了一些可能的途徑，以在未來幾年推進PDF知識。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We have confronted the modern challenge of a rapidly growing set of global
+ QCD data with new statistical methodologies for quantifying and exploring
+ the impact of this information.
+ These novel methodologies are realized in a new analysis tool PDFSENSE
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "Wang:2018heo"
+literal "true"
+
+\end_inset
+
+, which allows the rapid exploration of the impact of both existing and
+ potential data on PDF determinations.
+ Crucial to this analysis is introduction of the sensitivity 
+\begin_inset Formula $S_{f}$
+\end_inset
+
+ which serves as a particularly powerful discriminator; both this and the
+ correlation 
+\begin_inset Formula $C_{f}$
+\end_inset
+
+ allow us to visualize PDF constraints provided by data across a wide range
+ in 
+\begin_inset Formula ${x,\mu}$
+\end_inset
+
+.
+ While we have demonstrated these techniques in the context of the CT14
+ family of global fits, they are of sufficient generality that one could
+ readily repeat our analysis using alternative PDF sets.
+ These various tools collectively suggest a number of possible avenues to
+ advance PDF knowledge in the coming years.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+首先，在Chapter [xxx]，我們介紹了這些工具，並應用在分析最新的LHC datasets和已用來限制PDF knowledge的其他datasets和
+PDFs之間的關係，驗正了這些工具對PDFs determination的好處。
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+配套網站收集了大量的圖片說明 作為x和
+\backslash
+mu的函數對各種flavours的sensitivity。
+\end_layout
+
+\begin_layout Plain Layout
+The companion website collects a large number of figures illustrating the
+ sensitivities to various flavours as a function of 
+\begin_inset Formula $x$
+\end_inset
+
+ and 
+\begin_inset Formula $\mu$
+\end_inset
+
+.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+First, in Chapter 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:PDFsense"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we introduce these tools and apply them to analyze the relationship between
+ PDFs and the latest LHC datasets as well as other datasets that have been
+ used to limit PDF knowledge.
+ The analysis verifies the benefits of these tools for PDFs determination.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%PDFsense
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+We found that compared with 
+\begin_inset Formula $C_{f}$
+\end_inset
+
+, 
+\begin_inset Formula $S_{f}$
+\end_inset
+
+更好地識別那些嚴格限制PDF的實驗數據點，它們都具有固有的精度和區分PDFs error fluctuation的能力。這種方法可以幫助識別{x，
+\backslash
+ mu}的區域，其中PDFs特別受物理可觀測量的約束。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We found that compared with 
+\begin_inset Formula $C_{f}$
+\end_inset
+
+, 
+\begin_inset Formula $S_{f}$
+\end_inset
+
+ better identifies those experimental data points that tightly constrain
+ PDFs both by merit of their inherent precision and their ability to discriminat
+e among PDF error fluctuations.
+ Such an approach can aid in identifying regions of 
+\begin_inset Formula ${x,\mu}$
+\end_inset
+
+ in which the PDFs are particularly constrained by physical observables.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+我們也用每個實驗的average sensitivities and aggregated sensitivities來量化並排名maps of
+ sensitivities。這樣的量化使我們能夠更容易的評估每一組實驗測量對PDFs的combined contribution，它和辨識出constrain
+ed {x，
+\backslash
+ mu} regions的 sensitivity mapping是互補的兩個工具。普遍來說，根據PDFSense對LHC datasets的調查，我們發現目前
+LHC datasets對PDFs的主要貢獻是gluon PDFs，貢獻的來源主要是巨大的inclusive jet data。這些jet data對PDFs的
+constraint強烈的受the treatment of systematic uncertainties影響。對LHC Higgs cross
+ sections的調查顯示LHC inclusive jet data和fixed-target DIS data為其提供最強的constraint.
+\end_layout
+
+\begin_layout Plain Layout
+除此之外，我們直接將PDFSense預測(這裡我們用aggregated sensitivities)與量化這些fitted測量對選定量的constraint的
+Lagrange multiplier scans進行比較。他們辨識了相同的在fitting前造成高衝擊的實驗測量群，儘管他們產生出來的衝擊強度的排序有些許不同
+。這顯示出 the robustness of PDFsense analysis that based on the sensitivity.
+ 並且，PDFsense的分析大約比 Lagrange multiplier scans快
+\begin_inset Formula $0.8*10^{5}$
+\end_inset
+
+倍，這顯示它有巨大的節省計算時間的優勢 advantage of savings in computational cost.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We also quantify and rank the maps of sensitivities with the average sensitiviti
+es and aggregated sensitivities for each experimental measurement.
+ This quantification, which is complementary to the sensitivity mapping
+ that identifies constrained 
+\begin_inset Formula ${x,\mu}$
+\end_inset
+
+ regions, allows us to more easily evaluate the combined contribution of
+ each experimental dataset to PDFs.
+ In general, according to the PDFSense-based survey of LHC datasets, we
+ found that the main contribution of LHC datasets to PDFs is gluon PDFs,
+ and the source of contribution is mainly the huge size of inclusive jet
+ datasets.
+ The impact of these jet data on PDFs strongly depends on the treatment
+ of their systematic uncertainties.
+ A survey of LHC Higgs cross sections shows that LHC inclusive jet data
+ and fixed-target DIS data provide the strongest constraint.
+ 
+\end_layout
+
+\begin_layout Standard
+In addition, we directly compared PDFSense predictions (we used aggregated
+ sensitivities) against Lagrange multiplier scans quantifying the constraints
+ these fitted measurements imposed on select quantities.
+ They identified the same sets of high-impact measurements before fitting,
+ , even though the order of impact strength they produced was slightly different.
+ The result demonstrates the robustness of PDFsense analysis that based
+ on the sensitivity.
+ Moreover, the analysis of PDFsense is about 
+\begin_inset Formula $0.8*10^{5}$
+\end_inset
+
+ times faster than Lagrange multiplier scans, which shows that it has a
+ huge advantage in saving computation time.
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+我們還舉例說明了在TensorFlow Embedding Projector software的幫助下實現的可能的分析技術，用於高維data的visualiz
+ation。在10維PCA representation中，一些方嚮導致不同類型的residuals的有效分離。這種分離是顯著的，因為它僅基於
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\vec{\delta_{i}}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+向量的數值特性，而不是基於PCA完成後輸入的實驗類型的meta-data。Besides, Tensorflow Embedding Projector可以使用
+t-distributed stochastic neighbor embedding （t-SNE）根據它們的相似性將
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\vec{\delta_{i}}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+向量組織成clusters。我們發現t-distributed stochastic neighbor embedding (t-SNE)可以根據實驗過程再次將
+數據分類成clusters
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+we also illustrate a possible analysis technique carried out with the help
+ of the TensorFlow Embedding Projector software for the visualization of
+ high-dimensional data.
+ In the 10-dimensional PCA representation, some directions result in efficient
+ separation of residuals of different types.
+ This separation is remarkable, as it is based only on numerical properties
+ of the 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\vec{\delta_{i}}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ vectors, and not on the meta-data about the types of experiments that is
+ entered after the PCA is completed.
+ Besides, Tensorflow Embedding Projector can organize the 
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+
+\begin_inset Formula $\vec{\delta_{i}}$
+\end_inset
+
+
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\strikeout default
+\uuline default
+\uwave default
+\noun default
+\color inherit
+ vectors into clusters according to their similarity using t-distributed
+ stochastic neighbor embedding (t-SNE).
+ we find that t-SNE can again sort data into clusters according to the experimen
+tal process.
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%Lattice quantities
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+Second, in Chapter [xxx], 我們執行一些分析來促進the synergy between the PDF and lattice
+ communities to improve the collinear PDF knowledge.
+ 這個分析包含了評估PDFs-related lattice quantities對
+\begin_inset Formula $\overline{MS}$
+\end_inset
+
+ PDFs造成的constraints和sensitivity of present and future high-energy data to
+ these quantities.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Second, in Chapter 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:lattice_quantities"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we perform an analysis to promote the synergy between the PDF and lattice
+ communities for improving the collinear PDF knowledge.
+ This analysis includes evaluating the constraints of PDFs-related lattice
+ quantities on 
+\begin_inset Formula $\overline{MS}$
+\end_inset
+
+ PDFs and the sensitivity of present and future HEP data to these quantities.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+PDFSense提供了一個標準化的分析框架，可以評估實驗信息pull lattice calculable quantities的能力。我們利用這個framew
+ork去評估了哪些phenomenological knowledge可望對Mellin moments and 
+\begin_inset Formula $P_{z}$
+\end_inset
+
+-dependent quasi-PDFs造成衝擊，這包含了用sensitivity mapping and ranking去辨識會造成影響的kinematic
+ parameter space和估計每個實驗測量造成的combined impact。其中我們發現，大部分的Mellin moments是由少數的且聚集在特定
+kinematic parameter space的datasets影響。並且，這個結果是雙向的，也就是說Mellin moments也只會constrain特
+定kinematic parameter space的PDFs。除此之外，Mallin moments對應kinematic parameter
+ space的x-values也會隨order升高。因此，把Mallin moments of various orders考慮進來能constrains更不一
+樣的PDFs knowledge.
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+fixed nuclear targets
+\end_layout
+
+\begin_layout Plain Layout
+The PDFSense technology deployed in this article provides a standardized
+ analysis framework in which apples-to-apples evaluations of the pulls of
+ experimental information on lattice-calculable quantities are possible.
+\end_layout
+
+\begin_layout Plain Layout
+PDF phenomenologists to push improvements in lattice calculations
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+PDFSense provides a standardized analytical framework for evaluating the
+ ability of experimental information to pull lattice calculable quantities.
+ We use this framework to evaluate which phenomenological knowledge is expected
+ to have an impact on Mellin moments and 
+\begin_inset Formula $P_{z}$
+\end_inset
+
+-dependent quasi-PDFs, which involves using the sensitivity mapping and
+ ranking to identify the impacted kinematic parameter space and to estimate
+ the combined impact on each experimental measurement.
+ We found that most of the Mellin moments are affected by a small number
+ of datasets that are clustered in a specific kinematic parameter space.
+ And, the result is 
+\begin_inset Quotes eld
+\end_inset
+
+bidirectional
+\begin_inset Quotes erd
+\end_inset
+
+, meaning that Mellin moments also only constrain PDFs for specific kinematic
+ parameter spaces.
+ In addition, as the Mellin order increases, the kinematic parameter spaces
+ corresponding to the Mallin moments have higher x-values.
+ Therefore, taking Mallin moments of various orders into consideration can
+ constrain more diverse PDFs knowledge.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+關於
+\begin_inset Formula $P_{z}$
+\end_inset
+
+-dependent quasi-PDFs的部分，我們評估data對
+\begin_inset Formula $[\widetilde{u}-\widetilde{d}]$
+\end_inset
+
+ qPDFs that are matched to 
+\begin_inset Formula $\overline{MS}$
+\end_inset
+
+ PDFs的sensitivities。這使我們知道data對various 
+\begin_inset Formula $P_{z}$
+\end_inset
+
+ and x的影響 (譬如說，DIS主要對large-x區域sensitive)。藉由這樣的評估，我們能知道哪些實驗或phenomenological
+ knowledge能促進正在起步的qPDFs的成長和成熟。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For the 
+\begin_inset Formula $P_{z}$
+\end_inset
+
+-dependent quasi-PDFs part, we evaluate the sensitivities of data to 
+\begin_inset Formula $[\widetilde{u}-\widetilde{d}]$
+\end_inset
+
+ qPDF that is matched to 
+\begin_inset Formula $\overline{MS}$
+\end_inset
+
+ PDFs.
+ This allows us to know how impacts of data depends on the 
+\begin_inset Formula $P_{z}$
+\end_inset
+
+ and x (for example, DIS datasets are primarily sensitive to large-x regions).
+ With this assessment, we can know which experimental measurements or phenomenol
+ogical knowledge can contribute to the growth/maturity of qPDFs techniques.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+我們也評估未來的實驗計畫，具體來說，我們的結果顯示high-luminosity DIS data可以提升both related phonomenologic
+al knowledge of the Mellin moments and matched qPDFs.
+ 其中又以charge-current (CC) channels帶來最高的sensitivity。sensitivity mapping顯示從high-x到
+\begin_inset Formula $x\sim10^{-3}$
+\end_inset
+
+ 的high-luminosity DIS data都可以強烈的衝擊Mellin Moments和 
+\begin_inset Formula $[\widetilde{u}-\widetilde{d}]$
+\end_inset
+
+ qPDFs。直得注意的是，對
+\begin_inset Formula $[\widetilde{u}-\widetilde{d}]$
+\end_inset
+
+ qPDFs和一些Mellin Moments衝擊最大的已存在的data是fixed-target DIS data，他們接受很大的nuclear
+ corrections which are not well-controlled。因此，未來的high-luminosity DIS data的high
+ sensitivity可望使這個問題得到緩解獲或解決。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+We also evaluate how future experimental proposals pull these lattice quantities
+ and techniques.
+ Specifically, our results show that high-luminosity DIS data can improve
+ related phonomenological knowledge of both the Mellin moments and matched
+ qPDFs.
+ Among them, charge-current (CC) channels bring the highest Sensitivity.
+ The sensitivity mapping shows that high-luminosity DIS data from a wide
+ range (high-x to 
+\begin_inset Formula $x\sim10^{-3}$
+\end_inset
+
+) can strongly impact Mellin Moments and 
+\begin_inset Formula $[\widetilde{u}-\widetilde{d}]$
+\end_inset
+
+ qPDF.
+ It is important to note that the existing datasets that have the greatest
+ impact on 
+\begin_inset Formula $[\widetilde{u}-\widetilde{d}]$
+\end_inset
+
+ qPDF and some Mellin Moments are fixed-target DIS datasets, which receive
+ nuclear corrections that are not well-controlled.
+ Therefore, future high-luminosity DIS data with high sensitivities and
+ no nuclear effects are expected to ease or solve this problem.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+我們評估了data對Lattice Melling Moments和quasi-PDFs的衝擊，顯示了Lattice quantities能對PDFs的哪些pa
+rameter space造成衝擊。
+\end_layout
+
+\begin_layout Plain Layout
+high-energy data on calculations對Pz dependent qPDFs的限制。
+\end_layout
+
+\begin_layout Plain Layout
+我們評估未來的實驗計畫，具體來說，我們的結果顯示high-luminosity DIS data可以提升both knowledge of the
+ Mellin moments and matched qPDFs.
+\end_layout
+
+\begin_layout Plain Layout
+guide phenomenologists and lattice practitioners in fully leveraging the
+ synergy between their fields to improve our knowledge of hadron structure.
+\end_layout
+
+\begin_layout Plain Layout
+這項工作中進行的分析將有助於充分指導PDFs現象學和lattice QCD利用各自領域之間的協同作用來提高我們對強子結構的認識。
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+%HL-LHC, LHeC, EIC
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+In Chapter [xxx], 我們利用未來實驗計畫的pseudo data來預估他們對PDFs知識的衝擊。我們發現HL-LHC, LHeC,
+ EIC對限制PDFs phenomenology各自有自己的優勢。每個實驗設施在運動學參數空間中佔據獨特的位置。
+\end_layout
+
+\begin_layout Plain Layout
+HL-LHC的high 
+\begin_inset Formula $\mu$
+\end_inset
+
+的pp collision data，對g, ubar, dbar有很高的sensitivity。
+\end_layout
+
+\begin_layout Plain Layout
+LHeC則對high-x and low-x的PDFs有影響。由其是g, u, d, s。
+\end_layout
+
+\begin_layout Plain Layout
+EIC data的極高的精確度將會對high-x and low-
+\begin_inset Formula $\mu$
+\end_inset
+
+的區域造成衝擊。特別是它可以取代大部分的DIS fixed-target data，為HEP lattice calculations帶來大量有用的資訊。
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Note Note
+status collapsed
+
+\begin_layout Plain Layout
+Advances in EIC-driven lattice QCD techniques can be similarly advanced
+ to HEP lattice calculations
+\end_layout
+
+\begin_layout Plain Layout
+each of the experimental facilities considered occupies a unique place in
+ the kinematical parameter space
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In Chapter 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "chap:future_expt_impact"
+plural "false"
+caps "false"
+noprefix "false"
+
+\end_inset
+
+, we used the pseudo data of future experimental proposals to estimate their
+ impact on PDFs knowledge.
+ We found that HL-LHC, LHeC, and EIC have their own advantages in constraining
+ PDFs phenomenology.
+ Each of them benefits a unique kinematical parameter space.
+\end_layout
+
+\begin_layout Standard
+The high-
+\begin_inset Formula $\mu$
+\end_inset
+
+ pp collision data of HL-LHC will take high sensitivity to g, 
+\begin_inset Formula $\bar{u}$
+\end_inset
+
+, and 
+\begin_inset Formula $\bar{d}$
+\end_inset
+
+ PDFs.
+ The DIS data in LHeC will have an impact on high-x and low-x PDFs.
+ Especially, it will take advantages to g, u, d, and s PDFs.
+ The extremely high presicision of EIC data will impact the high-x and low-
+\begin_inset Formula $\mu$
+\end_inset
+
+ region.
+ In particular, it can replace most of the DIS fixed-target data, bringing
+ a lot of useful information to benefit HEP lattice calculations.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Newpage clearpage
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+clearpage
+\backslash
+newpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+clearpage
+\backslash
+newpage
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
