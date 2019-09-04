@@ -123,10 +123,10 @@ to run example files, just copy configure files under ./example to the ./bin dir
   The input data is CT14NNLO_example so that the output data listed in 3.a will be the input data. 
 
   c. in the # Figures to plot...... paragraph, "Flag:" determine the observables in the output figures.
-  Here for Type 1~6, Flags are 1, so the 6 kinds of observable will be in the output folder. 
+  Here for Type 1-6, Flags are 1, so the 6 kinds of observable will be in the output folder. 
   Let's check it:
   xQbyexpt_xQ.png, expt_error_ratio_xQ+1_samept.png, residual_xQ+1_samept.png, dr_xQ+1_samept.png are corresponding figures of 
-  Type 1~4.  
+  Type 1-4.  
   corrdr_xQ+1_f0_samept.png and corr_xQ+1_f0_samept.png are the Type 5, 6.
 
   d. in "# Experiments to inlcude......" paragraph, "Expt. Flag:" determin whether the input data contains the corresponding "Expt. ID:"
@@ -142,14 +142,14 @@ to run example files, just copy configure files under ./example to the ./bin dir
 
   g. open corrdr_xQ+1_f0_samept.png and compare with #Highlighting...... paragraph of config1.txt. The highlight mode "Mode:" of Type 5 is 1,
   so the highlight range of Type 5 is {{ -5.0, -0.25},{ 0.25, 5.0}}, which is at the up-right side of corrdr_xQ+1_f0_samept.png.
-  Also the points with values in the range of -0.25~0.25 are grayed out for they are not highlighted.
+  Also the points with values in the range of -0.25-0.25 are grayed out for they are not highlighted.
   Then open expt_error_ratio_xQ+1_samept.png and compare with #Highlighting...... paragraph of config1.txt. The highlight mode of 
   Type 5 is 0, so the plot does not highlight part of points. In expt_error_ratio_xQ+1_samept.png, all points are colored accordding
   to their values.
 
   h. See #Axes ranges...... paragraph and expt_error_ratio_xQ+1_samept.png. The scale range "xmin,   xmax:" is auto and "mumin, mumax:" 
-  is 1~6000 , check whether the range of the y-axis is from 1~6000.
-  Also, the color palette range "zmin, zmax:" is auto, so the color palette at the right-side of the plot is from 0~the maximum value in points.
+  is 1-6000 , check whether the range of the y-axis is from 1-6000.
+  Also, the color palette range "zmin, zmax:" is auto, so the color palette at the right-side of the plot is from 0 to the maximum value in points.
   The histogram corresponding to the plot (expt_error_ratio_hist+1_samept.png) also set the x-axis range to be the same as the 
   color palette range.  
     
